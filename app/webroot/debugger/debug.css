@@ -1,0 +1,195 @@
+#debug{
+	width:200px;
+	height:30px;
+	position:fixed;
+	left:10px;
+	top:10px;
+	font-size:12pt;
+	z-index:9999;
+}
+
+#control_panel{
+	position:fixed;
+	width:200px;
+	left:250px;
+	top:50px;
+	left:10px;
+	display:none;
+	z-index:9998;
+}
+
+#c_panelbutton:hover{
+	cursor:pointer;
+}
+.cpanel_container{
+	width:1000px;
+	margin:15px auto;
+	background-color:#EBEBE0;
+	min-height:1000px;
+	padding:10px;
+	font-family:'Arial';
+}
+
+#control_panel #c_panelbutton{
+	background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px 20px 10px 20px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+}
+
+.commentbox{
+	position:absolute;
+	width:200px;
+	height:140px;
+	background-image:url("msgbox.png");
+	background-size:100% 100%;
+	z-index:9999;
+}
+
+.commentbox  > .close{
+	background-image:url("close_button.png");
+	top:4px;
+	right:4px;
+	position:absolute; 
+	width:12px;
+	height:12px;
+	z-index:10000;
+}
+
+#prompt_msg{
+	position: fixed;
+	top: 80px;
+	left: 30px;
+	width: 200px;
+	height: 100px;
+	background-image: url(http://localhost/debugger/msgbox.png);
+	background-size: 100% 100%;
+	padding:15px 10px;
+	z-index:9999;
+}
+
+#prompt_msg  > .close{
+	background-image:url("close_button.png");
+	top:5px;
+	right:5px;
+	position:absolute; 
+	width:12px;
+	height:12px;
+}
+
+.draggable:hover{
+	cursor:move;
+}
+
+.commentbox > .savebtn {
+  background: #215d85;
+  background-image: -webkit-linear-gradient(top, #215d85, #2980b9);
+  background-image: -moz-linear-gradient(top, #215d85, #2980b9);
+  background-image: -ms-linear-gradient(top, #215d85, #2980b9);
+  background-image: -o-linear-gradient(top, #215d85, #2980b9);
+  background-image: linear-gradient(to bottom, #215d85, #2980b9);
+  border-radius: 5px;
+  position:absolute;
+  left:150px;
+    width: 40px;
+    height: 25px;
+  bottom:10px;
+  color: #000000;
+  font-size: 12px;
+  font-weight:bold;
+  padding: 5px 5px;
+  text-decoration: none;
+}
+
+.commentbox > .editbtn:hover {
+	
+	cursor:pointer;
+}
+ .commentbox > .savebtn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+	cursor:pointer;
+}
+
+.datebuggroup{
+	min-height:200px;
+	margin-bottom:10px;
+	
+}
+
+.commentbox .bugtime{
+	bottom:10px;
+	left:10px;
+	position:absolute;
+	font-size:8pt;
+	color:grey;
+}
+
+.bug_dateMod{
+	font-size:8pt;
+	color:#fff;
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+	bottom:15px;
+	left:10px;
+	width:200px;
+	position:absolute;
+}
+
+.commentbox .buguserlbl{
+	color:blue;
+	font-size:9pt;
+	font-weight:bold;
+	padding:1px 3px;
+	top:10px;
+	right:20px;
+	border:1px solid black;
+	border-radius:4px;
+	border-top:0px;
+	position:absolute;
+}
+
+.commentbox .seebug{
+	bottom:10px;
+	right:20px;
+	position:absolute;
+	font-size:10pt;
+}
+
+.datebuggroup h2{
+	display:inline;
+}
+
+.datebuggroup h3{
+	display:inline;
+}
+
+.commentbox .commenttext{
+	top:25px;
+	left:10px;
+	position:absolute;
+	width:177px !important;
+	height:80px;
+	resize:none;
+    padding:0;
+    margin:0;
+}
