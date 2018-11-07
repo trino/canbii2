@@ -49,7 +49,6 @@ class PagesController extends AppController {
      //   $this->loadModel('Strain');
       //  $this->set('strain',$this->Strain->find('all',array('order'=>'Strain.id DESC','limit'=>1)));
         $this->set('homepage','1');
-        
     }
 
     public function landing(){
@@ -62,24 +61,19 @@ class PagesController extends AppController {
         $arr['description'] = 'Medical marijuana has been used as a form of treatment for thousands of years. This all natural plant contains tetrahydrocannabinol (THC) and cannabidiol (CBD) which helps treat illnesses or alleviate symptoms. What is THC and CBD? Tetrahydrocannabinol (THC) is the main psychoactive ingredient in the cannabis plant. It gives one the feeling of euphoria. It is also known to increase ones appetite. Cannabidiol (CBD) is a cannabinoid that repress neurotransmitter release in the brain. Together THC and CBD offers natural pain relief. ';
         return $arr;
     }
-    function get_strain()
-    {
-        $this->loadModel('Review');
 
+    function get_strain(){
+        $this->loadModel('Review');
         return $this->Review->find('all',array('order'=>'Review.id DESC','limit'=>4));
     }
-    // public function view_page($slug)
-    // {
-        
-        // $detail = $this->Page->findBySlug($slug);
-        // $this->set('detail',$detail);
-        
-    // }
+
+    /* public function view_page($slug){
+        $detail = $this->Page->findBySlug($slug);
+        $this->set('detail',$detail);
+    } */
 	
-	function contact_us()
-    {
-         if(isset($_POST['name'])&&$_POST['name'])
-        {
+	function contact_us(){
+         if(isset($_POST['name'])&&$_POST['name']) {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $sub = $_POST['subject'];
@@ -89,11 +83,8 @@ class PagesController extends AppController {
             $emails->emailFormat('html');
             $emails->template('default');
             $emails->subject('New Contact Message');
-            
-            
-            $message="
 
-            You've received a new message from Canbii<br/><br/>
+            $message="You've received a new message from Canbii<br/><br/>
             
             <b>From</b> : ".$name."<br/>
             <b>Email</b> : ".$email."<br/>
@@ -108,10 +99,8 @@ class PagesController extends AppController {
 
 
 
-    function doctors()
-    {
-        if(isset($_POST['name'])&&$_POST['name'])
-        {
+    function doctors(){
+        if(isset($_POST['name'])&&$_POST['name']){
             $name = $_POST['name'];
             $email = $_POST['email'];
             $sub = $_POST['subject'];
@@ -122,10 +111,7 @@ class PagesController extends AppController {
             $emails->template('default');
             $emails->subject('New Contact Message');
 
-
-            $message="
-
-            You've received a new message from Canbii<br/><br/>
+            $message="You've received a new message from Canbii<br/><br/>
 
             <b>From</b> : ".$name."<br/>
             <b>Email</b> : ".$email."<br/>
@@ -138,35 +124,28 @@ class PagesController extends AppController {
         }
     }
 
-
-
-		function about()
-    {
-
+	function about(){
     }
 	
-		function shop()
-    {
+    function shop(){
+    }
 
+	function privacy(){
     }
-	function privacy()
-    {
-        
+
+    function terms(){
     }
-    function terms()
-    {
-        
-    }
-    function getEff()
-    {
+
+    function getEff(){
         $this->loadModel('Effect');
         return $this->Effect->find('all',array('conditions'=>array('Effect.negative'=>0), 'order'=>'Effect.title ASC'));
     }
-    function getSym()
-    {
+
+    function getSym(){
         $this->loadModel('Symptom');
         return $this->Symptom->find('all',array( 'order'=>'Symptom.title ASC'));
     }
+
     public function pdf($slug = null) {
         $this->autoRender = false;
         $this->layout = 'blank';
@@ -196,26 +175,23 @@ class PagesController extends AppController {
         $ip = $_SERVER['REMOTE_ADDR'];
         $this->loadModel('VoteIp');
         $q5 = $this->VoteIp->find('first',array('conditions'=>array('review_id'=>$q3['Review']['id'],'ip'=>$ip)));
-        if($q5)
-        {
+        if($q5){
             $view->set('vote',1);
             $view->set('yes',$q5['VoteIp']['vote_yes']);
-            
+        } else {
+            $view->set('vote', 0);
         }
-        else
-            $view->set('vote',0);
             
-            
-            $view_output = $view->render('/strains/index');
-            
-             
-            // Load from Vendors dir
-            App::import('Vendor', 'html2pdf', array('file' => 'html2pdf_v4.03' .DS . 'html2pdf.class.php'));
-            $html2pdf = new HTML2PDF('P', 'A4', 'en');
-            $html2pdf->pdf->SetDisplayMode('fullpage');
-            $html2pdf->writeHTML($view_output);
-            $html2pdf->Output('test.pdf', 'D');
+        $view_output = $view->render('/strains/index');
+
+        // Load from Vendors dir
+        App::import('Vendor', 'html2pdf', array('file' => 'html2pdf_v4.03' .DS . 'html2pdf.class.php'));
+        $html2pdf = new HTML2PDF('P', 'A4', 'en');
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->writeHTML($view_output);
+        $html2pdf->Output('test.pdf', 'D');
      }
+
      function download($slug = null) {
         // Include Component
         App::import('Component', 'Pdf');
@@ -232,11 +208,8 @@ class PagesController extends AppController {
         $this->render(false);
     }
     
-    function send_email()
-    {
-
-        if(isset($_POST['send']))
-        {
+    function send_email() {
+        if(isset($_POST['send'])){
             $slug = $_POST['slug'];
             $this->loadModel('OverallFlavorRating');
             $this->loadModel('Review');
@@ -249,7 +222,6 @@ class PagesController extends AppController {
             $this->set('title',$q['Strain']['name']);
             $this->set('description',$q['Strain']['description']);
             $this->set('keyword',$q['Strain']['name'].' , Canbii , Medical , Marijuana , Medical Marijuana');
-            
                     
             $q2 = $this->FlavorRating->find('all',array('conditions'=>array('strain_id'=>$q['Strain']['id']),'order'=>'COUNT(flavor_id) DESC','group'=>'flavor_id','limit'=>3));
             $q3 = $this->Review->find('first',array('conditions'=>array('strain_id'=>$q['Strain']['id']),'order'=>'Review.helpful DESC'));
@@ -265,20 +237,16 @@ class PagesController extends AppController {
             $ip = $_SERVER['REMOTE_ADDR'];
             $this->loadModel('VoteIp');
             $q5 = $this->VoteIp->find('first',array('conditions'=>array('review_id'=>$q3['Review']['id'],'ip'=>$ip)));
-            if($q5)
-            {
+            if($q5){
                 $view->set('vote',1);
                 $view->set('yes',$q5['VoteIp']['vote_yes']);
-                
+            } else {
+                $view->set('vote', 0);
             }
-            else
-            $view->set('vote',0);
-            
             
             $html = $view->render('/strains/index'); 
             $e = explode(",",$_POST['email']);
-            foreach($e as $email)
-            {
+            foreach($e as $email){
                 $email = trim($email);
                 $emails = new CakeEmail();
                 $emails->reset();
@@ -292,10 +260,9 @@ class PagesController extends AppController {
                 
                 $message=$html;
                 $emails->to($email);
-                if($emails->send($message))
-                    $this->Session->setFlash("Email Successfully Sent.",'default', array('class' => 'good'));
-                
-                
+                if($emails->send($message)) {
+                    $this->Session->setFlash("Email Successfully Sent.", 'default', array('class' => 'good'));
+                }
             }
         }
         $this->redirect("/strains/all");

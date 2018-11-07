@@ -8,15 +8,14 @@
             } else {
                 $gtitle = ucfirst($this->params['action']);
             }
-            if (isset($title)) {
-                $title .= ' - Canbii - Personalized Medical Cannabis';
-            } else {
+            if (!isset($title)) {
                 $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'] . ' - Personalized Medical Cannabis';
             }
+            $title .= ' - Canbii - Personalized Medical Cannabis';
             if (!isset($description)) {
                 $description = $generic['description'];
             }
-            if (isset($keyword)) {
+            if (!isset($keyword)) {
                 $keyword = $generic['keyword'];
             }
         ?>
