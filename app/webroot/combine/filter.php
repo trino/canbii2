@@ -102,7 +102,7 @@
     $count=0;
     if($strain){
         echo '<ul class="">';
-        $j=rand(1000000,(int)9999999999);
+        $j=rand(1000000,2147483647);
         foreach($strain as $s){
             $j++;
             $count++;
