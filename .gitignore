@@ -1,2 +1,5 @@
 /shop
 .idea/workspace.xml
+*.log
+app/tmp/logs/debug.log
+*.log

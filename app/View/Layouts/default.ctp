@@ -114,7 +114,7 @@
                                     echo '"><A HREF="' . $webroot . '" ACCESSKEY="' . $accesskey . '">' . $name . '</A></LI>';
                                 }
                                 function quickselectoption($webroot, $url, $text, $value){
-                                    echo '<OPTION value="' . $this->webroot . $url . '" ';
+                                    echo '<OPTION value="' . $webroot . $url . '" ';
                                     if($value){echo ' selected="selected"';}
                                     echo '> ' . $text . ' </OPTION>';
                                 }
@@ -437,8 +437,9 @@
             <? } ?>
 
             <div class="page clearfix">
-                <?= $this->Session->flash(); ?>
-                <?= $this->fetch('content'); ?>
+                <?echo $this->Session->flash(); ?>
+                STUFF SHOULD GO HERE!
+                <?echo $this->fetch('content'); ?>
             </div>
             <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
         </div>
