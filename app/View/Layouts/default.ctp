@@ -437,9 +437,7 @@
             <? } ?>
 
             <div class="page clearfix">
-                <?echo $this->Session->flash(); ?>
-                STUFF SHOULD GO HERE!
-                <?echo $this->fetch('content'); ?>
+                <?= $this->Session->flash() . $this->fetch('content'); ?>
             </div>
             <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
         </div>
