@@ -68,9 +68,9 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'canbii_user',
-		'password' => 'Pass1234!',
+		'host' => 'localhost:3306',
+		'login' => 'root',
+		'password' => '',
 		'database' => 'canbii_db',
 		'prefix' => '',
 		//'encoding' => 'utf8',
@@ -79,10 +79,10 @@ class DATABASE_CONFIG {
 	public $test = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'test_database_name',
+		'host' => 'localhost:3306',
+		'login' => 'root',
+		'password' => '',
+		'database' => 'canbii_db',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
