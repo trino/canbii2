@@ -132,7 +132,7 @@
                                 echo(isset($_GET['page']) && ($_GET["page"] == "" || $_GET["page"] == "home") ? " selected" : "");
                                 echo '"><a href="' . $this->webroot . 'users/dashboard" accesskey="4">' . ucfirst($this->Session->read('User.username'))  . "'s Account</a>";
                                 echo '<ul><li' . isset($_GET['page']) && $_GET["page"] == "home" ? " class='selected'" : "" . '>';
-                                /*echo '<!--<a style="color: #888!important;" class="darkmenu" href="<?php echo $this->webroot; ?>users/dashboard" accesskey="5" title="">My Dashboard</A> -->';*/
+                                /*echo '<!--<a style="color: #888!important;" class="darkmenu" href="<?= $this->webroot?>users/dashboard" accesskey="5" title="">My Dashboard</A> -->';*/
                                 echo '<a style="color: #888!important;" class="darkmenu" href="' . $this->webroot . 'users/logout" accesskey="5" title="">Logout</a>';
                                 echo '</li></ul></li>';
                             }
@@ -337,7 +337,7 @@
                         <div class="clearfix" style="background: #000; background: rgba(0,0,0,0.65); border-radius: 3px; margin: 0 auto; padding:25px 20px;">
                             <h1 id="H1_4">The Medical Marijuana Encyclopedia</h1>
                             <h1 id="H1_4" style="font-size: 30px">What Do You Suffer From?</h1>
-                            <form id="FORM_13" class="contact_form" action="<?php echo $this->webroot; ?>strains/all" method="get" id="search" style="">
+                            <form id="FORM_13" class="contact_form" action="<?= $this->webroot?>strains/all" method="get" id="search" style="">
                                 <p id="P_5">
                                     <?php
                                         $effect = $this->requestAction('/pages/getSym');
@@ -448,20 +448,20 @@
                         <h2>Why Go Natural?</h2>
 
                         <p style="color: white;margin-bottom:20px;">
-                            <a style="font-size:13px;" href="<?php echo $this->webroot; ?>pages/about" title="">The guide to MedicalCannabis &raquo;</a>
+                            <a style="font-size:13px;" href="<?= $this->webroot?>pages/about" title="">The guide to MedicalCannabis &raquo;</a>
                         </p>
                     </li>
                     <li class="footer_banner_box light_blue animated_element animation-slideRight duration-800 delay-500">
                         <h2>Join The Movement</h2>
 
                         <p style="color: white;margin-bottom:20px;">
-                            <a style="font-size:13px;" href="<?php echo $this->webroot; ?>users/register" title="">The more we know, the more we can help &raquo;</a>
+                            <a style="font-size:13px;" href="<?= $this->webroot?>users/register" title="">The more we know, the more we can help &raquo;</a>
                         </p>
                     </li>
                     <li class="footer_banner_box blue animated_element animation-slideRight200 duration-800 delay-1000">
                         <h2>Questions Or Concerns?</h2>
 
-                        <p><a style="font-size:13px;" href="<?php echo $this->webroot; ?>pages/contact_us" title="">Feel free to contact us by clickinghere &raquo;</a></p>
+                        <p><a style="font-size:13px;" href="<?= $this->webroot?>pages/contact_us" title="">Feel free to contact us by clickinghere &raquo;</a></p>
                     </li>
 
                 </ul>
@@ -481,7 +481,7 @@
                             Please do your part in helping the world's largest clinical trial so that we can better understand the use and effects of the cannabis plant.
                         </p>
 
-                        <a href="<?php echo $this->webroot; ?>pages/about" accesskey="3" title="" class="more blue" style="float:left;margin-top:10px;">Read More</a>
+                        <a href="<?= $this->webroot?>pages/about" accesskey="3" title="" class="more blue" style="float:left;margin-top:10px;">Read More</a>
                     </div>
                     <div class="footer_box">
                         <div class="clearfix">
