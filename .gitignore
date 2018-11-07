@@ -3,3 +3,4 @@
 *.log
 app/tmp/logs/debug.log
 *.log
+.idea/workspace.xml

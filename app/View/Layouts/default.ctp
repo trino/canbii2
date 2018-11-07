@@ -108,10 +108,10 @@
                     <ul class="sf-menu header_right">
                         <?php
                             if(!function_exists("quicklistitem")){
-                                function quicklistitem($webroot, $value, $accesskey, $name){
+                                function quicklistitem($webroot, $url, $value, $accesskey, $name){
                                     echo '<LI CLASS="';
                                     if ($value) {echo 'current_page_item';}
-                                    echo '"><A HREF="' . $webroot . '" ACCESSKEY="' . $accesskey . '">' . $name . '</A></LI>';
+                                    echo '"><A HREF="' . $webroot . $url . '" ACCESSKEY="' . $accesskey . '">' . $name . '</A></LI>';
                                 }
                                 function quickselectoption($webroot, $url, $text, $value){
                                     echo '<OPTION value="' . $webroot . $url . '" ';
@@ -119,13 +119,13 @@
                                     echo '> ' . $text . ' </OPTION>';
                                 }
                             }
-                            quicklistitem($this->webroot, $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
-                            quicklistitem($this->webroot, $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Cannabis Strains');
-                            quicklistitem($this->webroot, false, 4, 'Shop');
-                            quicklistitem($this->webroot, $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
-                            quicklistitem($this->webroot, $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
+                            quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
+                            quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Cannabis Strains');
+                            quicklistitem($this->webroot, "pages/shop", false, 4, 'Shop');
+                            quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
+                            quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
                             if (!$this->Session->read('User')) {
-                                quicklistitem($this->webroot, $this->params['controller'] == 'users', 4, 'Login / Register');
+                                quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
                             } else {
                                 echo '<li class="submenu';
                                 if ($this->params['controller'] == 'users') { echo ' current_page_item';}
