@@ -4,7 +4,6 @@
 	error_reporting(E_ALL);
 	Configure::write('debug',2);
 
-
 	$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 	$protocol = "http://";
 	if($isSecure){
