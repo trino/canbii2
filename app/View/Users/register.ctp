@@ -2,7 +2,7 @@
     window.onload = function () {
         document.getElementById("UserPassword1").onchange = validatePassword;
         document.getElementById("UserConfirmPassword").onchange = validatePassword;
-    }
+    };
     function validatePassword() {
         var pass2 = document.getElementById("UserConfirmPassword").value;
         var pass1 = document.getElementById("UserPassword1").value;
@@ -92,7 +92,7 @@
                     <h2 class="box_header  page_margin_top">Login</h2>
 
                     <div class="clearfix"></div>
-                    <?php echo $this->Form->create('User', array('action' => 'login?url=' . $url, 'class' => 'contact_form')); ?>
+                    <?php echo $this->Form->create('User', array('url' => 'login?url=' . $url, 'class' => 'contact_form')); ?>
 
                     <?php echo $this->Form->input('username', array('div' => array('class' => ''))); ?>
                     <?php echo $this->Form->input('password', array('div' => array('class' => ''))); ?>
@@ -112,7 +112,7 @@
                 <div class="dropcap" style="border:1px solid #e8e8e8;padding: 0px 20px 10px 20px;">
 
                     <h2 class="box_header page_margin_top">Register</h2>
-                    <?php echo $this->Form->create('User', array('action' => 'register', 'class' => 'contact_form', 'onsubmit' => "if($('.chh').is(':checked'))return true;else{ $('.check_error').show(); $('.check_error').fadeOut(5000); return false;}")); ?>
+                    <?php echo $this->Form->create('User', array('url' => 'register', 'class' => 'contact_form', 'onsubmit' => "if($('.chh').is(':checked'))return true;else{ $('.check_error').show(); $('.check_error').fadeOut(5000); return false;}")); ?>
                     <fieldset>
                         <?php echo $this->Form->input('email', array('div' => array('class' => 'form-row'), 'label' => 'Email Address', 'type' => 'email')); ?>
                         <?php echo $this->Form->input('username', array('div' => array('class' => 'form-row'))); ?>

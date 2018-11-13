@@ -631,10 +631,7 @@
                 ?>
                 </tr>
             </table-->
-            <?php
-            errorlog("attempt to include images");
-            include('combine/images.php');
-            ?>
+            <?php include('combine/images.php'); ?>
         </li>
     </ul>
     <ul class="columns full_width page_margin_top clearfix">
