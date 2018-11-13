@@ -1,6 +1,5 @@
 <?php
-class Strainslim extends AppModel
-{
+class Strainslim extends AppModel {
     public $alias = "Strain";
     public $useTable = 'strains';
     public $uses = array('Strain');

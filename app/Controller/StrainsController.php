@@ -321,12 +321,12 @@ class StrainsController extends AppController {
         $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
 
         $conditions = array();
-        if ($type) {$conditions['type_id'] = $arr[$type];}
+        if ($type && isset($arr[$type])) {$conditions['type_id'] = $arr[$type];}//warning: does not handle strains properly
         if(isset($_GET["key"]) && $_GET["key"]){
             $conditions['name LIKE'] = '%' . $_GET["key"] . '%';
         }
 
-        $this->set('strain', $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
+        $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
         $this->set('strains', $this->Strain->find('count', array('conditions' => $conditions)));
 
         /*
@@ -655,8 +655,10 @@ class StrainsController extends AppController {
         if($profile_filter){$conditions[] = 'Strain.id IN (SELECT strain_id FROM reviews WHERE user_id IN (' . $profile_filter . '))';}
         if($condition){$conditions[] = $condition;}
         if ($type) {
-            $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
-            $conditions['type_id'] = $arr[$type];
+            $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);//warning: does not handle strains properly
+            if(isset($arr[$type])) {
+                $conditions['type_id'] = $arr[$type];
+            }
         }
         $parameters['conditions'] = $conditions;
         if ($order) {
