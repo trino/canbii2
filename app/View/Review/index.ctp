@@ -20,7 +20,7 @@
 <a style="margin-right:10px;" title="Read more"  href="<?php  echo $this->webroot; ?>users/dashboard" class="more large dark_blue icon_small_arrow margin_right_white">My Account</a>
 <a style="margin-right:10px;"  title="Read more"  href="<?php  echo $this->webroot; ?>users/settings" class="more large dark_blue icon_small_arrow margin_right_white  ">Settings</a>
 <a style="margin-right:10px;" title="Read more" href="<?php  echo $this->webroot; ?>review"  class="active more large dark_blue icon_small_arrow margin_right_white  ">Add Review</a>
-<a style="" title="Read more" href="<?php  echo $this->webroot; ?>review/all"  class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
+<a title="Read more" href="<?php  echo $this->webroot; ?>review/all"  class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
 </div>
 	</div>
 
@@ -61,9 +61,9 @@
 
 
                 <ul class=" page_margin_top clearfix">
-                    <li class="column"  style="">
+                    <li class="column" >
                         <div style="float:left;">
-                            <img src="<?php echo $this->webroot;?>images/IndicaIcon.png" alt="" style="">
+                            <img src="<?php echo $this->webroot;?>images/IndicaIcon.png" alt="">
                         </div>
                         <div style="float:left;margin-left: 15px;">
                             <h1>Indica</h1>
@@ -73,7 +73,7 @@
                     <li class="column" style="clear:both;">
 
                         <div style="float:left;">
-                            <img src="<?php echo $this->webroot;?>images/SativaIcon.png" alt="" style="">
+                            <img src="<?php echo $this->webroot;?>images/SativaIcon.png" alt="">
                         </div>
                         <div style="float:left;margin-left: 15px;">
                             <h1>Sativa</h1>

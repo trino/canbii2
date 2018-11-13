@@ -86,7 +86,7 @@ class UsersController extends AppController {
         }
     }
     
-     public function logout() {
+    public function logout() {
         $this->Session->delete('User');
         return $this->redirect('/');
     }
@@ -176,6 +176,7 @@ class UsersController extends AppController {
     function randompassword($digits=8){
         return substr(md5(rand()), 0, $digits);
     }
+
     function changeuserpasssword($emailaddress, $digits=8){
         $pass=$this->randompassword($digits);
         $newpass=md5($pass . "canbii");
@@ -225,8 +226,5 @@ class UsersController extends AppController {
             }
         }
     }
-    
-    
-        
 }
 ?>

@@ -26,7 +26,7 @@
 
 
             <div style="margin-bottom: 30px;padding-bottom: 20px;border-bottom: 1px solid #dadada;">
-                <h3 class="sentence " style="">
+                <h3 class="sentence ">
                     Canbii is an organization serving patients who benefit from the medicinal use of cannabis. Canbii is offered to medical practitioners; helping patients find the best strain for their ailments. Contact us to see how we can help with your everyday practice. We're a non-profit looking to provide the safest and most accurate data possible.
                 </h3>
 

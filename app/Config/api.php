@@ -9,4 +9,9 @@
 		$protocol = "https://";
 	}
 	define("protocol", $protocol);
+
+	function errorlog($text){
+		$file = APP . "/tmp/logs/debug.log";
+		file_put_contents($file, "\n" . $text, FILE_APPEND);
+	}
 ?>

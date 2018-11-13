@@ -1,13 +1,128 @@
 <?php
 //include(APP.'webroot/html2pdf.class.php');
-class StrainsController extends AppController
-{
+class StrainsController extends AppController {
 
     public $components = array('Paginator', 'RequestHandler');
     public $helpers = array('Js');
 
     function call($name){
         echo "<BR>Calling: " . $name . " at " . time() . "<BR>";
+    }
+
+    function getucond($small = false){
+        $u_cond = '';
+        if (isset($_GET['nationality'])) {
+            $u_cond = 'nationality = "' . $_GET['nationality'] . '"';
+        }
+
+        if (isset($_GET['country'])) {
+            $u_cond = $this->queryappend($u_cond, 'country = "' . $_GET['country'] . '"');
+        }
+
+        if (isset($_GET['gender'])) {
+            $u_cond = $this->queryappend($u_cond, 'gender = "' . $_GET['gender'] . '"');
+        }
+
+        if (isset($_GET['age_group'])) {
+            $u_cond = $this->queryappend($u_cond, 'age_group = "' . $_GET['age_group'] . '"');
+        }
+        if (isset($_GET['age_group_from'])) {
+            if (isset($_GET['age_group_from'])){
+                $to = $_GET['age_group_to'];
+            }else {
+                $to = 100;
+            }
+            if (!$to) {
+                $to = 100;
+            }
+            $from = $_GET['age_group_from'];
+            if ($from < 20) {
+                $from = 20;
+            }
+            $from++;
+            $counter = 0;
+            for ($i = $from; $i <= $to; $i++) {
+                $counter++;
+                $j = $i + 9;
+                $group = $i . '-' . $j;
+                $i = $j;
+                if ($counter == 1) {
+                    $u_cond = $this->queryappend($u_cond, '(age_group = "' . $group . '"');
+                } else {
+                    $u_cond = $this->queryappend($u_cond, 'age_group = "' . $group . '"', "OR");
+                }
+            }
+            $u_cond .= ')';
+        }
+
+        if (isset($_GET['health'])) {
+            $u_cond = $this->queryappend($u_cond, 'health = "' . $_GET['health'] . '"');
+        }
+
+        if (isset($_GET['weight'])) {
+            $u_cond = $this->queryappend($u_cond, 'weight = "' . $_GET['weight'] . '"');
+        }
+        if (isset($_GET['weight_from'])) {
+            if (isset($_GET['weight_from'])) {
+                $to = $_GET['weight_to'];
+            } else {
+                $to = 280;
+            }
+            if (!$to) {
+                $to = 280;
+            }
+
+            $from = $_GET['weight_from'];
+            if ($from > 100) {
+                $from++;
+            }
+            $counter = 0;
+            for ($i = $from; $i <= $to; $i++) {
+                $counter++;
+                if ($i > 100) {
+                    $j = $i + 9;
+                }else {
+                    $j = $i + 10;
+                }
+                $group = $i . '-' . $j;
+                $i = $j;
+                if ($counter == 1) {
+                    $u_cond = $this->queryappend($u_cond, '(weight = "' . $group . '"');
+                } else {
+                    $u_cond = $this->queryappend($u_cond, 'weight = "' . $group . '"', "OR");
+                }
+            }
+            $u_cond = $u_cond . ')';
+        }
+
+        if (isset($_GET['years_of_experience'])) {
+            $u_cond = $this->queryappend($u_cond, 'years_of_experience = "' . $_GET['years_of_experience'] . '"');
+        }
+        if (isset($_GET['years_of_experience_from'])) {
+            if (isset($_GET['years_of_experience_from'])) {
+                $to = $_GET['years_of_experience_to'];
+            }else {
+                $to = 50;
+            }
+            if (!$to) {
+                $to = 50;
+            }
+            $from = $_GET['years_of_experience_from'];
+            $u_cond = $this->queryappend($u_cond, 'years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to);
+        }
+
+        if (isset($_GET['frequency'])) {
+            $u_cond = $this->queryappend($u_cond, 'frequency = "' . $_GET['frequency'] . '"');
+        }
+
+        if (isset($_GET['body_type'])) {
+            $u_cond = $this->queryappend($u_cond, 'body_type = "' . $_GET['body_type'] . '"');
+        }
+
+        if ($u_cond) {
+            return 'SELECT id FROM users WHERE ' . $u_cond;
+        }
+        return '';
     }
 
     function index($slug) {
@@ -39,8 +154,7 @@ class StrainsController extends AppController
         $this->set("symptom_votes",$votes_sum);
         
         $params_vote_user = array(
-                 "conditions"=>array("SymptomVote.strain_id"=>$q['Strain']['id'],
-                                     "SymptomVote.client_http"=>md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']))
+                 "conditions"=>array("SymptomVote.strain_id"=>$q['Strain']['id'], "SymptomVote.client_http"=>md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']))
         );
         
         $vote_user = $this->SymptomVote->find("all",$params_vote_user);
@@ -50,142 +164,24 @@ class StrainsController extends AppController
         
         $this->set("symptom_vote_user",$vote_user);
 
-        $u_cond = '';
-        if (isset($_GET['nationality'])) {
-            $u_cond = 'nationality = "' . $_GET['nationality'] . '"';
-        }
-        if (isset($_GET['country'])) {
-            if (!$u_cond)
-                $u_cond = 'country = "' . $_GET['country'] . '"';
-            else
-                $u_cond = $u_cond . ' AND country = "' . $_GET['country'] . '"';
-        }
-        if (isset($_GET['gender'])) {
-            if (!$u_cond)
-                $u_cond = 'gender = "' . $_GET['gender'] . '"';
-            else
-                $u_cond = $u_cond . ' AND gender = "' . $_GET['gender'] . '"';
-        }
-        if (isset($_GET['age_group_from'])) {
-            if (isset($_GET['age_group_from']))
-                $to = $_GET['age_group_to'];
-            else
-                $to = 100;
-            if (!$to)
-                $to = 100;
-            $from = $_GET['age_group_from'];
-            if ($from < 20)
-                $from = 20;
-            $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                $j = $i + 9;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(age_group = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (age_group = "' . $group . '"';
-                } else {
-                    ' OR age_group = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
+        $profile_filter = $this->getucond();
 
-        }
-        if (isset($_GET['health'])) {
-            if (!$u_cond)
-                $u_cond = 'health = "' . $_GET['health'] . '"';
-            else
-                $u_cond = $u_cond . ' AND health = "' . $_GET['health'] . '"';
-        }
-
-        if (isset($_GET['weight_from'])) {
-            if (isset($_GET['weight_from']))
-                $to = $_GET['weight_to'];
-            else
-                $to = 280;
-            if (!$to)
-                $to = 280;
-
-            $from = $_GET['weight_from'];
-            if ($from > 100)
-                $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                if ($i > 100)
-                    $j = $i + 9;
-                else
-                    $j = $i + 10;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(weight = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (weight = "' . $group . '"';
-                } else {
-                    ' OR weight = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
-
-        }
-
-        if (isset($_GET['years_of_experience_from'])) {
-            if (isset($_GET['years_of_experience_from']))
-                $to = $_GET['years_of_experience_to'];
-            else
-                $to = 50;
-            if (!$to)
-                $to = 50;
-            $from = $_GET['years_of_experience_from'];
-
-
-            if (!$u_cond)
-                $u_cond = 'years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-            else
-                $u_cond = $u_cond . ' AND years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-
-
-        }
-        if (isset($_GET['frequency'])) {
-            if (!$u_cond)
-                $u_cond = 'frequency = "' . $_GET['frequency'] . '"';
-            else
-                $u_cond = $u_cond . ' AND frequency = "' . $_GET['frequency'] . '"';
-        }
-        if (isset($_GET['body_type'])) {
-            if (!$u_cond)
-                $u_cond = 'body_type = "' . $_GET['body_type'] . '"';
-            else
-                $u_cond = $u_cond . ' AND body_type = "' . $_GET['body_type'] . '"';
-        }
-        if ($u_cond) {
-            $profile_filter = 'SELECT id FROM users WHERE ' . $u_cond;
-        } else
-            $profile_filter = '';
-
-
-        if ($profile_filter)
+        if ($profile_filter) {
             $q2 = $this->FlavorRating->find('all', array('conditions' => array('strain_id' => $q['Strain']['id'], 'user_id IN (' . $profile_filter . ')'), 'order' => 'COUNT(flavor_id) DESC', 'group' => 'flavor_id', 'limit' => 3));
-        else
+        }else {
             $q2 = $this->FlavorRating->find('all', array('conditions' => array('strain_id' => $q['Strain']['id']), 'order' => 'COUNT(flavor_id) DESC', 'group' => 'flavor_id', 'limit' => 3));
+        }
 
-
-        if ($profile_filter)
+        if ($profile_filter) {
             $q3 = $this->Review->find('first', array('conditions' => array('strain_id' => $q['Strain']['id'], 'user_id IN (' . $profile_filter . ')'), 'order' => 'Review.helpful DESC'));
-        else
+        }else {
             $q3 = $this->Review->find('first', array('conditions' => array('strain_id' => $q['Strain']['id']), 'order' => 'Review.helpful DESC'));
-
-        if ($profile_filter)
+        }
+        if ($profile_filter) {
             $q4 = $this->Review->find('first', array('conditions' => array('strain_id' => $q['Strain']['id'], 'user_id IN (' . $profile_filter . ')'), 'order' => 'Review.id DESC'));
-        else
+        }else {
             $q4 = $this->Review->find('first', array('conditions' => array('strain_id' => $q['Strain']['id']), 'order' => 'Review.id DESC'));
-
+        }
         $this->set('strain', $q);
         $this->set('flavor', $q2);
         $this->set('helpful', $q3);
@@ -205,16 +201,14 @@ class StrainsController extends AppController
         if ($q5) {
             $this->set('vote', 1);
             $this->set('yes', $q5['VoteIp']['vote_yes']);
-
-        } else
+        } else {
             $this->set('vote', 0);
+        }
         $this->set('profile_filter', $profile_filter);
-
-
     }
 
-    function download($slug = null)
-    {//$this->call(__METHOD__);
+    function download($slug = null) {
+        //$this->call(__METHOD__);
         // Include Component
         App::import('Component', 'Pdf');
         // Make instance
@@ -230,54 +224,55 @@ class StrainsController extends AppController
         $this->render(false);
     }
 
-    function getFlavor($id)
-    {//$this->call(__METHOD__);
+    function getFlavor($id) {
+        //$this->call(__METHOD__);
         $this->loadModel('Flavor');
         $q = $this->Flavor->findById($id);
         return $q['Flavor']['title'];
         die();
     }
 
-    function getEffect($id)
-    {//$this->call(__METHOD__);
+    function getEffect($id) {
+        //$this->call(__METHOD__);
         $this->loadModel('Effect');
         $q = $this->Effect->findById($id);
         return $q['Effect']['title'];
         die();
     }
 
-    function getSymptom($id)
-    {//$this->call(__METHOD__);
+    function getSymptom($id) {
+        //$this->call(__METHOD__);
         $this->loadModel('Symptom');
         $q = $this->Symptom->findById($id);
         return $q['Symptom']['title'];
         die();
     }
 
-    function getPosEff($id)
-    {//$this->call(__METHOD__);
+    function getPosEff($id) {
+        //$this->call(__METHOD__);
         $this->loadModel('Effect');
         $q = $this->Effect->findById($id);
-        if ($q['Effect']['negative'] == 0)
+        if ($q['Effect']['negative'] == 0) {
             return true;
-        else
+        }else {
             return false;
+        }
     }
     
     function symptomVote($strain_id,$symp){
-        die($this->request->data('symp'));
+       die($this->request->data('symp'));
        die(var_dump($this->params));
     }
 
-    function getUserName($id)
-    {//$this->call(__METHOD__);
+    function getUserName($id) {
+        //$this->call(__METHOD__);
         $this->loadModel('User');
         $q = $this->User->findById($id);
         return $q['User']['username'];
     }
 
-    function helpful($id, $yes)
-    {//$this->call(__METHOD__);
+    function helpful($id, $yes) {
+        //$this->call(__METHOD__);
         $this->loadModel('Review');
         $q = $this->Review->findById($id);
         if ($yes == 'yes') {
@@ -293,30 +288,25 @@ class StrainsController extends AppController
             $this->Review->id = $id;
             $this->Review->saveField('helpful', $helpful);
             $this->Review->saveField('not_helpful', $not_helpful);
-
-
             $this->VoteIp->create();
             $arr['review_id'] = $id;
             $arr['ip'] = $ip;
-            if ($yes == 'yes')
+            if ($yes == 'yes') {
                 $arr['vote_yes'] = 1;
-            else
+            }else {
                 $arr['vote_yes'] = 0;
-
+            }
             $this->VoteIp->save($arr);
         }
         die();
     }
 
-    function all($type = '', $limit = 0)
-    {//$this->call(__METHOD__);
+    function all($type = '', $limit = 0) {
+        //$this->call(__METHOD__);
         if($this->Session->read('User')){
             $this->loadModel('User');
             $this->set('user',$this->User->findById($this->Session->read('User.id')));
         }
-
-
-
         $this->loadModel('Country');
         $this->set('countries', $this->Country->find('all'));
         $this->set('type', $type);
@@ -324,7 +314,6 @@ class StrainsController extends AppController
         if ($limit) {
             $offset = $limit;
             $limit = '8';
-
         } else {
             $limit = 8;
             $offset = 0;
@@ -348,9 +337,6 @@ class StrainsController extends AppController
             $this->set('strain', $this->Strain->find('all', array('conditions' => array('type_id' => $arr[$type]), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
             $this->set('strains', $this->Strain->find('count', array('conditions' => array('type_id' => $arr[$type]))));
         }
-        /.
-
-        /*      
         {
             $this->Paginator->settings = array(
                 'order' => array('Strain.id' => 'desc'),
@@ -360,10 +346,8 @@ class StrainsController extends AppController
             $this->set('strain',$this->Paginator->paginate('Strain'));
         }*/
     }
-    
 
-	    function showAll($type = '', $limit = 0)
-    {
+    function showAll($type = '', $limit = 0) {
         $this->loadModel('Country');
         $this->set('countries', $this->Country->find('all'));
         $this->set('type', $type);
@@ -372,11 +356,10 @@ class StrainsController extends AppController
         $this->Strain->unbindModel(array('hasMany'=>array('OverallEffectRating','OverallSymptomRating','Flavorstrain','Review','StrainImage')));
         $this->set('strain', $this->Strain->find('all', array('order' => 'Strain.id')));
         //$this->set('strains', $this->Strain->find('count'));
-
     }
 
-    function search($type = '', $limit = 0)
-    {//$this->call(__METHOD__);
+    function search($type = '', $limit = 0) {
+        //$this->call(__METHOD__);
         $this->filter($limit, $type);
         return;
 
@@ -417,19 +400,14 @@ class StrainsController extends AppController
             /*
             foreach ($effects as $e) {
                 $i++;
-                if ($i == 1)
-                    $condition = $condition . 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
-                                        FROM effect_ratings
-                                        WHERE effect_id
-                                        IN ( ' . $e;
-
-                else
-                    $condition = $condition . ',' . $e;
+                if ($i == 1){
+                    $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id FROM effect_ratings WHERE effect_id IN ( ' . $e;
+                }else{
+                    $condition .= ',' . $e;
+                }
             }
-            $condition = $condition . ')GROUP BY review_id
-                                        HAVING COUNT( effect_id ) =' . count($effects) . '))';
-
-*/
+            $condition .= ')GROUP BY review_id HAVING COUNT( effect_id ) =' . count($effects) . '))';
+            */
         }
         if ($symptoms) {
             $i = 0;
@@ -437,17 +415,18 @@ class StrainsController extends AppController
 
                 $i++;
                 if ($i == 1) {
-                    if ($effects)
-                        $condition = $condition . ' AND ';
-                    $condition = $condition . 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
+                    if ($effects) {
+                        $condition .= ' AND ';
+                    }
+                    $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
                                         FROM symptom_ratings
                                         WHERE symptom_id
                                         IN (' . $e;
-                } else
-                    $condition = $condition . ',' . $e;
+                } else {
+                    $condition .= ',' . $e;
+                }
             }
-            $condition = $condition . ') GROUP BY review_id
-                                        HAVING COUNT( symptom_id ) =' . count($symptoms) . '))';
+            $condition .= ') GROUP BY review_id HAVING COUNT( symptom_id ) =' . count($symptoms) . '))';
         }
         if (!$condition) {
             $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%'), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
@@ -459,36 +438,33 @@ class StrainsController extends AppController
         $this->render('all');
     }
 
-    function getEffectRate($profile_filter, $strain)
-    {//$this->call(__METHOD__);
+    function getEffectRate($profile_filter, $strain) {
+        //$this->call(__METHOD__);
         //echo urlencode("SELECT id FROM users WHERE nationality='asian'");die();
         //echo $profile_filter;die();
-
         $this->loadModel('Effect_rating');
         $q = $this->Effect_rating->find('all', array('conditions' => array('user_id IN (' . $profile_filter . ') AND rate <> 0 AND strain_id = ' . $strain), 'order' => 'effect_id'));
         return $q;
     }
 
-    function getSympto2mRate($profile_filter, $strain)
-    {//$this->call(__METHOD__);
+    function getSympto2mRate($profile_filter, $strain) {
+        //$this->call(__METHOD__);
         //echo urlencode("SELECT id FROM users WHERE nationality='asian'");die();
         //echo $profile_filter;die();
         $this->loadModel('SymptomRating');
         $q = $this->SymptomRating->find('all', array('conditions' => array('user_id IN (' . $profile_filter . ') AND rate <> 0 AND strain_id = ' . $strain), 'order' => 'symptom_id'));
-
-
         return $q;
     }
 
-    function getEffectReview($profile_filter, $strain)
-    {//$this->call(__METHOD__);
+    function getEffectReview($profile_filter, $strain) {
+        //$this->call(__METHOD__);
         $this->loadModel('Review');
         $q = $this->Review->find('all', array('conditions' => array('user_id IN (' . $profile_filter . ') AND strain_id = ' . $strain)));
         return $q;
     }
-    function getcolors($strain)
-    {//$this->call(__METHOD__);
-        
+
+    function getcolors($strain) {
+        //$this->call(__METHOD__);
         $this->loadModel('Review');
         $q = $this->Review->find('all', array('conditions' => array('strain_id'=>$strain)));
         return $q;
@@ -502,8 +478,8 @@ class StrainsController extends AppController
         echo "<SCRIPT>" . $method . "('" . $now . " " . $diff . " " . $text . "');</SCRIPT>";
         return $now;
     }
-    function filter($limit = 0, $type = '')
-    {
+
+    function filter($limit = 0, $type = '') {
         //$this->call(__METHOD__);
         $this->loadModel('Country');
         $this->loadModel('Strainslim');
@@ -512,7 +488,7 @@ class StrainsController extends AppController
         $this->set('type', $type);
 
         $offset = 0;
-        if ($limit) { $offset = $limit;}
+        if ($limit) {$offset = $limit;}
         $limit = 8;
 
         //echo $limit;die();
@@ -525,183 +501,55 @@ class StrainsController extends AppController
         }else {
             $key = '';
         }
+
         $condition = '';
-        if (isset($_GET['effects']))
+        if (isset($_GET['effects'])) {
             $effects = $_GET['effects'];
-        else
+        }else {
             $effects = array();
+        }
+
+        $symptoms = "";
         if (isset($_GET['symptoms'])) {
             $symptoms = $_GET['symptoms'];
-        }else {
-            $symptoms = "";
         }
 
-        if (isset($_GET['sort']))
+        $test_sort = '';
+        if (isset($_GET['sort'])) {
             $test_sort = $_GET['sort'];
-        else
-            $test_sort = '';
-
-        $u_cond = '';
-        if (isset($_GET['nationality'])) {
-            $u_cond = 'nationality = "' . $_GET['nationality'] . '"';
-            $this->set('nationality', $_GET['nationality']);
-        }
-        if (isset($_GET['country'])) {
-            if (!$u_cond)
-                $u_cond = 'country = "' . $_GET['country'] . '"';
-            else
-                $u_cond = $u_cond . ' AND country = "' . $_GET['country'] . '"';
-            $this->set('country', $_GET['country']);
-        }
-        if (isset($_GET['gender'])) {
-            if (!$u_cond)
-                $u_cond = 'gender = "' . $_GET['gender'] . '"';
-            else
-                $u_cond = $u_cond . ' AND gender = "' . $_GET['gender'] . '"';
-            $this->set('gender', $_GET['gender']);
-        }
-        if (isset($_GET['age_group_from'])) {
-            $this->set('age_group_from', $_GET['age_group_from']);
-
-            if (isset($_GET['age_group_to'])) {
-                $to = $_GET['age_group_to'];
-                $this->set('age_group_to', $_GET['age_group_to']);
-            } else
-                $to = 100;
-            if (!$to)
-                $to = 100;
-            $from = $_GET['age_group_from'];
-            if ($from < 20)
-                $from = 20;
-            $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                $j = $i + 9;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(age_group = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (age_group = "' . $group . '"';
-                } else {
-                    ' OR age_group = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
-
-        }
-        if (isset($_GET['health'])) {
-            $this->set('health', $_GET['health']);
-            if (!$u_cond)
-                $u_cond = 'health = "' . $_GET['health'] . '"';
-            else
-                $u_cond = $u_cond . ' AND health = "' . $_GET['health'] . '"';
         }
 
-        if (isset($_GET['weight_from'])) {
-            $this->set('weight_from', $_GET['weight_from']);
-            if (isset($_GET['weight_to'])) {
-                $to = $_GET['weight_to'];
-                $this->set('weight_to', $_GET['weight_to']);
-            } else
-                $to = 280;
-            if (!$to)
-                $to = 280;
+        $profile_filter = $this->getucond();
 
-            $from = $_GET['weight_from'];
-            if ($from > 100)
-                $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                if ($i > 100)
-                    $j = $i + 9;
-                else
-                    $j = $i + 10;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(weight = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (weight = "' . $group . '"';
-                } else {
-                    ' OR weight = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
-
-        }
-
-        if (isset($_GET['years_of_experience_from'])) {
-            $this->set('years_of_experience_from', $_GET['years_of_experience_from']);
-            if (isset($_GET['years_of_experience_to'])) {
-                $to = $_GET['years_of_experience_to'];
-                $this->set('years_of_experience_to', $_GET['years_of_experience_to']);
-            } else
-                $to = 50;
-            if (!$to)
-                $to = 50;
-            $from = $_GET['years_of_experience_from'];
-
-
-            if (!$u_cond)
-                $u_cond = 'years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-            else
-                $u_cond = $u_cond . ' AND years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-
-
-        }
-        if (isset($_GET['frequency'])) {
-            $this->set('frequency', $_GET['frequency']);
-            if (!$u_cond)
-                $u_cond = 'frequency = "' . $_GET['frequency'] . '"';
-            else
-                $u_cond = $u_cond . ' AND frequency = "' . $_GET['frequency'] . '"';
-        }
-        if (isset($_GET['body_type'])) {
-            $this->set('body_type', $_GET['body_type']);
-            if (!$u_cond)
-                $u_cond = 'body_type = "' . $_GET['body_type'] . '"';
-            else
-                $u_cond = $u_cond . ' AND body_type = "' . $_GET['body_type'] . '"';
-        }
-        if ($u_cond) {
-            $profile_filter = 'SELECT id FROM users WHERE ' . $u_cond;
-        } else
-            $profile_filter = '';
         if (isset($_GET['sort']) && ($_GET['sort'] == 'indica' || $_GET['sort'] == 'sativa' || $_GET['sort'] == 'hybrid')) {
             $s_arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
             $condition = 'Strain.type_id = ' . $s_arr[$_GET['sort']];
             $_GET['sort'] = 'alpha';
-
         }
 
         if ($effects && is_array($effects)) {
-            if (isset($_GET['sort']) && ($test_sort == 'indica' || $test_sort == 'sativa' || $test_sort == 'hybrid'))
-                $condition = $condition . ' AND ';
+            if (isset($_GET['sort']) && ($test_sort == 'indica' || $test_sort == 'sativa' || $test_sort == 'hybrid')) {
+                $condition .= ' AND ';
+            }
             $i = 0;
             foreach ($effects as $e) {//this loop will no longer function, as it's no longer an array
                 $i++;
-                if ($i == 1)
-                    $condition = $condition . 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
+                if ($i == 1) {
+                    $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
                                         FROM effect_ratings
                                         WHERE effect_id
                                         IN (' . $e;
-
-                else
-                    $condition = $condition . ',' . $e;
+                }else {
+                    $condition .= ',' . $e;
+                }
             }
-            if ($profile_filter)
-                $condition = $condition . ')GROUP BY review_id
+            if ($profile_filter) {
+                $condition .= ')GROUP BY review_id
                                     HAVING COUNT( effect_id ) =' . count($effects) . ') AND user_id IN (' . $profile_filter . '))';
-            else
-                $condition = $condition . ')GROUP BY review_id
+            }else {
+                $condition .= ')GROUP BY review_id
                                     HAVING COUNT( effect_id ) =' . count($effects) . '))';
-
-
+            }
         }
 
 
@@ -841,83 +689,34 @@ class StrainsController extends AppController
             echo "<BR><BR>";
         }
     }
+
     function listsymptoms($symptoms){
         if (is_array($symptoms)){ $symptoms = implode(",", $symptoms);}
         $this->loadModel('Symptom');
         return $this->Symptom->find('all',array('conditions' => array('id IN (' . $symptoms . ')')));
     }
 
-    function review($slug, $sort = null, $limit = 0)
-    {//$this->call(__METHOD__);
+    //$u_cond = $this->queryappend($u_cond,
+    function queryappend($currentquery, $append, $operation = "AND"){
+        if($currentquery){
+            return $currentquery . " " . $operation . " " . $append;
+        }
+        return $append;
+    }
+
+    function review($slug, $sort = null, $limit = 0) {
+        //$this->call(__METHOD__);
         $this->loadModel('Review');
         $this->loadModel('Country');
         $this->set('countries', $this->Country->find('all'));
         $this->set('limit', $limit);
         $this->set('slug', $slug);
 
-
-        $u_cond = '';
-        if (isset($_GET['nationality'])) {
-            $u_cond = 'nationality = "' . $_GET['nationality'] . '"';
-        }
-        if (isset($_GET['country'])) {
-            if (!$u_cond)
-                $u_cond = 'country = "' . $_GET['country'] . '"';
-            else
-                $u_cond = $u_cond . ' AND country = "' . $_GET['country'] . '"';
-        }
-        if (isset($_GET['gender'])) {
-            if (!$u_cond)
-                $u_cond = 'gender = "' . $_GET['gender'] . '"';
-            else
-                $u_cond = $u_cond . ' AND gender = "' . $_GET['gender'] . '"';
-        }
-        if (isset($_GET['age_group'])) {
-            if (!$u_cond)
-                $u_cond = 'age_group = "' . $_GET['age_group'] . '"';
-            else
-                $u_cond = $u_cond . ' AND age_group = "' . $_GET['age_group'] . '"';
-        }
-        if (isset($_GET['health'])) {
-            if (!$u_cond)
-                $u_cond = 'health = "' . $_GET['health'] . '"';
-            else
-                $u_cond = $u_cond . ' AND health = "' . $_GET['health'] . '"';
-        }
-        if (isset($_GET['weight'])) {
-            if (!$u_cond)
-                $u_cond = 'weight = "' . $_GET['weight'] . '"';
-            else
-                $u_cond = $u_cond . ' AND weight = "' . $_GET['weight'] . '"';
-        }
-        if (isset($_GET['years_of_experience'])) {
-            if (!$u_cond)
-                $u_cond = 'years_of_experience = "' . $_GET['years_of_experience'] . '"';
-            else
-                $u_cond = $u_cond . ' AND years_of_experience = "' . $_GET['years_of_experience'] . '"';
-        }
-        if (isset($_GET['frequency'])) {
-            if (!$u_cond)
-                $u_cond = 'frequency = "' . $_GET['frequency'] . '"';
-            else
-                $u_cond = $u_cond . ' AND frequency = "' . $_GET['frequency'] . '"';
-        }
-        if (isset($_GET['body_type'])) {
-            if (!$u_cond)
-                $u_cond = 'body_type = "' . $_GET['body_type'] . '"';
-            else
-                $u_cond = $u_cond . ' AND body_type = "' . $_GET['body_type'] . '"';
-        }
-        if ($u_cond) {
-            $profile_filter = 'SELECT id FROM users WHERE ' . $u_cond;
-        } else
-            $profile_filter = '';
-
+        $profile_filter = $this->getucond(true);
 
         if ($limit) {
             $offset = $limit;
             $limit = '8';
-
         } else {
             $limit = 8;
             $offset = 0;
@@ -925,10 +724,11 @@ class StrainsController extends AppController
         $q = $this->Strain->findBySlug($slug);
         if (!$sort || $sort == 'recent') {//do not use nested redundant if statements, generate the array cell by cell
             if (!isset($_GET['user'])) {
-                if (!$profile_filter)
+                if (!$profile_filter) {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id']), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
-                else
+                }else {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id'], 'Review.user_id IN (' . $profile_filter . ')'), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
+                }
                 $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.strain_id' => $q['Strain']['id']))));
             } else {
                 $q2 = $this->Review->find('all', array('conditions' => array('Review.user_id' => $_GET['user']), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
@@ -954,139 +754,19 @@ class StrainsController extends AppController
             $this->set('strain', $q);
             $this->set('review', $q2);
         }
-
     }
 
-    function review_filter($slug, $sort, $limit)
-    {//$this->call(__METHOD__);
+    function review_filter($slug, $sort, $limit) {
+        //$this->call(__METHOD__);
         $this->set('limit', $limit);
         $this->set('slug', $slug);
         $this->set('sort', $sort);
 
-        $u_cond = '';
-        if (isset($_GET['nationality'])) {
-            $u_cond = 'nationality = "' . $_GET['nationality'] . '"';
-        }
-        if (isset($_GET['country'])) {
-            if (!$u_cond)
-                $u_cond = 'country = "' . $_GET['country'] . '"';
-            else
-                $u_cond = $u_cond . ' AND country = "' . $_GET['country'] . '"';
-        }
-        if (isset($_GET['gender'])) {
-            if (!$u_cond)
-                $u_cond = 'gender = "' . $_GET['gender'] . '"';
-            else
-                $u_cond = $u_cond . ' AND gender = "' . $_GET['gender'] . '"';
-        }
-        if (isset($_GET['age_group_from'])) {
-            if (isset($_GET['age_group_from']))
-                $to = $_GET['age_group_to'];
-            else
-                $to = 100;
-            if (!$to)
-                $to = 100;
-            $from = $_GET['age_group_from'];
-            if ($from < 20)
-                $from = 20;
-            $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                $j = $i + 9;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(age_group = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (age_group = "' . $group . '"';
-                } else {
-                    ' OR age_group = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
-
-        }
-        if (isset($_GET['health'])) {
-            if (!$u_cond)
-                $u_cond = 'health = "' . $_GET['health'] . '"';
-            else
-                $u_cond = $u_cond . ' AND health = "' . $_GET['health'] . '"';
-        }
-
-        if (isset($_GET['weight_from'])) {
-            if (isset($_GET['weight_from']))
-                $to = $_GET['weight_to'];
-            else
-                $to = 280;
-            if (!$to)
-                $to = 280;
-
-            $from = $_GET['weight_from'];
-            if ($from > 100)
-                $from++;
-            $counter = 0;
-            for ($i = $from; $i <= $to; $i++) {
-                $counter++;
-                if ($i > 100)
-                    $j = $i + 9;
-                else
-                    $j = $i + 10;
-                $group = $i . '-' . $j;
-                $i = $j;
-                if ($counter == 1) {
-                    if (!$u_cond)
-                        $u_cond = '(weight = "' . $group . '"';
-                    else
-                        $u_cond = $u_cond . ' AND (weight = "' . $group . '"';
-                } else {
-                    ' OR weight = "' . $group . '"';
-                }
-            }
-            $u_cond = $u_cond . ')';
-
-        }
-
-        if (isset($_GET['years_of_experience_from'])) {
-            if (isset($_GET['years_of_experience_from']))
-                $to = $_GET['years_of_experience_to'];
-            else
-                $to = 50;
-            if (!$to)
-                $to = 50;
-            $from = $_GET['years_of_experience_from'];
-
-
-            if (!$u_cond)
-                $u_cond = 'years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-            else
-                $u_cond = $u_cond . ' AND years_of_experience >= ' . $from . ' AND years_of_experience <= ' . $to;
-
-
-        }
-        if (isset($_GET['frequency'])) {
-            if (!$u_cond)
-                $u_cond = 'frequency = "' . $_GET['frequency'] . '"';
-            else
-                $u_cond = $u_cond . ' AND frequency = "' . $_GET['frequency'] . '"';
-        }
-        if (isset($_GET['body_type'])) {
-            if (!$u_cond)
-                $u_cond = 'body_type = "' . $_GET['body_type'] . '"';
-            else
-                $u_cond = $u_cond . ' AND body_type = "' . $_GET['body_type'] . '"';
-        }
-        if ($u_cond) {
-            $profile_filter = 'SELECT id FROM users WHERE ' . $u_cond;
-        } else
-            $profile_filter = '';
-
+        $profile_filter = $this->getucond();
 
         if ($limit) {
             $offset = $limit;
             $limit = '8';
-
         } else {
             $limit = 8;
             $offset = 0;
@@ -1098,42 +778,43 @@ class StrainsController extends AppController
         $q = $this->Strain->findBySlug($slug);
         if (!$sort || $sort == 'recent') {//do not use nested redundant if statements, generate the array cell by cell
             if (!isset($_GET['user'])) {
-                if (!$profile_filter)
+                if (!$profile_filter) {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id']), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
-                else
+                }else {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id'], 'Review.user_id IN (' . $profile_filter . ')'), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
-                if (!$profile_filter)
+                }
+                if (!$profile_filter) {
                     $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.strain_id' => $q['Strain']['id']))));
-                else
+                }else {
                     $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.strain_id' => $q['Strain']['id'], 'Review.user_id IN (' . $profile_filter . ')'))));
+                }
                 //var_dump($q2);die();
-
             } else {
                 $q2 = $this->Review->find('all', array('conditions' => array('Review.user_id' => $_GET['user']), 'order' => 'Review.id DESC', 'limit' => $limit, 'offset' => $offset));
                 $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.user_id' => $_GET['user']))));
             }
         } else {
             if (!isset($_GET['user'])) {
-                if (!$profile_filter)
+                if (!$profile_filter) {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id']), 'order' => 'Review.helpful DESC', 'limit' => $limit, 'offset' => $offset));
-                else
+                }else {
                     $q2 = $this->Review->find('all', array('conditions' => array('Review.strain_id' => $q['Strain']['id'], 'Review.user_id IN (' . $profile_filter . ')'), 'order' => 'Review.helpful DESC', 'limit' => $limit, 'offset' => $offset));
-                if (!$profile_filter)
+                }
+                if (!$profile_filter) {
                     $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.strain_id' => $q['Strain']['id']))));
-                else
+                }else {
                     $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.strain_id' => $q['Strain']['id'], 'Review.user_id IN (' . $profile_filter . ')'))));
+                }
             } else {
                 $q2 = $this->Review->find('all', array('conditions' => array('Review.user_id' => $_GET['user']), 'order' => 'Review.helpful DESC', 'limit' => $limit, 'offset' => $offset));
                 $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.user_id' => $_GET['user']))));
             }
         }
 
-
         $this->loadModel('VoteIp');
         $this->set('vip', $this->VoteIp);
         if (isset($_GET['user'])) {
             $this->set('reviews', $q2);
-
             $this->render('/review/all');
         } else {
             $this->set('strain', $q);
@@ -1174,7 +855,6 @@ class StrainsController extends AppController
 
     function factorstrains($ForceRefresh=false){
         //ALTER TABLE `reviews` ADD `symptomscount` INT NOT NULL ;
-
         $this->loadModel("Review");
         $Reviews = $this->Review->find('all');
         $Index=0;
@@ -1192,6 +872,7 @@ class StrainsController extends AppController
         }
         return $Index . " reviews factored";
     }
+
     function factorreview($ReviewID){
         $this->loadModel('SymptomRating');
         $Symptoms = $this->SymptomRating->find('all',array('conditions'=>array("review_id"=>$ReviewID)));
@@ -1201,18 +882,19 @@ class StrainsController extends AppController
         }
         return implode(",", array_keys($SymptomList));
     }
-    /*function generateImage($slug)
-    {
-        if($_SERVER['SERVER_NAME']=='localhost')
-        $html_content = file_get_contents('http://127.0.0.1'.$this->webroot.'strains/'.$slug);
-        else
-        $html_content = file_get_contents('http://www.charlieschopsticks.com/strains/'.$slug);
-         $html2pdf = new HTML2PDF('P', 'A4');
-         $html2pdf->writeHTML($html_content);
-         $rand = rand(1000000000,9999999999).'.pdf';
-         $file = $html2pdf->Output(APP.'webroot/pdfs/'.$rand,'F');
+
+    /*function generateImage($slug){
+        if($_SERVER['SERVER_NAME']=='localhost'){
+            $html_content = file_get_contents('http://127.0.0.1'.$this->webroot.'strains/'.$slug);
+        }else{
+            $html_content = file_get_contents('http://www.charlieschopsticks.com/strains/'.$slug);
+        }
+        $html2pdf = new HTML2PDF('P', 'A4');
+        $html2pdf->writeHTML($html_content);
+        $rand = rand(1000000000,9999999999).'.pdf';
+        $file = $html2pdf->Output(APP.'webroot/pdfs/'.$rand,'F');
          
-         $im = new imagick(APP.'webroot/pdfs/'.$rand);
+        $im = new imagick(APP.'webroot/pdfs/'.$rand);
         $im->setImageFormat( "jpg" );
         $img_name = str_replace('.pdf','',$rand).'.jpg';
         $im->setSize(800,600);

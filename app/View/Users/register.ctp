@@ -19,7 +19,7 @@
             <h1 class="page_title">Login / Register</h1>
             <ul class="bread_crumb">
                 <li>
-                    <a href="<?php echo $this->webroot; ?>" title="Home">
+                    <a href="<?= $this->webroot; ?>" title="Home">
                         Home
                     </a>
                 </li>
@@ -101,7 +101,7 @@
                     <?php echo $this->Form->end(); ?>
 
                     <div style="padding-top: 10px;" class="clearfix"></div>
-                    <a style="color: #999;" href="<?php echo $this->webroot; ?>users/forgot" class="forgot-password">Forgot
+                    <a style="color: #999;" href="<?= $this->webroot; ?>users/forgot" class="forgot-password">Forgot
                         Password?</a>
 
                 </div>
@@ -122,7 +122,7 @@
                         </div>
                         <?php //echo $this->Form->input('password',array('div'=>array('class'=>'form-row'))); ?>
                         <?php echo $this->Form->input('confirm_password', array('div' => array('class' => 'form-row'), 'type' => 'password')); ?>
-                        <label class="checkbox" style=""><input type="checkbox" name="check_field" class="chh"/>&nbsp; I
+                        <label class="checkbox"><input type="checkbox" name="check_field" class="chh"/>&nbsp; I
                             have read and agree to the <a href="<?php echo $this->webroot . 'pages/privacy'; ?>"
                                                           target="_blank">Privacy Policy</a> and <a
                                 href="<?php echo $this->webroot . 'pages/terms'; ?>" target="_blank">Terms &

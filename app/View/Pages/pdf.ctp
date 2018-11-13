@@ -79,7 +79,7 @@ Home
 <div style="<?php
 if($strain['StrainImage'])
 {?>width: 60%;<?php }else{?>width:98%<?php }?> float: left; margin-right:2%;">
-<h4 class="box_header  slide clearfix" style="">Cannabis Description</h4>
+<h4 class="box_header  slide clearfix">Cannabis Description</h4>
 
 <p><?php echo $strain['Strain']['description']; ?></p>
 </div>
@@ -87,7 +87,7 @@ if($strain['StrainImage'])
 if($strain['StrainImage'])
 {?>
 <div style="width: 38%; float: left;">
-<h4 class="box_header  slide clearfix" style="">Images for <?php echo ($strain['Strain']['name']);?></h4>
+<h4 class="box_header  slide clearfix">Images for <?php echo ($strain['Strain']['name']);?></h4>
 
 
 <?php
@@ -150,7 +150,7 @@ foreach($flavor as $f)
 ?>
 
 
-<a class="" href="javascrip:void(0)">
+<a href="javascrip:void(0)">
 <?php echo $this->requestAction('/strains/getFlavor/'.$f['FlavorRating']['flavor_id']);?>
 </a>
 <?php
@@ -171,7 +171,7 @@ else
 
 <div  class="clearfix"></div>
 
-<h2 class="box_header page_margin_top slide clearfix" style="">Strain Attributes</h2>
+<h2 class="box_header page_margin_top slide clearfix">Strain Attributes</h2>
 
 
 
@@ -183,7 +183,7 @@ else
 
 
 
-<div class="">
+<div>
 
 <h3>Effects:</h3>
 <br>
@@ -225,7 +225,7 @@ $length = 20*$rate;;
 </li>
 <li class="column_right">
 
-<div class="">
+<div>
 
 <h3>Symptoms:</h3>
 <br>
@@ -286,7 +286,7 @@ $length = 20*$rate;;
 					<li class="column_left">
 
 
-<div class="">
+<div>
 <h3>Negative Effects:</h3>
 <br>
 <?php
@@ -319,7 +319,7 @@ $length = 20*$rate;
 					</li>
 					<li class="column_right">
 
-<div  class="">
+<div >
 
 <h3>Effect Ratings:</h3>
 <br>
@@ -374,7 +374,7 @@ $duration = ($duration/$count)*20;
 <div class="clearfix"></div>
 
 
-<h2 class="box_header page_margin_top_section slide clearfix" style="">Most Helpful User Review</h2>
+<h2 class="box_header page_margin_top_section slide clearfix">Most Helpful User Review</h2>
 
 
 <?php include_once('combine/strain_reviews.php');?>

@@ -46,13 +46,13 @@
             </ul>
         </div>
         <div class="page_header_right"><!-- float:right;-->
-            <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>users/dashboard"
+            <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/dashboard"
                class="active more large dark_blue icon_small_arrow margin_right_white dashboarditem">My Account</a>
-            <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>users/settings"
+            <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/settings"
                class="more large dark_blue icon_small_arrow margin_right_white  ">Settings</a>
-            <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>review"
+            <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>review"
                class="more large dark_blue icon_small_arrow margin_right_white  ">Add Review</a>
-            <a style="" title="Read more" href="<?php echo $this->webroot; ?>review/all"
+            <a title="Read more" href="<?= $this->webroot; ?>review/all"
                class="more large dark_blue icon_small_arrow margin_right_white">My Reviews</a>
         </div>
 
@@ -67,7 +67,7 @@
                 <?php include('combine/profile_filter_inc.php'); ?>
                 <div class="clearfix"></div>
 
-                <input type="submit" name="submit" value="Save" class="blue more" style=""/>
+                <input type="submit" name="submit" value="Save" class="blue more"/>
 
             </div>
 
@@ -76,7 +76,7 @@
 
 
 <h3>The more we know, the more we can help.</h3>
-            <a style="width:100%;padding:0px;" title="Read more" href="<?php echo $this->webroot; ?>review"
+            <a style="width:100%;padding:0px;" title="Read more" href="<?= $this->webroot; ?>review"
                class="more dark_blue icon_small_arrow margin_right_white  "><h1 style="padding:20px;color:white;">Add A Review</h1></a>
 
 
@@ -90,7 +90,7 @@
                         foreach ($effect as $e) {
                             ?>
                             <a class="A_6 <?php if (in_array($e['Symptom']['id'], $symp)) { ?>searchact<?php } ?>"
-                               style="font-size: 15px;" href="javascript:void(0)" onclick="highlightsym($(this))" class=""
+                               style="font-size: 15px;" href="javascript:void(0)" onclick="highlightsym($(this))"
                                id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
                         <?php
                         } ?>

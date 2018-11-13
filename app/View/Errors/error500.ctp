@@ -1,5 +1,10 @@
+<h2><?= $message; ?></h2>
+<p class="error">
+	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
+	<?= __d('cake', 'An Internal Error Has Occurred.'); ?>
+</p>
 <?php
-/**
+	/**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,14 +18,36 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-?>
-<h2><?php echo $message; ?></h2>
-<p class="error">
-	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
-	<?php echo __d('cake', 'An Internal Error Has Occurred.'); ?>
-</p>
-<?php
-if (Configure::read('debug') > 0):
-	echo $this->element('exception_stack_trace');
-endif;
+	if (Configure::read('debug') > 0) {
+		echo "<P>Controller: " . $this->params['controller'] . '</P>';
+		echo "<P>Action: " . $this->action . '</P>';
+		echo "<P>URL: " . $this->here . '</P>';
+		echo "<P>View: Pages/" . $this->view . '.ctp</P>';
+		echo "<P>Layout: " . $this->layout . '</P>';
+		echo "<P>Path: " . APP . '</P>';
+
+		echo $this->element('exception_stack_trace');
+
+		function human_filesize($bytes, $decimals = 2) {
+			$size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
+			if($bytes < 1024){$decimals = 0;}
+			$factor = floor((strlen($bytes) - 1) / 3);
+			return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+		}
+		function printerrorlog($filename, $delete = false){
+			$filepath = APP . "/tmp/logs/" . $filename;
+			if(file_exists($filepath)){
+				$size = filesize($filepath);
+				if($size) {
+					echo '<P>' . $filename . ": " . human_filesize($size) . '<BR><PRE>';
+					echo file_get_contents($filepath);
+					echo '</PRE></P>';
+					if($delete){unlink($filepath);}
+				}
+			}
+		}
+
+		printerrorlog("debug.log", true);
+		printerrorlog("error.log", true);
+	}
 ?>

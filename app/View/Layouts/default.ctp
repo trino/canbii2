@@ -330,13 +330,13 @@
                 }
             </script>
 
-            <? if (isset($homepage)) { ?>
+            <?php if(isset($homepage)) { ?>
                 <div class="background_image">
                     <div class="page" id="home_cannibis_frontpage" style="border-top:0;padding-bottom:0px;">
                         <div class="clearfix" style="background: #000; background: rgba(0,0,0,0.65); border-radius: 3px; margin: 0 auto; padding:25px 20px;">
                             <h1 id="H1_4">The Medical Marijuana Encyclopedia</h1>
                             <h1 id="H1_4" style="font-size: 30px">What Do You Suffer From?</h1>
-                            <form id="FORM_13" class="contact_form" action="<?= $this->webroot?>strains/all" method="get" id="search" style="">
+                            <form id="FORM_13" class="contact_form" action="<?= $this->webroot?>strains/all" method="get" id="search">
                                 <p id="P_5">
                                     <?php
                                         $effect = $this->requestAction('/pages/getSym');
@@ -349,7 +349,7 @@
                                             if($counter == 1){
                                                 echo '<div style="width: 50%; text-align: left;float:left" class="show479_767">';
                                             }
-                                            echo '<div><a class="A_6" style="" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" id="sym_';
+                                            echo '<div><a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" id="sym_';
                                             echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
                                             if($counter == ceil($num_of_sys/2)) {
                                                 $counter = 0;
@@ -369,9 +369,9 @@
                                                 echo '<div style="width: 20%; text-align: left;float:left" class="hide767">';
                                             }
 
-                                            echo '<div><!--a class="A_6" style="" href="javascript:void(0)" onclick="highlightsym($(this))" id="sym_';
+                                            echo '<div><!--a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))" id="sym_';
                                             echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a-->';
-                                            echo '<a class="A_6" style="" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" class=""';
+                                            echo '<a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))"';
                                             echo 'id="sym_' . $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
 
                                             if($counter == 10){
@@ -388,7 +388,7 @@
                                                 $islast = $key == 18;
                                                 if ($key == 19) {
                                                 }
-                                                echo '<a class="A_6" style="" href="javascript:void(0)" onclick="highlightsym($(this))"';
+                                                echo '<a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))"';
                                                 echo 'id="sym_' . $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a>';
                                                 if ($key + 1 == count($effect)) {
                                                     echo "</P>";
@@ -423,8 +423,8 @@
                                 <p style="display: none;" class="symp"></p>
                                 <div class="main2" style="padding-top: 40px;clear:both;">
                                     <div class="div12">
-                                        <input id="INPUT_16" type="text" placeholder="or Search by Strain Name" name="key" class="key" style=""/>
-                                        <input id="BUTTON_17" type="submit" value="Search" class="more blue medium " style=""/>
+                                        <input id="INPUT_16" type="text" placeholder="or Search by Strain Name" name="key" class="key"/>
+                                        <input id="BUTTON_17" type="submit" value="Search" class="more blue medium "/>
                                     </div>
                                 </div>
                                 <!-- dont know why but this div needs to be here -->
@@ -433,10 +433,13 @@
                         </div>
                     </div>
                 </div>
-            <? } ?>
+            <?php } ?>
 
             <div class="page clearfix">
-                <?= $this->Session->flash() . $this->fetch('content'); ?>
+                <?php
+                    echo $this->Session->flash();
+                    echo $this->fetch('content');
+                ?>
             </div>
             <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
         </div>
@@ -468,7 +471,7 @@
                     <div class="footer_box">
                         <h3 class="box_header">Canbii - <span style="font-size: 14px;"> Personalized Medical Cannabis</span></h3>
 
-                        <p class="" style="color: #D5D5D5;" align="">
+                        <p style="color: #D5D5D5;" align="">
                             For the people, by the people. The more we know, the more we can help.
 
                             <br/>
