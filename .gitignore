@@ -1,6 +1,6 @@
 /shop
 .idea/workspace.xml
 *.log
-app/tmp/logs/debug.log
+/app/tmp/*
 *.log
 .idea/workspace.xml
