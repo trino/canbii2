@@ -1,14 +1,14 @@
-<script src="<?php echo $this->webroot; ?>js/raty.js"></script>
-<script src="<?php echo $this->webroot; ?>js/labs.js"></script>
-<script type="text/javascript" src="<?php echo $this->webroot; ?>js/colorpicker.js"></script>
-<script type="text/javascript" src="<?php echo $this->webroot; ?>js/eye.js"></script>
-<script type="text/javascript" src="<?php echo $this->webroot; ?>js/utils.js"></script>
-<script type="text/javascript" src="<?php echo $this->webroot; ?>js/layout.js?ver=1.0.2"></script>
-<link href="<?php echo $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
-<link href="<?php echo $this->webroot; ?>css/colorpicker.css" rel="stylesheet" type="text/css"/>
+<script src="<?= $this->webroot; ?>js/raty.js"></script>
+<script src="<?= $this->webroot; ?>js/labs.js"></script>
+<script type="text/javascript" src="<?= $this->webroot; ?>js/colorpicker.js"></script>
+<script type="text/javascript" src="<?= $this->webroot; ?>js/eye.js"></script>
+<script type="text/javascript" src="<?= $this->webroot; ?>js/utils.js"></script>
+<script type="text/javascript" src="<?= $this->webroot; ?>js/layout.js?ver=1.0.2"></script>
+<link href="<?= $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
+<link href="<?= $this->webroot; ?>css/colorpicker.css" rel="stylesheet" type="text/css"/>
 
-<link href="<?php echo $this->webroot; ?>css/layout.css" rel="stylesheet" type="text/css" title="progress bar"/>
-<!-- script src="<?php echo $this->webroot; ?>js/bootstrap.min.js"></script-->
+<link href="<?= $this->webroot; ?>css/layout.css" rel="stylesheet" type="text/css" title="progress bar"/>
+<!-- script src="<?= $this->webroot; ?>js/bootstrap.min.js"></script-->
 
 <style>
     .nowrap {
@@ -139,7 +139,7 @@
             <?php } else { ?>
 
                 <div style="white-space: nowrap;">
-                    <h1 class="" style="">
+                    <h1>
                         <?php echo ucfirst($review['Strain']['name']); ?> Review
                     </h1>
                     <p style="white-space: nowrap;">By <?php echo $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?>
@@ -167,18 +167,18 @@
                 <div class="page_header_right">
 
 
-                    <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>users/dashboard"
+                    <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/dashboard"
                        class=" more large dark_blue icon_small_arrow margin_right_white">My Account</a>
 
 
-                    <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>users/settings"
+                    <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/settings"
                        class="more large dark_blue icon_small_arrow margin_right_white">Settings</a>
 
-                    <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot; ?>review"
+                    <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>review"
                        class="more large dark_blue icon_small_arrow margin_right_white  active">Add Review</a>
 
 
-                    <a title="Read more" href="<?php echo $this->webroot; ?>review/all"
+                    <a title="Read more" href="<?= $this->webroot; ?>review/all"
                        class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
 
 
@@ -200,7 +200,7 @@
                         medication for other patients. We thank you for your help and support.</p></div>
             <?php } ?>
 
-            <form class="" action="" method="post" id="reviews1">
+            <form action="" method="post" id="reviews1">
 
                 <fieldset id="qf_review__general" class="qf-fieldset">
 
@@ -507,7 +507,7 @@
                     </h2>
 
                     <div class="backgroundcolor">
-                        <? if (false) { ?>
+                        <?php if (false) { ?>
                             <h3>
                                 Color
                             </h3>
@@ -552,7 +552,7 @@
                             <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
 
 
-                        <? } ?>
+                        <?php } ?>
 
                         <h3>
                             Flavor & Scent
@@ -648,7 +648,7 @@
             });
         </script>
 
-        <div class="page_right page_margin_top" style="">
+        <div class="page_right page_margin_top">
 
 
             <?

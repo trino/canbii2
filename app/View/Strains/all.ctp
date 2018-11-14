@@ -1,6 +1,6 @@
-<script src="<?php echo $this->webroot; ?>js/raty.js"></script>
-<script src="<?php echo $this->webroot; ?>js/labs.js"></script>
-<link href="<?php echo $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
+<script src="<?= $this->webroot; ?>js/raty.js"></script>
+<script src="<?= $this->webroot; ?>js/labs.js"></script>
+<link href="<?= $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
 
 <?php
     //if(isset($user))    {
@@ -110,13 +110,13 @@
 
 
             <ul class="tabs_navigation2">
-                <li style=""><p>Filter By:</p></li>
+                <li><p>Filter By:</p></li>
 
 
                 <li>
                     <a id="all_breed"
                        <?php if ($type == ''){ ?>style="border-bottom:2px solid #1b83c6 !important;"<?php } ?>
-                       href="<?php echo $this->webroot; ?>strains/all<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
+                       href="<?= $this->webroot; ?>strains/all<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
                         All</a>
                 </li>
 
@@ -124,21 +124,21 @@
                 <li>
                     <a id="indica"
                        <?php if ($type == 'indica'){ ?>style="border-bottom:2px solid #1b83c6 !important;"<?php } ?>
-                       href="<?php echo $this->webroot; ?>strains/all/indica<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
+                       href="<?= $this->webroot; ?>strains/all/indica<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
                         Indica</a>
                 </li>
 
                 <li>
                     <a id="sativa"
                        <?php if ($type == 'sativa'){ ?>style="border-bottom:2px solid #1b83c6 !important;"<?php } ?>
-                       href="<?php echo $this->webroot; ?>strains/all/sativa<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
+                       href="<?= $this->webroot; ?>strains/all/sativa<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
                         Sativa</a>
                 </li>
 
                 <li>
                     <a id="hybrid"
                        <?php if ($type == 'hybrid'){ ?>style="border-bottom:2px solid #1b83c6 !important;"<?php } ?>
-                       href="<?php echo $this->webroot; ?>strains/all/hybrid<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
+                       href="<?= $this->webroot; ?>strains/all/hybrid<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
                         Hybrid</a>
                 </li>
 
@@ -150,7 +150,7 @@
 
 
             <ul class="tabs_navigation2">
-                <li style=""><p>Sort By:</p></li>
+                <li><p>Sort By:</p></li>
                 <!--<li>
                     <a href="javascript:void(0);" class="eff1" id="recent">
                     Most Recent</a>
@@ -176,10 +176,10 @@
 
         </div>
         <div class="page_header_right">
-            <form class="search" method="get" action="<?php echo $this->webroot; ?>strains/all">
+            <form class="search" method="get" action="<?= $this->webroot; ?>strains/all">
 
                 <a href="#" id="search_filter" data-toggle="modal" data-target="#filter_dialog">
-                    <img src="<?php echo $this->webroot; ?>images/gear.png"  alt="Filter" title="Filter Search" />
+                    <img src="<?= $this->webroot; ?>images/gear.png"  alt="Filter" title="Filter Search" />
 					<!--<span style="display:block;height:16px;white-space: pre-wrap;word-wrap: break-word;">Filter by Symptom</span>-->
                 </a>
                 <input id="BUTTON_17" type="submit" value="Search" class="more blue medium " style="float:right;"/>
@@ -219,7 +219,7 @@
 
         <!-- page right -->
 
-        <div id="filter_desktop" class="page_right" style="">
+        <div id="filter_desktop" class="page_right">
             
             <!--div style="float:left;margin-left:-2px;" class="addthis_sharing_toolbox"></div-->
             <input id="BUTTON_18" type="reset" value="Reset Filter" class="more blue medium"

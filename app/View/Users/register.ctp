@@ -2,7 +2,7 @@
     window.onload = function () {
         document.getElementById("UserPassword1").onchange = validatePassword;
         document.getElementById("UserConfirmPassword").onchange = validatePassword;
-    }
+    };
     function validatePassword() {
         var pass2 = document.getElementById("UserConfirmPassword").value;
         var pass1 = document.getElementById("UserPassword1").value;
@@ -19,7 +19,7 @@
             <h1 class="page_title">Login / Register</h1>
             <ul class="bread_crumb">
                 <li>
-                    <a href="<?php echo $this->webroot; ?>" title="Home">
+                    <a href="<?= $this->webroot; ?>" title="Home">
                         Home
                     </a>
                 </li>
@@ -92,7 +92,7 @@
                     <h2 class="box_header  page_margin_top">Login</h2>
 
                     <div class="clearfix"></div>
-                    <?php echo $this->Form->create('User', array('action' => 'login?url=' . $url, 'class' => 'contact_form')); ?>
+                    <?php echo $this->Form->create('User', array('url' => 'login?url=' . $url, 'class' => 'contact_form')); ?>
 
                     <?php echo $this->Form->input('username', array('div' => array('class' => ''))); ?>
                     <?php echo $this->Form->input('password', array('div' => array('class' => ''))); ?>
@@ -101,7 +101,7 @@
                     <?php echo $this->Form->end(); ?>
 
                     <div style="padding-top: 10px;" class="clearfix"></div>
-                    <a style="color: #999;" href="<?php echo $this->webroot; ?>users/forgot" class="forgot-password">Forgot
+                    <a style="color: #999;" href="<?= $this->webroot; ?>users/forgot" class="forgot-password">Forgot
                         Password?</a>
 
                 </div>
@@ -112,7 +112,7 @@
                 <div class="dropcap" style="border:1px solid #e8e8e8;padding: 0px 20px 10px 20px;">
 
                     <h2 class="box_header page_margin_top">Register</h2>
-                    <?php echo $this->Form->create('User', array('action' => 'register', 'class' => 'contact_form', 'onsubmit' => "if($('.chh').is(':checked'))return true;else{ $('.check_error').show(); $('.check_error').fadeOut(5000); return false;}")); ?>
+                    <?php echo $this->Form->create('User', array('url' => 'register', 'class' => 'contact_form', 'onsubmit' => "if($('.chh').is(':checked'))return true;else{ $('.check_error').show(); $('.check_error').fadeOut(5000); return false;}")); ?>
                     <fieldset>
                         <?php echo $this->Form->input('email', array('div' => array('class' => 'form-row'), 'label' => 'Email Address', 'type' => 'email')); ?>
                         <?php echo $this->Form->input('username', array('div' => array('class' => 'form-row'))); ?>
@@ -122,7 +122,7 @@
                         </div>
                         <?php //echo $this->Form->input('password',array('div'=>array('class'=>'form-row'))); ?>
                         <?php echo $this->Form->input('confirm_password', array('div' => array('class' => 'form-row'), 'type' => 'password')); ?>
-                        <label class="checkbox" style=""><input type="checkbox" name="check_field" class="chh"/>&nbsp; I
+                        <label class="checkbox"><input type="checkbox" name="check_field" class="chh"/>&nbsp; I
                             have read and agree to the <a href="<?php echo $this->webroot . 'pages/privacy'; ?>"
                                                           target="_blank">Privacy Policy</a> and <a
                                 href="<?php echo $this->webroot . 'pages/terms'; ?>" target="_blank">Terms &

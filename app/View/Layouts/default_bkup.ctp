@@ -38,15 +38,15 @@
             echo str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
         } ?></title>
 
-    <link rel="shortcut icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon"/>
-    <link rel="icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="<?= $this->webroot; ?>favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="<?= $this->webroot; ?>favicon.ico" type="image/x-icon"/>
 
-    <link rel="stylesheet" href="<?php echo $this->webroot; ?>css/ui.css"/>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="<?= $this->webroot; ?>css/ui.css"/>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery-1.11.0.min.js"></script>
 
 
-    <script src="<?php echo $this->webroot; ?>js/validate.js"></script>
-    <script src="<?php echo $this->webroot; ?>js/ui.js"></script>
+    <script src="<?= $this->webroot; ?>js/validate.js"></script>
+    <script src="<?= $this->webroot; ?>js/ui.js"></script>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
 
@@ -54,31 +54,31 @@
     <link href='http://fonts.googleapis.com/css?family=Volkhov:400italic' rel='stylesheet' type='text/css'>
 
 
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/superfish.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/fancybox/jquery.fancybox.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/jquery.qtip.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/jquery-ui-1.9.2.custom.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/style.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/responsive.css"/>
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->webroot; ?>style2/animations.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/superfish.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/fancybox/jquery.fancybox.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery.qtip.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery-ui-1.9.2.custom.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/style.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/animations.css"/>
 
 
     <!--script type="text/javascript" src="<!php echo $this->webroot;?>js2/jquery-ui-1.9.2.custom.min.js"></script-->
     <!--script type="text/javascript" src="<!php echo $this->webroot;?>js2/jquery.carouFredSel-5.6.4-packed.js"></script-->
 
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.hint.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.hint.js"></script>
 
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.ba-bbq.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.sliderControl.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.timeago.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.isotope.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.isotope.masonry.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.qtip.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->webroot; ?>js2/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.ba-bbq.min.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.sliderControl.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.timeago.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.isotope.masonry.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.blockUI.js"></script>
     <!--script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script-->
     <!--script type="text/javascript" src="<!php echo $this->webroot;?>js2/main.js"></script-->
 
@@ -99,8 +99,8 @@
     <div class="header_container">
         <div class="header clearfix">
             <div class="header_left">
-                <a href="<?php echo $this->webroot; ?>" title="MEDICALMARIJUANA">
-                    <img src="<?php echo $this->webroot; ?>images/logo.png" height=100 alt="logo"/>
+                <a href="<?= $this->webroot; ?>" title="MEDICALMARIJUANA">
+                    <img src="<?= $this->webroot; ?>images/logo.png" height=100 alt="logo"/>
 
 
                 </a>
@@ -110,29 +110,29 @@
 
 
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'index') { ?>current_page_item<?php } ?>">
-                    <a href="<?php echo $this->webroot; ?>" accesskey="1" title="">Home</a></li>
+                    <a href="<?= $this->webroot; ?>" accesskey="1" title="">Home</a></li>
                 <li class="<?php if ($this->params['controller'] == 'strains' || $this->params['controller'] == 'review') { ?>current_page_item<?php } ?>">
                     <a href="<?php echo $this->webroot ?>strains/all" accesskey="2" title="">Strains</a></li>
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'about') { ?>current_page_item<?php } ?>">
-                    <a href="<?php echo $this->webroot; ?>pages/about" accesskey="3" title="">About</a></li>
+                    <a href="<?= $this->webroot; ?>pages/about" accesskey="3" title="">About</a></li>
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us') { ?>current_page_item<?php } ?>">
-                    <a href="<?php echo $this->webroot; ?>pages/contact_us" accesskey="4" title="">Contact Us</a></li>
+                    <a href="<?= $this->webroot; ?>pages/contact_us" accesskey="4" title="">Contact Us</a></li>
 				
-				<li><a href="<?php echo $this->webroot; ?>menu" accesskey="4" title="">Shop</a></li>				
+				<li><a href="<?= $this->webroot; ?>menu" accesskey="4" title="">Shop</a></li>
 					
                 <?php if (!$this->Session->read('User')) { ?>
                     <li class="<?php if ($this->params['controller'] == 'users') { ?>current_page_item<?php } ?>"><a
-                            href="<?php echo $this->webroot; ?>users/register" accesskey="4" title="">Login /
+                            href="<?= $this->webroot; ?>users/register" accesskey="4" title="">Login /
                             Register</a></li>
                 <?php } else { ?>
                     <li class="<?php if ($this->params['controller'] == 'users') { ?>current_page_item<?php } ?> submenu<?php echo(isset($_GET['page']) && ($_GET["page"] == "" || $_GET["page"] == "home") ? " selected" : ""); ?>">
-                        <a href="<?php echo $this->webroot; ?>users/dashboard" accesskey="4"
+                        <a href="<?= $this->webroot; ?>users/dashboard" accesskey="4"
                            title=""><?= ucfirst($this->Session->read('User.username')) ?>'s Account</a>
                         <ul>
                             <li<?php echo(isset($_GET['page']) && $_GET["page"] == "home" ? " class='selected'" : ""); ?>>
-                                <!--<a style="color: #888!important;" class="darkmenu" href="<?php echo $this->webroot; ?>users/dashboard" accesskey="5" title="">My Dashboard</A> -->
+                                <!--<a style="color: #888!important;" class="darkmenu" href="<?= $this->webroot; ?>users/dashboard" accesskey="5" title="">My Dashboard</A> -->
                                 <a style="color: #888!important;" class="darkmenu"
-                                   href="<?php echo $this->webroot; ?>users/logout" accesskey="5" title="">Logout</a>
+                                   href="<?= $this->webroot; ?>users/logout" accesskey="5" title="">Logout</a>
                             </li>
 
                         </ul>
@@ -344,7 +344,7 @@
                     }
     </script>
 
-    <? if (isset($homepage)) { ?>
+    <?php if (isset($homepage)) { ?>
 
         <div
             style="height:100%; background-image: url(<?= $this->webroot; ?>images/bg11.jpg);text-shadow: 0px 1px 0px rgba(0,0,0,1);padding:20px 0px; background-position:center; ">
@@ -362,8 +362,8 @@ padding:30px;
 
                     <h1 id="H1_4">Your Personalized Medical Marijuana Database</h1>
 
-                    <form id="FORM_13" class="contact_form" action="<?php echo $this->webroot; ?>strains/search"
-                          method="get" id="search" style="">
+                    <form id="FORM_13" class="contact_form" action="<?= $this->webroot; ?>strains/search"
+                          method="get" id="search">
 
                         <p id="P_5">
                             Filter by Symptoms:
@@ -380,8 +380,8 @@ padding:30px;
                                         echo "<a href='javascript:;' onclick=\"$('.more2').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more2' id='P_5' style='display:none;'>";
                                     }
                                     ?>
-                                    <a class="A_6" style="" href="javascript:void(0)" onclick="highlightsym($(this))"
-                                       class=""
+                                    <a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))"
+
                                        id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
 
                                     <?php
@@ -424,8 +424,8 @@ padding:30px;
                         <div class="main2" style="margin-top: 10px;">
                             <div class="div12"><input id="INPUT_16" type="text" placeholder="Search by name..."
                                                       name="key" class="key"
-                                                      style=""/>
-                                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium " style=""/>
+                                                     />
+                                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium "/>
                             </div>
                         </div>
 
@@ -443,7 +443,7 @@ padding:30px;
             </div>
         </div>
 
-    <? } ?>
+    <?php } ?>
 
     <div class="page clearfix">
         <?php echo $this->Session->flash(); ?>
@@ -462,7 +462,7 @@ padding:30px;
                 </h2>
 
                 <p style="color: white;margin-bottom:20px;">
-                    <a href="<?php echo $this->webroot; ?>pages/about" title="">The guide to Medical
+                    <a href="<?= $this->webroot; ?>pages/about" title="">The guide to Medical
                         Marijuana &raquo;</a>
                 </p>
             </li>
@@ -472,7 +472,7 @@ padding:30px;
                 </h2>
 
                 <p style="color: white;margin-bottom:20px;">
-                    <a href="<?php echo $this->webroot; ?>pages/about" title="">Help make the world a better
+                    <a href="<?= $this->webroot; ?>pages/about" title="">Help make the world a better
                         place &raquo;</a>
                 </p>
             </li>
@@ -482,7 +482,7 @@ padding:30px;
                 </h2>
 
                 <p>
-                    <a href="<?php echo $this->webroot; ?>pages/contact_us" title="">Feel free to contact us by clicking
+                    <a href="<?= $this->webroot; ?>pages/contact_us" title="">Feel free to contact us by clicking
                         here &raquo;</a>
                 </p>
             </li>
@@ -494,14 +494,14 @@ padding:30px;
                     Canbii - <span style="font-size: 14px;"> Personalized Medical Marijuana</span>
                 </h3>
 
-                <p class="" style="color: #D5D5D5;" align="">
+                <p style="color: #D5D5D5;" align="">
                     Medicinal marijuana is a growing movement and we're doing our part to spread the word.(name of site)
                     is an online database dedicated to educate the public on the benefits of medical marijuana. This all
                     natural plant is used to treat illnesses and to help those who suffer from chronic pain that affects
                     their daily lives.<br/>
                     <br/>
                     We need your input to enhance our information so we can help as many people as we can. <a
-                        href="<?php echo $this->webroot; ?>users/register" accesskey="4" title="">Sign up</a> today!
+                        href="<?= $this->webroot; ?>users/register" accesskey="4" title="">Sign up</a> today!
                 </p>
                 <ul class="social_icons clearfix">
                     <li>
@@ -550,7 +550,7 @@ padding:30px;
                                     ?>
 
                                     <li class="icon_small_arrow right_white">
-                                        <a href="<?php echo $this->webroot; ?>review/detail/<?php echo $s['Review']['id']; ?>">
+                                        <a href="<?= $this->webroot; ?>review/detail/<?php echo $s['Review']['id']; ?>">
                                             <b><?php echo $s['Strain']['name']; ?></b><br>
 
 
@@ -592,7 +592,7 @@ padding:30px;
                 <div class="scrolling_list_wrapper">
 
 
-                    <a class="twitter-timeline" style="" data-chrome="noborders" href="https://twitter.com/canbiionline"
+                    <a class="twitter-timeline" data-chrome="noborders" href="https://twitter.com/canbiionline"
                        data-widget-id="511869655112114176">Tweets by @canbiionline</a>
                     <script>!function (d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';

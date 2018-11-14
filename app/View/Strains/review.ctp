@@ -35,7 +35,7 @@
 
 	
 <ul class="tabs_navigation2 clearfix" >
-<li style=""><p>Sort by:</p></li>
+<li><p>Sort by:</p></li>
 <li>
 <a href="<?php echo $this->webroot;?>strains/review/<?php echo $strain['Strain']['slug'];?>/recent">Most Recent</a> 
 	</li><li>

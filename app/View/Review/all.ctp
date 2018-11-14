@@ -48,7 +48,7 @@ if(!isset($_GET['user'])){
 <a style="margin-right:10px" title="Read more"  href="<?php  echo $this->webroot; ?>users/dashboard" class="more large dark_blue icon_small_arrow margin_right_white">My Account</a>
 <a style="margin-right:10px" title="Read more"  href="<?php  echo $this->webroot; ?>users/settings" class="more large dark_blue icon_small_arrow margin_right_white  ">Settings</a>
 <a style="margin-right:10px" title="Read more" href="<?php  echo $this->webroot; ?>review"  class="more large dark_blue icon_small_arrow margin_right_white  ">Add Review</a>
-<a style="" title="Read more" href="<?php  echo $this->webroot; ?>review/all"  class="active more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
+<a title="Read more" href="<?php  echo $this->webroot; ?>review/all"  class="active more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
 </div>
 
 <?php

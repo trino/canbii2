@@ -37,9 +37,7 @@ class SymptomVoteController extends AppController
 			$data['vote_yes'] = $vote_yes;
 			unset($data['client_http']);
 			$this->SymptomVote->updateAll($data,array("SymptomVote.client_http"=>$client_http));
-		}
-		else{
-			
+		} else{
 			$data['vote_yes'] = $vote_yes;
 			$this->SymptomVote->create();
 			$this->SymptomVote->save($data);

@@ -32,7 +32,7 @@
 <form action="" method="post" class="contact_form">
 <div class="form-row">
 <label></label>
-<input id="email" type="text" required="required" name="email" style="">
+<input id="email" type="text" required="required" name="email">
 </div>
 <input type="submit" value="Submit" class="more blue" style="float: left;" />
 <div class="clearfix"></div>
@@ -49,7 +49,7 @@
     
 	
               </div>
-              <div class="column" style="">
+              <div class="column">
        
                 </div>
               </div>

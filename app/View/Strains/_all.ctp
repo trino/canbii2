@@ -110,15 +110,15 @@ $symptoms = array();
 
 			<!--?php echo $s['Strain']['published_date'];?>
 
-<a class="" href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>">
+<a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>">
 <h2>
-<?php echo $s['Strain']['name'];?>
-</h2><?php echo $s['StrainType']['title'];?>
+<?= $s['Strain']['name'];?>
+</h2><?= $s['StrainType']['title'];?>
 </a>
 
-<p><?php echo substr($s['Strain']['description'],0,130).'...';?></p>
-<a href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>" class="button-small">View Detail</a>
-<div class="rating<?php echo $j;?> " style=""></div>
+<p><?= substr($s['Strain']['description'],0,130).'...';?></p>
+<a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>" class="button-small">View Detail</a>
+<div class="rating<?= $j;?> "></div>
 
 <?php if($s['Strain']['review'])echo '<a href="'.$this->webroot.'strains/review/'.$s['Strain']['slug'].'">'.$s['Strain']['review'].' Reviews</a>';else echo '0 Reviews';?>
 
@@ -130,7 +130,7 @@ $('.rating<?php echo $j;?>').raty({number:5,readOnly:true,score:<?php echo $s['S
  <div class="post-item">
 <ul class="blog">
 <li class="post">
-<ul class="comment_box clearfix" style="">
+<ul class="comment_box clearfix">
 	<li class="date clearfix">
 		<div class="value">
 		<a style="color:white;" href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>">
@@ -139,7 +139,7 @@ $('.rating<?php echo $j;?>').raty({number:5,readOnly:true,score:<?php echo $s['S
         </a>
 		</div>
 	</li>
-	<li class="comments_number" style="">
+	<li class="comments_number">
 <?php if($s['Strain']['review'])echo '<a href="'.$this->webroot.'strains/review/'.$s['Strain']['slug'].'">'.$s['Strain']['review'].' Reviews</a>';else echo '0 Reviews';?>
 	</li>
 </ul>
@@ -159,7 +159,7 @@ $(function(){
     $('.rating<?php echo $s['Strain']['id'];?>').raty({number:5,readOnly:true,score:<?php echo $s['Strain']['rating'];?>});
 });
 </script>
-<div class="rating<?php echo $s['Strain']['id'];?> " style=""></div>
+<div class="rating<?php echo $s['Strain']['id'];?> "></div>
 
 
 
@@ -291,7 +291,7 @@ foreach($effect as $e)
       dataType      : 'html',
       loading: {
           finishedMsg: 'No more Strains.',
-          img: '<?php echo $this->webroot; ?>img/spinner.gif'
+          img: '<?= $this->webroot; ?>img/spinner.gif'
         }
       }
     );

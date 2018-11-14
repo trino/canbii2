@@ -438,6 +438,11 @@ class View extends CakeObject {
 		return (bool)$this->_getElementFilename($name);
 	}
 
+	function errorlog($text){
+		$file = APP . "/tmp/logs/debug.log";
+		file_put_contents($file, "\n" . $text, FILE_APPEND);
+	}
+
 /**
  * Renders view for given view file and layout.
  *
@@ -468,6 +473,9 @@ class View extends CakeObject {
 		}
 
 		if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
+			if(!$view){$view = "[NOT SPECIFIED]";}
+			$this->errorlog("View: " . $view . " FILENAME: " . $viewFileName);
+
 			$this->_currentType = static::TYPE_VIEW;
 			$this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($viewFileName)));
 			$this->Blocks->set('content', $this->_render($viewFileName));
@@ -968,6 +976,7 @@ class View extends CakeObject {
 		extract($dataForView);
 		ob_start();
 
+		$this->errorlog("Include: " . $this->__viewFile);
 		include $this->__viewFile;
 
 		unset($this->__viewFile);

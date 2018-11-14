@@ -1,6 +1,6 @@
-<script src="<?php echo $this->webroot; ?>js/raty.js"></script>
-<script src="<?php echo $this->webroot; ?>js/labs.js"></script>
-<link href="<?php echo $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
+<script src="<?= $this->webroot; ?>js/raty.js"></script>
+<script src="<?= $this->webroot; ?>js/labs.js"></script>
+<link href="<?= $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
 
 <style>
     #qf_review__aesthetics__color .review-slider {
@@ -52,13 +52,13 @@
         </div>
     </div>
     <div class="clearfix page_margin_top ">
-        <a title="Read more" href="<?php echo $this->webroot; ?>users/dashboard"
+        <a title="Read more" href="<?= $this->webroot; ?>users/dashboard"
            class="more large dark_blue icon_small_arrow margin_right_white">My Account</a>
-        <a title="Read more" href="<?php echo $this->webroot; ?>users/settings"
+        <a title="Read more" href="<?= $this->webroot; ?>users/settings"
            class="more large dark_blue icon_small_arrow margin_right_white margin_left_10">Settings</a>
-        <a title="Read more" href="<?php echo $this->webroot; ?>review"
+        <a title="Read more" href="<?= $this->webroot; ?>review"
            class="active more large dark_blue icon_small_arrow margin_right_white margin_left_10">Add Review</a>
-        <a title="Read more" href="<?php echo $this->webroot; ?>review/all"
+        <a title="Read more" href="<?= $this->webroot; ?>review/all"
            class="more large dark_blue icon_small_arrow margin_right_white margin_left_10">My Review</a>
 
         <div class="clearfix"></div>

@@ -27,7 +27,7 @@
 <a style="margin-right:10px;" title="Read more" href="<?php echo $this->webroot;?>review"  class="more large dark_blue icon_small_arrow margin_right_white  ">Add Review</a>
 
 
-<a style="" title="Read more" href="<?php echo $this->webroot;?>review/all"  class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
+<a title="Read more" href="<?php echo $this->webroot;?>review/all"  class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
 
 
 
