@@ -4,3 +4,4 @@
 /app/tmp/*
 *.log
 .idea/workspace.xml
+*.xml
