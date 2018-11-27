@@ -3372,7 +3372,7 @@ function hasEntries(array) {
     return array.length > 0;
 }
 
-function test()
+function test(){
 	alert('test complete');
 }
 
