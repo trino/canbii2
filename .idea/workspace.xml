@@ -22,24 +22,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="default.ctp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default.ctp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.1923075">
-              <caret line="221" column="78" selection-start-line="221" selection-start-column="70" selection-end-line="221" selection-end-column="78" />
+            <state vertical-scroll-proportion="0.69283277">
+              <caret line="141" column="37" selection-start-line="141" selection-start-column="37" selection-end-line="141" selection-end-column="37" />
               <folding>
+                <element signature="n#style#0;n#p#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#p#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#p#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#p#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1542822788359" expanded="true" signature="16264:16306" placeholder="..." />
-                <marker date="1542822788359" expanded="true" signature="16278:16290" placeholder="..." />
+                <marker date="1543334275968" expanded="true" signature="15783:15825" placeholder="..." />
+                <marker date="1543334275968" expanded="true" signature="15797:15809" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Helper.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Helper.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib-backup/Cake/View/Helper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.07026144">
+            <state vertical-scroll-proportion="1.6538461">
               <caret line="306" column="16" selection-start-line="306" selection-start-column="16" selection-end-line="306" selection-end-column="16" />
               <folding />
             </state>
@@ -405,9 +414,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1546875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996973" sideWeight="0.51875" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -741,6 +750,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.076923">
           <caret line="230" column="0" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -796,23 +806,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
+    <entry file="file://$PROJECT_DIR$/lib-backup/Cake/View/Helper.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.1923075">
-          <caret line="221" column="78" selection-start-line="221" selection-start-column="70" selection-end-line="221" selection-end-column="78" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1542822788359" expanded="true" signature="16264:16306" placeholder="..." />
-            <marker date="1542822788359" expanded="true" signature="16278:16290" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="1.6538461">
+          <caret line="306" column="16" selection-start-line="306" selection-start-column="16" selection-end-line="306" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib-backup/Cake/View/Helper.php">
+    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.07026144">
-          <caret line="306" column="16" selection-start-line="306" selection-start-column="16" selection-end-line="306" selection-end-column="16" />
-          <folding />
+        <state vertical-scroll-proportion="0.69283277">
+          <caret line="141" column="37" selection-start-line="141" selection-start-column="37" selection-end-line="141" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#0;n#li#1;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1543334275968" expanded="true" signature="15783:15825" placeholder="..." />
+            <marker date="1543334275968" expanded="true" signature="15797:15809" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
