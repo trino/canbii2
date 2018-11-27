@@ -32,29 +32,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
+      <file leaf-file-name="register.ctp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/View/Users/register.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.9230769">
-              <caret line="154" column="97" selection-start-line="154" selection-start-column="97" selection-end-line="154" selection-end-column="97" />
-              <folding>
-                <marker date="1543334778442" expanded="true" signature="1786:1793" placeholder="..." />
-                <marker date="1543334778442" expanded="true" signature="2092:2125" placeholder="..." />
-                <marker date="1543334778442" expanded="true" signature="2200:2219" placeholder="..." />
-                <marker date="1543334778442" expanded="true" signature="7816:7873" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="html2canvas.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/webroot/js/html2canvas.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62695926">
-              <caret line="3374" column="16" selection-start-line="3374" selection-start-column="16" selection-end-line="3374" selection-end-column="16" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.5555556">
+              <caret line="94" column="105" selection-start-line="94" selection-start-column="105" selection-end-line="94" selection-end-column="105" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,7 +50,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Controller/UsersController.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/profile_filter.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/picker.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/invite.php" />
@@ -94,7 +76,6 @@
         <option value="$PROJECT_DIR$/app/webroot/combine/review_filter.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/strain_reviews.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/images.php" />
-        <option value="$PROJECT_DIR$/app/View/Users/register.ctp" />
         <option value="$PROJECT_DIR$/lib-backup/Cake/Console/Templates/default/views/form.ctp" />
         <option value="$PROJECT_DIR$/app/Model/Strain.php" />
         <option value="$PROJECT_DIR$/app/Model/Strainslim.php" />
@@ -118,6 +99,8 @@
         <option value="$PROJECT_DIR$/app/View/Strains/index.ctp" />
         <option value="$PROJECT_DIR$/app/webroot/style2/style.css" />
         <option value="$PROJECT_DIR$/app/webroot/js/html2canvas.js" />
+        <option value="$PROJECT_DIR$/app/Controller/UsersController.php" />
+        <option value="$PROJECT_DIR$/app/View/Users/register.ctp" />
       </list>
     </option>
   </component>
@@ -275,6 +258,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="combine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="canbii2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="canbii2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="View" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Users" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -497,13 +502,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/View/Users/settings.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.153846">
-          <caret line="29" column="2" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Review/all_filter.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.8461537">
@@ -664,13 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1388889">
           <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Users/register.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3327645">
-          <caret line="94" column="31" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -855,6 +846,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/webroot/js/html2canvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62695926">
+          <caret line="3374" column="16" selection-start-line="3374" selection-start-column="16" selection-end-line="3374" selection-end-column="16" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12418301">
+          <caret line="154" column="97" selection-start-line="154" selection-start-column="97" selection-end-line="154" selection-end-column="97" />
+          <folding>
+            <marker date="1543334778442" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1543334778442" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1543334778442" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1543334778442" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/webroot/style2/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -863,26 +877,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
+    <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.9230769">
-          <caret line="154" column="97" selection-start-line="154" selection-start-column="97" selection-end-line="154" selection-end-column="97" />
-          <folding>
-            <marker date="1543334778442" expanded="true" signature="1786:1793" placeholder="..." />
-            <marker date="1543334778442" expanded="true" signature="2092:2125" placeholder="..." />
-            <marker date="1543334778442" expanded="true" signature="2200:2219" placeholder="..." />
-            <marker date="1543334778442" expanded="true" signature="7816:7873" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="-4.7222223">
+          <caret line="29" column="69" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/webroot/js/html2canvas.js">
+    <entry file="file://$PROJECT_DIR$/app/View/Users/register.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62695926">
-          <caret line="3374" column="16" selection-start-line="3374" selection-start-column="16" selection-end-line="3374" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.5555556">
+          <caret line="94" column="105" selection-start-line="94" selection-start-column="105" selection-end-line="94" selection-end-column="105" />
+          <folding />
         </state>
       </provider>
     </entry>

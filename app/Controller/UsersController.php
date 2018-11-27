@@ -23,12 +23,11 @@ class UsersController extends AppController {
 		
         $this->set('title_for_layout','Login/Registration');
         if ($this->request->is('post')) {
-			$_POST = $_POST['data']['User'];
+			$_POST = $_POST['data']['UserLogin'];
             if($user = $this->User->find('first',array('conditions'=>array('username'=>$_POST['username'],'password'=>md5($_POST['password'] . "canbii" ))))) {
                 $this->Session->write('User.username',$_POST['username']);
                 $this->Session->write('User.email',$user['User']['email']);
                 $this->Session->write('User.id',$user['User']['id']);
-
                 if(isset($_GET['url'])) {
                     $this->redirect($this->getURL());
                 } else {
