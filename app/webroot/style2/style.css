@@ -57,6 +57,10 @@ input[type=submit], #BUTTON_17, #INPUT_16{
     border: 2px solid black;
 }
 
+.no-overflow-x{
+    overflow-x: hidden;
+}
+
 
 /* viewport ranges */
 /* XS: Extra small devices (portrait phones, less than 576px) */
