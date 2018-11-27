@@ -14,4 +14,9 @@
 		$file = APP . "/tmp/logs/debug.log";
 		file_put_contents($file, "\n" . $text, FILE_APPEND);
 	}
+	function get($key, $default = ""){
+		if(isset($_GET[$key])){return $_GET[$key];}
+		if(isset($_POST[$key])){return $_POST[$key];}
+		return $default;
+	}
 ?>

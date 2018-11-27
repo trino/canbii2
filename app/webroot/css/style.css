@@ -22,7 +22,15 @@
 
 select.second {
     margin-left: 15px !important;
-}   
+}
+
+.dontshow, .dont-show{
+    display: none;
+}
+.collapse.in{
+    display: block !important;
+}
+
 .clear{clear:both;}    
 .left{float:left;}
 .right{float:right;}

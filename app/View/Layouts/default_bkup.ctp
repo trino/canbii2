@@ -101,8 +101,6 @@
             <div class="header_left">
                 <a href="<?= $this->webroot; ?>" title="MEDICALMARIJUANA">
                     <img src="<?= $this->webroot; ?>images/logo.png" height=100 alt="logo"/>
-
-
                 </a>
             </div>
 
@@ -110,29 +108,29 @@
 
 
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'index') { ?>current_page_item<?php } ?>">
-                    <a href="<?= $this->webroot; ?>" accesskey="1" title="">Home</a></li>
+                    <a href="<?= $this->webroot; ?>" accesskey="1">Home</a></li>
                 <li class="<?php if ($this->params['controller'] == 'strains' || $this->params['controller'] == 'review') { ?>current_page_item<?php } ?>">
-                    <a href="<?php echo $this->webroot ?>strains/all" accesskey="2" title="">Strains</a></li>
+                    <a href="<?php echo $this->webroot ?>strains/all" accesskey="2">Strains</a></li>
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'about') { ?>current_page_item<?php } ?>">
-                    <a href="<?= $this->webroot; ?>pages/about" accesskey="3" title="">About</a></li>
+                    <a href="<?= $this->webroot; ?>pages/about" accesskey="3">About</a></li>
                 <li class="<?php if ($this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us') { ?>current_page_item<?php } ?>">
-                    <a href="<?= $this->webroot; ?>pages/contact_us" accesskey="4" title="">Contact Us</a></li>
+                    <a href="<?= $this->webroot; ?>pages/contact_us" accesskey="4">Contact Us</a></li>
 				
-				<li><a href="<?= $this->webroot; ?>menu" accesskey="4" title="">Shop</a></li>
+				<li><a href="<?= $this->webroot; ?>menu" accesskey="4">Shop</a></li>
 					
                 <?php if (!$this->Session->read('User')) { ?>
                     <li class="<?php if ($this->params['controller'] == 'users') { ?>current_page_item<?php } ?>"><a
-                            href="<?= $this->webroot; ?>users/register" accesskey="4" title="">Login /
+                            href="<?= $this->webroot; ?>users/register" accesskey="4">Login /
                             Register</a></li>
                 <?php } else { ?>
                     <li class="<?php if ($this->params['controller'] == 'users') { ?>current_page_item<?php } ?> submenu<?php echo(isset($_GET['page']) && ($_GET["page"] == "" || $_GET["page"] == "home") ? " selected" : ""); ?>">
                         <a href="<?= $this->webroot; ?>users/dashboard" accesskey="4"
-                           title=""><?= ucfirst($this->Session->read('User.username')) ?>'s Account</a>
+                          ><?= ucfirst($this->Session->read('User.username')) ?>'s Account</a>
                         <ul>
                             <li<?php echo(isset($_GET['page']) && $_GET["page"] == "home" ? " class='selected'" : ""); ?>>
-                                <!--<a style="color: #888!important;" class="darkmenu" href="<?= $this->webroot; ?>users/dashboard" accesskey="5" title="">My Dashboard</A> -->
+                                <!--<a style="color: #888!important;" class="darkmenu" href="<?= $this->webroot; ?>users/dashboard" accesskey="5">My Dashboard</A> -->
                                 <a style="color: #888!important;" class="darkmenu"
-                                   href="<?= $this->webroot; ?>users/logout" accesskey="5" title="">Logout</a>
+                                   href="<?= $this->webroot; ?>users/logout" accesskey="5">Logout</a>
                             </li>
 
                         </ul>
@@ -165,289 +163,17 @@
         </div>
     </div>
 
-    <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
-
-
-    <!-- can you create a separate page for the following and include here? -->
-
-
-
-                <script>
-                $(function () {
-                    $('.mmenu').change(function () {
-
-                        window.location = $(this).val();
-                    });
-
-                });
-                var spinnerVisible = false;
-
-                function showProgress() {
-                    if (!spinnerVisible) {
-                        $("div#spinner").fadeIn("fast");
-                        spinnerVisible = true;
-                    }
-                };
-                function hideProgress() {
-                    if (spinnerVisible) {
-                        var spinner = $("div#spinner");
-                        spinner.stop();
-                        spinner.fadeOut("fast");
-                        spinnerVisible = false;
-                    }
-                };
-                function highlighteff(thiss) {
-                    if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-                        thiss.addClass('searchact');
-                        $('.effe').append('<input type="hidden" name="effects[]" value="' + thiss.attr('id').replace('eff_', '') + '" class="' + thiss.attr('id') + '"  />')
-                    } else {
-                        thiss.removeClass('searchact')
-
-                        $('.' + thiss.attr('id')).remove();
-                    }
-                    $('.key').val('');
-                }
-
-                function highlightsym(thiss) {
-                    if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-                        thiss.addClass('searchact');
-                        $('.symp').append('<input type="hidden" name="symptoms[]" value="' + thiss.attr('id').replace('sym_', '') + '" class="' + thiss.attr('id') + '"  />')
-                    } else {
-                        thiss.removeClass('searchact')
-
-                        $('.' + thiss.attr('id')).remove();
-                    }
-                    $('.key').val('');
-                }
-
-
-                
-                        /*
-                    function highlightsym(thiss) {
-                        if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-                            thiss.addClass('searchact');
-                            $('.symp').append('<input type="hidden" name="symptoms[]" value="' + thiss.attr('id').replace('sym_', '') + '" class="' + thiss.attr('id') + '"  />')
-                        } else {
-                            thiss.removeClass('searchact')
-
-                            $('.' + thiss.attr('id')).remove();
-                        }
-                        $('.key').val('');
-                    }
-*/
-
-                    function highlighteff2(thiss, order=null) {
-
-                        if (thiss != 'recent' && thiss != 'rated' && thiss != 'alpha' && thiss != 'viewed' && thiss != 'reviewed') {
-                            var sort = 0;
-                            if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-
-                                thiss.addClass('searchact');
-                                $('.effe').append('<input type="hidden" name="effects[]" value="' + thiss.attr('id').replace('eff_', '') + '" class="effs ' + thiss.attr('id') + '"  />')
-                            } else {
-                                thiss.removeClass('searchact')
-
-                                $('.' + thiss.attr('id')).remove();
-                            }
-                            $('.key').val('');
-                        }
-                        else
-                            var sort = 1;
-                        showProgress();
-                        var i = 0;
-                        var val = '';
-                        $('.effs').each(function () {
-                            if ($(this).val()) {
-                                i++;
-                                if (i == 1)
-                                    val = 'effects[]=' + $(this).val();
-                                else
-                                    val = val + '&effects[]=' + $(this).val();
-                            }
-
-                        });
-                        $('.symps').each(function () {
-                            if ($(this).val()) {
-                                i++;
-                                if (i == 1)
-                                    val = 'symptoms[]=' + $(this).val();
-                                else
-                                    val = val + '&symptoms[]=' + $(this).val();
-                            }
-                        });
-                        if (val) {
-                            val = val + '&key=';
-                        }
-                        else
-                            val = 'key=';
-                        if (sort) {
-                            val = val + '&sort=' + thiss + '&order=' + order;
-                        }
-
-
-                        $.ajax({
-                            url: 'filter',
-                            data: val,
-                            type: 'get',
-                            success: function (res) {
-                                hideProgress();
-                                $('.listing').html(res);
-                            }
-                        });
-                    }
-
-                    function highlightsym2(thiss) {
-                        if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-                            thiss.addClass('searchact');
-                            $('.symp').append('<input type="hidden" name="symptoms[]" value="' + thiss.attr('id').replace('sym_', '') + '" class="symps ' + thiss.attr('id') + '"  />')
-                        } else {
-                            thiss.removeClass('searchact')
-
-                            $('.' + thiss.attr('id')).remove();
-                        }
-                        $('.key').val('');
-                        showProgress();
-                        var i = 0;
-                        var val = '';
-                        $('.effs').each(function () {
-                            if ($(this).val()) {
-                                i++;
-                                if (i == 1)
-                                    val = 'effects[]=' + $(this).val();
-                                else
-                                    val = val + '&effects[]=' + $(this).val();
-                            }
-
-                        });
-                        $('.symps').each(function () {
-                            if ($(this).val()) {
-                                i++;
-                                if (i == 1)
-                                    val = 'symptoms[]=' + $(this).val();
-                                else
-                                    val = val + '&symptoms[]=' + $(this).val();
-                            }
-                        });
-                        if (val)
-                            val = val + '&key=';
-                        else
-                            val = 'key=';
-                        $.ajax({
-                            url: 'filter',
-                            data: val,
-                            type: 'get',
-                            success: function (res) {
-                                hideProgress();
-                                $('.listing').html(res);
-                            }
-                        });
-                    }
-    </script>
-
-    <?php if (isset($homepage)) { ?>
-
-        <div
-            style="height:100%; background-image: url(<?= $this->webroot; ?>images/bg11.jpg);text-shadow: 0px 1px 0px rgba(0,0,0,1);padding:20px 0px; background-position:center; ">
-
-
-            <div class="page" style="border-top:0;padding-bottom:0px;">
-                <div class=" clearfix" style="
-background: #000;
-background: rgba(0,0,0,0.7);
-border-radius: 3px;
-margin: 0 auto;
-padding:30px;
-">
-
-
-                    <h1 id="H1_4">Your Personalized Medical Marijuana Database</h1>
-
-                    <form id="FORM_13" class="contact_form" action="<?= $this->webroot; ?>strains/search"
-                          method="get" id="search">
-
-                        <p id="P_5">
-                            Filter by Symptoms:
-                            <?php
-
-                                $effect = $this->requestAction('/pages/getSym');
-
-                                //  debug($effect);
-
-
-                                foreach ($effect as $key => $e) {
-                                    $islast = $key == 18;
-                                    if ($key == 19) {
-                                        echo "<a href='javascript:;' onclick=\"$('.more2').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more2' id='P_5' style='display:none;'>";
-                                    }
-                                    ?>
-                                    <a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))"
-
-                                       id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
-
-                                    <?php
-                                    if ($key + 1 == count($effect)) {
-                                        echo "</P>";
-                                    } elseif ($islast) {
-                                        echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
-                                    }
-                                }
-                            ?>
-
-                        </p>
-
-                        <p id="P_5">
-                            Filter by Effects:
-                            <?php $effect = $this->requestAction('/pages/getEff');
-                                foreach ($effect as $key => $e) {
-                                    $islast = $key == 18;
-                                    if ($key == 19) {
-                                        echo "<a href='javascript:;' onclick=\"$('.more1').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more1' id='P_5' style='display:none;'>";
-
-                                    }
-                                    ?>
-<a  href="javascript:void(0)" class="A_6" onclick="highlighteff($(this))" id="eff_<?php echo $e['Effect']['id']; ?>"><?php echo $e['Effect']['title'] ?></a>
-</a>
     <?php
-                                    if ($key + 1 == count($effect)) {
-                                        echo "</P>";
-                                    } elseif ($islast) {
-                                        echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
-                                    }
-                                }
-                            ?>
-                        </p>
-
-                        <p style="display: none;" class="effe"></p>
-
-                        <p style="display: none;" class="symp"></p>
-
-                        <div class="main2" style="margin-top: 10px;">
-                            <div class="div12"><input id="INPUT_16" type="text" placeholder="Search by name..."
-                                                      name="key" class="key"
-                                                     />
-                                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium "/>
-                            </div>
-                        </div>
-
-
-                        <!-- dont know why but this div needs to be here -->
-                        <div style="float:left;"></div>
-
-
-                    </form>
-
-
-                </div>
-
-
-            </div>
-        </div>
-
-    <?php } ?>
+        if(isset($homepage)) {
+            include("combine/newsite.php");
+        }
+    ?>
 
     <div class="page clearfix">
-        <?php echo $this->Session->flash(); ?>
-        <?php echo $this->fetch('content'); ?>
+        <?php
+            echo $this->Session->flash();
+            echo $this->fetch('content');
+        ?>
     </div>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
@@ -462,7 +188,7 @@ padding:30px;
                 </h2>
 
                 <p style="color: white;margin-bottom:20px;">
-                    <a href="<?= $this->webroot; ?>pages/about" title="">The guide to Medical
+                    <a href="<?= $this->webroot; ?>pages/about">The guide to Medical
                         Marijuana &raquo;</a>
                 </p>
             </li>
@@ -472,7 +198,7 @@ padding:30px;
                 </h2>
 
                 <p style="color: white;margin-bottom:20px;">
-                    <a href="<?= $this->webroot; ?>pages/about" title="">Help make the world a better
+                    <a href="<?= $this->webroot; ?>pages/about">Help make the world a better
                         place &raquo;</a>
                 </p>
             </li>
@@ -482,7 +208,7 @@ padding:30px;
                 </h2>
 
                 <p>
-                    <a href="<?= $this->webroot; ?>pages/contact_us" title="">Feel free to contact us by clicking
+                    <a href="<?= $this->webroot; ?>pages/contact_us">Feel free to contact us by clicking
                         here &raquo;</a>
                 </p>
             </li>
@@ -501,22 +227,22 @@ padding:30px;
                     their daily lives.<br/>
                     <br/>
                     We need your input to enhance our information so we can help as many people as we can. <a
-                        href="<?= $this->webroot; ?>users/register" accesskey="4" title="">Sign up</a> today!
+                        href="<?= $this->webroot; ?>users/register" accesskey="4">Sign up</a> today!
                 </p>
                 <ul class="social_icons clearfix">
                     <li>
                         <a class="social_icon facebook" href="https://www.facebook.com/pages/Canbii/1543633612534714"
-                           title="" target="_blank">
+                           target="_blank">
                             &nbsp;
                         </a>
                     </li>
                     <li>
-                        <a class="social_icon twitter" href="https://twitter.com/canbiionline" title="" target="_blank">
+                        <a class="social_icon twitter" href="https://twitter.com/canbiionline" target="_blank">
                             &nbsp;
                         </a>
                     </li>
                     <li>
-                        <a class="social_icon mail" href="mailto:info@canbii.com" title="">
+                        <a class="social_icon mail" href="mailto:info@canbii.com">
                             &nbsp;
                         </a>
                     </li>
@@ -558,7 +284,7 @@ padding:30px;
                                         <br>
                                         <?php echo substr($s['Review']['review'], 0, 40) . '...'; ?>
 
-                                        <abbr title="" class="timeago">
+                                        <abbr class="timeago">
                                             <?php echo "<a href='" . $this->webroot . "strains/review/all/?user=" . $s['Review']['user_id'] . "'>" . ucfirst($s['User']['username']) . "</a>&nbsp;" . $s['Review']['on_date']; ?>
                                         </abbr>
                                     </li>

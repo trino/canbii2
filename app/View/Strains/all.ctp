@@ -177,28 +177,18 @@
         </div>
         <div class="page_header_right">
             <form class="search" method="get" action="<?= $this->webroot; ?>strains/all">
-
                 <a href="#" id="search_filter" data-toggle="modal" data-target="#filter_dialog">
                     <img src="<?= $this->webroot; ?>images/gear.png"  alt="Filter" title="Filter Search" />
 					<!--<span style="display:block;height:16px;white-space: pre-wrap;word-wrap: break-word;">Filter by Symptom</span>-->
                 </a>
-                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium " style="float:right;"/>
-                
+                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium" style="float:right;"/>
                 <input id="f" class="search_input hint" name="key" type="text"
-
                     <?php if (isset($_GET['key'])) {
                         if (strlen($_GET['key']) > 0) {
-
-                            echo 'value="' . $_GET['key'] . '""';
-
+                            echo ' value="' . $_GET['key'] . '""';
                         }
                     } ?>
-
-
-
-                       placeholder=""
-                       style="float:right;">
-
+                style="float:right;">
             </form>
         </div>
         <div class="clear"></div>

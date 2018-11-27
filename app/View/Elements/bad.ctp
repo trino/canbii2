@@ -1,4 +1,4 @@
 <div class="bad">
-	<a href="/" class="cancel"><img src="<?php echo $this->webroot;?>/images/notification_error.png" alt="Cross Icon" /></a>
-	<?php echo $content_for_layout; ?>
+	<a href="/" class="cancel"><img src="<?= $this->webroot;?>/images/notification_error.png" alt="Cross Icon" /></a>
+	<?= $content_for_layout; ?>
 </div>

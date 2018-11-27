@@ -53,7 +53,7 @@ for their hybrids like Pineapple Express, Bubba Kush, and Blue Dream to name a f
 			<div class="columns clearfix no_width page_margin_top">
 				<ul class="column_left">
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/FactIcon1.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text" style="margin-top: 23px">
@@ -64,7 +64,7 @@ for their hybrids like Pineapple Express, Bubba Kush, and Blue Dream to name a f
 						</div>
 					</li>
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/FactIcon2.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text" style="margin-top: 23px">
@@ -77,7 +77,7 @@ for their hybrids like Pineapple Express, Bubba Kush, and Blue Dream to name a f
 				</ul>
 				<ul class="column_right">
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/FactIcon3.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text" style="margin-top: 23px">
@@ -88,7 +88,7 @@ for their hybrids like Pineapple Express, Bubba Kush, and Blue Dream to name a f
 						</div>
 					</li>
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/FactIcon4.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text" style="margin-top: 23px">

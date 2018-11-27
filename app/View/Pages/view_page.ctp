@@ -49,7 +49,7 @@
 			<div class="columns clearfix no_width page_margin_top">
 				<ul class="column_left">
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/features_large/people.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text">
@@ -62,7 +62,7 @@
 						</div>
 					</li>
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/features_large/screen.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text">
@@ -77,7 +77,7 @@
 				</ul>
 				<ul class="column_right">
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/features_large/firstaid.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text">
@@ -90,7 +90,7 @@
 						</div>
 					</li>
 					<li class="item_content clearfix">
-						<a class="features_image" href="#" title="">
+						<a class="features_image" href="#">
 							<img src="<?php echo $this->webroot;?>images/features_large/leaves.png" alt="" class="animated_element animation-scale scale" style="-webkit-animation: 600ms 0ms; transition: 0ms; -webkit-transition: 0ms;">
 						</a>
 						<div class="text">

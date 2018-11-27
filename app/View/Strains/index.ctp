@@ -129,7 +129,6 @@
                     echo '<a class="dark_blue more" style="margin-right: 10px;margin-top:10px;" href="' . $this->webroot . 'review/add/' . $strain['Strain']['slug'] . '">Review this Strain</a>';
                 }
             ?>
-
             <a class="blue more" style="margin-top:10px;" href="javascript:void(0)" onclick="window.print();">Print this Report</a>
             <img height="50" alt="logo" style="margin-top:10px;display:none;" src="<?= $this->webroot;?>images/logo.png" class="toprint" />
             <!--<a style="" class="blue more" href="<?= $this->webroot;?>strains/generateImage/<?= $strain['Strain']['slug']; ?>">Print as Image</a>-->
@@ -140,7 +139,7 @@
 
     <!--php include('combine/profile_filter.php'); ?-->
 
-    <div class="toprint ">
+    <div class="toprint">
         <ul>
             <li>
                 <p><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
@@ -150,82 +149,85 @@
 
     <div class="clearfix"></div>
 
-    <ul class="page_margin_top clearfix" style="margin-top: 7px!important;">
-        <li class="footer_banner_box super_light_blue printer strain_banner" style="position: relative; padding: 0;width:300px; height:120px;">
-            <img src="<?= $this->webroot; ?>images/bg1.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
-            <center style="padding:20px 30px;color:#FFF;">
-                <h2>Overall Rating</h2>
-                <div class="rating"></div>
-            </center>
+    <DIV CLASS="container">
+        <DIV CLASS="row">
+            <ul class="page_margin_top clearfix" style="margin-top: 7px!important;">
+                <li class="footer_banner_box super_light_blue printer strain_banner">
+                    <img src="<?= $this->webroot; ?>images/bg1.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
+                    <center style="padding:20px 30px;color:#FFF;">
+                        <h2>Overall Rating</h2>
+                        <div class="rating"></div>
+                    </center>
+                </li>
 
-        </li>
-        <li class="footer_banner_box light_blue printer strain_banner" style="position: relative; padding: 0;width:300px; height:120px;">
-            <img src="<?= $this->webroot; ?>images/bg2.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
-            <center style="padding:20px 30px;color:#FFF;">
-                <h2>Chemical Composition</h2>
-                <?php
-                    $chemical = 0;
-                    function printchemical($chemical, $strain, $acronym, $wikipedia) {
-                        if ($strain['Strain'][strtolower($acronym)] != "0") {
-                            $chemical++;
-                            echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><A target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</A> ";
-                            echo $strain['Strain'][strtolower($acronym)] . "%</span>";
-                        };
-                        return $chemical;
-                    }
-
-                    $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
-                    $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
-                    $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
-                    $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
-                    $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
-                    if ($chemical == 0) {
-                        echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
-                    }
-                ?>
-            </center>
-        </li>
-
-        <li class="footer_banner_box blue printer strain_banner" style="position: relative;padding: 0;width:300px; height:120px;">
-            <img src="<?= $this->webroot; ?>images/bg3.jpg" style=" height: 100px;position: absolute; width: 300px;z-index: -1;"/>
-            <div style="color:#FFF;text-align:center;position: relative;width: 100%;">
-                <!--h2>Dominant Flavors</h-->
-                <table width="100%" align="center" height="100" style="margin-top: 6px;">
-                    <TR>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <li class="footer_banner_box light_blue printer strain_banner">
+                    <img src="<?= $this->webroot; ?>images/bg2.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
+                    <center style="padding:20px 30px;color:#FFF;">
+                        <h2>Chemical Composition</h2>
                         <?php
-                            //$flavor = null;
-                            if ($flavor) {
-                                foreach ($flavor as $f) {
-                                    $name = $this->requestAction('/strains/getFlavor/' . $f['FlavorRating']['flavor_id']); //class used to have this in it
-                                    ?>
-                                    <TD style="padding-top: 0px;"><a class="glow Flavor" href="#" style="position:relative;margin-top:0px;">
-                                            <CENTER>
-                                                <img width="55" class="glow" src="<?= $this->webroot . "images/icons/" . strtolower($name); ?>.png">
-                                                <?= $name; ?>
-                                            </CENTER>
-                                        </a></TD>
-                                <?php
-                                }
-                            } else {
-                                ?>
-                                <TD style="text-align:center">
-                                    <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                                        <i>No flavors yet. Review this strain </i>
-                                        <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
-                                    </a>
-                                </TD>
-                            <?php
+                            $chemical = 0;
+                            function printchemical($chemical, $strain, $acronym, $wikipedia) {
+                                if ($strain['Strain'][strtolower($acronym)] != "0") {
+                                    $chemical++;
+                                    echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><A target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</A> ";
+                                    echo $strain['Strain'][strtolower($acronym)] . "%</span>";
+                                };
+                                return $chemical;
+                            }
+
+                            $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
+                            $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
+                            $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
+                            $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
+                            $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
+                            if ($chemical == 0) {
+                                echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
                             }
                         ?>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    </TR>
-                </table>
-                <!--p style="color: #999;margin-top: -13px;padding-top: 0;">Reported Flavours</p-->
-            </div>
-        </li>
-    </ul>
+                    </center>
+                </li>
 
+                <li class="footer_banner_box blue printer strain_banner">
+                    <img src="<?= $this->webroot; ?>images/bg3.jpg" style=" height: 100px;position: absolute; width: 300px;z-index: -1;"/>
+                    <div style="color:#FFF;text-align:center;position: relative;width: 100%;">
+                        <!--h2>Dominant Flavors</h-->
+                        <table width="100%" align="center" height="100" style="margin-top: 6px;">
+                            <TR>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <?php
+                                    //$flavor = null;
+                                    if ($flavor) {
+                                        foreach ($flavor as $f) {
+                                            $name = $this->requestAction('/strains/getFlavor/' . $f['FlavorRating']['flavor_id']); //class used to have this in it
+                                            ?>
+                                            <TD style="padding-top: 0px;"><a class="glow Flavor" href="#" style="position:relative;margin-top:0px;">
+                                                    <CENTER>
+                                                        <img width="55" class="glow" src="<?= $this->webroot . "images/icons/" . strtolower($name); ?>.png">
+                                                        <?= $name; ?>
+                                                    </CENTER>
+                                                </a></TD>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <TD style="text-align:center">
+                                            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
+                                                <i>No flavors yet. Review this strain </i>
+                                                <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
+                                            </a>
+                                        </TD>
+                                    <?php
+                                    }
+                                ?>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            </TR>
+                        </table>
+                        <!--p style="color: #999;margin-top: -13px;padding-top: 0;">Reported Flavours</p-->
+                    </div>
+                </li>
+            </ul>
+        </DIV>
+    </DIV>
 
     <div class="clearfix"></div>
 
