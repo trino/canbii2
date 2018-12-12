@@ -3,6 +3,5 @@
 *.log
 /app/tmp/*
 *.log
-.idea/workspace.xml
 *.xml
-.idea/workspace.xml
+/app/tmp/*
