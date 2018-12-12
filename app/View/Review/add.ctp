@@ -651,7 +651,7 @@
         <div class="page_right page_margin_top">
 
 
-            <?
+            <?php
                 $breaker = 0;
                 if (isset($strain)) {
 
