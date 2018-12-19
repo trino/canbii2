@@ -401,6 +401,11 @@
                             ?>
 
                         </div>
+
+
+
+
+
                         <!--div class="">
                 <h3>Effects:</h3>
                 <br>
@@ -490,53 +495,41 @@
                             }
                         ?>
                 </div-->
+                        <div>
 
-
-                        <div><br><br>
-                            <h3 class="box_header slide clearfix">Negative Effects</h3>
-                            <p>What are the negative effects?</p>
-                            <br>
-                            <?php
-                                if (isset($arr_neg)) {
-                                    rsort($arr_neg);
-                                }else {
-                                    $arr_neg = array();
+                        <?php
+                            function effectlisting($src, $text, $data, $strain, $class, $color){
+                                echo '<br><br><h3 class="box_header slide clearfix">' . ucfirst($text) .' Effects</h3><p>What are the ' . $text . ' effects?</p><br>';
+                                if (isset($data)) {
+                                    rsort($data);
+                                } else {
+                                    $data = array();
                                 }
                                 $i = 0;
-                                if ($arr_neg) {
-                                foreach ($arr_neg as $e) {
-                                    $ar = explode('_', $e);
-                                    $i++;
-                                    if ($i == 6) {
-                                        break;
+                                if ($data) {
+                                    foreach ($data as $e) {
+                                        $ar = explode('_', $e);
+                                        $i++;
+                                        if ($i == 6) {
+                                            break;
+                                        }
+                                        $rate = $ar[0];
+                                        $length = 20 * $rate;
+                                        echo '<div class="eff"><div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;"><span style="float: left;width:185px;display:inline-block">';
+                                        echo $src->requestAction('/strains/getEffect/' . $ar[1]) . '</span>';
+                                        progressbar($src->webroot, $length, perc($length), "", $class, $color);
+                                        echo '</div>';
                                     }
-                                    $rate = $ar[0];
-                                    $length = 20 * $rate;
-                            ?>
-                            <div class="eff">
-                                <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;">
-                                    <span style="float: left;width:185px;display:inline-block"><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?></span>
-                                    <?php progressbar($this->webroot, $length, perc($length), "", "danger", "light-red"); ?>
-                                </div>
-                                <?php
-                                    }
-                                    } else {
-                                    ?>
-                                    <i>
-                                        <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                                            No ratings yet. Review this strain
-                                            <i style="font-size: 16px;padding-left:6px;" class="fa fa-star-half-full"></i>
-                                        </a>
-                                    </i>
-                                <?php
+                                } else {
+                                    echo '<i><a href="' . $src->webroot . 'review/add/' . $strain['Strain']['slug'] . '">No ratings yet. Review this strain<i style="font-size: 16px;padding-left:6px;" class="fa fa-star-half-full"></i></a></i>';
                                 }
-                                ?>
-                            </div>
-
-
-
-
-
+                            }
+                            if(!isset($arr) || !$arr){$arr = [];}
+                            if(!isset($arr_neg) || !$arr_neg){$arr_neg = [];}
+                            effectlisting($this, "positive", $arr, $strain, "primary", "light-blue");
+                            effectlisting($this, "negative", $arr_neg, $strain, "danger", "light-red");
+                        ?>
+                    </DIV>
         </li>
 
 
