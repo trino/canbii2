@@ -4,7 +4,7 @@
         if ($helpful) {
     ?>
         <div class="comments clearfix page_margin_top">
-            <div id="comments_list">
+            <div id="comments_list" moreid="strain_reviews.ctp">
                 <ul>
                     <li class="comment clearfix">
                         <div class="comment_author_avatar printer">&nbsp;</div>
