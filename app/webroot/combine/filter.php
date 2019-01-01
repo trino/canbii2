@@ -70,7 +70,7 @@
                 $j++;
                 $count++;
                 ?>
-                <li class="item_content clearfix" style="border-bottom:1px solid #E8E8E8;">
+                <li class="item_content clearfix" style="border-bottom:0px solid #E8E8E8;">
                     <!--a class="thumb_image" href="#" style="margin:0px;width:13%; min-width:60px;">
                         <div style="text-align: center; float:left;background-image: url('<?= $this->webroot?>images/<?= $s['StrainType']['title'];?>.png');width:57px;height:66px;background-repeat: no-repeat;">
                             <p style="vertical-align:middle;text-align:center;color:white;font-size:18px; margin-top:15px">

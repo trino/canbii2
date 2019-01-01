@@ -145,16 +145,8 @@
                 <div class="clearfix"></div>
             </ul>
 
-
-            <br/>
-
-
             <ul class="tabs_navigation2">
                 <li><p>Sort By:</p></li>
-                <!--<li>
-                    <a href="javascript:void(0);" class="eff1" id="recent">
-                    Most Recent</a>
-                    </li>-->
                 <li>
                     <a href="javascript:void(0)" class="eff1" id="rated">
                         Top Rated</a>
@@ -257,7 +249,7 @@
                                     }
                                     ?>
                                     <div>
-                                    <a style="color:white;padding:2px;" href="<?php
+                                    <a style="padding:2px;" href="<?php
                                         $multiple = true;//disable for single queries only
                                         if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                                             echo "javascript:void(";

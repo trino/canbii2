@@ -89,16 +89,13 @@ if (!isset($keyword)) {
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>debugger/debug.css" /-->
 <?php } ?>
 </head>
-<body>
+<body style="background:#d7d7d7">
 
 
 <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
+<div class="container" style="background: white !important;">
 
             <div class="row">
                 <div class="col-md-12">
@@ -124,13 +121,14 @@ if (!isset($keyword)) {
                                     }
                                 }
                                 quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
-                                quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Cannabis Strains');
-                                quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
-                                quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
-                                quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
+                                quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Strains');
+                                //        quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
+                                //        quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
+                                //        quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
                                 if (!$this->Session->read('User')) {
-                                    quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
+                                    //            quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
                                 } else {
+                                    /*
                                     echo '<li class="nav-item dropdown">';
                                     echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
                                     echo ucfirst($this->Session->read('User.username')) . "'s Account</a>" . '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
@@ -144,6 +142,7 @@ if (!isset($keyword)) {
                                     echo '<a class="dropdown-item' . $dashboardclass . '" href="' . $this->webroot . 'users/dashboard">Dashboard</a>';
                                     echo '<a class="dropdown-item darkmenu" >Logout</a>';
                                     echo '</div></li>';
+                                    */
                                 }
                                 ?>
                             </ul>
@@ -161,7 +160,6 @@ if (!isset($keyword)) {
 
                 </div>
             </div>
-
 
 
             <div class="row">
@@ -267,13 +265,13 @@ if (!isset($keyword)) {
             </div>
 
             <div class="row">
-                <div class="col-md-12">
-                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> /<a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
+                <div class="col-md-12 pb-3">
+                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> /<a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
+                        Policy</a>
                     /<a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
                 </div>
             </div>
-        </div>
-    </div>
+
 </div>
 
 
@@ -315,7 +313,7 @@ echo $this->element('sql_dump');
         $("#users-device-size").text(findBootstrapEnvironment() + " Width: " + $(window).width());
     }
 </SCRIPT>
-<?php if (false) { ?>
+<?php if (true) { ?>
     <style>
         .row {
             border: 5px solid orange !important;

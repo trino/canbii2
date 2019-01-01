@@ -1,4 +1,4 @@
-<div class="row mb-2" style="text-align: center;  padding: 20px 30px 20px 30px; line-height: 150%;background: #42B3E5;">
+<div class="row" style="text-align: center;  padding: 20px 30px 20px 30px; line-height: 150%;background: #42B3E5;margin-bottom:20px">
 
 
     <div class="col-md-12 ">

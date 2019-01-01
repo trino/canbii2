@@ -170,9 +170,9 @@
 
 <div class="background_image">
     <div class="page" id="home_cannibis_frontpage" style="border-top:0;padding-bottom:0px;">
-        <div class="clearfix" style="background: #000; background: rgba(0,0,0,0.65); border-radius: 3px; margin: 0 auto; padding:25px 20px;">
-            <h1 id="H1_4">The Medical Marijuana Encyclopedia</h1>
-            <h1 id="H1_4" style="font-size: 30px">What Do You Suffer From?</h1>
+        <div class="clearfix" style="background: #000; background: rgba(0,0,0,0.65); border-radius: 3px; margin: 0 auto; padding:25px 20px;color:white !important;">
+            <h1 id="H1_4">Add Canbii To Your Life</h1>
+            <h1 id="H1_4" style="font-size: 30px">The Cannabis Lifestyle...</h1>
             <form id="FORM_13" class="contact_form" action="<?= $this->webroot ?>strains/all" method="get" id="search">
                 <p id="P_5" CLASS="container-fluid">
                 <DIV CLASS="row text-left">
@@ -266,9 +266,9 @@
                 <p style="display: none;" class="effe"></p>
                 <p style="display: none;" class="symp"></p>
                 <div class="main2" style="padding-top: 40px;clear:both;">
-                    <div class="div12">
-                        <input id="INPUT_16" type="text" placeholder="or Search by Strain Name" name="key" class="key"/>
-                        <input id="BUTTON_17" type="submit" value="Search" class="more blue medium "/>
+                    <div class="">
+                        <input id="" type="text" placeholder="or Search by Strain Name" name="key" class="key"/>
+                        <input id="" type="submit" value="Search" class="more blue medium "/>
                     </div>
                 </div>
                 <!-- dont know why but this div needs to be here -->

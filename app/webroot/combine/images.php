@@ -11,9 +11,7 @@
         }
 
         .item {
-            border: 1px solid #efefef;
-            width: 49%; /*otherwise the border causes it to wrap */
-        }
+width:300px;float:left        }
     </style>
     <div class="container">
             <?php //https://css-tricks.com/snippets/css/a-guide-to-flexbox/
