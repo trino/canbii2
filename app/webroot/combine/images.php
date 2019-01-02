@@ -1,19 +1,8 @@
 <SPAN debugtitle="combine/images.php">
     <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/fancybox/jquery.fancybox.css"/>
     <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
-    <style type="text/css">
-        .container {
-            display: flex; /* or inline-flex */
-            align-items: center;
-            flex-wrap: wrap;;
-            align-content: stretch;
-            justify-content: space-around;
-        }
 
-        .item {
-width:300px;float:left        }
-    </style>
-    <div class="container">
+    <div class="row">
             <?php //https://css-tricks.com/snippets/css/a-guide-to-flexbox/
             //other values PATHINFO_DIRNAME (/mnt/files) | PATHINFO_BASENAME (??????.mp3) | PATHINFO_FILENAME (??????)
             errorlog("include combine/images.php");
@@ -61,12 +50,10 @@ width:300px;float:left        }
 
                         if (file_exists($filename)) {
                             $breaker++;
-                            ?>
-                            <div class="item" align="center" style="padding: 10px 0;margin-bottom: 2px;">
+                            ?><div class="col-md-3">
                                 <a class="fancybox" rel="group" href="<?= $image ?>">
                                     <img class="reportimage"  src="<?= $image; ?>"/>
-                                </a>
-                            </div>
+                                </a></div>
                             <?php
                             if ($breaker % 2 == 0 && $breaker > 0) {
                                // echo "</div>";

@@ -90,197 +90,141 @@ if (!isset($keyword)) {
 <?php } ?>
 </head>
 <body style="background:#d7d7d7">
-
-
 <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
-
-
 <div class="container" style="background: white !important;">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img src="<?= $this->webroot; ?>images/logo.png"/></a>
-                        <button class="navbar-toggler float-right" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto">
-                                <?php
-                                if (!function_exists("quicklistitem")) {
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img src="<?= $this->webroot; ?>images/logo.png"/></a>
+                <button class="navbar-toggler float-right" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <?php
+                        if (!function_exists("quicklistitem")) {
 //use findBootstrapEnvironment(); in javascript to detect the current Bootstrap screen mode
-                                    function quicklistitem($webroot, $url, $value, $accesskey, $name)
-                                    {
-                                        echo '<LI CLASS="nav-item';
-                                        if ($value) {
-                                            echo ' active current_page_item';
-                                        }
-                                        echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
-                                    }
+                            function quicklistitem($webroot, $url, $value, $accesskey, $name)
+                            {
+                                echo '<LI CLASS="nav-item';
+                                if ($value) {
+                                    echo ' active current_page_item';
                                 }
-                                quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
-                                quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Strains');
-                                //        quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
-                                //        quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
-                                //        quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
-                                if (!$this->Session->read('User')) {
-                                    //            quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
-                                } else {
-                                    /*
-                                    echo '<li class="nav-item dropdown">';
-                                    echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-                                    echo ucfirst($this->Session->read('User.username')) . "'s Account</a>" . '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
-                                    $dashboardclass = "";
-                                    if ($this->params['controller'] == 'users') {
-                                        $dashboardclass .= ' current_page_item';
-                                    }
-                                    if (isset($_GET['page']) && ($_GET["page"] == "" || $_GET["page"] == "home")) {
-                                        $dashboardclass .= " selected";
-                                    }
-                                    echo '<a class="dropdown-item' . $dashboardclass . '" href="' . $this->webroot . 'users/dashboard">Dashboard</a>';
-                                    echo '<a class="dropdown-item darkmenu" >Logout</a>';
-                                    echo '</div></li>';
-                                    */
-                                }
-                                ?>
-                            </ul>
-                    </nav>
-
-
-                    <?php
-                    if (isset($homepage)) {
-                        include("combine/newsite.php");
-                    }
-                    echo $this->Session->flash();
-                    echo $this->fetch('content');
-                    ?>
-
-
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-
-                    <h3>Why Go Natural?</h3>
-                    <a href="pages/about">The guide to Medical Cannabis &raquo;</a></div>
-                <div class="col-md-4">
-
-                    <h3>Join The Movement</h3>
-                    <a href="users/register">The more we know, the more we can help &raquo;</a></div>
-                <div class="col-md-4">
-                    <h3>Questions Or Concerns?</h3>
-                    <a href="pages/contact_us">Feel free to contact us by clicking here &raquo;</a></div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-
-
-                    <h3> Personalized Medical Cannabis</span></h3>
-
-
-                    For the people, by the people. The more we know, the more we can help.
-                    <br/>
-                    <br/>
-                    The medical cannabis movement is asking the scientific community to make examining the therapeutic
-                    potential of cannabis a priority. But the drug's controlled status is continuing to slow efforts to
-                    investigate the myriad compounds in the plant.
-                    <br/>
-                    <br/>
-                    Please do your part in helping the world's largest clinical trial so that we can better understand the use and effects of the cannabis plant.
-                    <a href="<?= $this->webroot ?>pages/about" accesskey="3">Read More</a>
-
-
-                </div>
-                <div class="col-md-4">
-
-
-                    <h3>Latest Reviews</h3>
-                    <?php
-                    $strains = $this->requestAction('pages/get_strain');
-                    $count = 0;
-                    if ($strains) {
-//var_dump($strains);
-                        foreach ($strains as $s) {
-                            $count += 1;
-                            echo '<li >';
-                            echo '<a href="' . $this->webroot . 'review/detail/' . $s['Review']['id'] . '"><b>' . $s['Strain']['name'] . '</b><br></a><br>';
-                            echo substr($s['Review']['review'], 0, 40) . '...';
-                            echo '<abbr >' . ucfirst($s['User']['username']) . '</span> &nbsp; ' . $s['Review']['on_date'];
-//echo '<!--a href="' . $this->webroot . 'strains/review/all/?user=' . $s['Review']['user_id'] . '">' . ucfirst($s['User']['username']) . '</a>&nbsp;' . $s['Review']['on_date'] . '-->';
-                            echo '</abbr></li>';
-                        }
-                    }
-                    if ($count == 0) {
-                        echo "No Results";
-                    }
-                    ?>
-
-
-                </div>
-                <div class="col-md-4">
-
-
-                    <h3>Latest Tweets</h3>
-                    <a>Tweets by @canbiionline</a>
-                    <script>!function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0],
-                                p = /^http:/.test(d.location) ? 'http' : 'https';
-                            if (!d.getElementById(id)) {
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = p + "://platform.twitter.com/widgets.js";
-                                fjs.parentNode.insertBefore(js, fjs);
+                                echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
                             }
-                        }(document, "script", "twitter-wjs");
-                    </script>
-
-
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <hr>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 pb-3">
-                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> /<a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
-                        Policy</a>
-                    /<a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
-                </div>
-            </div>
-
+                        }
+                        quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
+                        quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Strains');
+                        //        quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
+                        //        quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
+                        //        quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
+                        if (!$this->Session->read('User')) {
+//            quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
+                        } else {
+                            /*
+                            echo '<li class="nav-item dropdown">';
+                            echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                            echo ucfirst($this->Session->read('User.username')) . "'s Account</a>" . '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+                            $dashboardclass = "";
+                            if ($this->params['controller'] == 'users') {
+                            $dashboardclass .= ' current_page_item';
+                            }
+                            if (isset($_GET['page']) && ($_GET["page"] == "" || $_GET["page"] == "home")) {
+                            $dashboardclass .= " selected";
+                            }
+                            echo '<a class="dropdown-item' . $dashboardclass . '" href="' . $this->webroot . 'users/dashboard">Dashboard</a>';
+                            echo '<a class="dropdown-item darkmenu" >Logout</a>';
+                            echo '</div></li>';
+                            */
+                        }
+                        ?>
+                    </ul>
+            </nav>
+            <?php
+            if (isset($homepage)) {
+                include("combine/newsite.php");
+            }
+            echo $this->Session->flash();
+            echo $this->fetch('content');
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Why Go Natural?</h3>
+            <a href="pages/about">The guide to Medical Cannabis &raquo;</a></div>
+        <div class="col-md-4">
+            <h3>Join The Movement</h3>
+            <a href="users/register">The more we know, the more we can help &raquo;</a></div>
+        <div class="col-md-4">
+            <h3>Questions Or Concerns?</h3>
+            <a href="pages/contact_us">Feel free to contact us by clicking here &raquo;</a></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h3> Personalized Medical Cannabis</span></h3>
+            For the people, by the people. The more we know, the more we can help.
+            <br/>
+            <br/>
+            The medical cannabis movement is asking the scientific community to make examining the therapeutic
+            potential of cannabis a priority. But the drug's controlled status is continuing to slow efforts to
+            investigate the myriad compounds in the plant.
+            <br/>
+            <br/>
+            Please do your part in helping the world's largest clinical trial so that we can better understand the use and effects of the cannabis plant.
+            <a href="<?= $this->webroot ?>pages/about" accesskey="3">Read More</a>
+        </div>
+        <div class="col-md-4">
+            <h3>Latest Reviews</h3>
+            <?php
+            $strains = $this->requestAction('pages/get_strain');
+            $count = 0;
+            if ($strains) {
+//var_dump($strains);
+                foreach ($strains as $s) {
+                    $count += 1;
+                    echo '<li >';
+                    echo '<a href="' . $this->webroot . 'review/detail/' . $s['Review']['id'] . '"><b>' . $s['Strain']['name'] . '</b><br></a><br>';
+                    echo substr($s['Review']['review'], 0, 40) . '...';
+                    echo '<abbr >' . ucfirst($s['User']['username']) . '</span> &nbsp; ' . $s['Review']['on_date'];
+//echo '<!--a href="' . $this->webroot . 'strains/review/all/?user=' . $s['Review']['user_id'] . '">' . ucfirst($s['User']['username']) . '</a>&nbsp;' . $s['Review']['on_date'] . '-->';
+                    echo '</abbr></li>';
+                }
+            }
+            if ($count == 0) {
+                echo "No Results";
+            }
+            ?>
+        </div>
+        <div class="col-md-4">
+            <h3>Latest Tweets</h3>
+            <a>Tweets by @canbiionline</a>
+            <script>!function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0],
+                        p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + "://platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, "script", "twitter-wjs");
+            </script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 pb-3">
+            <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> /<a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
+                Policy</a>
+            /<a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+        </div>
+    </div>
 </div>
-
-
 <hr>
-
 </body>
 </html>
-
-
 <?php if ($_SERVER['SERVER_NAME'] == "canbii.com") { ?>
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -301,8 +245,6 @@ if (!isset($keyword)) {
 }
 echo $this->element('sql_dump');
 ?>
-
-
 <SCRIPT>
     refreshbootstrap();
     window.onresize = function (event) {
@@ -313,7 +255,7 @@ echo $this->element('sql_dump');
         $("#users-device-size").text(findBootstrapEnvironment() + " Width: " + $(window).width());
     }
 </SCRIPT>
-<?php if (true) { ?>
+<?php if (false) { ?>
     <style>
         .row {
             border: 5px solid orange !important;
@@ -330,6 +272,5 @@ echo $this->element('sql_dump');
         div {
             border: 1px solid black;
         }
-
     </style>
 <?php } ?>

@@ -174,7 +174,7 @@
             <h1 id="H1_4">Add Canbii To Your Life</h1>
             <h1 id="H1_4" style="font-size: 30px">The Cannabis Lifestyle...</h1>
             <form id="FORM_13" class="contact_form" action="<?= $this->webroot ?>strains/all" method="get" id="search">
-                <p id="P_5" CLASS="container-fluid">
+
                 <DIV CLASS="row text-left">
                     <?php
                     $effect = $this->requestAction('/pages/getSym');
@@ -242,7 +242,6 @@
                     */
                     ?>
                 </DIV>
-                </p>
 
                 <!--p id="P_5">
 					Filter by Effects:
@@ -265,14 +264,10 @@
 
                 <p style="display: none;" class="effe"></p>
                 <p style="display: none;" class="symp"></p>
-                <div class="main2" style="padding-top: 40px;clear:both;">
-                    <div class="">
-                        <input id="" type="text" placeholder="or Search by Strain Name" name="key" class="key"/>
-                        <input id="" type="submit" value="Search" class="more blue medium "/>
-                    </div>
-                </div>
-                <!-- dont know why but this div needs to be here -->
-                <div style="float:left;"></div>
+
+                        <input id="" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
+                        <input id="" type="submit" value="Search" class="btn btn-primary"/>
+
             </form>
         </div>
     </div>
