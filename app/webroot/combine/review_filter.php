@@ -7,7 +7,7 @@
                 foreach($review as $k=>$r) {
                     $i++;
                     $j=0;
-                    if($r && !$r['Review']["form"]) {
+                    if($r) {
                         $ip = $_SERVER['REMOTE_ADDR'];
                         $rand1 = rand(100,999);
                         $rand2 = rand(100,999);

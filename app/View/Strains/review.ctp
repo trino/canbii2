@@ -37,9 +37,9 @@
 <ul class="tabs_navigation2 clearfix" >
 <li><p>Sort by:</p></li>
 <li>
-<a href="<?= $this->webroot;?>strains/review/<?= $strain['Strain']['slug'];?>/recent">Most Recent</a>
+<a href="<?php echo $this->webroot;?>strains/review/<?php echo $strain['Strain']['slug'];?>/recent">Most Recent</a> 
 	</li><li>
-<a href="<?= $this->webroot;?>strains/review/<?= $strain['Strain']['slug'];?>/helpful">Most Helpful</a>
+<a href="<?php echo $this->webroot;?>strains/review/<?php echo $strain['Strain']['slug'];?>/helpful">Most Helpful</a>
 	</li>
 </ul>
 <!--php include('combine/profile_filter.php'); // purple monkey dishwasher ?-->
@@ -47,7 +47,7 @@
 
 		
 <div class="comments clearfix page_margin_top">
-<div id="comments_list" moreid="review.ctp">
+<div id="comments_list">
 <?php include('combine/review_filter.php');
 // echo ($reviewz);?>
 </div>
