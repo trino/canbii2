@@ -1,26 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <?php
-$generic = $this->requestAction('/pages/getGeneric');
-if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
-    $gtitle = 'Home';
-} else {
-    $gtitle = ucfirst($this->params['action']);
-}
-if (!isset($title)) {
-    $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
-}
-$title .= ' - Canbii - Personalized Medical Cannabis';
-if (!isset($description)) {
-    $description = $generic['description'];
-}
-if (!isset($keyword)) {
-    $keyword = $generic['keyword'];
-}
+    $generic = $this->requestAction('/pages/getGeneric');
+    if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
+        $gtitle = 'Home';
+    } else {
+        $gtitle = ucfirst($this->params['action']);
+    }
+    if (!isset($title)) {
+        $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
+    }
+    $title .= ' - Canbii - Personalized Medical Cannabis';
+    if (!isset($description)) {
+        $description = $generic['description'];
+    }
+    if (!isset($keyword)) {
+        $keyword = $generic['keyword'];
+    }
 ?>
 <meta charset="UTF-8"/>
-<meta property="og:image"
-      content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
+<meta property="og:image" content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
 <meta property="og:title" content="<?= $title; ?>"/>
 <meta property="og:type" content="website"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -69,8 +68,7 @@ if (!isset($keyword)) {
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
 <!--script type="text/javascript" src="<?= protocol ?>maps.google.com/maps/api/js?sensor=false"></script-->
 <!--script type="text/javascript" src="<?= $this->webroot; ?>js2/main.js"></script-->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53333c8154cd758d"
-        async="async"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53333c8154cd758d" async="async"></script>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?= $this->webroot; ?>upvote/upvote.css">
@@ -79,14 +77,15 @@ if (!isset($keyword)) {
 
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap-grid.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.bundle.min.js"></script>
 
 <!-- Debugger -->
 <?php if ($this->Session->check("User.id")) { ?>
     <!--script type="text/javascript" src="<?= $this->webroot; ?>debugger/debug.plugin.js"></script>
-<script type="text/javascript" src="<?= $this->webroot; ?>debugger/jquery-ui.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>debugger/debug.css" /-->
+    <script type="text/javascript" src="<?= $this->webroot; ?>debugger/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>debugger/debug.css" /-->
 <?php } ?>
 </head>
 <body style="background:#d7d7d7">
@@ -154,13 +153,16 @@ if (!isset($keyword)) {
     <div class="row">
         <div class="col-md-4">
             <h3>Why Go Natural?</h3>
-            <a href="pages/about">The guide to Medical Cannabis &raquo;</a></div>
+            <a href="pages/about">The guide to Medical Cannabis &raquo;</a>
+        </div>
         <div class="col-md-4">
             <h3>Join The Movement</h3>
-            <a href="users/register">The more we know, the more we can help &raquo;</a></div>
+            <a href="users/register">The more we know, the more we can help &raquo;</a>
+        </div>
         <div class="col-md-4">
             <h3>Questions Or Concerns?</h3>
-            <a href="pages/contact_us">Feel free to contact us by clicking here &raquo;</a></div>
+            <a href="pages/contact_us">Feel free to contact us by clicking here &raquo;</a>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -223,6 +225,7 @@ if (!isset($keyword)) {
     </div>
 </div>
 <hr>
+<DIV ID="users-device-size"></DIV>
 </body>
 </html>
 <?php if ($_SERVER['SERVER_NAME'] == "canbii.com") { ?>
@@ -252,7 +255,12 @@ echo $this->element('sql_dump');
     };
 
     function refreshbootstrap() {
-        $("#users-device-size").text(findBootstrapEnvironment() + " Width: " + $(window).width());
+        var mode = findBootstrapEnvironment();
+        $("#users-device-size").text("Mode: " + mode + " Width: " + $(window).width() + " Container: " + $(".container").width());
+        $( ".responsive" ).each(function( index ) {
+            var ID = $(this).attr("id");//xs, sm, md, lg, xl
+            $(this).removeClass(ID + "-xs").removeClass(ID + "-sm").removeClass(ID + "-md").removeClass(ID + "-lg").removeClass(ID + "-xl").addClass(ID + "-" + mode);
+        });
     }
 </SCRIPT>
 <?php if (false) { ?>

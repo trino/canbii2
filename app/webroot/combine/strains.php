@@ -1,9 +1,5 @@
-<div class="row" style="text-align: center;  padding: 20px 30px 20px 30px; line-height: 150%;background: #42B3E5;margin-bottom:20px">
-
-
+<div class="row whatstrain">
     <div class="col-md-12 ">
-
-
         <h3 style="color: white;">
             What Strain is Right for You? <i style="color: white;" class="fa fa-user-md"></i>
         </h3>
