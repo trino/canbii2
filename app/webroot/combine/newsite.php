@@ -243,30 +243,31 @@
                     ?>
                 </DIV>
 
-                <!--p id="P_5">
-					Filter by Effects:
+                <!--p id="P_5"> Filter by Effects:
 					<?php
-                $effect = $this->requestAction('/pages/getEff');
-                foreach ($effect as $key => $e) {
-                    $islast = $key == 18;
-                    if ($key == 19) {
-                        echo "<a href='javascript:;' onclick=\"$('.more1').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more1' id='P_5' style='display:none;'>";
-                    }
-                    echo '<a  href="javascript:void(0)" class="A_6" onclick="highlighteff($(this))" id="eff_' . $e['Effect']['id'] . '">' . $e['Effect']['title'] . '</a></a>';
-                    if ($key + 1 == count($effect)) {
-                        echo "</P>";
-                    } elseif ($islast) {
-                        echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
-                    }
-                }
-                ?>
+						/*
+						$effect = $this->requestAction('/pages/getEff');
+						foreach ($effect as $key => $e) {
+							$islast = $key == 18;
+							if ($key == 19) {
+								echo "<a href='javascript:;' onclick=\"$('.more1').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more1' id='P_5' style='display:none;'>";
+							}
+							echo '<a  href="javascript:void(0)" class="A_6" onclick="highlighteff($(this))" id="eff_' . $e['Effect']['id'] . '">' . $e['Effect']['title'] . '</a></a>';
+							if ($key + 1 == count($effect)) {
+								echo "</P>";
+							} elseif ($islast) {
+								echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
+							}
+						}
+						*/
+					?>
 				</p-->
 
                 <p style="display: none;" class="effe"></p>
                 <p style="display: none;" class="symp"></p>
 
-                        <input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
-                        <input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/>
+				<input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
+				<input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/>
 
             </form>
         </div>

@@ -433,7 +433,9 @@ class DboSource extends DataSource {
  */
 	public function execute($sql, $options = array(), $params = array()) {
 		$options += array('log' => $this->fullDebug);
-
+		$GLOBALS["lastsql"] = $sql;
+		$GLOBALS["params"] = $params;
+		$GLOBALS["options"] = $options;
 		$t = microtime(true);
 		$this->_result = $this->_execute($sql, $params);
 
@@ -458,6 +460,10 @@ class DboSource extends DataSource {
  */
 	protected function _execute($sql, $params = array(), $prepareOptions = array()) {
 		$sql = trim($sql);
+		$GLOBALS["lastsql"] = $sql;
+		$GLOBALS["params"] = $params;
+		$GLOBALS["options"] = $prepareOptions;
+
 		if (preg_match('/^(?:CREATE|ALTER|DROP)\s+(?:TABLE|INDEX)/i', $sql)) {
 			$statements = array_filter(explode(';', $sql));
 			if (count($statements) > 1) {

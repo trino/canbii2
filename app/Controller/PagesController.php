@@ -137,6 +137,7 @@ class PagesController extends AppController {
     }
 
     function getEff(){
+        //this will crash!!!
         $this->loadModel('Effect');
         return $this->Effect->find('all',array('conditions'=>array('Effect.negative'=>0), 'order'=>'Effect.title ASC'));
     }
