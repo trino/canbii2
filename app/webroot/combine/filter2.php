@@ -70,7 +70,7 @@
                 $j++;
                 $count++;
                 ?>
-                    <li class="item_content clearfix" style="border-bottom:0px solid #E8E8E8;">
+                    <li class="item_content clearfix" style="border-bottom:1px solid #E8E8E8;">
                         <div class="text" style="width:80%;float:left;">
                             <a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>/<?php if($u_cond){echo $u_cond;}?>">
                                 <h2><?= $s['Strain']['id'] . ' ' . $s['Strain']['name'];?></h2>

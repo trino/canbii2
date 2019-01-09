@@ -22,12 +22,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="default.ctp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default.ctp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.53846157">
-              <caret line="235" column="55" selection-start-line="235" selection-start-column="55" selection-end-line="235" selection-end-column="55" />
-              <folding />
+            <state vertical-scroll-proportion="4.2125983">
+              <caret line="283" column="10" selection-start-line="283" selection-start-column="10" selection-end-line="283" selection-end-column="10" />
+              <folding>
+                <element signature="e#5422#5448#0#HTML" expanded="true" />
+                <element signature="e#5563#5600#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,11 +38,10 @@
       <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-32.692307">
-              <caret line="531" column="33" selection-start-line="531" selection-start-column="33" selection-end-line="531" selection-end-column="33" />
+            <state vertical-scroll-proportion="-127.5">
+              <caret line="676" column="33" selection-start-line="676" selection-start-column="33" selection-end-line="676" selection-end-column="33" />
               <folding>
-                <marker date="1546398325631" expanded="true" signature="981:988" placeholder="..." />
-                <marker date="1546398325631" expanded="true" signature="3500:3557" placeholder="..." />
+                <marker date="1547005383161" expanded="true" signature="41285:41292" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -49,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/app/View/Strains/review.ctp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="43" />
+              <caret line="49" column="23" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -59,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/app/webroot/combine/review_filter.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -78,18 +80,31 @@
       <file leaf-file-name="strains.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/webroot/combine/strains.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2884614">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
+            <state vertical-scroll-proportion="-21.903847">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#h3#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h3#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/webroot/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9060914">
-              <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="309" column="1" selection-start-line="309" selection-start-column="1" selection-end-line="309" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -98,15 +113,14 @@
       <file leaf-file-name="newsite.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/webroot/combine/newsite.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.115385">
-              <caret line="268" column="47" selection-start-line="268" selection-start-column="47" selection-end-line="268" selection-end-column="47" />
+            <state vertical-scroll-proportion="-84.23077">
+              <caret line="273" column="6" selection-start-line="273" selection-start-column="6" selection-end-line="273" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#h1#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1546979084673" expanded="true" signature="9594:9622" placeholder="..." />
-                <marker date="1546979084673" expanded="true" signature="9666:9679" placeholder="..." />
-                <marker date="1546979084673" expanded="true" signature="10591:10596" placeholder="..." />
+                <marker date="1547005621162" expanded="true" signature="9594:9622" placeholder="..." />
+                <marker date="1547005621162" expanded="true" signature="9666:9679" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -187,10 +201,10 @@
         <option value="$PROJECT_DIR$/app/webroot/combine/strain_reviews.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/review_filter.php" />
         <option value="$PROJECT_DIR$/app/View/Strains/index.ctp" />
-        <option value="$PROJECT_DIR$/app/webroot/combine/strains.php" />
-        <option value="$PROJECT_DIR$/app/View/Layouts/default.ctp" />
-        <option value="$PROJECT_DIR$/app/webroot/combine/newsite.php" />
         <option value="$PROJECT_DIR$/app/webroot/css/style.css" />
+        <option value="$PROJECT_DIR$/app/webroot/combine/strains.php" />
+        <option value="$PROJECT_DIR$/app/webroot/combine/newsite.php" />
+        <option value="$PROJECT_DIR$/app/View/Layouts/default.ctp" />
       </list>
     </option>
   </component>
@@ -756,7 +770,7 @@
     <entry file="file://$PROJECT_DIR$/app/View/Strains/review.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="43" />
+          <caret line="49" column="23" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -764,58 +778,72 @@
     <entry file="file://$PROJECT_DIR$/app/webroot/combine/review_filter.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-32.692307">
-          <caret line="531" column="33" selection-start-line="531" selection-start-column="33" selection-end-line="531" selection-end-column="33" />
+        <state vertical-scroll-proportion="-127.5">
+          <caret line="676" column="33" selection-start-line="676" selection-start-column="33" selection-end-line="676" selection-end-column="33" />
           <folding>
-            <marker date="1546398325631" expanded="true" signature="981:988" placeholder="..." />
-            <marker date="1546398325631" expanded="true" signature="3500:3557" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.53846157">
-          <caret line="235" column="55" selection-start-line="235" selection-start-column="55" selection-end-line="235" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/webroot/combine/strains.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2884614">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/webroot/combine/newsite.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.115385">
-          <caret line="268" column="47" selection-start-line="268" selection-start-column="47" selection-end-line="268" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#h1#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1546979084673" expanded="true" signature="9594:9622" placeholder="..." />
-            <marker date="1546979084673" expanded="true" signature="9666:9679" placeholder="..." />
-            <marker date="1546979084673" expanded="true" signature="10591:10596" placeholder="..." />
+            <marker date="1547005383161" expanded="true" signature="41285:41292" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/webroot/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9060914">
-          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="309" column="1" selection-start-line="309" selection-start-column="1" selection-end-line="309" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/webroot/combine/strains.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.903847">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#h3#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h3#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#DIV#0;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#DIV#1;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#DIV#2;n#DIV#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/webroot/combine/newsite.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-84.23077">
+          <caret line="273" column="6" selection-start-line="273" selection-start-column="6" selection-end-line="273" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#h1#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#form#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1547005621162" expanded="true" signature="9594:9622" placeholder="..." />
+            <marker date="1547005621162" expanded="true" signature="9666:9679" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.2125983">
+          <caret line="283" column="10" selection-start-line="283" selection-start-column="10" selection-end-line="283" selection-end-column="10" />
+          <folding>
+            <element signature="e#5422#5448#0#HTML" expanded="true" />
+            <element signature="e#5563#5600#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
