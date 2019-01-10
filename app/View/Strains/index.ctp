@@ -202,7 +202,16 @@
                                             ?>
                                             <TD style="padding-top: 0px;"><a class="glow Flavor" href="#" style="position:relative;margin-top:0px;">
                                                     <CENTER>
-                                                        <img width="55" class="glow" src="<?= $this->webroot . "images/icons/" . strtolower($name); ?>.png">
+                                                        <img width="55" class="glow" src="<?php
+                                                            $image = "images/icons/" . trim(strtolower($name)) . ".png";
+                                                            echo $this->webroot;
+                                                            if(file_exists(getcwd() . "/" . $image)){
+                                                                echo $image;
+                                                            } else {
+                                                                echo "images/icons/unknown.png";
+                                                                echo '" TITLE="File not found: ' . getcwd() . "/" . $image;
+                                                            }
+                                                        ?>">
                                                         <?= $name; ?>
                                                     </CENTER>
                                                 </a></TD>
@@ -651,8 +660,6 @@
             <input type="submit" name="send" value="Send"/>
         </form>
     </center>
-</div>
-
 </div>
 
 <script>
