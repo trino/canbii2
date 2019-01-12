@@ -118,9 +118,9 @@
 
     <div class="row">
         <div class="col-md-12 pb-3">
-            <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> /<a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
+            <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> / <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
                 Policy</a>
-            /<a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+            / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
         </div>
     </div>
 </div>

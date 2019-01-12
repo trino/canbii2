@@ -3,49 +3,23 @@
 <link href="<?= $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
 
 <?php
-    //if(isset($user))    {
-    //debug($user);
-    //  $nationality = $user['User']['nationality'];
-    //    $gender = $user['User']['gender'];
-    //    $age_group = $user['User']['age_group'];
-    //    $health = $user['User']['health'];
-    ////    $weight = $user['User']['weight'];
-    //    $exp = $user['User']['years_of_experience'];
-    //    $frequency = $user['User']['frequency'];
-    //    $body_type = $user['User']['body_type'];
-    //    $symptoms = $user['User']['symptoms'];
-    //    $card_id = $user['User']['card_id'];
-    //    $country = $user['User']['country'];
-    //} else    {
-    //    $nationality = "";
-    //  $gender = '';
-    //  $age_group = "";
-    // $health = "";
-    // $weight = "";
-    //    $exp = "";
-    //    $frequency = "";
-    ////    $body_type = "";
-    //    $symptoms = "";
-    //    $card_id = "";
-    //    $country = "";
-    //}
-    if (isset($_GET['effects']) && $_GET['effects']) {
-        foreach ($_GET['effects'] as $ef) {
-            $effects[] = $ef;
-        }
-    } else {
-        $effects = array();
+if (isset($_GET['effects']) && $_GET['effects']) {
+    foreach ($_GET['effects'] as $ef) {
+        $effects[] = $ef;
+    }
+} else {
+    $effects = array();
+}
+
+if (isset($_GET['symptoms']) && $_GET['symptoms']) {
+    $symptoms = $_GET['symptoms'];
+    if (!is_array($symptoms)) {
+        $symptoms = explode(",", $symptoms);
     }
 
-    if (isset($_GET['symptoms']) && $_GET['symptoms']) {
-        $symptoms = $_GET['symptoms'] ;
-        if (!is_array($symptoms)){$symptoms = explode(",", $symptoms);}
-        //foreach ($_GET['symptoms'] as $ef) {
-         //   $symptoms[] = $ef;
-        //}
-    } else {
-        $symptoms = array();
-    }
+} else {
+    $symptoms = array();
+}
 ?>
 <script>
     var recent_flag = 'ASC';
@@ -59,46 +33,45 @@
         <div class="modal-content">
             <div class="modal-body">
                 <?php
-                    $effect = $this->requestAction('/pages/getSym');
-                    $counter = 0;
-                    $second_div = 0;
-                    foreach ($effect as $e) {
-                        $counter ++;
-                        if($counter ==1){
-                            echo "<div style='";
-                            if($second_div == 1){
-                                echo "float:right;";
-                                $second_div = 0;
-                            }
-                            echo "width: 50%;display:inline-block;'>";
+                $effect = $this->requestAction('/pages/getSym');
+                $counter = 0;
+                $second_div = 0;
+                foreach ($effect as $e) {
+                    $counter++;
+                    if ($counter == 1) {
+                        echo "<div style='";
+                        if ($second_div == 1) {
+                            echo "float:right;";
+                            $second_div = 0;
                         }
-                        ?>
-                        <div>
+                        echo "width: 50%;display:inline-block;'>";
+                    }
+                    ?>
+                    <div>
                         <a style="color:black;padding:2px;" href="<?php
-                            $multiple = true;//disable for single queries only
-                            if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
-                                echo "javascript:void(";
-                                echo $e['Symptom']['id'];
-                                echo ");";
-                            }else {
-                                echo "?symptoms=";
-                                echo $e['Symptom']['id'];
-                            }
+                        $multiple = true;//disable for single queries only
+                        if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
+                            echo "javascript:void(";
+                            echo $e['Symptom']['id'];
+                            echo ");";
+                        } else {
+                            echo "?symptoms=";
+                            echo $e['Symptom']['id'];
+                        }
                         ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog"
                            id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
-                        </div>
+                    </div>
                     <?php
-                        if($counter == ceil(count($effect)/2)){
-                            echo "</div>";
-                            $counter = 0;
-                            $second_div = 1;
-                        }
-                    }
-                    if($counter != 0){
+                    if ($counter == ceil(count($effect) / 2)) {
                         echo "</div>";
+                        $counter = 0;
+                        $second_div = 1;
                     }
+                }
+                if ($counter != 0) {
+                    echo "</div>";
+                }
                 ?>
-                <!--<p style="display: none;" class="symp"></p>-->
             </div>
         </div>
     </div>
@@ -148,10 +121,7 @@
 
             <ul class="tabs_navigation2">
                 <li><p>Sort By:</p></li>
-                <!--<li>
-                    <a href="javascript:void(0);" class="eff1" id="recent">
-                    Most Recent</a>
-                    </li>-->
+
                 <li>
                     <a href="javascript:void(0)" class="eff1" id="rated">Top Rated</a>
                 </li>
@@ -168,121 +138,59 @@
             </ul>
 
         </div>
-        <div class="page_header_right hide">
-            <form class="search" method="get" action="<?= $this->webroot; ?>strains/all">
-                <a href="#" id="search_filter" data-toggle="modal" data-target="#filter_dialog">
-                    <img src="<?= $this->webroot; ?>images/gear.png"  alt="Filter" title="Filter Search" />
-					<!--<span style="display:block;height:16px;white-space: pre-wrap;word-wrap: break-word;">Filter by Symptom</span>-->
-                </a>
-                <input id="BUTTON_17" type="submit" value="Search" class="more blue medium" style="float:right;"/>
-                <input id="f" class="search_input hint" name="key" type="text"
-                    <?php if (isset($_GET['key'])) {
-                        if (strlen($_GET['key']) > 0) {
-                            echo ' value="' . $_GET['key'] . '""';
-                        }
-                    } ?>
-                style="float:right;">
-            </form>
-        </div>
-        <div class="clear"></div>
 
-    </div>
 
-    <div class="clearfix page_margin_top ">
-        <!--php include('combine/proe_er.php');?-->
-        <!-- page left -->
+
+            <input id="BUTTON_18" type="reset" value="Reset Filter" class="more blue medium"
+                 onclick="window.location='<?php echo $this->webroot; ?>strains/all';"/>
+
+                    <h3>Filter</h3>
+                    <br>
+
+
+                            <?php
+                            $effect = $this->requestAction('/pages/getSym');
+                            $counter = 0;
+                            foreach ($effect as $e) {
+                                $counter++;
+                                if ($counter == 1) {
+
+                                }
+                                ?>
+
+                                    <a style="padding:2px;" href="<?php
+                                    $multiple = true;//disable for single queries only
+                                    if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
+                                        echo "javascript:void(";
+                                        echo $e['Symptom']['id'];
+                                        echo ");";
+                                    } else {
+                                        echo "?symptoms=";
+                                        echo $e['Symptom']['id'];
+                                    }
+                                    ?>" class="sym2 small-btn" data-parent="#filter_desktop"
+                                       id="sym_<?= $e['Symptom']['id']; ?>"><?= $e['Symptom']['title'] ?></a>
+                                <?php
+                                if ($counter == ceil(count($effect) / 2)) {
+
+                                    $counter = 0;
+                                }
+                            }
+                            if ($counter != 0) {
+
+                            }
+                            ?>
+                            <p style="display: none;" class="symp"></p>
+
+
+
 
         <div class="page_left listing ">
             <?php include_once('combine/filter.php'); ?>
         </div>
-        <!-- end page left -->
-
-        <!-- page right -->
-
-        <div id="filter_desktop" class="page_right">
-            
-            <!--div style="float:left;margin-left:-2px;" class="addthis_sharing_toolbox"></div-->
-            <input id="BUTTON_18" type="reset" value="Reset Filter" class="more blue medium"
-                   style="float: right; width: 40%;" onclick="window.location='<?php echo $this->webroot;?>strains/all';"/>
-            <ul>
-
-                <!--li class="home_box light_blue animated_element animation-fadeIn duration-500" style="z-index: 3;">
-                    <h2>
-                        Filter by Effects
-                    </h2>
-
-                    <div class=" clearfix">
 
 
-                        <div class="choose_eff">
-                            <?php
-                                /*
-                                $effect = $this->requestAction('/pages/getEff');
-                                foreach ($effect as $e) {
-                                    ?>
-                                    <a style="color:white;" href="javascript:void(0)" class="small-btn eff2"
-                                       id="eff_<?php echo $e['Effect']['id']; ?>">
-                                        <?php echo $e['Effect']['title'] ?>
-                                    </a>
-                                <?php
-                                }
-                                */
-                            ?>
-                            <p style="display: none;" class="effe"></p>
-                        </div>
 
-                    </div>
-                </li-->
-                <li class="home_box blue" style="z-index: 2;">
-                    <h2>
-                        FILTER BY SYMPTOMS
-                    </h2>
-                    <br>
-                    <div class=" clearfix">
-                        <div class="choose_sym">
-                            <?php
-                                $effect = $this->requestAction('/pages/getSym');
-                                $counter = 0;
-                                foreach ($effect as $e) {
-                                    $counter ++;
-                                    if($counter ==1){
-                                        echo "<div style='width: 50%;float:left;'>";
-                                    }
-                                    ?>
-                                    <div>
-                                    <a style="padding:2px;" href="<?php
-                                        $multiple = true;//disable for single queries only
-                                        if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
-                                            echo "javascript:void(";
-                                            echo $e['Symptom']['id'];
-                                            echo ");";
-                                        }else {
-                                            echo "?symptoms=";
-                                            echo $e['Symptom']['id'];
-                                        }
-                                    ?>" class="sym2 small-btn"  data-parent="#filter_desktop"
-                                       id="sym_<?= $e['Symptom']['id']; ?>"><?= $e['Symptom']['title'] ?></a>
-                                    </div>
-                                <?php
-                                    if($counter == ceil(count($effect)/2)){
-                                        echo "</div>";
-                                        $counter = 0;
-                                    }
-                                }
-                                if($counter != 0){
-                                    echo "</div>";
-                                }
-                            ?>
-                            <p style="display: none;" class="symp"></p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <!-- end page right -->
-    </div>
-</div>
 
 <input type="hidden" class="recent" value="ASC"/>
 <input type="hidden" class="rated" value="ASC"/>
@@ -299,51 +207,23 @@
     var more = '<?= $limit; ?>';
     var spinnerVisible = false;
     var val = '';
-    function showspinner(){
+
+    function showspinner() {
         $('.listing').html(loading);
         //$("div#spinner").fadeIn("fast");
         //spinnerVisible = true;
     }
-    function hidespinner(){
-        /*
-        var spinner = $("div#spinner");
-        spinner.stop();
-        spinner.fadeOut("fast");
-        spinnerVisible = false;
-        */
+
+    function hidespinner() {
+
     }
 
     $(function () {
-        //$("#search_filter").on("click touch",function(e){
-        //    //e.preventDefault();
-        //    //document.body.style.overflow = "hidden";
-        //    $("#filter_dialog").modal("show");
-        //    //$("body, html").bind('touchmove', function(e){
-        //    //    
-        //    //    if(!$("div#filter_dialog").has(e.target).length > 0){
-        //    //        e.preventDefault();
-        //    //    }
-        //    //});
-        //});
 
         if ($(document).width() <= 479) {
-            $(".page_header_right").css({"width":"300px"});
+            $(".page_header_right").css({"width": "300px"});
         }
-        
-        //$(document).mouseup(function (e)
-        //{
-        //    
-        //    var container = $("#filter_dialog > div");
-        //
-        //    if (!container.is(e.target) // if the target of the click isn't the container...
-        //        && container.has(e.target).length === 0) // ... nor a descendant of the container
-        //    {
-        //        $("#filter_dialog").hide();
-        //        document.body.style.overflow = "visible";
-        //        $('body, html').unbind('touchmove')
-        //    }
-        //});
-        
+
         var profile = '';
         $('.hidden_filter select').change(function () {
             profile = '';
@@ -354,7 +234,7 @@
                     var field = $(this).attr('name');
                     if (!profile) {
                         profile = field + '=' + value;
-                    }else {
+                    } else {
                         profile = profile + '&' + field + '=' + value;
                         //alert(profile);
                     }
@@ -362,7 +242,7 @@
 
             });
             if (!spinnerVisible) {
-               showspinner();
+                showspinner();
             }
             var i = 0;
 
@@ -371,7 +251,7 @@
                     i++;
                     if (i == 1) {
                         val = 'effects[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&effects[]=' + $(this).val();
                     }
                 }
@@ -382,16 +262,16 @@
                     i++;
                     if (i == 1) {
                         val = 'symptoms[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&symptoms[]=' + $(this).val();
                     }
                 }
             });
 
             if (val) {
-                val = val + '&key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = val + '&key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             } else {
-                val = 'key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             }
 
             $('.eff1c').each(function () {
@@ -414,7 +294,9 @@
             }
             showspinner();//$('.listing').html(loading);
             $.ajax({
-                url: '<?php echo $this->webroot . "strains/filter/0"; if($type){echo '/'.$type;} ?>',
+                url: '<?php echo $this->webroot . "strains/filter/0"; if ($type) {
+                    echo '/' . $type;
+                } ?>',
                 data: val,
                 type: 'get',
                 success: function (res) {
@@ -460,9 +342,9 @@
                 }
             });
             if (val) {
-                val = val + '&key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = val + '&key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             } else {
-                val = 'key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             }
 
             $('.eff1c').each(function () {
@@ -484,7 +366,9 @@
             }
             //showspinner();//$('.listing').html(loading);
             $.ajax({
-                url: '<?= $this->webroot;?>strains/filter/' + more + '<?php if($type){echo '/' . $type;} ?>',
+                url: '<?= $this->webroot;?>strains/filter/' + more + '<?php if ($type) {
+                    echo '/' . $type;
+                } ?>',
                 data: val,
                 type: 'get',
                 success: function (res) {
@@ -513,20 +397,20 @@
             val = "";
             //var sort =0;
             more = 0;
-            
+
             if ($(this).attr('class').replace('searchact3', '') == $(this).attr('class')) {
-                $("#filter_desktop #"+$(this).attr("id")).addClass('searchact3');
-                $("#filter_dialog #"+$(this).attr("id")).addClass('searchact3');
+                $("#filter_desktop #" + $(this).attr("id")).addClass('searchact3');
+                $("#filter_dialog #" + $(this).attr("id")).addClass('searchact3');
                 $('.symp').append('<input type="hidden" name="symptoms[]" value="' + $(this).attr('id').replace('sym_', '') + '" class="symps check' + $(this).attr('id') + ' ' + $(this).attr('id') + '"  />')
             } else {
-                $("#filter_desktop #"+$(this).attr("id")).removeClass('searchact3');
-                $("#filter_dialog #"+$(this).attr("id")).removeClass('searchact3');
+                $("#filter_desktop #" + $(this).attr("id")).removeClass('searchact3');
+                $("#filter_dialog #" + $(this).attr("id")).removeClass('searchact3');
                 $('.' + $(this).attr('id')).remove();
             }
             if (($("#filter_dialog").data('bs.modal') || {}).isShown) {
                 $("#filter_dialog").modal('hide');
             }
-            
+
             $('.key').val('');
 
             /*else
@@ -542,7 +426,7 @@
                     i++;
                     if (i == 1) {
                         val = 'effects=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + ',' + $(this).val();
                     }
                 }
@@ -553,16 +437,16 @@
                     i++;
                     if (i == 1) {
                         val = 'symptoms=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + ',' + $(this).val();
                     }
                 }
             });
-            
+
             if (val) {
-                val = val + '&key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = val + '&key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             } else {
-                val = 'key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             }
 
             $('.eff1c').each(function () {
@@ -584,7 +468,7 @@
             }
             showspinner();//$('.listing').html(loading);
             $.ajax({
-                url: '<?= $this->webroot;?>strains/filter/0<?php if($type)echo '/'.$type?>',
+                url: '<?= $this->webroot;?>strains/filter/0<?php if ($type) echo '/' . $type?>',
                 data: val,
                 type: 'get',
                 success: function (res) {
@@ -602,7 +486,7 @@
                     $('.listing').html(res);
                 }
             });
-           
+
             $('#rated').click();
         });
 
@@ -630,7 +514,7 @@
                     i++;
                     if (i == 1) {
                         val = 'effects[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&effects[]=' + $(this).val();
                     }
                 }
@@ -641,16 +525,16 @@
                     i++;
                     if (i == 1) {
                         val = 'symptoms[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&symptoms[]=' + $(this).val();
                     }
                 }
             });
 
             if (val) {
-                val = val + '&key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = val + '&key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             } else {
-                val = 'key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             }
 
             $('.eff1c').each(function () {
@@ -672,7 +556,9 @@
             }
             showspinner();//$('.listing').html(loading);
             $.ajax({
-                url: '<?= $this->webroot;?>strains/filter<?php if($type){echo '/0/'.$type;} ?>',
+                url: '<?= $this->webroot;?>strains/filter<?php if ($type) {
+                    echo '/0/' . $type;
+                } ?>',
                 data: val,
                 type: 'get',
                 success: function (res) {
@@ -692,7 +578,7 @@
             var thisid = $(this).attr('id');
             if (thisid == 'indica' || thisid == 'sativa' || thisid == 'hybrid') {
                 var typefilter = 1;
-            }else {
+            } else {
                 var typefilter = 0;
             }
             more = 0;
@@ -724,7 +610,7 @@
                     i++;
                     if (i == 1) {
                         val = 'effects[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&effects[]=' + $(this).val();
                     }
                 }
@@ -735,15 +621,15 @@
                     i++;
                     if (i == 1) {
                         val = 'symptoms[]=' + $(this).val();
-                    }else {
+                    } else {
                         val = val + '&symptoms[]=' + $(this).val();
                     }
                 }
             });
             if (val) {
-                val = val + '&key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = val + '&key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             } else {
-                val = 'key=<?php if(isset($_GET['key']))echo $_GET['key'];?>';
+                val = 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
             }
             if (sort) {
                 if ((id != 'indica' && id != 'sativa' && id != 'hybrid') || sort == 'ASC') {
@@ -755,7 +641,9 @@
             }
             showspinner();//$('.listing').html(loading);
             $.ajax({
-                url: '<?= $this->webroot;?>strains/filter<?php if($type){echo '/0/'.$type;} ?>',
+                url: '<?= $this->webroot;?>strains/filter<?php if ($type) {
+                    echo '/0/' . $type;
+                } ?>',
                 data: val,
                 type: 'get',
                 success: function (res) {
@@ -773,27 +661,27 @@
                 }
             });
         });
-        
-        $(".dialog_sym").click(function(){
+
+        $(".dialog_sym").click(function () {
             document.body.style.overflow = "visible";
-            $("#filter_dialog").hide(); 
+            $("#filter_dialog").hide();
         });
 
         <?php
-            if($effects) {
-                foreach($effects as $eff) {
-                    echo "$('#eff_" . $eff . "').click();";
-                }
+        if ($effects) {
+            foreach ($effects as $eff) {
+                echo "$('#eff_" . $eff . "').click();";
             }
-            if($symptoms) {
-                foreach($symptoms as $eff) {
-                    echo "$('#filter_dialog #sym_" . $eff . "').click();";
-                }
+        }
+        if ($symptoms) {
+            foreach ($symptoms as $eff) {
+                echo "$('#filter_dialog #sym_" . $eff . "').click();";
             }
+        }
 
-            if(isset($_GET['sort']) && $_GET['sort']) {
-                echo "$('#" . str_replace('reviewed','viewed', $_GET['sort']) . "').click();";
-            }
+        if (isset($_GET['sort']) && $_GET['sort']) {
+            echo "$('#" . str_replace('reviewed', 'viewed', $_GET['sort']) . "').click();";
+        }
         ?>
     });
 </script>

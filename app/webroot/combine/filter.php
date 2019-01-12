@@ -70,36 +70,18 @@
                 $j++;
                 $count++;
                 ?>
-                <li class="item_content clearfix" style="border-bottom:1px solid #E8E8E8;">
-                    <!--a class="thumb_image" href="#" style="margin:0px;width:13%; min-width:60px;">
-                        <div style="text-align: center; float:left;background-image: url('<?= $this->webroot?>images/<?= $s['StrainType']['title'];?>.png');width:57px;height:66px;background-repeat: no-repeat;">
-                            <p style="vertical-align:middle;text-align:center;color:white;font-size:18px; margin-top:15px">
-                                <?php
-                                    $name_arr = explode(' ',$s['Strain']['name']);
-                                    $i=0;
-                                    foreach($name_arr as $na){
-                                        $i++;
-                                        if($i==1 && $na){
-                                            echo ucfirst($na[0]);
-                                        } elseif($na){
-                                            echo strtolower($na[0]);
-                                        }
-                                    }
-                                ?>
-                            </p>
-                        </div>
-                    </a-->
+                <li class="item_content clearfix" >
 
-                    <div  style="width:13%; min-width:60px;float:left;">
+
+                    <div  >
                         <a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>/<?php if($u_cond){echo $u_cond;} ?>">
                         <?php
-                            // unset($strain_hexagon);
                             $strain_hexagon = $s;
                             include('combine/hexagon.php');
                         ?>
                     </div>
 
-                    <div class="text" style="width:80%;float:left;">
+                    <div class="text" >
                         <h2><?= $s['Strain']['name'];?></a></h2>
                         <p><?= substr($s['Strain']['description'],0,150).'...';?></p>
 
@@ -111,12 +93,11 @@
                             }else{
                                 echo '0 Reviews';
                             }
-                            // [rating] => 3.27 [review] => 18 [viewed] => 33 [published_date] => 0000-00-00 [slug] => cadillac-purple [cbd] => 0 [cbn] => 0 [cbc] => 0 [thc] => 0 [thcv] => 0 )
                                 if($s['Strain']['viewed']){ echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);}
                             ?></li>
                         </ul>
 
-                        <ul class="post_footer_details" style="float:right;margin-top:-5px;">
+                        <ul class="post_footer_details" >
                         <li>
                             <div class="rating<?php echo $j;?> "></div>
                             <script>
@@ -142,7 +123,7 @@
 
 
     <div class="clear"></div>
-    <div class="morelist" style="display: none;"></div>
+    <div class="morelist" ></div>
     <?php if($strains && ($strains)>8){echo '<div class="loadmore"><a href="javascript:void(0);">Load More</a></div>';}?>
     <script>
         $(function(){
