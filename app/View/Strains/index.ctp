@@ -6,30 +6,6 @@
 <script src="<?= $this->webroot; ?>js/html2canvas.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/jquery.plugin.html2canvas.js"></script>
 
-<style>
-    .nowrap {
-        overflow: auto;
-        white-space: nowrap;
-    }
-
-    li {
-        border 1px solid #111;
-    }
-
-    .page_header_left h1{
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-    }
-
-    .page_header_left .strain_info{
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-    }
-</style>
 
 <?php
     echo "<Strain id='" . $strain['Strain']['id'] . "' />";
@@ -40,10 +16,7 @@
         return $false;
     }
 
-    //http://localhost/metronic/templates/admin/ui_general.html
-    //Acceptable colors:
-    // Metronic: success (green), info (blue), warning (yellow), danger (red). Active does not work
-    // Old: light-purple, light-red, light-blue, light-green
+
     function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100) {
         if (false) {
             echo '<div width: ';
@@ -63,7 +36,7 @@
             return;
             echo '<div class="progress-bar progress-bar-';
             echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
-            echo 'width: ' . round($value / ($max - $min) * 100) . '%"><span>' . $textR . '</span></div></div>';
+            echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div d>' . $textR . '</div></div></div>';
         }
 
     }
@@ -86,8 +59,8 @@
             ?>
 
             <div >
-                <h1><?= $strain['Strain']['name']; ?> - Medical Report</h1>
-                <br />
+                <h1><?= $strain['Strain']['name']; ?> - Report</h1>
+                
                 <p ><?php
                         switch ($strain['Strain']['type_id']) {
                             case 1:
@@ -126,7 +99,6 @@
 
     </div>
 
-    <!--php include('combine/profile_filter.php'); ?-->
 
     <div >
         <ul>
@@ -138,12 +110,6 @@
 
     <div ></div>
 
-    <!--h2 >Strain Attributes:
-        <div ></div>
-        <div >
-            Share
-        </div>
-    </h2-->
 
 
     <ul >
@@ -151,7 +117,7 @@
             <div>
                 <h3 >Symptoms</h3>
                 <p>How does this strain help with my medical condition?</p>
-                <br>
+                
                 <?php
                     if (!isset($p_filter)) {
                         $p_filter = false;
@@ -206,13 +172,7 @@
                     <div  >
                         <span ><?= $this->requestAction('/strains/getSymptom/' . $ars[1]); ?></span>
                         <?php progressbar($this->webroot, $length, perc($length), "", "info", "light-blue"); ?>
-                        <div >
-                            <input type="hidden"  />
-                            <a ></a>
-                            <span ><?= (isset($symptom_votes[$ars[1]])?$symptom_votes[$ars[1]]:0); ?></span>
-                            <a ></a>
-                        </div>
-                        <div ></div>
+
                     </div>
                     <?php
                         }
@@ -236,7 +196,7 @@
             <div>
                 <h3 >General Ratings</h3>
                 <p> What are the general ratings?</p>
-                <br>
+                
                 <?php
                     $scale = 0;
                     $strength = 0;
@@ -308,9 +268,9 @@
                             ?>
 
                         </div>
-                        <!--div class="">
+                        <div class="">
                 <h3>Effects:</h3>
-                <br>
+                
                 <?php
                             $p_filter = 0;
                             if (isset($arr_filter)) {
@@ -396,13 +356,13 @@
                     <?php
                             }
                         ?>
-                </div-->
+                </div>
 
 
-                        <div><br><br>
+                        <div>
                             <h3 >Negative Effects</h3>
                             <p>What are the negative effects?</p>
-                            <br>
+                            
                             <?php
                                 if (isset($arr_neg)) {
                                     rsort($arr_neg);
