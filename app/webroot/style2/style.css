@@ -1,130 +1,12 @@
+h1,h2,h3,h4,h5,h6{
+    font-size: 1.75rem !important;
+}
+.module{
+    float:left;width:50%;background:#fff;padding:15px 0;margin:0%;
+}
 .hide{display:none !important;visibility: hidden !important;}
-.reportimage{width:200px}
+.reportimage{height:100px}
 
-/* Techni's additions */
-.dontshow, .dont-show{
-      display: none;
-}
-.collapse.in{
-      display: block !important;
-}
-.float-right{
-	float: right;
-}
-
-.has-float-bottom-35{
-    margin-bottom: 35px;
-}
-.float-bottom{
-      position: absolute;
-      bottom: -5px;
-}
-.actualfooter{
-      width: 100%;
-}
-.actualfooter .footer_banner_box{
-      height: 120px !important;
-}
-input[type=submit], #BUTTON_17, #INPUT_16{
-      height: 50px !important;
-}
-.no-wrap{
-      white-space: nowrap;
-}
-.strain_banner{
-      width:330px !important;
-      position: relative;
-      padding: 0;
-      height:240px !important;
-}
-
-.nav-item:hover{
-    color: lightblue;
-}
-#searchbtn{
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-}
-
-.col-strain{
-    margin-bottom: 10px;
-}
-
-.sticky-footer{
-    position: fixed;
-    bottom: 25px;
-    left: 25px;
-    background-color: lightgrey;
-    padding: 5px 5px 5px 5px;
-    z-index: 99999;
-    border: 2px solid black;
-}
-
-.no-overflow-x{
-    overflow-x: hidden;
-}
-
-
-/* viewport ranges */
-/* XS: Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
-
-}
-
-/* SM: Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {
-
-}
-
-/* MD: Medium devices (tablets, less than 992px) was @media screen and (max-width: 991px) { */
-@media (max-width: 991.98px) {
-    .current_page_item{
-        padding-left: 5px;
-        padding-right: 5px;
-        position: relative;
-        left: -5px;
-    }
-    .col-sm-5ths {
-        width: 20%;
-        float: left;
-    }
-}
-
-/* LG: Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {
-    .col-md-5ths {
-        width: 20%;
-        float: left;
-    }
-    .scaletowidth{
-        font-size: 2vw;
-    }
-}
-/* End Techni's additions and viewport ranges */
-
-
-/* bootstrap add on */
-.col-xs-5ths, .col-sm-5ths, .col-md-5ths, .col-lg-5ths {
-    position: relative;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.col-xs-5ths {
-    width: 20%;
-    float: left;
-}
-
-@media (min-width: 1199.99px) {
-    .col-lg-5ths {
-        width: 20%;
-        float: left;
-    }
-}
-/* end bootstrap add on */
-
-/* original code */
 .hexagon {
       position: relative;
       width: 300px;
@@ -136,6 +18,6 @@ input[type=submit], #BUTTON_17, #INPUT_16{
     background-size: cover;
     background-position:center;
     width: 100%;
-    background-image: url("../images/b2.jpg");
+    background-image: url("../images/b4.jpg");
 }
 

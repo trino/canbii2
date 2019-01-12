@@ -1,22 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <?php
-    $generic = $this->requestAction('/pages/getGeneric');
-    if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
-        $gtitle = 'Home';
-    } else {
-        $gtitle = ucfirst($this->params['action']);
-    }
-    if (!isset($title)) {
-        $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
-    }
-    $title .= ' - Canbii - Personalized Medical Cannabis';
-    if (!isset($description)) {
-        $description = $generic['description'];
-    }
-    if (!isset($keyword)) {
-        $keyword = $generic['keyword'];
-    }
+$generic = $this->requestAction('/pages/getGeneric');
+if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
+    $gtitle = 'Home';
+} else {
+    $gtitle = ucfirst($this->params['action']);
+}
+if (!isset($title)) {
+    $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
+}
+$title .= ' - Canbii - Personalized Medical Cannabis';
+if (!isset($description)) {
+    $description = $generic['description'];
+}
+if (!isset($keyword)) {
+    $keyword = $generic['keyword'];
+}
 ?>
 <meta charset="UTF-8"/>
 <meta property="og:image" content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
@@ -77,7 +77,7 @@
 </head>
 <body class="background_image">
 <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
-<div class="container" style="background: white">
+<div class="container" style="    box-shadow: 3px 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3);">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light" style="padding:0">
@@ -100,9 +100,16 @@
                                 echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
                             }
                         }
-                        quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
-                        quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'Strains');
+                        //       quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
+                       // quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'View Strains');
 
+
+                        //        quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
+                        //        quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
+                        //        quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
+                        //if (!$this->Session->read('User')) {
+                        //            quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
+                        //}
                         ?>
                     </ul>
             </nav>
@@ -115,8 +122,8 @@
             ?>
         </div>
     </div>
-
-    <div class="row">
+    <hr>
+    <div class="row pt-1">
         <div class="col-md-12 pb-3">
             <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> Copyright <?php echo "2014-" . date('Y'); ?> / <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy
                 Policy</a>
@@ -157,7 +164,7 @@ echo $this->element('sql_dump');
     function refreshbootstrap() {
         var mode = findBootstrapEnvironment();
         $("#users-device-size").text("Mode: " + mode + " Width: " + $(window).width() + " Container: " + $(".container").width());
-        $( ".responsive" ).each(function( index ) {
+        $(".responsive").each(function (index) {
             var ID = $(this).attr("id");//xs, sm, md, lg, xl
             $(this).removeClass(ID + "-xs").removeClass(ID + "-sm").removeClass(ID + "-md").removeClass(ID + "-lg").removeClass(ID + "-xl").addClass(ID + "-" + mode);
         });

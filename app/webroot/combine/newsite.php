@@ -1,5 +1,3 @@
-<!-- //////////////////////////////////////////////////////////////////////////////////////////// NEW SITE-->
-
 <script>
     $(function () {
         $('.mmenu').change(function () {
@@ -46,20 +44,6 @@
         }
         $('.key').val('');
     }
-
-    /*
-     function highlightsym(thiss) {
-     if (thiss.attr('class').replace('searchact', '') == thiss.attr('class')) {
-     thiss.addClass('searchact');
-     $('.symp').append('<input type="hidden" name="symptoms[]" value="' + thiss.attr('id').replace('sym_', '') + '" class="' + thiss.attr('id') + '"  />')
-     } else {
-     thiss.removeClass('searchact')
-
-     $('.' + thiss.attr('id')).remove();
-     }
-     $('.key').val('');
-     }
-     */
 
     function highlighteff2(thiss, order) {
         var sort = 1;
@@ -167,109 +151,70 @@
         });
     }
 </script>
+<div class="row bg-primary text-white">
+    <div class="col-md-12 pa-3">
+        <br>
+        <h1 class="">Add Canbii to Your Life</h1>
+        <h3>Lifestyle Optimization Tool</h3>
 
-<div class="">
-    <div class="page responsive" id="home_cannibis_frontpage">
-        <div class="clearfix" id="home_cannibis_frontpage_clearfix">
-            <h1 id="H1_4">Add Canbii To Your Life</h1>
-            <h1 id="H1_4" style="font-size: 30px">The Cannabis Lifestyle...</h1>
-            <form id="FORM_13" class="contact_form" action="<?= $this->webroot ?>strains/all" method="get" id="search">
+        <br>
 
-                <DIV CLASS="row text-left">
-                    <?php
-                    $effect = $this->requestAction('/pages/getSym');
-                    $counter = 0;
-                    $num_of_sys = count($effect);
-                    foreach ($effect as $key => $e) {
-                        echo '<div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" id="sym_';
-                        echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
-                    }
+    </div>
+</div><br>
+<div class="page responsive" id="home_cannibis_frontpage">
+    <div class="clearfix" id="home_cannibis_frontpage_clearfix">
+        <form id="FORM_13" class="contact_form" action="<?= $this->webroot ?>strains/all" method="get" id="search">
+            <DIV CLASS="row text-left">
 
-                    /*
-                        foreach ($effect as $key => $e) {
-                            $counter ++;
-                            if($counter == 1){
-                                echo '<div style="width: 50%; text-align: left;float:left" class="show479_767">';
-                            }
-                            echo '<div><a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" id="sym_';
-                            echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
-                            if($counter == ceil($num_of_sys/2)) {
-                                $counter = 0;
-                                echo "</div>";
-                            }
-                        }
-
-                        if($counter != 0){
-                            echo "</div>";
-                        }
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#hiking</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#reading</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#movies</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#meditation</a></div>
 
 
-                        $counter = 0;
-                        foreach ($effect as $key => $e) {
-                            $counter ++;
-                            if($counter == 1){
-                                echo '<div style="width: 20%; text-align: left;float:left" class="hide767">';
-                            }
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#yoga</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#video games</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#excercise</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#hangingwithfriends</a></div>
 
-                            echo '<div><!--a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))" id="sym_';
-                            echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a-->';
-                            echo '<a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))"';
-                            echo 'id="sym_' . $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
 
-                            if($counter == 10){
-                                $counter = 0;
-                                echo '</div>';
-                            }
-                        }
-                        if($counter != 0){
-                            echo "</div>";
-                        }
-                    */
 
-                    /*
-                        foreach ($effect as $key => $e) {
-                            $islast = $key == 18;
-                            if ($key == 19) {
-                            }
-                            echo '<a class="A_6" href="javascript:void(0)" onclick="highlightsym($(this))"';
-                            echo 'id="sym_' . $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a>';
-                            if ($key + 1 == count($effect)) {
-                                echo "</P>";
-                            } elseif ($islast) {
-                                echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
-                            }
-                        }
-                    */
-                    ?>
-                </DIV>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#napping</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#studying</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#painting</a></div>
+                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                        echo $e['Symptom']['id'] . '">#driving</a></div>
 
-                <!--p id="P_5"> Filter by Effects:
-					<?php
-						/*
-						$effect = $this->requestAction('/pages/getEff');
-						foreach ($effect as $key => $e) {
-							$islast = $key == 18;
-							if ($key == 19) {
-								echo "<a href='javascript:;' onclick=\"$('.more1').toggle();\" style='color:#fff;font-weight:bold;'> </a></p><p class='more1' id='P_5' style='display:none;'>";
-							}
-							echo '<a  href="javascript:void(0)" class="A_6" onclick="highlighteff($(this))" id="eff_' . $e['Effect']['id'] . '">' . $e['Effect']['title'] . '</a></a>';
-							if ($key + 1 == count($effect)) {
-								echo "</P>";
-							} elseif ($islast) {
-								echo ' or <a class="A_6" href="' . $this->webroot . 'strains/all">View all</a>';
-							}
-						}
-						*/
-					?>
-				</p-->
 
-                <p style="display: none;" class="effe"></p>
-                <p style="display: none;" class="symp"></p>
+                <hr>
+                <?php
 
-				<!--input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
-				<input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/-->
 
-            </form>
-        </div>
+                $effect = $this->requestAction('/pages/getSym');
+                $counter = 0;
+                $num_of_sys = count($effect);
+                foreach ($effect as $key => $e) {
+                    echo '<div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=' . $e['Symptom']['id'] . '" onclick="highlightsym($(this))" id="sym_';
+                    echo $e['Symptom']['id'] . '">' . $e['Symptom']['title'] . '</a></div>';
+                }
+                ?>
+            </DIV>
+            <p style="display: none;" class="effe"></p>
+            <p style="display: none;" class="symp"></p>
+            <!--input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
+            <input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/-->
+        </form>
     </div>
 </div>
+<hr>

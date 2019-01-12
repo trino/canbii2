@@ -17,7 +17,7 @@
                                     $rand1 = rand(100, 999);
                                     $rand2 = rand(100, 999);
                                 ?>
-                                <h2><?= $helpful['Strain']['name'];?> <span style="font-size: 13px"> See Review &raquo;</span></span></h2>
+                                <h2><?= $helpful['Strain']['name'];?></h2>
                             </a>
 
                             <script>
