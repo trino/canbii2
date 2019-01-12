@@ -168,7 +168,7 @@
             </ul>
 
         </div>
-        <div class="page_header_right">
+        <div class="page_header_right hide">
             <form class="search" method="get" action="<?= $this->webroot; ?>strains/all">
                 <a href="#" id="search_filter" data-toggle="modal" data-target="#filter_dialog">
                     <img src="<?= $this->webroot; ?>images/gear.png"  alt="Filter" title="Filter Search" />
@@ -250,7 +250,7 @@
                                     }
                                     ?>
                                     <div>
-                                    <a style="color:white;padding:2px;" href="<?php
+                                    <a style="padding:2px;" href="<?php
                                         $multiple = true;//disable for single queries only
                                         if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                                             echo "javascript:void(";

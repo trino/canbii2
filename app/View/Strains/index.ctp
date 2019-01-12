@@ -15,18 +15,18 @@
     li {
         border 1px solid #111;
     }
-    
+
     .page_header_left h1{
-        white-space: pre-wrap;    
+        white-space: pre-wrap;
         white-space: -moz-pre-wrap;
-        white-space: -o-pre-wrap;    
+        white-space: -o-pre-wrap;
         word-wrap: break-word;
     }
-    
+
     .page_header_left .strain_info{
-        white-space: pre-wrap;    
+        white-space: pre-wrap;
         white-space: -moz-pre-wrap;
-        white-space: -o-pre-wrap;    
+        white-space: -o-pre-wrap;
         word-wrap: break-word;
     }
 </style>
@@ -46,15 +46,15 @@
     // Old: light-purple, light-red, light-blue, light-green
     function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100) {
         if (false) {
-            echo '<div class="left ratewrap"><img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
+            echo '<div width: ';
             echo (round($value, 2) > 100) ? 100 : round($value, 2);
             echo '%;height:25px;position: absolute;left:0;"/><em>' . round($value / 20, 2);
-            echo '/5</em></div><div class="clear"></div>';
+            echo '/5</em></div><div ></div>';
         } else {
             if ($textL) {
-                echo '<div style="float: right; padding-right: 4px;">' . $textL . '</div>';
+                echo '<div >' . $textL . '</div>';
             }
-            echo '</div><div style="margin-bottom: 5px;" class="progress' . iif($striped, " progress-striped") . iif($active, " active") . '">';
+            echo '</div><div >';
             echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
             echo (round($value, 2) > 100) ? 100 : round($value, 2);
             echo '%;height:20px;"/>';
@@ -73,9 +73,9 @@
     }
 ?>
 
-<div class="page_layout page_margin_top clearfix">
-    <div class="page_header clearfix" style="border-bottom: none; white-space: nowrap;">
-        <div class="page_header_left" style="white-space: nowrap;">
+<div >
+    <div  >
+        <div  >
             <?php
                 $strain_hexagon = $strain;
                 if (isset($s)) {
@@ -85,10 +85,10 @@
                 }
             ?>
 
-            <div style="white-space: nowrap;">
+            <div >
                 <h1><?= $strain['Strain']['name']; ?> - Medical Report</h1>
                 <br />
-                <p class="strain_info"><?php
+                <p ><?php
                         switch ($strain['Strain']['type_id']) {
                             case 1:
                                 echo "Indica Cannabis: Best suited for night time use.";
@@ -103,8 +103,8 @@
                     ?>
                 </p>
             </div>
-            
-            <!--li class="column_left" style="border: 1px solid #dadada;padding:0 10px;">
+
+            <!--li  >
                 <p>
                     <?php
                         switch ($strain['Strain']['type_id']) {
@@ -121,25 +121,14 @@
                     ?>
                 </p>
             </li-->
-            
-        </div>
-        <div class="page_header_right">
-            <?php
-                if($this->Session->read('User.type')=='1' || ($this->Session->read('User.type')==2 &&$this->Session->read('User.strain')==$strain['Strain']['slug'])||!$this->Session->read('User')){
-                    echo '<a class="dark_blue more" style="margin-right: 10px;margin-top:10px;" href="' . $this->webroot . 'review/add/' . $strain['Strain']['slug'] . '">Review this Strain</a>';
-                }
-            ?>
-            <a class="blue more" style="margin-top:10px;" href="javascript:void(0)" onclick="window.print();">Print this Report</a>
-            <img height="50" alt="logo" style="margin-top:10px;display:none;" src="<?= $this->webroot;?>images/logo.png" class="toprint" />
-            <!--<a style="" class="blue more" href="<?= $this->webroot;?>strains/generateImage/<?= $strain['Strain']['slug']; ?>">Print as Image</a>-->
-            <!--a style="margin-left: 10px;margin-top:10px;"  class="dark_blue more" href="javascript:void(0)" onclick="save();">Save Report</a-->
+
         </div>
 
     </div>
 
     <!--php include('combine/profile_filter.php'); ?-->
 
-    <div class="toprint">
+    <div >
         <ul>
             <li>
                 <p><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
@@ -147,111 +136,20 @@
         </ul>
     </div>
 
-    <div class="clearfix"></div>
+    <div ></div>
 
-    <DIV CLASS="container">
-        <DIV CLASS="row">
-            <ul class="page_margin_top clearfix" style="margin-top: 7px!important;">
-                <li class="footer_banner_box super_light_blue printer strain_banner no-overflow-x">
-                    <img src="<?= $this->webroot; ?>images/bg1.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
-                    <center style="padding:20px 30px;color:#FFF;">
-                        <h2>Overall Rating</h2>
-                        <div class="rating"></div>
-                    </center>
-                </li>
-
-                <li class="footer_banner_box light_blue printer strain_banner no-overflow-x">
-                    <img src="<?= $this->webroot; ?>images/bg2.jpg" style=" height: 100px;position: absolute;width: 300px;z-index: -1;"/>
-                    <center style="padding:20px 30px;color:#FFF;">
-                        <h2>Chemical Composition</h2>
-                        <?php
-                            $chemical = 0;
-                            function printchemical($chemical, $strain, $acronym, $wikipedia) {
-                                if ($strain['Strain'][strtolower($acronym)] != "0") {
-                                    $chemical++;
-                                    echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><A target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</A> ";
-                                    echo $strain['Strain'][strtolower($acronym)] . "%</span>";
-                                };
-                                return $chemical;
-                            }
-
-                            $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
-                            $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
-                            $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
-                            $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
-                            $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
-                            if ($chemical == 0) {
-                                echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
-                            }
-                        ?>
-                    </center>
-                </li>
-
-                <li class="footer_banner_box blue printer strain_banner no-overflow-x">
-                    <img src="<?= $this->webroot; ?>images/bg3.jpg" style=" height: 100px;position: absolute; width: 300px;z-index: -1;"/>
-                    <div style="color:#FFF;text-align:center;position: relative;width: 100%;">
-                        <!--h2>Dominant Flavors</h-->
-                        <table width="100%" align="center" height="100" style="margin-top: 6px;">
-                            <TR>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                <?php
-                                    //$flavor = null;
-                                    if ($flavor) {
-                                        foreach ($flavor as $f) {
-                                            $name = $this->requestAction('/strains/getFlavor/' . $f['FlavorRating']['flavor_id']); //class used to have this in it
-                                            ?>
-                                            <TD style="padding-top: 0px;"><a class="glow Flavor" href="#" style="position:relative;margin-top:0px;">
-                                                    <CENTER>
-                                                        <img width="55" class="glow" src="<?php
-                                                            $image = "images/icons/" . trim(strtolower($name)) . ".png";
-                                                            echo $this->webroot;
-                                                            if(file_exists(getcwd() . "/" . $image)){
-                                                                echo $image;
-                                                            } else {
-                                                                echo "images/icons/unknown.png";
-                                                                echo '" TITLE="File not found: ' . getcwd() . "/" . $image;
-                                                            }
-                                                        ?>">
-                                                        <?= $name; ?>
-                                                    </CENTER>
-                                                </a></TD>
-                                        <?php
-                                        }
-                                    } else {
-                                        ?>
-                                        <TD style="text-align:center">
-                                            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                                                <i>No flavors yet. Review this strain </i>
-                                                <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
-                                            </a>
-                                        </TD>
-                                    <?php
-                                    }
-                                ?>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            </TR>
-                        </table>
-                        <!--p style="color: #999;margin-top: -13px;padding-top: 0;">Reported Flavours</p-->
-                    </div>
-                </li>
-            </ul>
-        </DIV>
-    </DIV>
-
-    <div class="clearfix"></div>
-
-    <!--h2 class="box_header page_margin_top slide clearfix" style="">Strain Attributes:
-        <div style="float:right;"class="addthis_sharing_toolbox"></div>
-        <div style="float:right;">
+    <!--h2 >Strain Attributes:
+        <div ></div>
+        <div >
             Share
         </div>
     </h2-->
 
 
-    <ul class="columns full_width clearfix page_margin_top">
-        <li class="column_left">
+    <ul >
+        <li >
             <div>
-                <h3 class="box_header slide clearfix">Symptoms</h3>
+                <h3 >Symptoms</h3>
                 <p>How does this strain help with my medical condition?</p>
                 <br>
                 <?php
@@ -304,17 +202,17 @@
                         $rate = $ars[0];
                         $length = 20 * $rate;;
                 ?>
-                <div class="eff symps">
-                    <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);display: inline-block; margin-top: 9px;">
-                        <span style="float: left;width:130px;display:inline-block"><?= $this->requestAction('/strains/getSymptom/' . $ars[1]); ?></span>
+                <div >
+                    <div  >
+                        <span ><?= $this->requestAction('/strains/getSymptom/' . $ars[1]); ?></span>
                         <?php progressbar($this->webroot, $length, perc($length), "", "info", "light-blue"); ?>
-                        <div class="upvote" title="Was this helpful?">
-                            <input type="hidden" class="vote_symp" value="<?= $ars[1]; ?>" />
-                            <a class="upvote <?php if(isset($symptom_vote_user[$ars[1]])): echo (($symptom_vote_user[$ars[1]] == 1)?"upvote-on":""); endif; ?>"></a>
-                            <span class="count"><?= (isset($symptom_votes[$ars[1]])?$symptom_votes[$ars[1]]:0); ?></span>
-                            <a class="downvote <?php if(isset($symptom_vote_user[$ars[1]])): echo (($symptom_vote_user[$ars[1]] == -1)?"downvote-on":""); endif; ?>"></a>
+                        <div >
+                            <input type="hidden"  />
+                            <a ></a>
+                            <span ><?= (isset($symptom_votes[$ars[1]])?$symptom_votes[$ars[1]]:0); ?></span>
+                            <a ></a>
                         </div>
-                        <div class="clear"></div>
+                        <div ></div>
                     </div>
                     <?php
                         }
@@ -323,20 +221,20 @@
                         <i>
                             <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
                                 No ratings yet. Review this strain
-                                <i style="font-size: 16px;padding-left:6px;" class="fa fa-star-half-full"></i>
+                                <i ></i>
                             </a>
                         </i>
                     <?php
                     }
                     ?>
                 </div>
-                <div class="clearfix"></div>
+                <div ></div>
         </li>
 
 
-        <li class="column_right">
+        <li >
             <div>
-                <h3 class="box_header slide clearfix">General Ratings</h3>
+                <h3 >General Ratings</h3>
                 <p> What are the general ratings?</p>
                 <br>
                 <?php
@@ -373,16 +271,16 @@
                     if ($scale) {
                 ?>
 
-                <div class="eff">
-                    <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;">Sedative
+                <div >
+                    <div  >Sedative
                         <?php progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple"); ?>
                     </div>
                     <?php
                         }
                         if ($strength) {
                     ?>
-                    <div class="eff aaloo">
-                        <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;">
+                    <div >
+                        <div  >
                             Strength
                             <?php progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple"); ?>
                         </div>
@@ -390,8 +288,8 @@
                             }
                             if ($duration) {
                         ?>
-                        <div class="eff">
-                            <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;">
+                        <div >
+                            <div  >
                                 Duration
                                 <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple"); ?>
                             </div>
@@ -402,7 +300,7 @@
                                     <i>
                                         <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
                                             No ratings yet. Review this strain
-                                            <i style="font-size: 16px;padding-left:6px;" class="fa fa-star-half-full"></i>
+                                            <i ></i>
                                         </a>
                                     </i>
                                 <?php
@@ -480,9 +378,9 @@
                                     $rate = $ar[0];
                                     $length = 20 * $rate;;
                                     ?>
-                <div class="eff">
-                    <div class="label left"
-                         style="position: relative; top: 50%; transform: translateY(20%);"><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?>
+                <div >
+                    <div
+                         ><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?>
                         <?php progressbar($this->webroot, $length, perc($length), "", "success", "light-green"); ?>
                     </div>
                     <?php
@@ -492,8 +390,8 @@
 
 
                         <i>  <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>"> No ratings yet. Review this
-                                strain <i style="font-size: 16px;padding-left:6px;"
-                                          class="fa fa-star-half-full"></i></a></i>
+                                strain <i
+                                          ></i></a></i>
 
                     <?php
                             }
@@ -502,7 +400,7 @@
 
 
                         <div><br><br>
-                            <h3 class="box_header slide clearfix">Negative Effects</h3>
+                            <h3 >Negative Effects</h3>
                             <p>What are the negative effects?</p>
                             <br>
                             <?php
@@ -522,9 +420,9 @@
                                     $rate = $ar[0];
                                     $length = 20 * $rate;
                             ?>
-                            <div class="eff">
-                                <div class="label left" style="position: relative; top: 50%; transform: translateY(20%);width:244px;">
-                                    <span style="float: left;width:185px;display:inline-block"><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?></span>
+                            <div >
+                                <div  >
+                                    <span ><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?></span>
                                     <?php progressbar($this->webroot, $length, perc($length), "", "danger", "light-red"); ?>
                                 </div>
                                 <?php
@@ -534,7 +432,7 @@
                                     <i>
                                         <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
                                             No ratings yet. Review this strain
-                                            <i style="font-size: 16px;padding-left:6px;" class="fa fa-star-half-full"></i>
+                                            <i ></i>
                                         </a>
                                     </i>
                                 <?php
@@ -552,20 +450,20 @@
     </ul>
 
 
-    <div class="clearfix page_margin_top" style="border-bottom: 1px solid #dadada;"></div>
-    <ul class="columns full_width page_margin_top clearfix">
+    <div  ></div>
+    <ul >
 
-        <li class="column_left">
-            <h3 class="box_header slide clearfix" style="float:left:width:40%;"> Most Helpful User Review</h3>
-            <!--h2 class="box_header slide clearfix" style="">Dominant Color(s)</h2>
-            <div style="width:50%;margin:0 auto;" class="print printer">
+        <li >
+            <h3  > Most Helpful User Review</h3>
+            <!--h2 >Dominant Color(s)</h2>
+            <div >
                 <?php
                     $c = $this->requestAction('/strains/getcolors/' . $strain['Strain']['id']);
                     foreach ($c as $col) {
                         if ($col['ReviewColor']['color'] != "") {
                             ?>
 
-                                <div class="print printer" style="  display: inline-block;
+                                <div   display: inline-block;
                                     float:left;width: 25px; height: 25px;padding:0;margin:0;clear:none;background:<?= $col['ReviewColor']['color']; ?>;">
                                     &nbsp;</div>
                             <?php
@@ -582,43 +480,17 @@
                 });
             </script>
 
-            <div class="clear"></div>
+            <div ></div>
 
-            <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>" class="viewall more blue noprint" style="float:right;font-size:12px;">
+            <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>"  >
                 See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
             </a>
 
-            <div style="clear:both;border-bottom: 1px solid #dadada;padding: 5px 0px;"></div>
-
-            <div class="noprint">
-                <h3 class="box_header slide clearfix page_margin_top">Print this Report</h3>
-
-                <p>Spread the word! The more we know, the more we can help.</p>
-
-                <ul class="columns full_width page_margin_top clearfix">
-                    <li class="column_left">
-                        <a href="javascript:void(0)" onclick="window.print();">
-                            <img src="<?= $this->webroot; ?>images/print_report_small.jpg" style="width:140px;border:1px solid #efefef"/>
-                        </a>
-                    </li>
-
-                    <li class="column_right">
-                        <!--<a style="" class="blue more" href="<?= $this->webroot;?>strain/generateImage/<?= $strain['Strain']['slug']; ?>">Print as Image</a>-->
-                        <a class="blue more" href="javascript:void(0)" onclick="window.print();">Print this Report</a>
-                        <?php if($this->Session->read('User.type')=='1' || ($this->Session->read('User.type')==2 && $this->Session->read('User.strain')==$strain['Strain']['slug'])||!$this->Session->read('User')){?>
-                            <a class="dark_blue more" style="margin-right: 10px;margin-top:10px;" href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">Review this Strain</a>
-                        <?php }?>
-                        <div style="clear:both;"></div>
-                        <h3 style="margin-top: 10px;">Share with care</h3>
-                        <div class="addthis_sharing_toolbox"></div>
-                    </li>
-                </ul>
-            </div>
         </li>
 
 
-        <li class="column_right">
-            <h3 class="box_header slide clearfix"><?= $strain['Strain']['name']; ?> Images</h3>
+        <li >
+            <h3 ><?= $strain['Strain']['name']; ?> Images</h3>
 
             <!--table>
                 <tr>
@@ -645,22 +517,12 @@
             <?php include('combine/images.php'); ?>
         </li>
     </ul>
-    <ul class="columns full_width page_margin_top clearfix">
-        <li class="column_left"></li>
-        <li class="column_right"></li>
+    <ul >
+        <li ></li>
+        <li ></li>
     </ul>
 </div>
 
-<div class="invite noprint" style="display: none; margin-top:10px">
-    <center>
-        <form action="<?= $this->webroot; ?>pages/send_email" method="post">
-            <input type="hidden" name="slug" value="<?= $strain['Strain']['slug']; ?>"/>
-            <label for="email">Email Address (Use ',' for multiple recipents)</label><br/>
-            <textarea name="email" id="email"></textarea><br/>
-            <input type="submit" name="send" value="Send"/>
-        </form>
-    </center>
-</div>
 
 <script>
     function takeScreenShot() {
@@ -712,17 +574,17 @@
     $(function () {
         var makeVote =function(data){
             symp = data.id;
-            
+
             up= data.upvoted;
             down= data.downvoted;
             console.log(up);
-            
+
             setZero = true;
-            
+
             $.each(data.classList,function(i,e){
                 if (e.className.indexOf('downvote-on') != -1 || e.className.indexOf('upvote-on') != -1) {
                     setZero = false;
-                    
+
                     if (e.className.indexOf('downvote-on') != -1) {
                         down = true;
                         up = 0;
@@ -733,7 +595,7 @@
                     }
                 }
             });
-            
+
             if (setZero) {
                 up = 0;
                 down = 0;
@@ -749,18 +611,18 @@
                     console.log(response);
                 }
             });
-            
+
             //}
         };
         $('div.upvote').each(function(i,e){
             $(this).upvote({ele:$(this),classList:$(this).find("a"),id:$(this).find(".vote_symp").val(),callback:makeVote});
         });
-        
+
         //$(".upvote a.upvote").click(function(){
         //    makeVote($(this),1);
         //});
         //$(".upvote a.downvote").click(function(){
-        //    makeVote($(this),0);            
+        //    makeVote($(this),0);
         //});
         <?php
             if(!$p_filter) {
@@ -870,7 +732,7 @@
     }
 
     .page_header{padding-bottom:10px!important;}
-    
+
     .eff .left {
         position: relative;
     }

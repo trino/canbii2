@@ -168,7 +168,7 @@
     }
 </script>
 
-<div class="background_image">
+<div class="">
     <div class="page responsive" id="home_cannibis_frontpage">
         <div class="clearfix" id="home_cannibis_frontpage_clearfix">
             <h1 id="H1_4">Add Canbii To Your Life</h1>
@@ -266,8 +266,8 @@
                 <p style="display: none;" class="effe"></p>
                 <p style="display: none;" class="symp"></p>
 
-				<input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
-				<input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/>
+				<!--input id="strainname" type="text" placeholder="or Search by Strain Name" name="key" class="key form-control"/>
+				<input id="strainsubmit" type="submit" value="Search" class="btn btn-primary"/-->
 
             </form>
         </div>

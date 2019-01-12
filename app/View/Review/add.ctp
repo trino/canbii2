@@ -54,7 +54,7 @@
             }
             echo "</label>";
         }
-        echo '<div class="progress' . iif($striped, " progress-striped") . iif($active, " active") . '" style="margin-bottom: 8px;">';
+        echo '<div >';
         echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
         echo (round($value, 2) > $max) ? $max : round($value / ($max - $min) * 100, 2);
         echo '%;height:20px;"/></div>';
@@ -79,9 +79,9 @@
         });
     })
 </script>
-<div class="page_layout page_margin_top clearfix">
-    <div class="page_header clearfix" style="white-space: nowrap;">
-        <div class="page_header_left" style="white-space: nowrap;">
+<div >
+    <div >
+        <div >
 
             <?php
                 // unset($strain_hexagon);
@@ -117,7 +117,7 @@
             <?php if ($this->params['action'] == 'add') { ?>
 
                 <div style="white-space: nowrap;float:none;">
-                    <h1 class="page_title" style=" float:none !important;"><?= $strain_name ?> Review</h1>
+                    <h1 ><?= $strain_name ?> Review</h1>
 
                     <p style="white-space: nowrap;">
                         <?php
@@ -164,22 +164,22 @@
         <?php
             if ($this->Session->read('User') && $this->params['action'] != 'detail') {
                 ?>
-                <div class="page_header_right">
+                <div >
 
 
                     <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/dashboard"
-                       class=" more large dark_blue icon_small_arrow margin_right_white">My Account</a>
+                       >My Account</a>
 
 
                     <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>users/settings"
-                       class="more large dark_blue icon_small_arrow margin_right_white">Settings</a>
+                       >Settings</a>
 
                     <a style="margin-right:10px;" title="Read more" href="<?= $this->webroot; ?>review"
-                       class="more large dark_blue icon_small_arrow margin_right_white  active">Add Review</a>
+                       >Add Review</a>
 
 
                     <a title="Read more" href="<?= $this->webroot; ?>review/all"
-                       class="more large dark_blue icon_small_arrow margin_right_white  ">My Reviews</a>
+                       >My Reviews</a>
 
 
                 </div>
@@ -191,24 +191,24 @@
 
     </div>
 
-    <div class="clearfix  ">
+    <div >
 
 
-        <div class="page_left page_margin_top">
+        <div >
             <?php if ($this->params['action'] == 'add') { ?>
-                <div class="backgroundcolor"><p>Please be as precise as possible so we can further help personalize
+                <div ><p>Please be as precise as possible so we can further help personalize
                         medication for other patients. We thank you for your help and support.</p></div>
             <?php } ?>
 
             <form action="" method="post" id="reviews1">
 
-                <fieldset id="qf_review__general" class="qf-fieldset">
+                <fieldset id="qf_review__general" >
 
-                    <h2 class="slide page_margin_top">
+                    <h2 >
                         General Rating
                     </h2>
 
-                    <div class="backgroundcolor">
+                    <div >
 
 
                         <h3>Effect Scale (Sedative to Active)</h3>
@@ -220,12 +220,12 @@
                             <?php if ($this->params['action'] == 'add') { ?>
                                 </p>
                                 <div>
-                                    <input id="qf_review__general__mscale" class="qf-hidden-input qf-slider qf-input"
+                                    <input id="qf_review__general__mscale" 
                                            type="hidden" name="eff_scale" value="0"
                                            title="Effect Scale (Active to Sedative)"/>
                                 </div>
                                 <div id="qf_review__general__mscale__slider"
-                                     class="qf-slider-bar ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                     >
                                 </div>
                             <?php } else {
                                 $typ = array('', 'NULL', 'Extremely Sedated', 'Very Sedated', 'Sedated', 'Bit Sedated', 'Balanced', 'Bit Active', 'Active', 'Very Active', 'Extremely Active');
@@ -246,11 +246,11 @@
                                 /5
                             </p>
                             <div>
-                                <input id="qf_review__general__strength" class="qf-hidden-input qf-slider qf-input"
+                                <input id="qf_review__general__strength" 
                                        type="hidden" name="eff_strength" value="0" title="Effect Strength">
                             </div>
                             <div id="qf_review__general__strength__slider"
-                                 class="qf-slider-bar ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 >
                             </div>
                         <?php } ?>
                         <h3>Effect Duration</h3>
@@ -262,25 +262,25 @@
                             ?>
                             <p id="qf_review__general__duration__prompt"><?php if ($this->params['action'] == 'add') echo ''; else echo $review['Review']['eff_duration'] . " hrs"; ?></p>
                             <div>
-                                <input id="qf_review__general__duration" class="qf-hidden-input qf-slider qf-input"
+                                <input id="qf_review__general__duration" 
                                        type="hidden" name="eff_duration" value="0" title="Effect Duration">
                             </div>
                             <div id="qf_review__general__duration__slider"
-                                 class="qf-slider-bar ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                 >
                             </div>
                         <?php } ?>
                     </div>
                 </fieldset>
 
-                <div class="clear"></div>
+                <div ></div>
 
-                <fieldset id="qf_review__effects" class="qf-fieldset">
+                <fieldset id="qf_review__effects" >
 
-                    <h2 class="slide page_margin_top">
+                    <h2 >
                         Effects Rating
                     </h2>
 
-                    <div class="backgroundcolor">
+                    <div >
 
                         <h3>
                             Medicinal Effects
@@ -305,7 +305,7 @@
         <a href="javascript:void(0);"
            onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel');"
            title="<?php echo $effect['Symptom']['id']; ?>"
-           class="eff3 btn qf_review__effects__medical"><?php echo ucfirst($effect['Symptom']['title']); ?></a>
+           ><?php echo ucfirst($effect['Symptom']['title']); ?></a>
         <?php
         }
         }else {
@@ -317,13 +317,13 @@
         progressbar($this->webroot, $effect['rate'], $symptom['title'], "", "info", "light-blue");
     ?>
 
-        <!--div id="efft_<?php echo $effect['id']; ?>er" class="review-slider">
+        <!--div id="efft_<?php echo $effect['id']; ?>er" >
             <label><?php echo $symptoms[$effect['symptom_id'] - 1]['Symptom']['title']; ?></label>
 
             <div id="<?php echo $effect['id']; ?>er"></div>
             <p><?php echo $effect['rate']; ?>/5</p>
 
-            <div class="clear"></div>
+            <div ></div>
         </div-->
 
 
@@ -355,7 +355,7 @@
 ?>
 </span>
 
-                        <div class="clear"></div>
+                        <div ></div>
                         <!--div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
 
                         <h3>
@@ -371,7 +371,7 @@
                                     ?> <a href="javascript:void(0);"
                   onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
                   title="<?php echo $effect['Effect']['id']; ?>"
-                  class="eff3 btn qf_review__effects__positive"><?php echo ucfirst($effect['Effect']['title']); ?></a>
+                  ><?php echo ucfirst($effect['Effect']['title']); ?></a>
         <?php
                                 }
                             }else{
@@ -394,13 +394,13 @@
                         ?>
 
 
-        <!--div id="efft_<?php echo $effect['id'];?>pe" class="review-slider">
+        <!--div id="efft_<?php echo $effect['id'];?>pe" >
             <label><?php echo $effects[$effect['effect_id'] - 1]['Effect']['title'];?></label>
 
             <div id="<?php echo $effect['id'];?>pe"></div>
             <p><?php echo $effect['rate'];?>/5</p>
 
-            <div class="clear"></div>
+            <div ></div>
         </div-->
 
                         <script>
@@ -442,7 +442,7 @@
         ?> <a href="javascript:void(0);"
               onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
               title="<?php echo $effect['Effect']['id']; ?>"
-              class="eff3 btn btn-info qf_review__effects__negative"><?php echo ucfirst($effect['Effect']['title']); ?></a>
+              ><?php echo ucfirst($effect['Effect']['title']); ?></a>
         <?php
         }
         }else{
@@ -462,13 +462,13 @@
         progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "danger", "light-red");
     ?>
 
-        <!--div id="efft_<?php echo $effect['id'];?>ne" class="review-slider">
+        <!--div id="efft_<?php echo $effect['id'];?>ne" >
             <label><?php echo $effectz[$effect['effect_id'] - 1]['Effect']['title'];?></label>
 
             <div id="<?php echo $effect['id'];?>ne"></div>
             <p><?php echo $effect['rate'];?>/5</p>
 
-            <div class="clear"></div>
+            <div ></div>
         </div-->
 
 
@@ -500,13 +500,13 @@
                 </fieldset>
 
 
-                <fieldset id="qf_review__aesthetics" class="qf-fieldset">
+                <fieldset id="qf_review__aesthetics" >
 
-                    <h2 class="slide page_margin_top">
+                    <h2 >
                         Aesthetic Rating
                     </h2>
 
-                    <div class="backgroundcolor">
+                    <div >
                         <?php if (false) { ?>
                             <h3>
                                 Color
@@ -522,9 +522,9 @@
         ?>
         <!--<p id="colorpickerHolder">
         </p>-->
-        <span class="morecolours"></span>
+        <span ></span>
         <?php /*foreach($colours as $colour)
-    {?> <a href="javascript:void(0);" onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')" title="<?php echo $colour['Colour']['id'];?>" class="eff3 btn btn-info qf_review__aesthetics__color"><?php echo ucfirst($colour['Colour']['title']);?></a>
+    {?> <a href="javascript:void(0);" onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')" title="<?php echo $colour['Colour']['id'];?>" ><?php echo ucfirst($colour['Colour']['title']);?></a>
     <?php
     }*/
     } else {
@@ -532,7 +532,7 @@
         if(count($review['ColourRating'])>0){
         foreach($review['ColourRating'] as $effect)
         {?>
-         <span id="efft_<?php echo $effect['id'];?>" class="eff3 sel btn btn-info"><?php echo $colours[$effect['colour_id']-1]['Colour']['title'];?></span>
+         <span id="efft_<?php echo $effect['id'];?>" ><?php echo $colours[$effect['colour_id']-1]['Colour']['title'];?></span>
         <?php
         }
         }*/
@@ -548,7 +548,7 @@
     }
 ?>
 </span>
-                            <div class="clear"></div>
+                            <div ></div>
                             <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
 
 
@@ -567,7 +567,7 @@
             ?> <a href="javascript:void(0);"
                   onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
                   title="<?php echo $flavor['Flavor']['id']; ?>"
-                  class="eff3 btn btn-info qf_review__aesthetics__flavor"><?php echo ucfirst($flavor['Flavor']['title']); ?></a>
+                  ><?php echo ucfirst($flavor['Flavor']['title']); ?></a>
         <?php
         }
 
@@ -576,7 +576,7 @@
             foreach ($review['FlavorRating'] as $effect) {
                 ?>
                 <span id="efft_<?php echo $effect['id']; ?>"
-                      class="eff3 sel btn btn-info"><?php echo $flavors[$effect['flavor_id'] - 1]['Flavor']['title']; ?></span>
+                      ><?php echo $flavors[$effect['flavor_id'] - 1]['Flavor']['title']; ?></span>
             <?php
             }
         } else {
@@ -590,27 +590,27 @@
 
                 </fieldset>
 
-                <h2 class="slide page_margin_top">
+                <h2 >
                     Rating & Comment <?php if ($this->params['action'] == 'add') echo '(Required)'; ?>
                 </h2>
 
-                <div class="backgroundcolor">
+                <div >
 
                     <h3>Overall Rating</h3>
 
                     <div id="preci" data-score="2">
-                        <div id="precision" data-score="1" class="left" style="cursor: pointer;"></div>
-                        <div class="errorz" style="display: none;">Overall Rating Is Mandatory.</div>
+                        <div id="precision" data-score="1" ></div>
+                        <div >Overall Rating Is Mandatory.</div>
                     </div>
 
                     <p id="qf_review__other__overall__prompt">1/5</p>
 
                     <input title="Overall Rating" value="<?= getdata($editreview, 'rate', 0); ?>" type="hidden"
-                           name="rate" id="qf_review__other__overall" class="qf-hidden-input qf-slider qf-input"/>
+                           name="rate" id="qf_review__other__overall" />
 
-                    <div class="qf-slider-bar" score="4" id="qf_review__other__overall__slider"></div>
+                    <div ></div>
 
-                    <h3 class="page_margin_top">Comments</h3>
+                    <h3 >Comments</h3>
                     <?php
                         if (isset($_GET["review"])) {
                             $score = getdata($editreview, 'rate');
@@ -621,10 +621,10 @@
                         if ($this->params['action'] == 'add') {
                             ?>
                             <textarea title="Comments" rows="8" maxlength="4000" name="review"
-                                      id="qf_review__other__comments" class="qf-maxlength-4000 qf-required qf-textarea"
+                                      id="qf_review__other__comments" 
                                       required="required"><?= getdata($editreview, 'review'); ?></textarea>
-                            <div class="submit">
-                                <input type="submit" name="submit" value="Save My Review" class="button more blue"/>
+                            <div >
+                                <input type="submit" name="submit" value="Save My Review" />
                             </div>
                         <?php
                         } else {
@@ -635,7 +635,7 @@
                         }
                     ?>
 
-                    <div class="clear"></div>
+                    <div ></div>
                 </div>
 
             </form>
@@ -648,7 +648,7 @@
             });
         </script>
 
-        <div class="page_right page_margin_top">
+        <div >
 
 
             <?php
@@ -670,11 +670,11 @@
 
                             ?>
                             <center>
-                                <a class="fancybox" rel="group"
+                                <a 
                                    href="<?= $image ?>"
                                     >
                                     <img style="max-width: 270px;max-height: 400px;"
-                                         class="reportimage"
+                                         
                                          src="<?php echo $image; ?>"
                                         />
                                 </a>
@@ -715,11 +715,11 @@
             } elseif ($this->Session->read('User')['id'] == $review['Review']['user_id']) {//http://localhost/marijuana/
                 ?>
 
-            <div class="clearfix"></div>
-            <div class="vote" style="position:fixed;bottom: 0;right:0;background:#e5e5e5;padding:20px;z-index:100000;" align="center">
+            <div ></div>
+            <div >
             <strong>Would you like to delete this review?</strong><br/><br/>
                 <a href="<?php echo $this->webroot;?>review/all?delete=<?= $review['Review']['id']; ?>"
-                   class="btns yes"
+                   
                    onclick="return confirm('Are you sure you want to delete your review?');"
                    style="background-color: #40b2e2; padding-left:6px; padding-right:6px; padding-top: 5px; padding-bottom: 5px; margin-right:5px"><strong
                         style="color: white">YES</strong></a>
@@ -727,8 +727,8 @@
                 <?php
             } else {
                 ?>
-                <div class="clearfix"></div>
-                <div class="vote" style="position:fixed;bottom: 0;right:0;background:#e5e5e5;padding:20px;z-index:100000;">
+                <div ></div>
+                <div >
                     <?php
                         $ip = $_SERVER['REMOTE_ADDR'];
                         $rand1 = rand(100, 999);
@@ -748,10 +748,10 @@
                     <div align="Center">
                         <?php if ($vote == 0){ ?>
                             <a href="javascript:void(0);" id="<?php echo $rand1 . '_' . $review['Review']['id']; ?>"
-                               class="btns yes"
+                               
                                style="background-color: #40b2e2; padding-left:6px; padding-right:6px; padding-top: 5px; padding-bottom: 5px; margin-right:5px"><strong
                                     style="color: white">YES<?php if ($review['Review']['helpful']) { ?> (<?php echo $review['Review']['helpful']; ?>)<?php } ?></strong></a>
-                            <a class="btns no" href="javascript:void(0);"
+                            <a 
                                id="<?php echo ($rand1 + 1) . '_' . $review['Review']['id']; ?>"
                                style="background-color: #1e84c6; padding-left:10px; padding-right:10px; padding-top: 5px; padding-bottom: 5px; margin-right:5px"><strong
                                     style="color: white">NO<?php if ($review['Review']['not_helpful']) { ?> (<?php echo $review['Review']['not_helpful']; ?>)<?php } ?></strong></a>
@@ -770,7 +770,7 @@
                                 $n2 = 'color' . $darkcolor;//'color:#fff';
                             }
                         ?>
-                        <a href="javascript:void(0);" id="" class="faded" style="<?php echo $y1; ?>">
+                        <a href="javascript:void(0);" id="" >
 
                             <span
                                 style="<?php echo $y2; ?>">YES<?php if ($review['Review']['helpful']) { ?> (<?php echo $review['Review']['helpful']; ?>)<?php } ?></span>
@@ -779,7 +779,7 @@
                         </a>
 
 
-                        <a class="faded" href="javascript:void(0);" id="" style="<?php echo $n1; ?>">
+                        <a >
 
                             <span
                                 style="<?php echo $n2; ?>">NO<?php if ($review['Review']['not_helpful']) { ?> (<?php echo $review['Review']['not_helpful']; ?>)<?php } ?></span>
@@ -849,7 +849,7 @@
                 if (type == 'positive' || type == 'negative')
                     type = 'effect';
 
-                $(innerId).append('<div id="' + id + '" class="review-slider" style="' + h + '"><h4>' + txt + '</h4><input type="hidden" id="' + id + 'i" name="' + type + '[' + sel + ']" value="0" /><div class="slider"  id="' + id + 's"></div><p id="' + id + 'p" >0/5</p><div class="clear"> </div></div>');
+                $(innerId).append('<div id="' + id + '" > </div></div>');
                 $('#' + id + 's').slider({
                     range: "min",
                     value: 0,
