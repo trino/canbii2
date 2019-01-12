@@ -75,9 +75,9 @@ if (!isset($keyword)) {
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.bundle.min.js"></script>
 
 </head>
-<body class="background_image">
+<body class="background_image" >
 <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
-<div class="container" style="    box-shadow: 3px 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3);">
+<div class="container" style="margin-top:25px; border:15px solid #007bff;box-shadow: 3px 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3);background: white; opacity: 1">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light" style="padding:0">
