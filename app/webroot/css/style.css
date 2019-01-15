@@ -1,0 +1,30 @@
+/* STOP CHANGING THIS!!!!!! */
+#users-device-size{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
+/* STOP CHANGING THIS!!!!!! */
+.spanwordwrap{
+    word-wrap: break-word;
+}
+.spanwordwrap span{
+    white-space: nowrap;
+}
+
+.cake-sql-log{
+    background-color: white;
+}
+
+.container hr{
+    position: relative;
+    left: -15px;
+    width: calc(100% + 15px);
+    width: -moz-calc(100% + 15px);
+    width: -webkit-calc(100% + 15px);
+    width: -o-calc(100% + 15px);
+    border: 8px solid #007bff;
+}

@@ -33,20 +33,11 @@
 </style>
 
 <?php
-    function iif($value, $true, $false = "")
-    {
-        if ($value) {
-            return $true;
-        }
-        return $false;
-    }
-
     //http://localhost/metronic/templates/admin/ui_general.html
     //Acceptable colors:
     // Metronic: success (green), info (blue), warning (yellow), danger (red). Active does not work
     // Old: light-purple, light-red, light-blue, light-green
-    function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "light-purple", $striped = false, $active = false, $min = 0, $max = 5)
-    {
+    function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "light-purple", $striped = false, $active = false, $min = 0, $max = 5) {
         if ($textL) {
             echo '<label style="margin-top: 0px;">' . $textL;
             if ($textR != "noshow") {
@@ -60,8 +51,7 @@
         echo '%;height:20px;"/></div>';
     }
 
-    function perc($scale)
-    {
+    function perc($scale) {
         return round($scale / 20, 2) . "/5";
     }
 
@@ -91,8 +81,7 @@
                     $strain_hexagon = $review;
                 }
 
-                function getdata($r, $name, $default = "")
-                {
+                function getdata($r, $name, $default = "") {
                     if (isset($r[$name])) {
                         return $r['Review'][$name];
                     }
@@ -102,19 +91,13 @@
 
                 if ($this->params['action'] != 'add') {
                     echo '<a href="' . $this->webroot . 'strains/' . $review['Strain']['slug'] . '">';
-
                 }
                 include('combine/hexagon.php');
                 if ($this->params['action'] != 'add') {
                     echo '</a>';
-
                 }
 
-            ?>
-
-
-
-            <?php if ($this->params['action'] == 'add') { ?>
+             if ($this->params['action'] == 'add') { ?>
 
                 <div style="white-space: nowrap;float:none;">
                     <h1 ><?= $strain_name ?> Review</h1>
@@ -290,8 +273,7 @@
 
 <span id="qf_review__effects__medical__inner">
 <?php
-    function findsymptom($symptoms, $ID, $Field = 'Symptom')
-    {
+    function findsymptom($symptoms, $ID, $Field = 'Symptom') {
         foreach ($symptoms as $symptom) {
             if ($symptom[$Field]['id'] == $ID) {
                 return $symptom[$Field];
@@ -346,8 +328,7 @@
         </script>
     <?php }
     }
-    }
-    else {
+    } else {
         echo "<strong>No Review For Medicinal Effects</strong>";
     }
 

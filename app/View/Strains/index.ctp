@@ -6,71 +6,50 @@
 <script src="<?= $this->webroot; ?>js/html2canvas.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/jquery.plugin.html2canvas.js"></script>
 
-
 <?php
-echo "<Strain id='" . $strain['Strain']['id'] . "' />";
-function iif($value, $true, $false = "")
-{
-    if ($value) {
-        return $true;
-    }
-    return $false;
-}
+    echo "<Strain id='" . $strain['Strain']['id'] . "' />";
 
+    function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100) {
+        if (false) {
+            /*
+            echo '<div  class="pull-left" width: ';
+            echo (round($value, 2) > 100) ? 100 : round($value, 2);
+            echo '%;height:25px;position: absolute;left:0;"/>' . round($value / 20, 2);
+            echo '/5</div>';
+            */
+        } else {
+            if ($textL) {
+                echo '<div class="pull-left" >&nbsp;&nbsp;&nbsp;' . $textL . '</div>';
+            }
+            echo '<div style="clear: both">';
+            echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
+            echo (round($value, 2) > 100) ? 100 : round($value, 2);
+            echo '%;height:20px;"/>';
 
-function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100)
-{
-    if (false) {
-        /*
-        echo '<div  class="pull-left" width: ';
-        echo (round($value, 2) > 100) ? 100 : round($value, 2);
-        echo '%;height:25px;position: absolute;left:0;"/>' . round($value / 20, 2);
-        echo '/5</div>';
-        */
-    } else {
-        if ($textL) {
-            echo '<div class="pull-left" >&nbsp;&nbsp;&nbsp;' . $textL . '</div>';
+            echo "</div>";
+            return;
+            echo '<div class="progress-bar progress-bar-';
+            echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
+            echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div  class="pull-left">' . $textR . '</div></div></div>';
         }
-        echo '<div style="clear: both">';
-        echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
-        echo (round($value, 2) > 100) ? 100 : round($value, 2);
-        echo '%;height:20px;"/>';
 
-        echo "</div>";
-        return;
-        echo '<div class="progress-bar progress-bar-';
-        echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
-        echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div  class="pull-left">' . $textR . '</div></div></div>';
     }
 
-}
+    function perc($scale) {
+        return '' . round($scale / 20, 2) . "/5";
+    }
 
-function perc($scale)
-{
-    return '' . round($scale / 20, 2) . "/5";
-}
-
-?>
-
-
-
-<?php
-$strain_hexagon = $strain;
-if (isset($s)) {
-    echo '<a href="' . $this->webroot . 'strains/' . $s['Strain']['slug'] . '">';
-    include('combine/hexagon.php');
-    echo '</a>';
-}
+    $strain_hexagon = $strain;
+    if (isset($s)) {
+        echo '<a href="' . $this->webroot . 'strains/' . $s['Strain']['slug'] . '">';
+        include('combine/hexagon.php');
+        echo '</a>';
+    }
 ?>
 
 <div class="row">
-
-
     <DIV CLASS="col-md-12">
-
-
         <h1><?= $strain['Strain']['name']; ?> - Report</h1>
-
         <p><?php
             switch ($strain['Strain']['type_id']) {
                 case 1:
@@ -85,55 +64,52 @@ if (isset($s)) {
             }
             ?><br>
        <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
-
-
     </DIV>
-
 </div>
 
 <div class="row bg-primary text-white" style="padding: 30px 20px;">
-
-    <DIV CLASS="col-md-3 ">
-
-
+    <DIV CLASS="col-md-3">
         <h2>Overall Rating</h2>
         <div class="rating"></div>
     </DIV>
-    <DIV CLASS="col-md-4 ">
 
+    <DIV CLASS="col-md-4">
         <h2> Composition</h2>
-        <?php
-        $chemical = 0;
-        function printchemical($chemical, $strain, $acronym, $wikipedia)
-        {
-            if ($strain['Strain'][strtolower($acronym)] != "0") {
-                $chemical++;
-                echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><a style='color: white' target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</a> ";
-                echo $strain['Strain'][strtolower($acronym)] . "%</span>";
-            };
-            return $chemical;
-        }
+        <DIV class="spanwordwrap">
+            <?php
+            $chemical = 0;
+            function printchemical($chemical, $strain, $acronym, $wikipedia) {
+                if ($strain['Strain'][strtolower($acronym)] != "0") {
+                    $chemical++;
+                    echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><a style='color: white' target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</a> ";
+                    echo $strain['Strain'][strtolower($acronym)] . "%</span> ";
+                };
+                return $chemical;
+            }
 
-        $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
-        $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
-        $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
-        $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
-        $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
-        if ($chemical == 0) {
-            echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
-        }
-        ?>
+            $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
+            $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
+            $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
+            $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
+            $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
+            if ($chemical == 0) {
+                echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
+            }
+            ?>
+        </DIV>
     </DIV>
-    <DIV CLASS="col-md-5 ">
 
+    <DIV CLASS="col-md-5">
         <h2>Flavors</h2>
         <?php
         if ($flavor) {
             foreach ($flavor as $f) {
-                $name = $this->requestAction('/strains/getFlavor/' . $f['FlavorRating']['flavor_id']); //class used to have this in it
+                //$name = $this->requestAction('/strains/getFlavor/' . $f['FlavorRating']['flavor_id']); //class used to have this in it
+                $flavor = first("SELECT * FROM flavors WHERE id=" . $f['FlavorRating']['flavor_id']);
+                $name = $flavor["title"];
                 ?>
 
-                <img width="55" class="" src="<?php
+                <img width="55" src="<?php
                 $image = "images/icons/" . trim(strtolower($name)) . ".png";
                 echo $this->webroot;
                 if (file_exists(getcwd() . "/" . $image)) {
@@ -144,28 +120,40 @@ if (isset($s)) {
                 }
                 ?>">
                 <?= $name; ?> &nbsp;&nbsp;&nbsp;
-
-
                 <?php
             }
         } else {
             ?>
-
-            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                <i>No flavors yet. Review this strain </i>
-                <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
-            </a>
-
-
+                <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
+                    <i>No flavors yet. Review this strain </i>
+                    <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
+                </a>
             <?php
         }
         ?>
-
-
     </DIV>
 </div>
-<div class="">
 
+<?php
+    if(!function_exists("money_format")){
+        function money_format($ignored, $value) {
+            return '$' . number_format($value, 2);
+        }
+    }
+
+    $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
+    if($OCSDATA){
+        echo '<DIV ID="csodata">';
+        echo $OCSDATA["shorttext"];
+        echo '<BR>' . $OCSDATA["content"];
+        echo '<BR>Price: ' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+        echo '<BR>Terpenes: $' . $OCSDATA["terpenes"];
+        echo '<BR>Available: ' . $OCSDATA["available"] == 1;
+        echo '</DIV><HR>';
+    }
+?>
+
+<div>
     <div class="module">
         <h3>Symptoms</h3>
         <p>How does this strain help with my medical condition?</p>
@@ -179,12 +167,13 @@ if (isset($s)) {
                 $arrs[] = $oer['rate'] . '_' . $oer['symptom_id'];
             }
         } else {
-            $symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-//var_dump($symptom_rate);
+            //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
+            $symptom_rate = Query("SELECT * FROM symptom_ratings WHERE strain_id=" . $strain['Strain']['id']);
             $cnt = 0;
             $eff_id = 0;
             $total_rate = 0;
             foreach ($symptom_rate as $er) {
+                $er['SymptomRating'] = $er;
                 $cnt++;
                 if ($eff_id != $er['SymptomRating']['symptom_id']) {
                     if ($cnt != 1) {
@@ -208,35 +197,30 @@ if (isset($s)) {
         } else {
             $arrs = array();
         }
-        //var_dump($arr);
         $i = 0;
         if ($arrs) {
-            foreach ($arrs
-
-                     as $e) {
-                $ars = explode('_', $e);
+            $ids = [];
+            foreach ($arrs as $id => $e) {
+                $arrs[$id] =  explode('_', $e);
+                $ids[] = $arrs[$id][1];
+            }
+            $names = Query("SELECT * FROM symptoms WHERE id IN(" . implode(",", $ids ) . ")");
+            foreach ($arrs as $ars) {
                 $i++;
                 if ($i == 16) {
                     break;
                 }
                 $rate = $ars[0];
-                $length = 20 * $rate;;
+                $length = 20 * $rate;
+                //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
+                $name = getiterator($names, "id", $ars[1])["title"];
                 ?>
-
-                <div class="pull-left"><?= $this->requestAction('/strains/getSymptom/' . $ars[1]); ?></div>
-                <?php progressbar($this->webroot, $length, perc($length), "", "info", "light-blue"); ?>
-
-
-                <?php
+                <div class="pull-left"><?= $name ?></div>
+                <?php progressbar($this->webroot, $length, perc($length), "", "info", "light-blue");
             }
         } else {
             ?>
-
-            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                No ratings yet. Review this strain
-
-            </a>
-
+            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. Review this strain</a>
             <?php
         }
         ?>
@@ -246,7 +230,6 @@ if (isset($s)) {
     <div class="module">
         <h3>General Ratings</h3>
         <p> What are the general ratings?</p>
-
         <?php
         $scale = 0;
         $strength = 0;
@@ -280,42 +263,26 @@ if (isset($s)) {
         }
         if ($scale) {
             ?>
-
             <div class="pull-left"> Sedative</div>
-            <?php progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple"); ?>
-
-            <?php
+            <?php progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple");
         }
         if ($strength) {
             ?>
-
-
             <div class="pull-left">
                 Strength
             </div>
-            <?php progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple"); ?>
-
-            <?php
+            <?php progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple");
         }
         if ($duration) {
             ?>
-
-
             <div class="pull-left">
                 Duration
             </div>
-            <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple"); ?>
-
-            <?php
+            <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
         }
         if (!$duration && !$strength && !$scale) {
             ?>
-
-            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                No ratings yet. Review this strain
-
-            </a>
-
+            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. Review this strain</a>
             <?php
         }
         ?>
@@ -354,7 +321,6 @@ if (isset($s)) {
                     if ($cnt != 1) {
                         $tots = $total_rate;
                         $total_rate = $er['Effect_rating']['rate'];
-
                         $avg_rate = $tots / ($cnt - 1);
                         $cnt = 0;
                         if ($this->requestAction('/strains/getPosEff/' . $er['Effect_rating']['effect_id'])) {
@@ -381,9 +347,7 @@ if (isset($s)) {
         }
         $i = 0;
         if ($arr) {
-            foreach ($arr
-
-                     as $e) {
+            foreach ($arr as $e) {
                 $ar = explode('_', $e);
                 $i++;
                 if ($i == 6) {
@@ -392,21 +356,13 @@ if (isset($s)) {
                 $rate = $ar[0];
                 $length = 20 * $rate;;
                 ?>
-
-
                 <div class="pull-left"> <?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?>    </div>
-                <?php progressbar($this->webroot, $length, perc($length), "", "success", "light-green"); ?>
-
                 <?php
+                    progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
         } else {
             ?>
-
-
-            <i> <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>"> No ratings yet. Review this
-                    strain <i
-                    ></i></a></i>
-
+            <i> <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>"> No ratings yet. Review this strain <i></i></a></i>
             <?php
         }
         ?>
@@ -422,9 +378,7 @@ if (isset($s)) {
         }
         $i = 0;
         if ($arr_neg) {
-            foreach ($arr_neg
-
-                     as $e) {
+            foreach ($arr_neg as $e) {
                 $ar = explode('_', $e);
                 $i++;
                 if ($i == 6) {
@@ -433,12 +387,9 @@ if (isset($s)) {
                 $rate = $ar[0];
                 $length = 20 * $rate;
                 ?>
-
-
                 <div class="pull-left"><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?></div>
-                <?php progressbar($this->webroot, $length, perc($length), "", "danger", "light-red"); ?>
-
                 <?php
+                    progressbar($this->webroot, $length, perc($length), "", "danger", "light-red");
             }
         } else {
             ?>
@@ -454,7 +405,6 @@ if (isset($s)) {
     </div>
 
     <div class="module">
-
         <h3> Most Helpful User Review</h3>
 
         <?php include_once('combine/strain_reviews.php'); ?>
@@ -465,21 +415,18 @@ if (isset($s)) {
             });
         </script>
 
-
         <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
             See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
         </a>
-
     </div>
-    <div class="module">
 
+    <div class="module">
         <h3><?= $strain['Strain']['name']; ?> Images</h3>
         <?php include('combine/images.php'); ?>
-
-
     </div>
 
 </div>
+
 <script>
     function takeScreenShot() {
         html2canvas(window.parent.document.body, {
@@ -505,14 +452,12 @@ if (isset($s)) {
         alert('done');
     }
 
-
     function save() {
         Rectangle
         screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
         BufferedImage
         capture = new Robot().createScreenCapture(screenRect);
         ImageIO.write(capture, "bmp", new File(args[0]));
-
     }
 </script>
 
@@ -557,42 +502,42 @@ if (isset($s)) {
                     console.log(response);
                 }
             });
-
 //}
         };
+
         $('div.upvote').each(function (i, e) {
             $(this).upvote({ele: $(this), classList: $(this).find("a"), id: $(this).find(".vote_symp").val(), callback: makeVote});
         });
 
-
         <?php
-        if (!$p_filter) {
-            $rate = $strain['Strain']['rating'];
-        } else {
-            $effect_reviews = $this->requestAction('/strains/getEffectReview/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-            $count_rate = 0;
-            $rate = 0;
-            foreach ($effect_reviews as $oar) {
-                if ($oar['Review']['rate'] == 0) {
-                    continue;
-                } else {
-                    $count_rate++;
-                    $rate = $rate + $oar['Review']['rate'];
-                }
-            }
-            if ($count_rate == 0) {
-                $rate = 0;
+            if (!$p_filter) {
+                $rate = $strain['Strain']['rating'];
             } else {
-                $rate = $rate / $count_rate;
+                $effect_reviews = $this->requestAction('/strains/getEffectReview/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
+                $count_rate = 0;
+                $rate = 0;
+                foreach ($effect_reviews as $oar) {
+                    if ($oar['Review']['rate'] == 0) {
+                        continue;
+                    } else {
+                        $count_rate++;
+                        $rate = $rate + $oar['Review']['rate'];
+                    }
+                }
+                if ($count_rate == 0) {
+                    $rate = 0;
+                } else {
+                    $rate = $rate / $count_rate;
+                }
+                $rate = number_format($rate, 2);
             }
-            $rate = number_format($rate, 2);
-        }
         ?>
+
         $('.rating').raty({number: 5, readOnly: true, score:<?= $rate;?>});
 
         <?php if($helpful){?>
-        $('.frate').raty({readOnly: true, score:<?= $helpful['Review']['rate'];?>});
-        $('.srate').raty({readOnly: true, score:<?= $recent['Review']['rate'];?>});
+            $('.frate').raty({readOnly: true, score:<?= $helpful['Review']['rate'];?>});
+            $('.srate').raty({readOnly: true, score:<?= $recent['Review']['rate'];?>});
         <?php }?>
         $('.emotion').text('<?= ($strain['Strain']['rating']) . '/5';?> ');
         var check = 0;
