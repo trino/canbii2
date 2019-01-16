@@ -249,6 +249,11 @@
 		}
 	}
 
+	function vardump($JSON){
+		$HTML = json_encode($JSON, JSON_PRETTY_PRINT);
+		echo '<PRE>' . $HTML . '</PRE>';
+	}
+
 	function getbetween($text, $start, $end = false){
 		$startpos = strpos($text, $start);
 		if($startpos === false){return false;}

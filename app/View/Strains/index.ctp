@@ -144,10 +144,24 @@
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
     if($OCSDATA){
         echo '<DIV ID="csodata">';
+        $dir = getcwd() . "/ocs/";
+        $filename = $dir . $strain['Strain']['slug'] . ".json";
+        $data = false;
+        if(file_exists($filename )) {
+            $data = json_decode(file_get_contents($filename), true);
+        }
         echo $OCSDATA["shorttext"];
         echo '<BR>' . $OCSDATA["content"];
-        echo '<BR>Price: ' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
-        echo '<BR>Terpenes: $' . $OCSDATA["terpenes"];
+        echo '<BR>Prices: ';
+        if($data) {
+            foreach($data["variants"] as $variant){
+                echo money_format(LC_MONETARY, $variant["price"] * 0.01) . " (" . $variant["public_title"] . ") ";
+            }
+        } else {
+            echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+        }
+
+        echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
         echo '<BR>Available: ' . $OCSDATA["available"] == 1;
         echo '</DIV><HR>';
     }
@@ -302,12 +316,19 @@
                 }
             }
         }
+
         if (!$p_filter) {
-            foreach ($strain['OverallEffectRating'] as $oer) {
-                if ($this->requestAction('/strains/getPosEff/' . $oer['effect_id'])) {
-                    $arr[] = $oer['rate'] . '_' . $oer['effect_id'];
-                } else {
-                    $arr_neg[] = $oer['rate'] . '_' . $oer['effect_id'];
+            $effectids = collapsearray($strain['OverallEffectRating'], "effect_id");
+            if($effectids) {
+                $effects = Query("SELECT * FROM effects WHERE id IN (" . implode(",", $effectids) . ")", true);
+                foreach ($strain['OverallEffectRating'] as $oer) {
+                    $effect = getiterator($effects, "id", $oer['effect_id']);
+                    //if ($this->requestAction('/strains/getPosEff/' . $oer['effect_id'])) {
+                    if($effect["negative"]){
+                        $arr[] = $oer['rate'] . '_' . $oer['effect_id'];
+                    } else {
+                        $arr_neg[] = $oer['rate'] . '_' . $oer['effect_id'];
+                    }
                 }
             }
         } else {
@@ -338,8 +359,8 @@
                 $eff_id = $er['Effect_rating']['effect_id'];
 
             }
-
         }
+
         if (isset($arr)) {
             rsort($arr);
         } else {
@@ -354,9 +375,11 @@
                     break;
                 }
                 $rate = $ar[0];
-                $length = 20 * $rate;;
+                $length = 20 * $rate;
+                $effect = getiterator($effects, "id", $ar[1]);
+                $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
                 ?>
-                <div class="pull-left"> <?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?>    </div>
+                <div class="pull-left"><?= $name; ?></div>
                 <?php
                     progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
@@ -386,8 +409,10 @@
                 }
                 $rate = $ar[0];
                 $length = 20 * $rate;
+                $effect = getiterator($effects, "id", $ar[1]);
+                $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
                 ?>
-                <div class="pull-left"><?= $this->requestAction('/strains/getEffect/' . $ar[1]); ?></div>
+                <div class="pull-left"><?= $name; ?></div>
                 <?php
                     progressbar($this->webroot, $length, perc($length), "", "danger", "light-red");
             }
@@ -570,7 +595,7 @@
                 var num = parseFloat(arr2[0]) - 1;
                 var r_id = arr2[1];
                 $.ajax({
-                    url: '<?= $this->webroot;?>strains/helpful/' + r_id + '/no',
+                    url: webroot + 'strains/helpful/' + r_id + '/no',
                 });
                 $('#' + arr2[0] + '_' + r_id).removeClass('yes');
                 var o = parseFloat(arr2[0]) + 1;

@@ -1,22 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <?php
-$generic = $this->requestAction('/pages/getGeneric');
-if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
-    $gtitle = 'Home';
-} else {
-    $gtitle = ucfirst($this->params['action']);
-}
-if (!isset($title)) {
-    $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
-}
-$title .= ' - Canbii - Personalized Medical Cannabis';
-if (!isset($description)) {
-    $description = $generic['description'];
-}
-if (!isset($keyword)) {
-    $keyword = $generic['keyword'];
-}
+    $generic = $this->requestAction('/pages/getGeneric');
+    if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
+        $gtitle = 'Home';
+    } else {
+        $gtitle = ucfirst($this->params['action']);
+    }
+    if (!isset($title)) {
+        $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
+    }
+    $title .= ' - Canbii - Personalized Medical Cannabis';
+    if (!isset($description)) {
+        $description = $generic['description'];
+    }
+    if (!isset($keyword)) {
+        $keyword = $generic['keyword'];
+    }
 ?>
 <meta charset="UTF-8"/>
 <meta property="og:image" content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
@@ -91,8 +91,7 @@ if (!isset($keyword)) {
                     <ul class="navbar-nav ml-auto">
                         <?php
                         if (!function_exists("quicklistitem")) {
-                            function quicklistitem($webroot, $url, $value, $accesskey, $name)
-                            {
+                            function quicklistitem($webroot, $url, $value, $accesskey, $name) {
                                 echo '<LI CLASS="nav-item';
                                 if ($value) {
                                     echo ' active current_page_item';
@@ -156,6 +155,9 @@ if (!isset($keyword)) {
 echo $this->element('sql_dump');
 ?>
 <SCRIPT>
+    var webroot = "<?= $this->webroot;?>";
+    var currenturl = "<?= currentURL; ?>";
+
     refreshbootstrap();
     window.onresize = function (event) {
         refreshbootstrap();
