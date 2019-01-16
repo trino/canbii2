@@ -15,8 +15,8 @@
     white-space: nowrap;
 }
 
-.cake-sql-log{
-    background-color: white;
+.cake-sql-log, .cake-sql-log *{
+    background-color: white !important;
 }
 
 .container hr{
@@ -27,4 +27,7 @@
     width: -webkit-calc(100% + 15px);
     width: -o-calc(100% + 15px);
     border: 8px solid #007bff;
+}
+.row .row hr{
+    left: 0px !important;
 }

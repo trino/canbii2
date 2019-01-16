@@ -1,0 +1,133 @@
+{
+    "shorttext": "Ease from Tokyo Smoke is a sativa-dominant strain with mild THC potency.",
+    "price": 1025,
+    "THC": "6.0 - 11.0%",
+    "CBD": "8.0 - 12.0%",
+    "Plant": "Sativa dominant",
+    "Terpenes": [
+        "Limonene",
+        "Myrcene",
+        "Nerolidol"
+    ],
+    "id": 1314096318284,
+    "title": "Ease",
+    "handle": "relief",
+    "description": "Ease is a sativa-dominant strain with mild THC potency. The large, airy and resin-rich green and yellow buds are grown and hang-dried in a hybrid greenhouse, and the citrusy, sweet taste and aroma are the products of a rich terpene profile that includes limonene, myrcene and nerolidol.\n",
+    "published_at": "2019-01-02T16:14:02-05:00",
+    "created_at": "2018-09-13T15:33:21-04:00",
+    "vendor": "Tokyo Smoke",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--12.000000",
+        "cbd_content_min--8.000000",
+        "effect--Creative",
+        "effect--Happy",
+        "effect--Relaxed",
+        "effect--Uplifted",
+        "gtin--00886708000074",
+        "gtin--00886708000081",
+        "gtin--00886708000098",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Sativa Dominant",
+        "subcategory--Dried Flower",
+        "subsubcategory--Sativa Dominant",
+        "terpenes--Limonene",
+        "terpenes--Myrcene",
+        "terpenes--Nerolidol",
+        "Test-06\/07\/2018",
+        "thc_content_max--11.000000",
+        "thc_content_min--6.000000"
+    ],
+    "price_min": 1025,
+    "price_max": 6495,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 1125,
+    "compare_at_price_min": 1125,
+    "compare_at_price_max": 6225,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175420393292,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00886708000074",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "Ease - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1025,
+            "weight": 0,
+            "compare_at_price": 6225,
+            "inventory_management": "shopify",
+            "barcode": "00886708000074"
+        },
+        {
+            "id": 12175420426060,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00886708000081",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Ease - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 3420,
+            "weight": 0,
+            "compare_at_price": 1125,
+            "inventory_management": "shopify",
+            "barcode": "00886708000081"
+        },
+        {
+            "id": 12175420458828,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00886708000098",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "Ease - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 6495,
+            "weight": 0,
+            "compare_at_price": 3325,
+            "inventory_management": "shopify",
+            "barcode": "00886708000098"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000074-m1c0-en-c01.png?v=1544715516",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000074-m1c0-fr-c01.png?v=1544715517",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000081-m1c0-en-c01.png?v=1544715518",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000081-m1c0-fr-c01.png?v=1544715519",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000098-m1c0-en-c01.png?v=1544715520",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000098-m1c0-fr-c01.png?v=1544715521"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100175-00886708000074-m1c0-en-c01.png?v=1544715516",
+    "options": [
+        "Weight"
+    ],
+    "content": "Ease is a sativa-dominant strain with mild THC potency. The large, airy and resin-rich green and yellow buds are grown and hang-dried in a hybrid greenhouse, and the citrusy, sweet taste and aroma are the products of a rich terpene profile that includes limonene, myrcene and nerolidol.\n"
+}

@@ -51,6 +51,8 @@ class PagesController extends AppController {
         $this->set('homepage','1');
     }
 
+
+
     public function landing(){
 
     }
@@ -134,6 +136,9 @@ class PagesController extends AppController {
     }
 
     function terms(){
+    }
+
+    function cron(){
     }
 
     function getEff(){

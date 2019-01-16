@@ -1,0 +1,74 @@
+{
+    "shorttext": "Irisa Moon Oil is a terpene-free oil with very mild THC potency and no taste.",
+    "price": 5550,
+    "Plant": "Blend",
+    "Terpenes": [
+        "Terpenes removed"
+    ],
+    "id": 1314095073100,
+    "title": "Moon Oil (5 mg\/ml THC, 1 mg\/ml CBD)",
+    "handle": "moon-oil",
+    "description": "Irisa Moon Oil is a terpene-free oil with very mild THC potency. This indoor-grown strain is made using the ethanol extraction method. It comes in 30 ml bottles, and is also available in pre-rolled packs of three. All oil products sold at OCS.ca are for ingestion only. DO NOT smoke or vape these oils. Use as directed.\n",
+    "published_at": "2018-10-11T20:37:57-04:00",
+    "created_at": "2018-09-13T15:31:29-04:00",
+    "vendor": "Irisa",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "effect--Relaxed",
+        "effect--Sleepy",
+        "gtin--00826966000706",
+        "language--en",
+        "plant_type--Blend",
+        "subcategory--Oil and Capsules",
+        "subsubcategory--Bottled Oil",
+        "terpenes--Terpenes Removed",
+        "Test-06\/07\/2018",
+        "thc_content_max--0.000000",
+        "thc_content_min--0.000000"
+    ],
+    "price_min": 5550,
+    "price_max": 5550,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 4950,
+    "compare_at_price_min": 4950,
+    "compare_at_price_max": 4950,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175418656588,
+            "title": "Default Title",
+            "option1": "Default Title",
+            "option2": null,
+            "option3": null,
+            "sku": "00826966000706",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Moon Oil (5 mg\/ml THC, 1 mg\/ml CBD)",
+            "public_title": null,
+            "options": [
+                "Default Title"
+            ],
+            "price": 5550,
+            "weight": 0,
+            "compare_at_price": 4950,
+            "inventory_management": "shopify",
+            "barcode": "00826966000706"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100130-00826966000706-a1c1.png?v=1544715256",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100130-00826966000706-m1c0.png?v=1544715257",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100130-00826966000706-m1c0-c01.png?v=1544715258"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100130-00826966000706-a1c1.png?v=1544715256",
+    "options": [
+        "Title"
+    ],
+    "content": "Irisa Moon Oil is a terpene-free oil with very mild THC potency. This indoor-grown strain is made using the ethanol extraction method. It comes in 30 ml bottles, and is also available in pre-rolled packs of three. All oil products sold at OCS.ca are for ingestion only. DO NOT smoke or vape these oils. Use as directed.\n"
+}

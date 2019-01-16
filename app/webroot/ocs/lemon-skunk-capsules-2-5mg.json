@@ -1,0 +1,104 @@
+{
+    "shorttext": "Bred by DNA Genetics, Lemon Skunk is a hybrid strain that has very mild THC potency and smells like lemons and black pepper.",
+    "price": 2695,
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Bergamotene",
+        "Beta Caryophyllene",
+        "Beta-Pinene",
+        "Cymene",
+        "Terpinolene"
+    ],
+    "id": 1314100545356,
+    "title": "Lemon Skunk Softgels (2.5 mg THC, 0.7 mg CBD per cap)",
+    "handle": "lemon-skunk-capsules-2-5mg",
+    "description": "Lemon Skunk is a greenhouse-grown hybrid strain with very mild THC potency. The plant\u2019s buds are light green with thick orange hairs, and its terpene profile is rich in terpinolene and caryophyllene, which give it a black pepper scent and hints of citrus. Lemon Skunk is available in 10 mg and 2.5 mg softgels, as well as four dried flower weights.\n",
+    "published_at": "2019-01-14T12:14:19-05:00",
+    "created_at": "2018-09-13T15:40:03-04:00",
+    "vendor": "DNA Genetics",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00688083000249",
+        "gtin--00688083000256",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Oil and Capsules",
+        "subsubcategory--Capsule",
+        "terpenes--Bergamotene",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Beta-Pinene",
+        "terpenes--Cymene",
+        "terpenes--Terpinolene",
+        "Test-06\/07\/2018",
+        "thc_content_max--0.000000",
+        "thc_content_min--0.000000"
+    ],
+    "price_min": 2695,
+    "price_max": 6610,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175428749132,
+            "title": "15 caps",
+            "option1": "15 caps",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000249",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Lemon Skunk Softgels (2.5 mg THC, 0.7 mg CBD per cap) - 15 caps",
+            "public_title": "15 caps",
+            "options": [
+                "15 caps"
+            ],
+            "price": 2695,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000249"
+        },
+        {
+            "id": 12175428781900,
+            "title": "60 caps",
+            "option1": "60 caps",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000256",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Lemon Skunk Softgels (2.5 mg THC, 0.7 mg CBD per cap) - 60 caps",
+            "public_title": "60 caps",
+            "options": [
+                "60 caps"
+            ],
+            "price": 6610,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000256"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100323-00688083000249-a1c1.png?v=1544716530",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100323-00688083000249-a1c1-c01.png?v=1544716531",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100323-00688083000256-a1c1.png?v=1544716542",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100323-00688083000256-a1c1-c01.png?v=1544716543"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100323-00688083000249-a1c1.png?v=1544716530",
+    "options": [
+        "capsules"
+    ],
+    "content": "Lemon Skunk is a greenhouse-grown hybrid strain with very mild THC potency. The plant\u2019s buds are light green with thick orange hairs, and its terpene profile is rich in terpinolene and caryophyllene, which give it a black pepper scent and hints of citrus. Lemon Skunk is available in 10 mg and 2.5 mg softgels, as well as four dried flower weights.\n"
+}

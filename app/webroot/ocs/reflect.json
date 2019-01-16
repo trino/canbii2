@@ -1,0 +1,129 @@
+{
+    "shorttext": "Reflect by Cove is an earthy, woodsy, piney and peppery hybrid strain with very strong THC potency.",
+    "price": 1065,
+    "THC": "14.0 - 25.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Alpha Pinene",
+        "Beta Caryophyllene",
+        "Myrcene"
+    ],
+    "id": 1314094483276,
+    "title": "Reflect",
+    "handle": "reflect",
+    "description": "Cove\u2019s Reflect is an indoor-grown hybrid strain with very strong THC potency. Its white and green buds are hand-trimmed and non-irradiated, and its aroma is earthy, woodsy, piney and peppery, thanks to the myrcene, alpha-pinene and beta-caryophyllene in its terpene profile. It\u2019s available in pre-rolls and three dried flower sizes (1 g, 3.5 g and 7 g).\n",
+    "published_at": "2018-10-02T13:13:40-04:00",
+    "created_at": "2018-09-13T15:30:14-04:00",
+    "vendor": "Cove",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "effect--Euphoric",
+        "effect--Happy",
+        "effect--Passionate",
+        "gtin--00841432000011",
+        "gtin--00841432000042",
+        "gtin--00841432000073",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Dried Flower",
+        "subsubcategory--Hybrid",
+        "terpenes--Alpha Pinene",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Myrcene",
+        "Test-06\/07\/2018",
+        "thc_content_max--25.000000",
+        "thc_content_min--14.000000"
+    ],
+    "price_min": 1065,
+    "price_max": 6735,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 1200,
+    "compare_at_price_min": 1200,
+    "compare_at_price_max": 7500,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175417018188,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00841432000011",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Reflect - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1065,
+            "weight": 0,
+            "compare_at_price": 1200,
+            "inventory_management": "shopify",
+            "barcode": "00841432000011"
+        },
+        {
+            "id": 12175417050956,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00841432000042",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Reflect - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 3545,
+            "weight": 0,
+            "compare_at_price": 4200,
+            "inventory_management": "shopify",
+            "barcode": "00841432000042"
+        },
+        {
+            "id": 12175417083724,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00841432000073",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Reflect - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 6735,
+            "weight": 0,
+            "compare_at_price": 7500,
+            "inventory_management": "shopify",
+            "barcode": "00841432000073"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100110-00841432000011-a1c1-c01.png?v=1544715097",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100110-00841432000042-a1c1-c01.png?v=1544715098",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100110-00841432000073-a1c1-c01.png?v=1544715099"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100110-00841432000011-a1c1-c01.png?v=1544715097",
+    "options": [
+        "Weight"
+    ],
+    "content": "Cove\u2019s Reflect is an indoor-grown hybrid strain with very strong THC potency. Its white and green buds are hand-trimmed and non-irradiated, and its aroma is earthy, woodsy, piney and peppery, thanks to the myrcene, alpha-pinene and beta-caryophyllene in its terpene profile. It\u2019s available in pre-rolls and three dried flower sizes (1 g, 3.5 g and 7 g).\n"
+}

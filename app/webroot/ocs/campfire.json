@@ -1,0 +1,160 @@
+{
+    "@context": "http:\/\/schema.org",
+    "@type": "Product",
+    "name": "Campfire",
+    "url": "https:\/\/ocs.ca\/products\/campfire",
+    "image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100120-00628582000401-a1r1-c01.png?v=1544715198",
+    "description": "Campfire from AltaVie is a hybrid strain that is grown, hand-trimmed and hang-dried indoors. Its terpene profile, consisting of myrcene, alpha- and beta-pinene, and guaiol, is what gives it its unique floral aroma. It has very mild THC potency and is available in 1 g, 3.5 g and 7 g dried flower varieties.\n",
+    "links": [
+        "https:\/\/ocs.ca\/collections\/1-gram-packs-of-cannabi]",
+        "https:\/\/ocs.ca\/collections\/all-cannabis-product]",
+        "https:\/\/ocs.ca\/collections\/all-product]",
+        "https:\/\/ocs.ca\/collections\/cannabis-de-fleurs-sechee]",
+        "https:\/\/ocs.ca\/collections\/cbd-1-]",
+        "https:\/\/ocs.ca\/collections\/dried-flower-cannabi]",
+        "https:\/\/ocs.ca\/collections\/hybrid-dried-flowe]",
+        "https:\/\/ocs.ca\/collections\/magasinez-hybrid]",
+        "https:\/\/ocs.ca\/collections\/hybrid-cannabis-sativa-indic]",
+        "https:\/\/ocs.ca\/collections\/tous-les-produit]"
+    ],
+    "brand": {
+        "name": "AltaVie"
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CAD",
+        "price": "",
+        "availability": "http:\/\/schema.org\/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "Ontario Cannabis Store"
+        }
+    },
+    "shorttext": "Campfire is strain from AltaVie featuring rich floral notes and a unique, floral aroma, and very mild THC potency.",
+    "price": 1385,
+    "THC": "3.0 - 6.0%",
+    "CBD": "5.0 - 8.0%",
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Myrcene",
+        "Alpha Pinene",
+        "Beta-Pinene",
+        "Guaiol"
+    ],
+    "id": 1314094745420,
+    "title": "Campfire",
+    "handle": "campfire",
+    "published_at": "2018-10-09T12:05:16-04:00",
+    "created_at": "2018-09-13T15:30:49-04:00",
+    "vendor": "AltaVie",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--8.000000",
+        "cbd_content_min--5.000000",
+        "effect--Focused",
+        "effect--Happy",
+        "effect--Uplifted",
+        "gtin--00628582000401",
+        "gtin--00628582000418",
+        "gtin--00628582000449",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Dried Flower",
+        "subsubcategory--Hybrid",
+        "terpenes--Alpha Pinene",
+        "terpenes--Beta-Pinene",
+        "terpenes--Guaiol",
+        "terpenes--Myrcene",
+        "Test-06\/07\/2018",
+        "thc_content_max--6.000000",
+        "thc_content_min--3.000000"
+    ],
+    "price_min": 1385,
+    "price_max": 8755,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 1200,
+    "compare_at_price_min": 1200,
+    "compare_at_price_max": 8400,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175417804620,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000401",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Campfire - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1385,
+            "weight": 0,
+            "compare_at_price": 1200,
+            "inventory_management": "shopify",
+            "barcode": "00628582000401"
+        },
+        {
+            "id": 12175417837388,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000418",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Campfire - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 4610,
+            "weight": 0,
+            "compare_at_price": 4200,
+            "inventory_management": "shopify",
+            "barcode": "00628582000418"
+        },
+        {
+            "id": 12175417870156,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000449",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Campfire - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 8755,
+            "weight": 0,
+            "compare_at_price": 8400,
+            "inventory_management": "shopify",
+            "barcode": "00628582000449"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100120-00628582000401-a1r1-c01.png?v=1544715198",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100120-00628582000449-a1c1-c01.png?v=1544715199"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100120-00628582000401-a1r1-c01.png?v=1544715198",
+    "options": [
+        "Weight"
+    ],
+    "content": "Campfire from AltaVie is a hybrid strain that is grown, hand-trimmed and hang-dried indoors. Its terpene profile, consisting of myrcene, alpha- and beta-pinene, and guaiol, is what gives it its unique floral aroma. It has very mild THC potency and is available in 1 g, 3.5 g and 7 g dried flower varieties.\n"
+}

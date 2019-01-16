@@ -1,0 +1,189 @@
+{
+    "@context": "http:\/\/schema.org",
+    "@type": "Product",
+    "name": "Lemon Skunk",
+    "url": "https:\/\/ocs.ca\/products\/lemon-skunk",
+    "image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000171-a1r1-en-c01.png?v=1547061399",
+    "description": "Lemon Skunk is a greenhouse-grown hybrid strain with medium THC potency. The plant\u2019s buds are light green with thick orange hairs, and its terpene profile is rich in bergamotene, terpinolene and caryophyllene, which give it a black pepper scent and hints of citrus. Lemon Skunk is available in four dried flower weights, and 10 mg and 2.5 mg capsules.\n",
+    "links": [
+        "https:\/\/ocs.ca\/collections\/1-gram-packs-of-cannabi]",
+        "https:\/\/ocs.ca\/collections\/all-cannabis-product]",
+        "https:\/\/ocs.ca\/collections\/all-product]",
+        "https:\/\/ocs.ca\/collections\/cannabis-de-fleurs-sechee]",
+        "https:\/\/ocs.ca\/collections\/dna-genetic]",
+        "https:\/\/ocs.ca\/collections\/dried-flower-cannabi]",
+        "https:\/\/ocs.ca\/collections\/hybrid-dried-flowe]",
+        "https:\/\/ocs.ca\/collections\/magasinez-hybrid]",
+        "https:\/\/ocs.ca\/collections\/hybrid-cannabis-sativa-indic]",
+        "https:\/\/ocs.ca\/collections\/tous-les-produit]"
+    ],
+    "brand": {
+        "name": "DNA Genetics"
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CAD",
+        "price": "",
+        "availability": "http:\/\/schema.org\/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "Ontario Cannabis Store"
+        }
+    },
+    "shorttext": "Bred by DNA Genetics, Lemon Skunk is a hybrid strain with medium THC potency that smells like lemons and black pepper.",
+    "price": 1325,
+    "THC": "13.0 - 22.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Bergamotene",
+        "Beta-Pinene",
+        "Para-Cymenene",
+        "Terpinolene",
+        "Trans Caryophyllene"
+    ],
+    "id": 1314100512588,
+    "title": "Lemon Skunk",
+    "handle": "lemon-skunk",
+    "published_at": "2018-10-11T20:42:07-04:00",
+    "created_at": "2018-09-13T15:39:59-04:00",
+    "vendor": "DNA Genetics",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "effect--Euphoric",
+        "effect--Focused",
+        "effect--Happy",
+        "effect--Relaxed",
+        "effect--Uplifted",
+        "gtin--00688083000164",
+        "gtin--00688083000171",
+        "gtin--00688083000188",
+        "gtin--00688083000201",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Dried Flower",
+        "subsubcategory--Hybrid",
+        "terpenes--Bergamotene",
+        "terpenes--Beta-Pinene",
+        "terpenes--Para-Cymenene",
+        "terpenes--Terpinolene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--22.000000",
+        "thc_content_min--13.000000"
+    ],
+    "price_min": 1325,
+    "price_max": 17970,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175428618060,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000164",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "Lemon Skunk - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1325,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000164"
+        },
+        {
+            "id": 12175428650828,
+            "title": "15g",
+            "option1": "15g",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000171",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Lemon Skunk - 15g",
+            "public_title": "15g",
+            "options": [
+                "15g"
+            ],
+            "price": 17970,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000171"
+        },
+        {
+            "id": 12175428683596,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000188",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Lemon Skunk - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 4415,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000188"
+        },
+        {
+            "id": 12175428716364,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000201",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Lemon Skunk - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 8390,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00688083000201"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000171-a1r1-en-c01.png?v=1547061399",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000171-a1r1-fr-c01.png?v=1547061399",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000201-a1r1-en-c01.png?v=1547061399",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000201-a1r1-fr-c01.png?v=1547061399"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100322-00688083000171-a1r1-en-c01.png?v=1547061399",
+    "options": [
+        "Weight"
+    ],
+    "content": "Lemon Skunk is a greenhouse-grown hybrid strain with medium THC potency. The plant\u2019s buds are light green with thick orange hairs, and its terpene profile is rich in bergamotene, terpinolene and caryophyllene, which give it a black pepper scent and hints of citrus. Lemon Skunk is available in four dried flower weights, and 10 mg and 2.5 mg capsules.\n"
+}

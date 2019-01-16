@@ -1,0 +1,82 @@
+{
+    "shorttext": "Pre-roll with medium THC potency. Package contains one 0.5 g pre-roll.",
+    "price": 665,
+    "THC": "12.0 - 20.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Myrcene",
+        "Trans Caryophyllene",
+        "Humulene",
+        "Limonene"
+    ],
+    "id": 1314098808652,
+    "title": "City Lights Pre-Roll 0.5 g",
+    "handle": "city-lights-pre-roll",
+    "description": "City Lights has medium THC potency and a terpene mix that includes beta- and trans-caryophyllene, myrcene, limonene and humulene.\n",
+    "published_at": "2018-10-19T13:28:05-04:00",
+    "created_at": "2018-09-13T15:37:17-04:00",
+    "vendor": "Edison",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00671148402034",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Pre-Rolled",
+        "subsubcategory--Single Strain",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Humulene",
+        "terpenes--Limonene",
+        "terpenes--Myrcene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--20.000000",
+        "thc_content_min--12.000000"
+    ],
+    "price_min": 665,
+    "price_max": 665,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175425668940,
+            "title": "Default Title",
+            "option1": "Default Title",
+            "option2": null,
+            "option3": null,
+            "sku": "00671148402034",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "City Lights Pre-Roll 0.5 g",
+            "public_title": null,
+            "options": [
+                "Default Title"
+            ],
+            "price": 665,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00671148402034"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100250-00671148402034-a1l1.png?v=1544716115"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100250-00671148402034-a1l1.png?v=1544716115",
+    "options": [
+        "Title"
+    ],
+    "content": "City Lights has medium THC potency and a terpene mix that includes beta- and trans-caryophyllene, myrcene, limonene and humulene.\n"
+}

@@ -1,0 +1,84 @@
+{
+    "shorttext": "BC Sensi Star from Flowr is an indica-dominant strain with a sweet, earthy smell and strong THC potency.",
+    "price": 1035,
+    "THC": "11.0 - 18.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Indica dominant",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Trans Caryophyllene",
+        "Limonene",
+        "Humulene",
+        "Guaiol"
+    ],
+    "id": 1314095728460,
+    "title": "BC Sensi Star Pre-Roll",
+    "handle": "bc-sensi-star-pre-roll",
+    "description": "BC Sensi Star from Flowr is an indoor-grown indica-dominant strain from the Okanagan Valley, B.C., with a green-and-rust mossy appearance. Its terpene profile combines beta- and trans-caryophyllene, limonene and humulene to create a unique and pungent aroma and citrusy, earthy flavours that sometimes seem sweet. This hand-trimmed, hang-dried strain has strong THC potency and is available as 3.5 g and 7 g of dried flower.\n",
+    "published_at": "2018-10-15T11:40:44-04:00",
+    "created_at": "2018-09-13T15:32:33-04:00",
+    "vendor": "Flowr",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00690395000244",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Indica Dominant",
+        "subcategory--Pre-Rolled",
+        "subsubcategory--Single Strain",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Guaiol",
+        "terpenes--Humulene",
+        "terpenes--Limonene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--18.000000",
+        "thc_content_min--11.000000"
+    ],
+    "price_min": 1035,
+    "price_max": 1035,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175419606860,
+            "title": "0.5g",
+            "option1": "0.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00690395000244",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "BC Sensi Star Pre-Roll - 0.5g",
+            "public_title": "0.5g",
+            "options": [
+                "0.5g"
+            ],
+            "price": 1035,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00690395000244"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100152-00690395000244-a1c1.png?v=1544715424",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100152-00690395000244-m1c0.png?v=1544715435",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100152-00690395000244-m1c0-c01.png?v=1544715447"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100152-00690395000244-a1c1.png?v=1544715424",
+    "options": [
+        "Weight"
+    ],
+    "content": "BC Sensi Star from Flowr is an indoor-grown indica-dominant strain from the Okanagan Valley, B.C., with a green-and-rust mossy appearance. Its terpene profile combines beta- and trans-caryophyllene, limonene and humulene to create a unique and pungent aroma and citrusy, earthy flavours that sometimes seem sweet. This hand-trimmed, hang-dried strain has strong THC potency and is available as 3.5 g and 7 g of dried flower.\n"
+}

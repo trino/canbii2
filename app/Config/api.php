@@ -3,6 +3,12 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 
+	$currentURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	if(textcontains($currentURL, "?")){
+		$currentURL = left($currentURL, strpos($currentURL, "?"));
+	}
+	define("currentURL", $currentURL);
+
 	$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
 	$protocol = "http://";
 	if($isSecure){
@@ -68,6 +74,17 @@
 		return mysqli_real_escape_string($con, $text);
 	}
 
+	function getarrayasstring($DataArray, $Keys = True){
+		if ($Keys) {
+			$DataArray = array_keys($DataArray);
+			return implode(", ", $DataArray);
+		} else {
+			$DataArray = array_values($DataArray);
+			$DataArray = implode("', '", $DataArray);
+			return "'" . $DataArray . "'";
+		}
+	}
+
 	function filtersubarrays(&$array){
 		foreach ($array as $key => $row) {
 			if (is_array($row))
@@ -75,6 +92,7 @@
 		}
 	}
 
+	$controlledtables = ["colour_ratings", "effects", "effect_ratings", "flavors", "flavorstrains", "flavor_ratings", "overall_colour_ratings", "overall_effect_ratings", "overall_flavor_ratings", "overall_symptom_ratings", "reviews", "strains", "symptoms", "symptom_ratings", "symptom_votes", "user_effect_ratings", "user_symptom_ratings"];
 	function insertdb($Table, $DataArray, $PrimaryKey = "id", $Execute = True){
 		global $con, $controlledtables;
 		if (is_object($con)) {

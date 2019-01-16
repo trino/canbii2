@@ -35,22 +35,22 @@
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Config/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.6666665">
-              <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+            <state vertical-scroll-proportion="-3.7532468">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
-                <marker date="1547589964071" expanded="true" signature="2277:2401" placeholder="INSERT INTO ..." />
-                <marker date="1547589964071" expanded="true" signature="3387:3399" placeholder="DELETE FROM ..." />
-                <marker date="1547589964071" expanded="true" signature="4807:4905" placeholder="SELECT TABLE..TABLES..." />
+                <marker date="1547664668297" expanded="true" signature="3179:3303" placeholder="INSERT INTO ..." />
+                <marker date="1547664668297" expanded="true" signature="4289:4301" placeholder="DELETE FROM ..." />
+                <marker date="1547664668297" expanded="true" signature="5709:5807" placeholder="SELECT TABLE..TABLES..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.125">
-              <caret line="297" column="33" selection-start-line="297" selection-start-column="33" selection-end-line="297" selection-end-column="33" />
+            <state vertical-scroll-proportion="-6.019231">
+              <caret line="310" column="17" selection-start-line="310" selection-start-column="17" selection-end-line="310" selection-end-column="17" />
               <folding>
                 <marker date="1547593186798" expanded="true" signature="1226:1237" placeholder="..." />
                 <marker date="1547593186798" expanded="true" signature="3331:3388" placeholder="..." />
@@ -67,12 +67,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/webroot/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.6431274">
+              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pages.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/View/Pages/pages.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cron.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/View/Pages/cron.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.673077">
+              <caret line="289" column="13" selection-start-line="289" selection-start-column="13" selection-end-line="289" selection-end-column="13" />
+              <folding>
+                <marker date="1547664668311" expanded="true" signature="7281:7331" placeholder="SELECT * FRO..users..." />
+                <marker date="1547664668311" expanded="true" signature="7843:7893" placeholder="SELECT * FRO..strains..." />
+                <marker date="1547664668311" expanded="true" signature="8242:8290" placeholder="SELECT * FRO..effects..." />
+                <marker date="1547664668311" expanded="true" signature="9156:9190" placeholder="SELECT * FRO..ocs..." />
+                <marker date="1547664668311" expanded="true" signature="10814:10840" placeholder="SELECT * FRO..strain_types..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,7 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/View/Review/detail.ctp" />
         <option value="$PROJECT_DIR$/app/View/Review/show_all_blank.ctp" />
         <option value="$PROJECT_DIR$/app/View/Strains/show_all.ctp" />
         <option value="$PROJECT_DIR$/app/View/Pages/pdf.ctp" />
@@ -145,7 +170,6 @@
         <option value="$PROJECT_DIR$/app/Model/Effect.php" />
         <option value="$PROJECT_DIR$/app/Model/BuzzType.php" />
         <option value="$PROJECT_DIR$/app/webroot/combine/newsite.php" />
-        <option value="$PROJECT_DIR$/app/Controller/PagesController.php" />
         <option value="$PROJECT_DIR$/app/Model/Review.php" />
         <option value="$PROJECT_DIR$/app/Model/OverallEffectRating.php" />
         <option value="$PROJECT_DIR$/lib/Cake/Model/Datasource/DboSource.php" />
@@ -153,9 +177,11 @@
         <option value="$PROJECT_DIR$/app/View/Errors/fatal_error.ctp" />
         <option value="$PROJECT_DIR$/app/View/Strains/all.ctp" />
         <option value="$PROJECT_DIR$/app/View/Review/add.ctp" />
+        <option value="$PROJECT_DIR$/app/View/Strains/index.ctp" />
+        <option value="$PROJECT_DIR$/app/Controller/PagesController.php" />
+        <option value="$PROJECT_DIR$/app/View/Pages/cron.ctp" />
         <option value="$PROJECT_DIR$/app/Config/api.php" />
         <option value="$PROJECT_DIR$/app/webroot/css/style.css" />
-        <option value="$PROJECT_DIR$/app/View/Strains/index.ctp" />
       </list>
     </option>
   </component>
@@ -652,10 +678,10 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13645834" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17860746" sideWeight="0.52708334" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17356206" sideWeight="0.53125" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17860746" sideWeight="0.47291666" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17356206" sideWeight="0.46875" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -691,20 +717,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/webroot/combine/profile_filter_inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="328" column="41" selection-start-line="328" selection-start-column="41" selection-end-line="328" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/webroot/combine/images.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="68" selection-start-line="72" selection-start-column="68" selection-end-line="72" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Cake/Console/Templates/default/views/form.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1006,26 +1018,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/PagesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.022309711">
-          <caret line="60" column="280" selection-start-line="60" selection-start-column="280" selection-end-line="60" selection-end-column="280" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Model/Review.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24146982">
           <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.384615">
-          <caret line="72" column="83" selection-start-line="72" selection-start-column="83" selection-end-line="72" selection-end-column="83" />
           <folding />
         </state>
       </provider>
@@ -1051,30 +1047,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Config/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665">
-          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-          <folding>
-            <marker date="1547589964071" expanded="true" signature="2277:2401" placeholder="INSERT INTO ..." />
-            <marker date="1547589964071" expanded="true" signature="3387:3399" placeholder="DELETE FROM ..." />
-            <marker date="1547589964071" expanded="true" signature="4807:4905" placeholder="SELECT TABLE..TABLES..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/webroot/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Strains/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.125">
-          <caret line="297" column="33" selection-start-line="297" selection-start-column="33" selection-end-line="297" selection-end-column="33" />
+        <state vertical-scroll-proportion="-6.019231">
+          <caret line="310" column="17" selection-start-line="310" selection-start-column="17" selection-end-line="310" selection-end-column="17" />
           <folding>
             <marker date="1547593186798" expanded="true" signature="1226:1237" placeholder="..." />
             <marker date="1547593186798" expanded="true" signature="3331:3388" placeholder="..." />
@@ -1087,6 +1063,64 @@
             <marker date="1547593186798" expanded="true" signature="8271:8284" placeholder="SELECT * FRO..." />
             <marker date="1547593186798" expanded="true" signature="8271:8334" placeholder="SELECT * FRO..symptoms..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Controller/PagesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.961538">
+          <caret line="140" column="20" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Pages/pages.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Layouts/default.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.384615">
+          <caret line="72" column="83" selection-start-line="72" selection-start-column="83" selection-end-line="72" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Config/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.7532468">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <marker date="1547664668297" expanded="true" signature="3179:3303" placeholder="INSERT INTO ..." />
+            <marker date="1547664668297" expanded="true" signature="4289:4301" placeholder="DELETE FROM ..." />
+            <marker date="1547664668297" expanded="true" signature="5709:5807" placeholder="SELECT TABLE..TABLES..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Pages/cron.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.673077">
+          <caret line="289" column="13" selection-start-line="289" selection-start-column="13" selection-end-line="289" selection-end-column="13" />
+          <folding>
+            <marker date="1547664668311" expanded="true" signature="7281:7331" placeholder="SELECT * FRO..users..." />
+            <marker date="1547664668311" expanded="true" signature="7843:7893" placeholder="SELECT * FRO..strains..." />
+            <marker date="1547664668311" expanded="true" signature="8242:8290" placeholder="SELECT * FRO..effects..." />
+            <marker date="1547664668311" expanded="true" signature="9156:9190" placeholder="SELECT * FRO..ocs..." />
+            <marker date="1547664668311" expanded="true" signature="10814:10840" placeholder="SELECT * FRO..strain_types..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/webroot/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6431274">
+          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>

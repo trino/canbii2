@@ -1,0 +1,71 @@
+{
+    "shorttext": "Fleur de Lune Intimate Spray is a THC-infused oil for intimate use with mild THC potency.",
+    "price": 7345,
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Terpenes removed"
+    ],
+    "id": 1314097956684,
+    "title": "Fleur de Lune Intimate Spray (8 mg\/ml THC)",
+    "handle": "fleur-de-lune-intimate-spray",
+    "description": "Hexo\u2019s Fleur de Lune THC-infused oil for intimate use comes in a spray bottle. It\u2019s formulated using a proprietary CO2 extraction of a greenhouse-grown hybrid strain and has mild THC potency. The terpenes in the fully activated oil are muted to remove the aroma. Each 30 ml bottle yields about 300 mists.\n",
+    "published_at": "2018-09-28T14:04:10-04:00",
+    "created_at": "2018-09-13T15:35:45-04:00",
+    "vendor": "Hexo",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00697238111471",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Oil and Capsules",
+        "subsubcategory--Topicals",
+        "terpenes--Terpenes Removed",
+        "Test-06\/07\/2018",
+        "thc_content_max--0.000000",
+        "thc_content_min--0.000000"
+    ],
+    "price_min": 7345,
+    "price_max": 7345,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 3900,
+    "compare_at_price_min": 3900,
+    "compare_at_price_max": 3900,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175423375180,
+            "title": "Default Title",
+            "option1": "Default Title",
+            "option2": null,
+            "option3": null,
+            "sku": "00697238111471",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Fleur de Lune Intimate Spray (8 mg\/ml THC)",
+            "public_title": null,
+            "options": [
+                "Default Title"
+            ],
+            "price": 7345,
+            "weight": 0,
+            "compare_at_price": 3900,
+            "inventory_management": "shopify",
+            "barcode": "00697238111471"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100223-00697238111471-a1c0.png?v=1544715863",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100223-00697238111471-m1l0.png?v=1544715865"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100223-00697238111471-a1c0.png?v=1544715863",
+    "options": [
+        "Title"
+    ],
+    "content": "Hexo\u2019s Fleur de Lune THC-infused oil for intimate use comes in a spray bottle. It\u2019s formulated using a proprietary CO2 extraction of a greenhouse-grown hybrid strain and has mild THC potency. The terpenes in the fully activated oil are muted to remove the aroma. Each 30 ml bottle yields about 300 mists.\n"
+}

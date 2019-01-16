@@ -1,0 +1,161 @@
+{
+    "@context": "http:\/\/schema.org",
+    "@type": "Product",
+    "name": "M. Great White Shark",
+    "url": "https:\/\/ocs.ca\/products\/great-white-shark-2",
+    "image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050258-a1c1-en-c01.png?v=1544716089",
+    "description": "M. Great White Shark from Royal High is an indoor-grown indica-dominant strain from Vancouver Island. It has strong THC potency and features a full-bodied flavour with skunky notes. The terpene profile of this strain includes myrcene, caryophyllene, pinene and humulene, and it\u2019s grown with mother plants from imported seeds. M. Great White Shark is available as dried flower in 1 g, 3.5 g and 7 g weights.\n",
+    "links": [
+        "https:\/\/ocs.ca\/collections\/1-gram-packs-of-cannabi]",
+        "https:\/\/ocs.ca\/collections\/all-cannabis-product]",
+        "https:\/\/ocs.ca\/collections\/all-product]",
+        "https:\/\/ocs.ca\/collections\/cannabis-de-fleurs-sechee]",
+        "https:\/\/ocs.ca\/collections\/dried-flower-cannabi]",
+        "https:\/\/ocs.ca\/collections\/indica-dominant-dried-flowe]",
+        "https:\/\/ocs.ca\/collections\/magasinez-indic]",
+        "https:\/\/ocs.ca\/collections\/royal-hig]",
+        "https:\/\/ocs.ca\/collections\/indica-dominant-cannabi]",
+        "https:\/\/ocs.ca\/collections\/tous-les-produit]"
+    ],
+    "brand": {
+        "name": "Royal High"
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CAD",
+        "price": "",
+        "availability": "http:\/\/schema.org\/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "Ontario Cannabis Store"
+        }
+    },
+    "shorttext": "An indica-dominant hybrid with strong THC potency, full-bodied flavour and skunky notes.",
+    "price": 1725,
+    "THC": "15.0 - 23.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Indica dominant",
+    "Terpenes": [
+        "Myrcene",
+        "Beta Caryophyllene",
+        "Trans Caryophyllene",
+        "Alpha Pinene",
+        "Humulene"
+    ],
+    "id": 1314098579276,
+    "title": "M. Great White Shark",
+    "handle": "great-white-shark-2",
+    "published_at": "2018-10-16T13:11:17-04:00",
+    "created_at": "2018-09-13T15:36:57-04:00",
+    "vendor": "Royal High",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00628242050258",
+        "gtin--00628242050265",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Indica Dominant",
+        "subcategory--Dried Flower",
+        "subsubcategory--Indica Dominant",
+        "terpenes--Alpha Pinene",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Humulene",
+        "terpenes--Myrcene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--23.000000",
+        "thc_content_min--15.000000"
+    ],
+    "price_min": 1725,
+    "price_max": 10825,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175425308492,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628242050258",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "M. Great White Shark - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1725,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00628242050258"
+        },
+        {
+            "id": 12175425341260,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628242050265",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "M. Great White Shark - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 5735,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00628242050265"
+        },
+        {
+            "id": 12175425374028,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628242050272",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "M. Great White Shark - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 10825,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00628242050272"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050258-a1c1-en-c01.png?v=1544716089",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050258-a1c1-fr.png?v=1544716090",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050258-a1c1-fr-c01.png?v=1544716091",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050265-a1r1-en-c01.png?v=1544716092",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050265-a1r1-fr-c01.png?v=1544716094"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100243-00628242050258-a1c1-en-c01.png?v=1544716089",
+    "options": [
+        "Weight"
+    ],
+    "content": "M. Great White Shark from Royal High is an indoor-grown indica-dominant strain from Vancouver Island. It has strong THC potency and features a full-bodied flavour with skunky notes. The terpene profile of this strain includes myrcene, caryophyllene, pinene and humulene, and it\u2019s grown with mother plants from imported seeds. M. Great White Shark is available as dried flower in 1 g, 3.5 g and 7 g weights.\n"
+}

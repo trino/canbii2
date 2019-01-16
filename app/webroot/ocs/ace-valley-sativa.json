@@ -1,0 +1,110 @@
+{
+    "shorttext": "Ace Valley Sativa is an earthy sativa-dominant hybrid with very strong THC potency and fruity undertones.",
+    "price": 4560,
+    "THC": "7.42 - 17.62%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Sativa dominant",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Trans Caryophyllene",
+        "Limonene",
+        "Ocimene",
+        "Humulene"
+    ],
+    "id": 1314095630156,
+    "title": "Ace Valley Sativa",
+    "handle": "ace-valley-sativa",
+    "description": "Earthy and fruity Ace Valley Sativa is a sativa-dominant purple and orange hybrid from Flowr with very strong THC potency. It\u2019s hand-trimmed and hang-dried indoors, and has a terpene profile that includes beta- and trans-caryophyllene, limonene and humulene. It\u2019s available in 3.5 g and 7 g dried flower sizes.\n",
+    "published_at": "2018-10-04T15:19:54-04:00",
+    "created_at": "2018-09-13T15:32:23-04:00",
+    "vendor": "Ace Valley",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "gtin--00690395000138",
+        "gtin--00690395000145",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Sativa Dominant",
+        "subcategory--Dried Flower",
+        "subsubcategory--Sativa Dominant",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Humulene",
+        "terpenes--Limonene",
+        "terpenes--Ocimene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--17.620000",
+        "thc_content_min--7.420000"
+    ],
+    "price_min": 4560,
+    "price_max": 8665,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175419443020,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00690395000138",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Ace Valley Sativa - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 4560,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00690395000138"
+        },
+        {
+            "id": 12175419475788,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00690395000145",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "Ace Valley Sativa - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 8665,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00690395000145"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000138-a1c1.png?v=1544715412",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000138-m1c0.png?v=1544715423",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000138-m1c0-c01.png?v=1544715434",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000145-a1c1.png?v=1544715436",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000145-m1c0.png?v=1544715437",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000145-m1c0-c01.png?v=1544715438"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100147-00690395000138-a1c1.png?v=1544715412",
+    "options": [
+        "Weight"
+    ],
+    "content": "Earthy and fruity Ace Valley Sativa is a sativa-dominant purple and orange hybrid from Flowr with very strong THC potency. It\u2019s hand-trimmed and hang-dried indoors, and has a terpene profile that includes beta- and trans-caryophyllene, limonene and humulene. It\u2019s available in 3.5 g and 7 g dried flower sizes.\n"
+}

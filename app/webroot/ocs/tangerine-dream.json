@@ -1,0 +1,132 @@
+{
+    "shorttext": "Sativa-dominant Tangerine Dream has a citrus aroma and deep purple buds, and strong THC potency.",
+    "price": 1040,
+    "THC": "11.0 - 18.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Sativa dominant",
+    "Terpenes": [
+        "Myrcene",
+        "Beta-Pinene",
+        "Alpha Pinene",
+        "Guaiol"
+    ],
+    "id": 1314094778188,
+    "title": "Tangerine Dream",
+    "handle": "tangerine-dream",
+    "description": "San Rafael\u2019s Tangerine Dream is a sativa-dominant strain with deep purple buds that is grown, hand-trimmed and hang-dried. Its robust citrus aroma is created by a diverse terpene profile highlighted by myrcene, which is also found in lemon grass. It has strong THC potency and is available in 1 g, 3.5 g and 7 g dried flower varieties.\n",
+    "published_at": "2018-10-09T12:05:22-04:00",
+    "created_at": "2018-09-13T15:30:53-04:00",
+    "vendor": "San Rafael",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "effect--Creative",
+        "effect--Energetic",
+        "effect--Focused",
+        "effect--Happy",
+        "effect--Uplifted",
+        "gtin--00628582000456",
+        "gtin--00628582000517",
+        "gtin--00628582000524",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Sativa Dominant",
+        "subcategory--Dried Flower",
+        "subsubcategory--Sativa Dominant",
+        "terpenes--Alpha Pinene",
+        "terpenes--Beta-Pinene",
+        "terpenes--Guaiol",
+        "terpenes--Myrcene",
+        "Test-06\/07\/2018",
+        "thc_content_max--18.000000",
+        "thc_content_min--11.000000"
+    ],
+    "price_min": 1040,
+    "price_max": 6580,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 1050,
+    "compare_at_price_min": 1050,
+    "compare_at_price_max": 7348,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175417902924,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000517",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Tangerine Dream - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1040,
+            "weight": 0,
+            "compare_at_price": 1050,
+            "inventory_management": "shopify",
+            "barcode": "00628582000517"
+        },
+        {
+            "id": 12175417935692,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000524",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Tangerine Dream - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 3465,
+            "weight": 0,
+            "compare_at_price": 3674,
+            "inventory_management": "shopify",
+            "barcode": "00628582000524"
+        },
+        {
+            "id": 12175417968460,
+            "title": "7g",
+            "option1": "7g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628582000456",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": false,
+            "name": "Tangerine Dream - 7g",
+            "public_title": "7g",
+            "options": [
+                "7g"
+            ],
+            "price": 6580,
+            "weight": 0,
+            "compare_at_price": 7348,
+            "inventory_management": "shopify",
+            "barcode": "00628582000456"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100121-00628582000456-a1c1.png?v=1544715188",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100121-00628582000456-a1c1-c01.png?v=1544715189"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100121-00628582000456-a1c1.png?v=1544715188",
+    "options": [
+        "Weight"
+    ],
+    "content": "San Rafael\u2019s Tangerine Dream is a sativa-dominant strain with deep purple buds that is grown, hand-trimmed and hang-dried. Its robust citrus aroma is created by a diverse terpene profile highlighted by myrcene, which is also found in lemon grass. It has strong THC potency and is available in 1 g, 3.5 g and 7 g dried flower varieties.\n"
+}

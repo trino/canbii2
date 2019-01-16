@@ -1,0 +1,73 @@
+{
+    "shorttext": "Edison\u2019s indica-dominant cannabis oil has a spicy, woodsy taste and mild THC potency.",
+    "price": 4900,
+    "Plant": "Indica dominant",
+    "Terpenes": [
+        "Beta Caryophyllene"
+    ],
+    "id": 1314093729612,
+    "title": "Indica Oil (10 mg\/ml THC)",
+    "handle": "indica-oil-1",
+    "description": "The THC in Edison\u2019s Indica Oil is ethanol-extracted from indoor-grown indica-dominant cannabis, and is formulated with organic sunflower oil. It features beta-caryophyllene in its terpene profile for a spicy, woodsy taste. The oil has mild THC potency and comes in 25 ml bottles. All oil products sold at OCS.ca are for ingestion only. DO NOT smoke or vape these oils. Use as directed.\n",
+    "published_at": "2018-11-06T22:09:05-05:00",
+    "created_at": "2018-09-13T15:28:55-04:00",
+    "vendor": "Edison",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "effect--Hungry",
+        "effect--Relaxed",
+        "effect--Sleepy",
+        "gtin--00671148403017",
+        "language--en",
+        "plant_type--Indica Dominant",
+        "subcategory--Oil and Capsules",
+        "subsubcategory--Bottled Oil",
+        "terpenes--Beta Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--0.000000",
+        "thc_content_min--0.000000"
+    ],
+    "price_min": 4900,
+    "price_max": 4900,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 3644,
+    "compare_at_price_min": 3644,
+    "compare_at_price_max": 3644,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 12175415740236,
+            "title": "Default Title",
+            "option1": "Default Title",
+            "option2": null,
+            "option3": null,
+            "sku": "00671148403017",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Indica Oil (10 mg\/ml THC)",
+            "public_title": null,
+            "options": [
+                "Default Title"
+            ],
+            "price": 4900,
+            "weight": 0,
+            "compare_at_price": 3644,
+            "inventory_management": "shopify",
+            "barcode": "00671148403017"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100084-00671148403017-m1c0.png?v=1544714967"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100084-00671148403017-m1c0.png?v=1544714967",
+    "options": [
+        "Title"
+    ],
+    "content": "The THC in Edison\u2019s Indica Oil is ethanol-extracted from indoor-grown indica-dominant cannabis, and is formulated with organic sunflower oil. It features beta-caryophyllene in its terpene profile for a spicy, woodsy taste. The oil has mild THC potency and comes in 25 ml bottles. All oil products sold at OCS.ca are for ingestion only. DO NOT smoke or vape these oils. Use as directed.\n"
+}

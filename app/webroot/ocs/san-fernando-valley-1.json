@@ -1,0 +1,89 @@
+{
+    "shorttext": "A sativa-dominant strain with strong THC potency.",
+    "price": 2860,
+    "THC": "14.0 - 18.0%",
+    "Plant": "Sativa dominant",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Beta-Pinene",
+        "Limonene",
+        "Linalool",
+        "Nerolidol"
+    ],
+    "id": 1702605424460,
+    "title": "San Fernando Valley",
+    "handle": "san-fernando-valley-1",
+    "description": "San Fernando Valley from WeedMD is a sativa-dominant strain with a terpene mix of beta-caryophyllene, nerolidol, limonene, linalool and beta-pinene. It has strong THC potency and is grown in a southern Ontario hybrid greenhouse. San Fernando Valley is available in a 3.5 g package of dried flower.\n",
+    "published_at": "2018-12-11T18:31:35-05:00",
+    "created_at": "2018-10-31T17:21:36-04:00",
+    "vendor": "WeedMD",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "effect--Creative",
+        "effect--Energetic",
+        "effect--Happy",
+        "effect--Relaxed",
+        "effect--Uplifted",
+        "gtin--00628242800051",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Sativa Dominant",
+        "subcategory--Dried Flower",
+        "subsubcategory--Sativa Dominant",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Beta-Pinene",
+        "terpenes--Limonene",
+        "terpenes--Linalool",
+        "terpenes--Nerolidol",
+        "Test-06\/07\/2018",
+        "thc_content_max--18.000000",
+        "thc_content_min--14.000000"
+    ],
+    "price_min": 2860,
+    "price_max": 2860,
+    "available": true,
+    "price_varies": false,
+    "compare_at_price": 0,
+    "compare_at_price_min": 0,
+    "compare_at_price_max": 0,
+    "compare_at_price_varies": false,
+    "variants": [
+        {
+            "id": 16598762522444,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628242800051",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "San Fernando Valley - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 2860,
+            "weight": 0,
+            "compare_at_price": 0,
+            "inventory_management": "shopify",
+            "barcode": "00628242800051"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-a1c0.png?v=1544717084",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-a1l1.png?v=1544717085",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-a1r1.png?v=1544717086",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-m1c0.png?v=1544717086",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-m1c0-c01.png?v=1544717087"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100403-00628242800051-a1c0.png?v=1544717084",
+    "options": [
+        "Weight"
+    ],
+    "content": "San Fernando Valley from WeedMD is a sativa-dominant strain with a terpene mix of beta-caryophyllene, nerolidol, limonene, linalool and beta-pinene. It has strong THC potency and is grown in a southern Ontario hybrid greenhouse. San Fernando Valley is available in a 3.5 g package of dried flower.\n"
+}

@@ -1,0 +1,106 @@
+{
+    "shorttext": "Sunset cannabis softgels are made with an indica-dominant strain with very mild THC potency.",
+    "price": 2160,
+    "Plant": "Indica dominant",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Beta-Ylangene",
+        "Humulene",
+        "Linalool",
+        "Selinadienes"
+    ],
+    "id": 1314099332940,
+    "title": "Sunset Softgels (2.5 mg THC, 0.7 mg CBD per cap)",
+    "handle": "sunset-capsules-2-5mg",
+    "description": "Sunset softgels are made with CO2 extract from a hybrid greenhouse-grown indica-dominant strain with very mild THC potency, and are formulated with non-GMO liquid coconut oil, gelatin and glycerine. It\u2019s available in 15- and 60-capsule bottles.\n",
+    "published_at": "2018-11-23T11:10:28-05:00",
+    "created_at": "2018-09-13T15:38:02-04:00",
+    "vendor": "LBS",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--0.000000",
+        "cbd_content_min--0.000000",
+        "effect--Happy",
+        "effect--Relaxed",
+        "effect--Sleepy",
+        "effect--Uplifted",
+        "gtin--00688083000980",
+        "gtin--00688083000997",
+        "language--en",
+        "plant_type--Indica Dominant",
+        "subcategory--Oil and Capsules",
+        "subsubcategory--Capsule",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Beta-Ylangene",
+        "terpenes--Humulene",
+        "terpenes--Linalool",
+        "terpenes--Selinadienes",
+        "Test-06\/07\/2018",
+        "thc_content_max--0.000000",
+        "thc_content_min--0.000000"
+    ],
+    "price_min": 2160,
+    "price_max": 6260,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 2525,
+    "compare_at_price_min": 2525,
+    "compare_at_price_max": 6215,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175426488140,
+            "title": "15 caps",
+            "option1": "15 caps",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000980",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Sunset Softgels (2.5 mg THC, 0.7 mg CBD per cap) - 15 caps",
+            "public_title": "15 caps",
+            "options": [
+                "15 caps"
+            ],
+            "price": 2160,
+            "weight": 0,
+            "compare_at_price": 2525,
+            "inventory_management": "shopify",
+            "barcode": "00688083000980"
+        },
+        {
+            "id": 12175426520908,
+            "title": "60 caps",
+            "option1": "60 caps",
+            "option2": null,
+            "option3": null,
+            "sku": "00688083000997",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Sunset Softgels (2.5 mg THC, 0.7 mg CBD per cap) - 60 caps",
+            "public_title": "60 caps",
+            "options": [
+                "60 caps"
+            ],
+            "price": 6260,
+            "weight": 0,
+            "compare_at_price": 6215,
+            "inventory_management": "shopify",
+            "barcode": "00688083000997"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100270-00688083000980-a1c1-c01.png?v=1544716217",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100270-00688083000997-a1c1-c01.png?v=1544716218"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100270-00688083000980-a1c1-c01.png?v=1544716217",
+    "options": [
+        "capsules"
+    ],
+    "content": "Sunset softgels are made with CO2 extract from a hybrid greenhouse-grown indica-dominant strain with very mild THC potency, and are formulated with non-GMO liquid coconut oil, gelatin and glycerine. It\u2019s available in 15- and 60-capsule bottles.\n"
+}

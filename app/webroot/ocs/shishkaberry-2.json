@@ -1,0 +1,143 @@
+{
+    "@context": "http:\/\/schema.org",
+    "@type": "Product",
+    "name": "Shishkaberry",
+    "url": "https:\/\/ocs.ca\/products\/shishkaberry-2",
+    "image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706000-a1c1.png?v=1544716555",
+    "description": "Shishkaberry from Seven Oaks is an indica-dominant hybrid. Grown indoors, its green and purple buds have medium THC potency and a fruity, berry-like aroma from its myrcene, caryophyllene and alpha-pinene terpene profile. It\u2019s available pre-rolled, and in 1 g and 3.5 g dried flower sizes.\n",
+    "links": [
+        "https:\/\/ocs.ca\/collections\/1-gram-packs-of-cannabi]",
+        "https:\/\/ocs.ca\/collections\/all-cannabis-product]",
+        "https:\/\/ocs.ca\/collections\/all-product]",
+        "https:\/\/ocs.ca\/collections\/cannabis-de-fleurs-sechee]",
+        "https:\/\/ocs.ca\/collections\/dried-flower-cannabi]",
+        "https:\/\/ocs.ca\/collections\/hybrid-dried-flowe]",
+        "https:\/\/ocs.ca\/collections\/magasinez-hybrid]",
+        "https:\/\/ocs.ca\/collections\/seven-oak]",
+        "https:\/\/ocs.ca\/collections\/hybrid-cannabis-sativa-indic]",
+        "https:\/\/ocs.ca\/collections\/tous-les-produit]"
+    ],
+    "brand": {
+        "name": "Seven Oaks"
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CAD",
+        "price": "",
+        "availability": "http:\/\/schema.org\/InStock",
+        "seller": {
+            "@type": "Organization",
+            "name": "Ontario Cannabis Store"
+        }
+    },
+    "shorttext": "Shishkaberry from Seven Oaks is an indica-dominant strain with medium THC potency and a fruity, berry-like aroma.",
+    "price": 1060,
+    "THC": "10.0 - 17.0%",
+    "CBD": "0.0 - 1.0%",
+    "Plant": "Hybrid",
+    "Terpenes": [
+        "Beta Caryophyllene",
+        "Trans Caryophyllene",
+        "Humulene",
+        "Myrcene",
+        "Alpha Pinene"
+    ],
+    "id": 1314100676428,
+    "title": "Shishkaberry",
+    "handle": "shishkaberry-2",
+    "published_at": "2018-11-07T18:07:52-05:00",
+    "created_at": "2018-09-13T15:40:20-04:00",
+    "vendor": "Seven Oaks",
+    "type": "Cannabis",
+    "tags": [
+        "category--Cannabis",
+        "cbd_content_max--1.000000",
+        "cbd_content_min--0.000000",
+        "effect--Creative",
+        "effect--Energetic",
+        "effect--Focused",
+        "effect--Happy",
+        "effect--Uplifted",
+        "gtin--00628250706000",
+        "gtin--00628250706109",
+        "has_cbd_content",
+        "has_thc_content",
+        "language--en",
+        "plant_type--Hybrid",
+        "subcategory--Dried Flower",
+        "subsubcategory--Indica Dominant",
+        "terpenes--Alpha Pinene",
+        "terpenes--Beta Caryophyllene",
+        "terpenes--Humulene",
+        "terpenes--Myrcene",
+        "terpenes--Trans Caryophyllene",
+        "Test-06\/07\/2018",
+        "thc_content_max--17.000000",
+        "thc_content_min--10.000000"
+    ],
+    "price_min": 1060,
+    "price_max": 3520,
+    "available": true,
+    "price_varies": true,
+    "compare_at_price": 950,
+    "compare_at_price_min": 950,
+    "compare_at_price_max": 2970,
+    "compare_at_price_varies": true,
+    "variants": [
+        {
+            "id": 12175429109580,
+            "title": "1g",
+            "option1": "1g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628250706000",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Shishkaberry - 1g",
+            "public_title": "1g",
+            "options": [
+                "1g"
+            ],
+            "price": 1060,
+            "weight": 0,
+            "compare_at_price": 950,
+            "inventory_management": "shopify",
+            "barcode": "00628250706000"
+        },
+        {
+            "id": 12175429142348,
+            "title": "3.5g",
+            "option1": "3.5g",
+            "option2": null,
+            "option3": null,
+            "sku": "00628250706109",
+            "requires_shipping": true,
+            "taxable": true,
+            "featured_image": null,
+            "available": true,
+            "name": "Shishkaberry - 3.5g",
+            "public_title": "3.5g",
+            "options": [
+                "3.5g"
+            ],
+            "price": 3520,
+            "weight": 0,
+            "compare_at_price": 2970,
+            "inventory_management": "shopify",
+            "barcode": "00628250706109"
+        }
+    ],
+    "images": [
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706000-a1c1.png?v=1544716555",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706000-a1c1-c01.png?v=1544716556",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706109-a1c1.png?v=1544716557",
+        "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706109-a1c1-c01.png?v=1544716558"
+    ],
+    "featured_image": "\/\/cdn.shopify.com\/s\/files\/1\/2636\/1928\/products\/http-52-60-121-34-upload-100327-00628250706000-a1c1.png?v=1544716555",
+    "options": [
+        "Weight"
+    ],
+    "content": "Shishkaberry from Seven Oaks is an indica-dominant hybrid. Grown indoors, its green and purple buds have medium THC potency and a fruity, berry-like aroma from its myrcene, caryophyllene and alpha-pinene terpene profile. It\u2019s available pre-rolled, and in 1 g and 3.5 g dried flower sizes.\n"
+}
