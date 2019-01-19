@@ -1,7 +1,7 @@
 <div class="page_layout page_margin_top clearfix">
     <?php include_once('combine/strains.php');?>
 
-    <div class="clearfix" style="margin-top: 20px;"></div>
+    <div class="clearfix" style=""></div>
         <div class="announcement page_margin_top clearfix">
             <ul class="columns no_width">
                 <li class="column_left">

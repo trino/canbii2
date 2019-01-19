@@ -151,14 +151,12 @@
         });
     }
 </script>
-<div class="row bg-primary text-white">
+<div class="jumbotron bg-primary text-white">
     <div class="col-md-12 pa-3">
         <br>
-        <h1 class="">Add Canbii to Your Life</h1>
-        <h3>Lifestyle Optimization Tool</h3>
-
+        <h1>Add Canbii to Your Life</h1>
+        <h3 style="font-size: 1.15rem !important;">Lifestyle Optimization Tool</h3>
         <br>
-
     </div>
 </div><br>
 <div class="page responsive" id="home_cannibis_frontpage">

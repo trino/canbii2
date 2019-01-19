@@ -1,13 +1,11 @@
-<SPAN debugtitle="combine/strain_reviews.php">
     <?php
         errorlog("include combine/strain_reviews.php");
         if ($helpful) {
     ?>
-        <div class="comments clearfix page_margin_top">
-            <div id="comments_list">
+        <div class="">
+            <div id="">
                 <ul>
                     <li class="comment clearfix">
-                        <div class="comment_author_avatar printer">&nbsp;</div>
                         <div class="comment_details">
                             <a href="<?= $this->webroot; ?>review/detail/<?= $helpful['Review']['id']; ?>">
                                 <?php
@@ -30,7 +28,7 @@
                                 });
                             </script>
                             <div class="rating<?= $j;?> rat"></div>
-                            <p>
+                            <p style="margin-top: .5rem">
                                 <?= substr( $helpful['Review']['review'], 0, 270) . '...'; ?>
                             </p>
                             <div class="posted_by">
@@ -49,4 +47,3 @@
     }
     errorlog("include combine/strain_reviews.php success");
 ?>
-</SPAN>

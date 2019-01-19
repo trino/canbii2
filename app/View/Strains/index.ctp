@@ -47,10 +47,11 @@
     }
 ?>
 
+<div class="jumbotron" style="background: transparent">
 <div class="row">
     <DIV CLASS="col-md-12">
         <h1><?= $strain['Strain']['name']; ?> - Report</h1>
-        <p><?php
+        <?php
             switch ($strain['Strain']['type_id']) {
                 case 1:
                     echo "Indica: Best suited for night time use.";
@@ -63,25 +64,28 @@
                     break;
             }
             ?><br>
-       <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
+       <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?>
     </DIV>
 </div>
+</div>
 
-<div class="row bg-primary text-white" style="padding: 30px 20px;">
+<div class="jumbotron bg-primary text-white">
+<div class="row pb-2">
+
     <DIV CLASS="col-md-3">
-        <h2>Overall Rating</h2>
+        <h2 class="pt-3">Overall Rating</h2>
         <div class="rating"></div>
     </DIV>
 
     <DIV CLASS="col-md-4">
-        <h2> Composition</h2>
+        <h2 class="pt-3"> Composition</h2>
         <DIV class="spanwordwrap">
             <?php
             $chemical = 0;
             function printchemical($chemical, $strain, $acronym, $wikipedia) {
                 if ($strain['Strain'][strtolower($acronym)] != "0") {
                     $chemical++;
-                    echo "<span class=' eff2' style='margin-right: 2px;border:1px solid white;padding:1px 3px;'><a style='color: white' target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</a> ";
+                    echo "<span class=' eff2' style='margin-right: 5px;'><a style='color: white' target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</a> ";
                     echo $strain['Strain'][strtolower($acronym)] . "%</span> ";
                 };
                 return $chemical;
@@ -100,7 +104,7 @@
     </DIV>
 
     <DIV CLASS="col-md-5">
-        <h2>Flavors</h2>
+        <h2 class="pt-3">Flavors</h2>
         <?php
         if ($flavor) {
             foreach ($flavor as $f) {
@@ -124,8 +128,8 @@
             }
         } else {
             ?>
-                <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                    <i>No flavors yet. Review this strain </i>
+                <a class="text-white"  href="#">
+                    No flavors yet. 
                     <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
                 </a>
             <?php
@@ -133,7 +137,7 @@
         ?>
     </DIV>
 </div>
-
+</div>
 <?php
     if(!function_exists("money_format")){
         function money_format($ignored, $value) {
@@ -143,7 +147,8 @@
 
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
     if($OCSDATA){
-        echo '<DIV ID="csodata">';
+        echo '<DIV class="jumbotron" ID="csodata"> <h3>Ontario Cannabis Store</h3>
+';
         $dir = getcwd() . "/ocs/";
         $filename = $dir . $strain['Strain']['slug'] . ".json";
         $data = false;
@@ -161,14 +166,22 @@
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
 
-        echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
+       // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
         echo '<BR>Available: ' . $OCSDATA["available"] == 1;
-        echo '</DIV><HR>';
+        echo '<div class="clearfix mt-2"></div>';
+        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Now</a>';
+        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Pre-rolls</a>';
+        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Oils</a>';
+        echo '<div class="clearfix"></div>';
+
+
+
+        echo '</DIV>';
     }
 ?>
 
-<div>
-    <div class="module">
+
+    <div class="jumbotron">
         <h3>Symptoms</h3>
         <p>How does this strain help with my medical condition?</p>
 
@@ -234,14 +247,14 @@
             }
         } else {
             ?>
-            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. Review this strain</a>
+            <!--a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. </a-->
+            <a href="#">No ratings yet. </a>
             <?php
         }
         ?>
 
     </div>
-
-    <div class="module">
+    <div class="jumbotron">
         <h3>General Ratings</h3>
         <p> What are the general ratings?</p>
         <?php
@@ -296,16 +309,15 @@
         }
         if (!$duration && !$strength && !$scale) {
             ?>
-            <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. Review this strain</a>
+            <a href="#">No ratings yet. </a>
             <?php
         }
         ?>
 
     </div>
-
-
-    <div class="module">
+    <div class="jumbotron">
         <h3>Effects</h3>
+        <p> What are the positive effects?</p>
 
         <?php
         $p_filter = 0;
@@ -385,12 +397,12 @@
             }
         } else {
             ?>
-            <i> <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>"> No ratings yet. Review this strain <i></i></a></i>
+            <a href="#"> No ratings yet.  </a>
             <?php
         }
         ?>
     </div>
-    <div class="module">
+    <div class="jumbotron">
         <h3>Negative Effects</h3>
         <p>What are the negative effects?</p>
         <?php
@@ -419,8 +431,8 @@
         } else {
             ?>
             <i>
-                <a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">
-                    No ratings yet. Review this strain
+                <a href="#">
+                    No ratings yet. 
                     <i></i>
                 </a>
             </i>
@@ -428,8 +440,7 @@
         }
         ?>
     </div>
-
-    <div class="module">
+    <div class="jumbotron">
         <h3> Most Helpful User Review</h3>
 
         <?php include_once('combine/strain_reviews.php'); ?>
@@ -444,13 +455,12 @@
             See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
         </a>
     </div>
-
-    <div class="module">
+    <div class="jumbotron">
         <h3><?= $strain['Strain']['name']; ?> Images</h3>
         <?php include('combine/images.php'); ?>
+        <div class="clearfix"></div>
     </div>
 
-</div>
 
 <script>
     function takeScreenShot() {
