@@ -10,7 +10,7 @@ if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['contro
 if (!isset($title)) {
     $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
 }
-$title .= ' - Canbii - Personalized Medical Cannabis';
+$title .= ' - Canbii - Personalized Cannabis';
 if (!isset($description)) {
     $description = $generic['description'];
 }
@@ -57,17 +57,14 @@ if (!isset($keyword)) {
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.timeago.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.isotope.masonry.js"></script>
-
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.blockUI.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53333c8154cd758d" async="async"></script>
-
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?= $this->webroot; ?>upvote/upvote.css">
 <script src="<?= $this->webroot; ?>upvote/jquery.upvote.js"></script>
 <script src="<?= $this->webroot; ?>js2/bootstrap-modal.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap-grid.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
@@ -75,9 +72,7 @@ if (!isset($keyword)) {
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.bundle.min.js"></script>
 
 </head>
-
-
-<body>
+<body class="background_image">
 <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
         <div class="inner">
@@ -98,7 +93,6 @@ if (!isset($keyword)) {
                 <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
             </p>
         </div>
-
         <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
         <div class="">
             <div class="row">
@@ -122,16 +116,14 @@ if (!isset($keyword)) {
                                         echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
                                     }
                                 }
-                                //       quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
-                                // quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'View Strains');
-
-
-                                //        quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
-                                //        quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
-                                //        quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
-                                //if (!$this->Session->read('User')) {
-                                //            quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
-                                //}
+                                    // quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
+                                    // quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'View Strains');
+                                    // quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
+                                    // quicklistitem($this->webroot, "pages/doctors", $this->params['controller'] == 'pages' && $this->params['action'] == 'doctors', 4, 'For Doctors');
+                                    // quicklistitem($this->webroot, "pages/contact_us", $this->params['controller'] == 'pages' && $this->params['action'] == 'contact_us', 4, 'Contact');
+                                    // if (!$this->Session->read('User')) {
+                                    // quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
+                                    // }
                                 ?>
                             </ul>
                     </nav>
@@ -144,40 +136,26 @@ if (!isset($keyword)) {
                     ?>
                 </div>
             </div>
-
         </div>
-
-
     </main>
-
     <footer class="mastfoot mt-auto">
         <hr>
         <div class="inner mt-3">
             <p>
-
                 Copyright <?php echo "2014-" . date('Y'); ?> /
                 <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
                 / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
                 / <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a>
-
-
             </p>
             <DIV ID="users-device-size"></DIV>
             <?php echo $this->element('sql_dump'); ?>
         </div>
     </footer>
 </div>
-
-
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c437a982227d36b"></script>
-
-
-
 </body>
 </html>
-
-
 <?php if ($_SERVER['SERVER_NAME'] == "canbii.com") { ?>
     <script>
         (function (i, s, o, g, r, a, m) {
