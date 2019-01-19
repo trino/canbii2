@@ -2,7 +2,8 @@
 *.xml
 shop\*
 shop/*
-app/webroot/ocs/*
-app\webroot\cs\*
-app\tmp\*
-app/tmp/*
+/app/webroot/ocs/*
+\app\webroot\cs\*
+\app\tmp\*
+/app/tmp/*
+
