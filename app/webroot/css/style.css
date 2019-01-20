@@ -23,7 +23,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.75rem !important;
     font-weight: bold;
 }
-
+.backgroundcolor {
+    background: #444;
+    padding: 15px 20px;
+}
 .module {
     float: left;
     width: 50%;
@@ -59,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .jumbotron {
-    padding: 1rem !important;background: #333;
+    padding: 1.75rem 1rem !important;background: #333;
 }
 
 .border_bottom {

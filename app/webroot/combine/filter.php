@@ -127,7 +127,7 @@
     ?>
     <div class="morelist"></div>
     <?php if ($strains && ($strains) > 8) {
-        echo '<div class="loadmore"><a class="btn btn-primary" href="javascript:void(0);">Show More</a></div>';
+        echo '<div class="loadmore mb-5"><a class="btn btn-primary" href="javascript:void(0);">Show more</a></div>';
     } ?>
     <script>
         $(function () {
