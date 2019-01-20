@@ -53,7 +53,9 @@ h1, h2, h3, h4, h5, h6 {
     background-size: cover;
     background-position: center;
     width: 100%;
-    background-image: url("../images/b1.jpg");
+  /* background-image: url("../images/bg123.jpg"); */
+
+
 }
 
 .jumbotron {
@@ -65,8 +67,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 hr{border-top: 1px solid #222 !important;padding-top:1rem;padding-bottom:0rem;margin-bottom:0 !important;}
-
-
 
 .btn-secondary,
 .btn-secondary:hover,
@@ -132,6 +132,7 @@ body {
 }
 
 .cover {
+
 }
 .cover .btn-lg {
     padding: .75rem 1.25rem;

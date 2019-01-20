@@ -19,7 +19,7 @@
             */
         } else {
             if ($textL) {
-                echo '<div class="pull-left" >&nbsp;&nbsp;&nbsp;' . $textL . '</div>';
+                echo '<div class="pull-left" >&nbsp;' . $textL . '</div>';
             }
             echo '<div style="clear: both">';
             echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';

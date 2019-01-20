@@ -1,4 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
+if (false) {
+    echo "<pre>";
+    $file = "C:\Users\dvt19\Desktop\september-1-hamiltonpizza.csv";
+    //$file = "C:\Users\dvt19\Desktop\september-1-hamiltonpizza\d123.txt";
+    $content = file_get_contents($file);
+    $content = trim(preg_replace('/\s\s+/', ' ', $content));
+    $content = trim(preg_replace("/\r|\n/", "", $content));
+
+
+    $arr = explode(" ", $content);
+
+    /*
+    $i=0;
+    $word ='1';
+    foreach($arr as $single){
+        $word = $word . ' ' . $single;
+        if($i==2){
+            $new[] = $word;
+            $word = "";
+            $i=0;
+        }
+    $i++;
+    }
+    $new = array_count_values($new);
+    asort($new);
+    print_r($new);
+
+    die();
+    */
+
+    $arr = array_count_values($arr);
+    asort($arr);
+
+    print_r($arr);
+    print_r(count($arr));
+}
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <?php
 $generic = $this->requestAction('/pages/getGeneric');
@@ -27,23 +64,17 @@ if (!isset($keyword)) {
 <meta name="description" content="<?= $description; ?>">
 <meta name="keywords" content="<?= $keyword; ?>">
 <title><?= $title; ?></title>
-
 <link rel="shortcut icon" href="<?= $this->webroot; ?>favicon.ico" type="image/x-icon"/>
 <link rel="icon" href="<?= $this->webroot; ?>favicon.ico" type="image/x-icon"/>
-
 <link rel="stylesheet" href="<?= $this->webroot; ?>css/ui.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/fancybox/jquery.fancybox.css"/>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery-1.11.0.min.js"></script>
-
 <script src="<?= $this->webroot; ?>js/validate.js"></script>
 <script src="<?= $this->webroot; ?>js/ui.js"></script>
-
 <link href='<?= protocol ?>fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 <link href='<?= protocol ?>fonts.googleapis.com/css?family=Volkhov:400italic' rel='stylesheet' type='text/css'>
-
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/reset.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/superfish.css"/>
-
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery.qtip.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery-ui-1.9.2.custom.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/style.css"/>
@@ -60,7 +91,6 @@ if (!isset($keyword)) {
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.blockUI.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.fancybox-1.3.4.pack.js"></script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53333c8154cd758d" async="async"></script>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?= $this->webroot; ?>upvote/upvote.css">
 <script src="<?= $this->webroot; ?>upvote/jquery.upvote.js"></script>
@@ -70,52 +100,89 @@ if (!isset($keyword)) {
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.bundle.min.js"></script>
-
 </head>
-<body class="background_image">
-<div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img src="<?= $this->webroot; ?>images/logo.png"/></a>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Contact</a>
-            </nav>
-        </div>
-    </header>
 
-    <main role="main" class="cover">
-        <div class="text-center pt-3">
-            <h1 class="cover-heading">Cover your page.</h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-            </p>
-        </div>
-        <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
-        <div class="">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light" style="padding:0">
-                        <button class="navbar-toggler float-right" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto">
-                                <?php
-                                if (!function_exists("quicklistitem")) {
-                                    function quicklistitem($webroot, $url, $value, $accesskey, $name)
-                                    {
-                                        echo '<LI CLASS="nav-item';
-                                        if ($value) {
-                                            echo ' active current_page_item';
+
+<?php if (false) { ?>
+    <body class="background_image">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background: rgba(0, 0, 0, 0.7);">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="#">Launching 02/19</a>
+                </nav>
+            </div>
+        </header>
+        <main role="main" class="cover">
+            <div class="text-center pt-3">
+                <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 220px" src="<?= $this->webroot; ?>images/logo.png"/></a>
+                <br>
+                <br>
+                <p class="lead" style="max-width: 500px;margin:auto;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+                <p class="lead"></p>
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary">Website coming soon</a></p>
+                <p class="lead"></p>
+            </div>
+        </main>
+        <footer class="mastfoot mt-auto">
+            <div class="inner mt-3 text-center">
+
+                <p class="lead" style="font-size: .8rem !important;margin:auto;color:#999;max-width: 600px;">
+                    Disclaimer: Canbii does not endorse, suggest, nor promote any specific effects or lifestyles related to recreational or medical cannabis consumption.
+                </p>
+
+
+                <p>
+                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> / Copyright <?php echo "2014-" . date('Y'); ?>
+                    <?php if (false) { ?>
+                        /
+                        <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
+                        / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+                    <?php } ?>
+                </p>
+            </div>
+        </footer>
+    </div>
+    </body>
+<?php } else { ?>
+    <body class="background_image">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" style="">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="#">Launching 02/19</a>
+                </nav>
+            </div>
+        </header>
+
+        <main role="main" class="cover">
+
+            <input type="hidden" id="canbii_userID" value="<?= $this->Session->read("User.id"); ?>"/>
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light" style="padding:0">
+                            <button class="navbar-toggler float-right" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto">
+                                    <?php
+                                    if (!function_exists("quicklistitem")) {
+                                        function quicklistitem($webroot, $url, $value, $accesskey, $name)
+                                        {
+                                            echo '<LI CLASS="nav-item';
+                                            if ($value) {
+                                                echo ' active current_page_item';
+                                            }
+                                            echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
                                         }
-                                        echo '"><A HREF="' . $webroot . $url . '" CLASS="nav-link">' . $name . '</A></LI>';
                                     }
-                                }
                                     // quicklistitem($this->webroot, "", $this->params['controller'] == 'pages' && $this->params['action'] == 'index', 1, 'Home');
                                     // quicklistitem($this->webroot, "strains/all", $this->params['controller'] == 'strains' || $this->params['controller'] == 'review', 2, 'View Strains');
                                     // quicklistitem($this->webroot, "pages/shop", $this->params['controller'] == 'pages' && $this->params['action'] == 'shop', 4, 'Shop');
@@ -124,38 +191,53 @@ if (!isset($keyword)) {
                                     // if (!$this->Session->read('User')) {
                                     // quicklistitem($this->webroot, "users/register", $this->params['controller'] == 'users', 4, 'Login / Register');
                                     // }
-                                ?>
-                            </ul>
-                    </nav>
-                    <?php
-                    if (isset($homepage)) {
-                        include("combine/newsite.php");
-                    }
-                    echo $this->Session->flash();
-                    echo $this->fetch('content');
-                    ?>
+                                    ?>
+                                </ul>
+                        </nav>
+
+                        <div class="text-center py-4 my-4">
+                            <h1 class="cover-heading">ADD CANBII TO YOUR LIFE</h1>
+                            <p class="lead">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+                            <p class="lead"></p>
+                            <p class="lead"><a href="#" class="btn btn-lg btn-secondary">Website coming soon</a></p>
+                            <p class="lead"></p>
+                        </div>
+
+
+                        <?php
+                        if (isset($homepage)) {
+                            include("combine/newsite.php");
+                        }
+                        echo $this->Session->flash();
+                        echo $this->fetch('content');
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer class="mastfoot mt-auto">
-        <hr>
-        <div class="inner mt-3">
-            <p>
-                Copyright <?php echo "2014-" . date('Y'); ?> /
-                <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
-                / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
-                / <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a>
-            </p>
-            <DIV ID="users-device-size"></DIV>
-            <?php echo $this->element('sql_dump'); ?>
-        </div>
-    </footer>
-</div>
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c437a982227d36b"></script>
-</body>
+        </main>
+        <footer class="mastfoot mt-auto">
+            <div class="inner mt-3">
+                <p>
+                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> / Copyright <?php echo "2014-" . date('Y'); ?>
+                    /
+                    <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
+                    / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+    </body>
+<?php } ?>
+
+
 </html>
+
+
+<!--DIV ID="users-device-size"></DIV-->
+<?php // echo $this->element('sql_dump'); ?>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c437a982227d36b"></script>
+
 <?php if ($_SERVER['SERVER_NAME'] == "canbii.com") { ?>
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -175,6 +257,7 @@ if (!isset($keyword)) {
     <?php
 }
 ?>
+
 <SCRIPT>
     var webroot = "<?= $this->webroot;?>";
     var currenturl = "<?= currentURL; ?>";
@@ -209,6 +292,7 @@ if (!isset($keyword)) {
         return curEnv;
     }
 </SCRIPT>
+
 <?php if (false) { ?>
     <style>
         .row {

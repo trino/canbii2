@@ -407,7 +407,6 @@
                         ?>
                         </span-->
 
-                        <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
 
                         <h3>
                             Negative Effects
@@ -530,7 +529,6 @@
 ?>
 </span>
                             <div ></div>
-                            <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
 
 
                         <?php } ?>
