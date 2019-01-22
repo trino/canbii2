@@ -1,7 +1,8 @@
 <?php
 class Strain extends AppModel {
     public $uses = array('EffectRating','Strain');
-	public $hasMany=array('OverallEffectRating'=>array('className'=>'OverallEffectRating',
+	public $hasMany=array(
+        'OverallEffectRating'=>array('className'=>'OverallEffectRating',
          'foreignKey'=>'strain_id',
          'dependent'=>true,
          'exclusive'=>true
@@ -16,7 +17,6 @@ class Strain extends AppModel {
          'dependent'=>true,
          'exclusive'=>true
         ),
-
         'Review'=>array('className'=>'Review',
          'foreignKey'=>'strain_id',
          'dependent'=>true,
@@ -37,5 +37,15 @@ class Strain extends AppModel {
 			'fields' => '',
 			'order' => ''
 		)
-	);           
+	);
+
+    //public $conditions = array('hasocs' => 1);
+
+
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        $queryData['conditions'] = array('hasocs' => 1);
+        return $queryData;
+    }
+
 }

@@ -139,45 +139,45 @@
 </div>
 </div>
 <?php
-    if(!function_exists("money_format")){
-        function money_format($ignored, $value) {
-            return '$' . number_format($value, 2);
-        }
+    function fixtext($text){
+        $text = html_entity_decode(html_entity_decode($text));
+        $text = str_replace('&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', "", $text);
+        return trim($text);
     }
 
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
+    echo '<DIV class="jumbotron" ID="csodata"> <h3>Ontario Cannabis Store</h3>';
     if($OCSDATA){
-        echo '<DIV class="jumbotron" ID="csodata"> <h3>Ontario Cannabis Store</h3>
-';
-        $dir = getcwd() . "/ocs/";
+        /*$dir = getcwd() . "/ocs/";
         $filename = $dir . $strain['Strain']['slug'] . ".json";
         $data = false;
         if(file_exists($filename )) {
             $data = json_decode(file_get_contents($filename), true);
-        }
-        echo $OCSDATA["shorttext"];
-        echo '<BR>' . $OCSDATA["content"];
+        }*/
+        $URL = "https://ocs.ca/products/" . $strain['Strain']['slug'];
+        $shorttext = fixtext($OCSDATA["shorttext"]);
+        echo $shorttext;
+        echo '<BR>' . html_entity_decode($OCSDATA["content"]);
         echo '<BR>Prices: ';
-        if($data) {
-            foreach($data["variants"] as $variant){
-                echo money_format(LC_MONETARY, $variant["price"] * 0.01) . " (" . $variant["public_title"] . ") ";
+
+        if($OCSDATA["prices"]) {
+            $prices = json_decode($OCSDATA["prices"], true);
+            foreach($prices as $title => $price){
+                echo money_format(LC_MONETARY, $price * 0.01) . " (" . $title . ") ";
             }
         } else {
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
 
        // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
-        echo '<BR>Available: ' . $OCSDATA["available"] == 1;
+        echo '<BR>Available: ' . iif($OCSDATA["available"] == 1, "Yes", "No");
         echo '<div class="clearfix mt-2"></div>';
-        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Now</a>';
-        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Pre-rolls</a>';
-        echo '<a href="#" class="btn btn-success float-left mr-2">Purchase Oils</a>';
+        echo '<a href="' .  $URL  . '" class="btn btn-success float-left mr-2" TARGET="_new">Purchase Now</a>';
         echo '<div class="clearfix"></div>';
-
-
-
-        echo '</DIV>';
+    } else {
+        echo 'MISSING DATA: ' .  $strain['Strain']['id'];
     }
+    echo '</DIV>';
 ?>
 
 

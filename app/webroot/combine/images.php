@@ -4,10 +4,6 @@
             <?php //https://css-tricks.com/snippets/css/a-guide-to-flexbox/
             //other values PATHINFO_DIRNAME (/mnt/files) | PATHINFO_BASENAME (??????.mp3) | PATHINFO_FILENAME (??????)
             errorlog("include combine/images.php");
-
-            function getextension($path, $value=PATHINFO_EXTENSION){
-                return strtolower(pathinfo($path, $value));
-            }
             $needsTRstart=true;
             $needsTRend=false;
 

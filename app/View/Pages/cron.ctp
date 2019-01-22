@@ -1,6 +1,37 @@
 <?php
-    function get_string_between($string, $start, $end){
-        return getbetween($string, $start, $end);
+    function table_has_column($tablename, $column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment = false){
+        $tables = describe($tablename);
+        foreach($tables as $table){
+            if($table["Field"] == $column){
+                return true;
+            }
+        }
+        if($type) {
+            $SQL = "ALTER TABLE " . $tablename . " ADD COLUMN " . $column . " " . $type;
+            if (!$null) {
+                $SQL .= " NOT NULL";
+            }
+            if($default !== false){
+                if(is_numeric($default)){
+                    $SQL .= " DEFAULT " . $default;
+                } else {
+                    $SQL .= " DEFAULT '" . $default . "'";
+                }
+            }
+            if ($isprimarykey) {
+                $SQL .= " AUTO_INCREMENT PRIMARY KEY";
+            }
+            if($comment){
+                $SQL .= " COMMENT '" . $comment . "'";
+            }
+            if ($after === true) {
+                $SQL .= " FIRST";
+            } else if ($after) {
+                $SQL .= " AFTER " . $after;
+            }
+            query($SQL);
+            echo "<BR>Created " . $column . " (" . $type . ") column in " . $tablename;
+        }
     }
 
     function trimleft($Text, $Startingtext, $isStart = true){
@@ -12,31 +43,6 @@
             return left($Text, $start);
         }
         return $Text;
-    }
-
-    function getdirectory($path){
-        return pathinfo(str_replace("\\", "/", $path), PATHINFO_DIRNAME);
-    }
-
-    function getfilename($path, $WithExtension = false){
-        if ($WithExtension) {
-            return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
-        } else {
-            return pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
-        }
-    }
-
-    //get the lower-cased extension of a file path
-    //HOME/WINDOWS/TEST.JPG returns jpg
-    function getextension($path){
-        return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
-    }
-
-    function file_size($path){
-        if (file_exists($path)) {
-            return filesize($path);
-        }
-        return 0;
     }
 
     function file_get_cookie_contents_ocs($method = "GET", $URL, $querydata = false, $POSTdata = false, $Cookie = false){
@@ -102,6 +108,10 @@
     }
 
     function json_decode2($TEXT){
+        $JSON = json_decode($TEXT, true);
+        if(is_array($JSON) && $JSON){
+            return $JSON;
+        }
         $TEXT = decode($TEXT);
         $one = '"https://ocs.ca/collections/1-gram-packs-of-cannabi]"';
         $two = '"https://ocs.ca/collections/tous-les-produit]"';
@@ -109,20 +119,22 @@
         return json_decode($TEXT, true);
     }
 
-    function get_string_between2($TEXT, $START, $END){
-        return get_string_between($TEXT, htmlspecialchars($START), htmlspecialchars($END));
+    function getbetween2($TEXT, $START, $END){
+        return getbetween($TEXT, htmlspecialchars($START), htmlspecialchars($END));
     }
 
     function extractdata($productname = "blue-dream-pre-roll"){//https://ocs.ca/products/blue-dream-pre-roll
         global  $Cookie;
         $productname = str_replace(" ", "-", strtolower($productname));
-        $HTML = file_get_cookie_contents_ocs("GET", "https://ocs.ca/products/" . $productname, false, false, $Cookie);
-        $HTML2 = htmlspecialchars($HTML);
-        $data = json_decode2(get_string_between($HTML, '<script type="application/ld+json">', '</script>'));
-        $data["shorttext"] 	= decode(get_string_between($HTML, '<p data-full-text="', '" >'));
-        $data["price"] 	= get_string_between($HTML, '<h2 class="product__price">', '</h2>');
+        $URL = "https://ocs.ca/products/" . $productname;
+        $HTML = file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie);
+        //$HTML2 = htmlspecialchars($HTML);
+        $data = json_decode2(getbetween($HTML, '<script type="application/ld+json">', '</script>'));
+        $data["shorttext"] 	= decode(getbetween($HTML, '<p data-full-text="', '" >'));
+        $data["price"] 	= getbetween($HTML, '<h2 class="product__price">', '</h2>');
+        $data["URL"] = $URL;
 
-        $tabledata = get_string_between($HTML, '<table id="product__properties-table" class="table--striped product__properties-table">', '</table>');
+        $tabledata = getbetween($HTML, '<table id="product__properties-table" class="table--striped product__properties-table">', '</table>');
         $tabledata = explode('</tr>', $tabledata);
         foreach($tabledata as $INDEX => $cells){
             $cells = explode('</td>', trim($cells));
@@ -142,10 +154,12 @@
                 }
             }
         }
-        $HTML2 = get_string_between($HTML, 'window.theme.product_json =', ';');
+        $HTML2 = getbetween($HTML, 'window.theme.product_json =', ';');
         $data2 = json_decode2($HTML2);
         if(is_array($data2)){
             $data = array_merge($data, $data2);
+        } else {
+            $data["Missing"] = $HTML2;
         }
         return $data;
     }
@@ -157,12 +171,12 @@
             $URL .= '?page=' . $page . '&hitsPerPage=12';
         }
         $HTML = html_entity_decode(file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie));
-        $products = get_string_between($HTML, '<div class="collection__count hidden-mobile"><span>', '</span>');
+        $products = getbetween($HTML, '<div class="collection__count hidden-mobile"><span>', '</span>');
         $itemsperpage = 12;
         $pages = ceil($products / $itemsperpage);
         $HTML = explode('<a href="/products/', $HTML);
         foreach($HTML as $ID => $VAL){
-            $VAL = strip_tags(get_string_between('<a href="' . $VAL, '<a href="', '"'));
+            $VAL = strip_tags(getbetween('<a href="' . $VAL, '<a href="', '"'));
             $VAL = trim(str_replace("\\n","\n",$VAL));
             $HTML[$ID] = $VAL;
         }
@@ -200,78 +214,101 @@
     function import($strain, $JSONdata, $me, $types, $collection){
         $localstrain = first("SELECT * FROM strains WHERE slug='" . $strain . "'");
         $tags = [];
-        if(!is_array($JSONdata)){
-            die($strain . " data is invalid");
-        }
-
-        //add new effects
-        if(isset($JSONdata["tags"])) {
-            foreach ($JSONdata["tags"] as $tag) {
-                if (startswith($tag, "effect--")) {
-                    $tag = right($tag, strlen($tag) - 8);
-                    $data = first("SELECT * FROM effects WHERE title='" . $tag . "'");
-                    if (!$data) {
-                        $data = ["title" => $tag, "imported" => 1, "negative" => 0];
-                        $data["id"] = insertdb('effects', $data);
+        if(is_array($JSONdata)) {
+            //add new effects
+            if (isset($JSONdata["tags"])) {
+                foreach ($JSONdata["tags"] as $tag) {
+                    if (startswith($tag, "effect--")) {
+                        $tag = right($tag, strlen($tag) - 8);
+                        $data = first("SELECT * FROM effects WHERE title='" . $tag . "'");
+                        if (!$data) {
+                            $data = ["title" => $tag, "imported" => 1, "negative" => 0];
+                            $data["id"] = insertdb('effects', $data);
+                        }
+                        $tags[$tag] = $data;
                     }
-                    $tags[$tag] = $data;
                 }
             }
-        }
 
-        //add new strain
-        if(!$localstrain){//create it
-            $plant = explode(" ", $JSONdata["Plant"]);
-            $plant = $plant[0];
-            $localstrain = [
-                "type_id"       => getiterator($types, "title", $plant)["id"],
-                "name"          => $JSONdata["title"],
-                "description2"  => $JSONdata["content"],
-                "slug"          => $strain,
-                "imported"      => 2//0=native, 1=leafly, 2=ocs
-            ];
-            if($localstrain["name"] && $localstrain["description2"]) {
-                $localstrain["id"] = insertdb("strains", $localstrain);
-            }
-        }
-
-        if(isset($localstrain["id"]) && $localstrain["id"]) {
-            $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
-            if (!$ocsdata && isset($JSONdata["content"])) {//add to ocs table
-                if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
-                    $JSONdata["Terpenes"] = "";
+            //add new strain
+            if ($localstrain) {//update it
+                if (!isset($localstrain["hasocs"]) || $localstrain["hasocs"] == 0) {
+                    insertdb("strains", ["id" => $localstrain["id"], "hasocs" => 1]);
                 }
-                $ocsdata = [
-                    "category" => $collection,
-                    "strain_id" => $localstrain["id"],
-                    "shorttext" => $JSONdata["shorttext"],
-                    "price" => $JSONdata["price"],
-                    "plant" => $JSONdata["Plant"],
-                    "terpenes" => implode(", ", $JSONdata["Terpenes"]),
-                    "content" => $JSONdata["content"],
-                    "available" => $JSONdata["available"] == "true",
-                    "ocs_id" => $JSONdata["id"]
+            } else {//create it
+                $plant = explode(" ", $JSONdata["Plant"]);
+                $plant = $plant[0];
+                $localstrain = [
+                    "hasocs" => 1,
+                    "type_id" => getiterator($types, "title", $plant)["id"],
+                    "name" => $JSONdata["title"],
+                    "description2" => $JSONdata["content"],
+                    "slug" => $strain,
+                    "imported" => 2//0=native, 1=leafly, 2=ocs
                 ];
+                if ($localstrain["name"] && $localstrain["description2"]) {
+                    $localstrain["id"] = insertdb("strains", $localstrain);
+                }
             }
 
-            insertdb("ocs", $ocsdata);
-            $localstrain["ocsdata"] = $localstrain;
-            return $localstrain;
+            if (isset($localstrain["id"]) && $localstrain["id"]) {
+                $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
+                if (!$ocsdata && isset($JSONdata["content"])) {//add to ocs table
+                    if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
+                        $JSONdata["Terpenes"] = "";
+                    }
+                    $ocsdata = [
+                        "category" => $collection,
+                        "strain_id" => $localstrain["id"],
+                        "shorttext" => $JSONdata["shorttext"],
+                        "price" => $JSONdata["price"],
+                        "plant" => $JSONdata["Plant"],
+                        "terpenes" => implode(", ", $JSONdata["Terpenes"]),
+                        "content" => $JSONdata["content"],
+                        "available" => $JSONdata["available"] == "true",
+                        "ocs_id" => $JSONdata["id"]
+                    ];
+                }
+
+                $prices = [];
+                if(isset($JSONdata["variants"])) {
+                    foreach ($JSONdata["variants"] as $variant) {
+                        $prices[$variant["public_title"]] = $variant["price"];
+                    }
+                    $ocsdata["prices"] = json_encode($prices);
+                }
+                insertdb("ocs", $ocsdata);
+                $localstrain["ocsdata"] = $localstrain;
+                return $localstrain;
+            }
         }
         return false;
     }
+    table_has_column("strains", "hasocs", "TINYINT(4)");
 
     set_time_limit(0);
-    $collections = ["dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
-    $dir = getcwd() . "/ocs/";
-    $forceupdate = false;//set to true to forcefully update the JSON from the site
+    $collections = ["dried-flower-cannabis", "pre-rolled"];//, "oils-and-capsules"];
+    echo '<BR>Downloading all: ' . implode(", ", $collections);
+    $dir = getcwd() . "/ocs";
+    if(!is_dir($dir)){
+        mkdir($dir, 0777);
+    }
+    $dir .= "/";
+
+    $forceupdate = true;//set to true to forcefully update the JSON from the site
     $Cookie = "_shopify_y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _orig_referrer=https%3A%2F%2Fwww.google.ca%2F; secure_customer_sig=; _landing_page=%2F; cart_sig=; _y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_fs=2019-01-15T15%3A44%3A52.677Z; _shopify_sa_p=; _ga=GA1.2.49790356.1547567094; _gid=GA1.2.1293338108.1547567094; _age_validated=true; _shopify_sa_t=2019-01-15T16%3A13%3A03.593Z";
     $me = getme();
+    if($forceupdate){
+        echo '<BR>Full update requested. Deleting old data';
+        deleterow("ocs");
+        Query("UPDATE strains SET hasocs = 0", false);
+    }
     $types = query("SELECT * FROM strain_types", true);
     $tables = enum_tables("ocs");
     if(!$tables){
-        Query("CREATE TABLE `canbii_db`.`ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        Query("CREATE TABLE `canbii_db`.`ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;", false);
     }
+    table_has_column("ocs", "prices", "VARCHAR(1024)");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     $allstrains = [];
     foreach($collections as $collection){
         echo '<H2>' . $collection . '</H2>';
@@ -294,10 +331,9 @@
             if($data) {
                 echo ' [IMPORTING]';
                 if(import($strain, $data, $me, $types, $collection)) {
-                    $data = json_encode($data, JSON_PRETTY_PRINT);
-                    file_put_contents($filename, $data);
+                    file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else {
-                    echo ' ***FAILED***';
+                    echo ' ***FAILED (MISSING OR INVALID DATA)***';
                 }
             } else {
                 echo ' [ERROR: DATA MISSING]';

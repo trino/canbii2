@@ -16,6 +16,31 @@
 	}
 	define("protocol", $protocol);
 
+	function getdirectory($path){
+		return pathinfo(str_replace("\\", "/", $path), PATHINFO_DIRNAME);
+	}
+
+	function getfilename($path, $WithExtension = false){
+		if ($WithExtension) {
+			return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
+		} else {
+			return pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
+		}
+	}
+
+	//get the lower-cased extension of a file path
+	//HOME/WINDOWS/TEST.JPG returns jpg
+	function getextension($path){
+		return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
+	}
+
+	function file_size($path){
+		if (file_exists($path)) {
+			return filesize($path);
+		}
+		return 0;
+	}
+
 	function errorlog($text){
 		$file = APP . "/tmp/logs/debug.log";
 		file_put_contents($file, "\n" . $text, FILE_APPEND);
@@ -92,9 +117,9 @@
 		}
 	}
 
-	$controlledtables = ["colour_ratings", "effects", "effect_ratings", "flavors", "flavorstrains", "flavor_ratings", "overall_colour_ratings", "overall_effect_ratings", "overall_flavor_ratings", "overall_symptom_ratings", "reviews", "strains", "symptoms", "symptom_ratings", "symptom_votes", "user_effect_ratings", "user_symptom_ratings"];
 	function insertdb($Table, $DataArray, $PrimaryKey = "id", $Execute = True){
-		global $con, $controlledtables;
+		global $con;
+		$controlledtables = ["colour_ratings", "effects", "effect_ratings", "flavors", "flavorstrains", "flavor_ratings", "overall_colour_ratings", "overall_effect_ratings", "overall_flavor_ratings", "overall_symptom_ratings", "reviews", "strains", "symptoms", "symptom_ratings", "symptom_votes", "user_effect_ratings", "user_symptom_ratings"];
 		if (is_object($con)) {
 			if(in_array($Table, $controlledtables)){
 				$DataArray["imported"] = 1;
@@ -140,6 +165,9 @@
 	function deleterow($Table, $Where = false){
 		if ($Where) {$Where = " WHERE " . $Where;}
 		Query("DELETE FROM " . $Table . $Where, false);
+		if(!$Where){
+			Query("ALTER TABLE " . $Table . " AUTO_INCREMENT = 1", false);
+		}
 	}
 
 	function first($query){
@@ -323,4 +351,10 @@
 	function countSQL($table, $SQL = "*"){
 		return first("SELECT COUNT(" . $SQL . ") as count FROM " . $table)["count"];
 	}
+
+if(!function_exists("money_format")){
+	function money_format($ignored, $value) {
+		return '$' . number_format($value, 2);
+	}
+}
 ?>
