@@ -203,6 +203,8 @@
         if(!is_array($JSONdata)){
             die($strain . " data is invalid");
         }
+
+        //add new effects
         if(isset($JSONdata["tags"])) {
             foreach ($JSONdata["tags"] as $tag) {
                 if (startswith($tag, "effect--")) {
@@ -216,6 +218,8 @@
                 }
             }
         }
+
+        //add new strain
         if(!$localstrain){//create it
             $plant = explode(" ", $JSONdata["Plant"]);
             $plant = $plant[0];
@@ -226,28 +230,35 @@
                 "slug"          => $strain,
                 "imported"      => 2//0=native, 1=leafly, 2=ocs
             ];
-            $localstrain["id"] = insertdb("strains", $localstrain);
-        }
-        $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
-        if(!$ocsdata && isset($JSONdata["content"])){//add to ocs table
-            if(!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])){
-                $JSONdata["Terpenes"] = "";
+            if($localstrain["name"] && $localstrain["description2"]) {
+                $localstrain["id"] = insertdb("strains", $localstrain);
             }
-            $ocsdata = [
-                "category"	=> $collection,
-                "strain_id" => $localstrain["id"],
-                "shorttext" => $JSONdata["shorttext"],
-                "price"		=> $JSONdata["price"],
-                "plant"		=> $JSONdata["Plant"],
-                "terpenes"	=> implode(", ", $JSONdata["Terpenes"]),
-                "content"	=> $JSONdata["content"],
-                "available" => $JSONdata["available"] == "true",
-                "ocs_id"	=> $JSONdata["id"]
-            ];
-            insertdb("ocs", $ocsdata);
         }
-        $localstrain["ocsdata"] = $localstrain;
-        return $localstrain;
+
+        if(isset($localstrain["id"]) && $localstrain["id"]) {
+            $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
+            if (!$ocsdata && isset($JSONdata["content"])) {//add to ocs table
+                if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
+                    $JSONdata["Terpenes"] = "";
+                }
+                $ocsdata = [
+                    "category" => $collection,
+                    "strain_id" => $localstrain["id"],
+                    "shorttext" => $JSONdata["shorttext"],
+                    "price" => $JSONdata["price"],
+                    "plant" => $JSONdata["Plant"],
+                    "terpenes" => implode(", ", $JSONdata["Terpenes"]),
+                    "content" => $JSONdata["content"],
+                    "available" => $JSONdata["available"] == "true",
+                    "ocs_id" => $JSONdata["id"]
+                ];
+            }
+
+            insertdb("ocs", $ocsdata);
+            $localstrain["ocsdata"] = $localstrain;
+            return $localstrain;
+        }
+        return false;
     }
 
     set_time_limit(0);
@@ -282,9 +293,12 @@
             }
             if($data) {
                 echo ' [IMPORTING]';
-                import($strain, $data, $me, $types, $collection);
-                $data = json_encode($data, JSON_PRETTY_PRINT);
-                file_put_contents($filename, $data);
+                if(import($strain, $data, $me, $types, $collection)) {
+                    $data = json_encode($data, JSON_PRETTY_PRINT);
+                    file_put_contents($filename, $data);
+                } else {
+                    echo ' ***FAILED***';
+                }
             } else {
                 echo ' [ERROR: DATA MISSING]';
             }
