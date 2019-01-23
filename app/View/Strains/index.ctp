@@ -163,13 +163,15 @@
         if($OCSDATA["prices"]) {
             $prices = json_decode($OCSDATA["prices"], true);
             //vardump($OCSDATA["prices"]); vardump($prices);
+            echo '<TABLE>';
             foreach($prices as $data){
                 //"price", "slug", "title", "category"
                 if(!in_array($data["slug"], $slugs)) {
                     $slugs[ $data["category"] . "-" .  $data["slug"] ] = $data["slug"];
                 }
-                echo money_format(LC_MONETARY, $data["price"] * 0.01) . " (" . $data["title"] . ") ";
+                echo '<TR><TD>' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD><TD>' . $data["title"] . '</TD></TR>';
             }
+            echo '</TABLE>';
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
