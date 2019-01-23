@@ -39,13 +39,12 @@ class Strain extends AppModel {
 		)
 	);
 
-    //public $conditions = array('hasocs' => 1);
-
-
+    /*
+    public $conditions = array('hasocs' => 1);
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);
         $queryData['conditions'] = array('hasocs' => 1);
         return $queryData;
     }
-
+    */
 }

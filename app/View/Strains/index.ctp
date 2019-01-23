@@ -154,25 +154,41 @@
         if(file_exists($filename )) {
             $data = json_decode(file_get_contents($filename), true);
         }*/
-        $URL = "https://ocs.ca/products/" . $strain['Strain']['slug'];
         $shorttext = fixtext($OCSDATA["shorttext"]);
         echo $shorttext;
         echo '<BR>' . html_entity_decode($OCSDATA["content"]);
         echo '<BR>Prices: ';
 
+        $slugs = [];
         if($OCSDATA["prices"]) {
             $prices = json_decode($OCSDATA["prices"], true);
-            foreach($prices as $title => $price){
-                echo money_format(LC_MONETARY, $price * 0.01) . " (" . $title . ") ";
+            //vardump($OCSDATA["prices"]); vardump($prices);
+            foreach($prices as $data){
+                //"price", "slug", "title", "category"
+                if(!in_array($data["slug"], $slugs)) {
+                    $slugs[ $data["category"] ] = $data["slug"];
+                }
+                echo money_format(LC_MONETARY, $data["price"] * 0.01) . " (" . $data["title"] . ") ";
             }
         } else {
+            $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
 
        // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
         echo '<BR>Available: ' . iif($OCSDATA["available"] == 1, "Yes", "No");
         echo '<div class="clearfix mt-2"></div>';
-        echo '<a href="' .  $URL  . '" class="btn btn-success float-left mr-2" TARGET="_new">Purchase Now</a>';
+        foreach($slugs as $key => $slug) {
+            $URL = "https://ocs.ca/products/" . $slug;
+            if(textcontains($key, "-")){
+                $key = explode("-", $key);
+                foreach($key as $INDEX => $VALUE){
+                    $key[$INDEX] = ucfirst($VALUE);
+                }
+                $key = "Purchase " . implode(" ", $key) . ' Now';
+            }
+            echo '<a href="' . $URL . '" class="btn btn-success float-left mr-2" TARGET="_new">' . $key . '</a>';
+        }
         echo '<div class="clearfix"></div>';
     } else {
         echo 'MISSING DATA: ' .  $strain['Strain']['id'];

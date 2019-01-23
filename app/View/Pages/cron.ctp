@@ -216,9 +216,11 @@
         return first("SELECT * FROM strains WHERE slug='" . $slug . "'");
     }
 
-    function import($strain, $JSONdata, $me, $types, $collection){
+    function import($strain, $JSONdata, $me, $types, $collection) {
         $tags = [];
-        if(is_array($JSONdata)) {
+        $strain2 = false;
+        $originalstrain = $strain;
+        if (is_array($JSONdata)) {
             $localstrain = getstrain($strain);
             $mergeprices = false;
 
@@ -237,12 +239,22 @@
                 }
             }
 
-            if(!$localstrain){
+            if (!$localstrain) {
                 $strain2 = explode("-", $strain);
-                if( is_numeric(end($strain2)) ){
+                if (is_numeric(end($strain2))) {
                     unset($strain2[count($strain2) - 1]);
-                    $localstrain = getstrain(implode("-", $strain2));
+                    $strain2 = implode("-", $strain2);
+                } else if (endswith($strain, "pre-roll")) {
+                    $strain2 = left($strain, strlen($strain) - 9);
+                } else if (endswith($strain, "pre-roll-pack")) {
+                    $strain2 = left($strain, strlen($strain) - 14);
+                } else {
+                    $strain2 = false;
+                }
+                if ($strain2) {
+                    $localstrain = getstrain($strain2);
                     $mergeprices = true;
+                    $strain = $strain2;
                 }
             }
 
@@ -251,7 +263,7 @@
                 if (!isset($localstrain["hasocs"]) || $localstrain["hasocs"] == 0) {
                     insertdb("strains", ["id" => $localstrain["id"], "hasocs" => 1]);
                 }
-            } else {//create it
+            } else if (is_array($JSONdata) && isset($JSONdata["title"]) && isset($JSONdata["content"])) {//create it
                 $plant = explode(" ", $JSONdata["Plant"]);
                 $plant = $plant[0];
                 $localstrain = [
@@ -260,11 +272,13 @@
                     "name" => $JSONdata["title"],
                     "description2" => $JSONdata["content"],
                     "slug" => $strain,
-                    "imported" => 2//0=native, 1=leafly, 2=ocs
+                    "imported" => "2"//0=native, 1=leafly, 2=ocs
                 ];
                 if ($localstrain["name"] && $localstrain["description2"]) {
                     $localstrain["id"] = insertdb("strains", $localstrain);
                 }
+            } else {
+                return false;
             }
 
             if (isset($localstrain["id"]) && $localstrain["id"]) {
@@ -287,27 +301,27 @@
                 }
 
                 $prices = [];
-                if($mergeprices && isset($localstrain["ocsdata"]) && $localstrain["ocsdata"]){
-                    $prices = json_decode($localstrain["ocsdata"], true);
-                } else {
-                    $mergeprices = false;
+                if ($mergeprices && isset($ocsdata["prices"]) && $ocsdata["prices"]) {
+                    $prices = json_decode($ocsdata["prices"], true);
                 }
-                if(isset($JSONdata["variants"])) {
+                if (isset($JSONdata["variants"])) {
                     foreach ($JSONdata["variants"] as $variant) {
-                        $prices[] = ["price" => $variant["price"], "slug" => $strain, "title" => $variant["public_title"], "category" => $collection];
+                        $prices[] = ["price" => $variant["price"], "slug" => $originalstrain, "title" => $variant["public_title"], "category" => $collection];
                     }
                     $ocsdata["prices"] = json_encode($prices);
                 }
                 insertdb("ocs", $ocsdata);
                 $localstrain["ocsdata"] = $localstrain;
-                if($mergeprices){
-                    $localstrain["wasmerged"] = true;
+                if ($mergeprices) {
+                    $localstrain["mergedwith"] = $strain2;
                 }
                 return $localstrain;
             }
         }
         return false;
     }
+
+
     table_has_column("strains", "hasocs", "TINYINT(4)");
 
     set_time_limit(0);
@@ -323,9 +337,9 @@
     $Cookie = "_shopify_y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _orig_referrer=https%3A%2F%2Fwww.google.ca%2F; secure_customer_sig=; _landing_page=%2F; cart_sig=; _y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_fs=2019-01-15T15%3A44%3A52.677Z; _shopify_sa_p=; _ga=GA1.2.49790356.1547567094; _gid=GA1.2.1293338108.1547567094; _age_validated=true; _shopify_sa_t=2019-01-15T16%3A13%3A03.593Z";
     $me = getme();
     if($forceupdate){
-        echo '<BR>Full update requested. Deleting old data';
+        echo '<BR>Full update requested. Deleting old and empty data';
         deleterow("ocs");
-        deleterow("strains", 'title="" OR hasocs=2');
+        deleterow("strains", 'name="" OR hasocs=2 OR slug LIKE "%-pre-roll"');
         Query("UPDATE strains SET hasocs = 0", false);
     }
     $types = query("SELECT * FROM strain_types", true);
@@ -333,7 +347,8 @@
     if(!$tables){
         Query("CREATE TABLE `canbii_db`.`ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;", false);
     }
-    table_has_column("ocs", "prices", "VARCHAR(1024)");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
+    Query("ALTER TABLE `ocs` DROP `prices`;");
+    table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     $allstrains = [];
     foreach($collections as $collection){
         echo '<H2>' . $collection . '</H2>';
@@ -343,6 +358,7 @@
         $filename = $dir . $collection . ".json";
         file_put_contents($filename, $data);
         foreach($strains as $strain){
+            //echo '<BR><A HREF="' . $this->webroot . 'strains/' . $strain . '" TARGET="_new">' . $strain . '</A>';
             echo '<BR>' . $strain;
             $filename = $dir . $strain . ".json";
             $data = false;
@@ -354,11 +370,16 @@
                 $data = json_decode(file_get_contents($filename), true);
             }
             if($data) {
-                echo ' [IMPORTING]';
-                if(import($strain, $data, $me, $types, $collection)) {
+                $data = import($strain, $data, $me, $types, $collection);
+                if($data) {
+                    if(isset($data["mergedwith"])){
+                        echo ' <A HREF="' . $this->webroot . 'strains/' . $data["mergedwith"] . '" TARGET="_new">[MERGING WITH ' . $data["mergedwith"] . ']</A>';
+                    } else {
+                        echo ' <A HREF="' . $this->webroot . 'strains/' . $strain . '" TARGET="_new">[IMPORTING]</A>';
+                    }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else {
-                    echo ' ***FAILED (MISSING OR INVALID DATA)***';
+                    echo ' ***IMPORT FAILED (MISSING OR INVALID DATA)***';
                 }
             } else {
                 echo ' [ERROR: DATA MISSING]';
