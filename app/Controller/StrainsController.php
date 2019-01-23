@@ -660,6 +660,7 @@ class StrainsController extends AppController {
                 $conditions['type_id'] = $arr[$type];
             }
         }
+        $conditions['hasocs'] = 1;
         $parameters['conditions'] = $conditions;
         if ($order) {
             $parameters['order'] = $order;
