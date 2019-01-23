@@ -166,7 +166,7 @@
             foreach($prices as $data){
                 //"price", "slug", "title", "category"
                 if(!in_array($data["slug"], $slugs)) {
-                    $slugs[ $data["category"] ] = $data["slug"];
+                    $slugs[ $data["category"] . "-" .  $data["slug"] ] = $data["slug"];
                 }
                 echo money_format(LC_MONETARY, $data["price"] * 0.01) . " (" . $data["title"] . ") ";
             }
