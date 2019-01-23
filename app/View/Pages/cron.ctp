@@ -211,10 +211,17 @@
         return $me;
     }
 
+
+    function getstrain($slug){
+        return first("SELECT * FROM strains WHERE slug='" . $slug . "'");
+    }
+
     function import($strain, $JSONdata, $me, $types, $collection){
-        $localstrain = first("SELECT * FROM strains WHERE slug='" . $strain . "'");
         $tags = [];
         if(is_array($JSONdata)) {
+            $localstrain = getstrain($strain);
+            $mergeprices = false;
+
             //add new effects
             if (isset($JSONdata["tags"])) {
                 foreach ($JSONdata["tags"] as $tag) {
@@ -227,6 +234,15 @@
                         }
                         $tags[$tag] = $data;
                     }
+                }
+            }
+
+            if(!$localstrain){
+                $strain2 = explode("-", $strain);
+                if( is_numeric(end($strain2)) ){
+                    unset($strain2[count($strain2) - 1]);
+                    $localstrain = getstrain(implode("-", $strain2));
+                    $mergeprices = true;
                 }
             }
 
@@ -271,14 +287,22 @@
                 }
 
                 $prices = [];
+                if($mergeprices && isset($localstrain["ocsdata"]) && $localstrain["ocsdata"]){
+                    $prices = json_decode($localstrain["ocsdata"], true);
+                } else {
+                    $mergeprices = false;
+                }
                 if(isset($JSONdata["variants"])) {
                     foreach ($JSONdata["variants"] as $variant) {
-                        $prices[$variant["public_title"]] = $variant["price"];
+                        $prices[] = ["price" => $variant["price"], "slug" => $strain, "title" => $variant["public_title"], "category" => $collection];
                     }
                     $ocsdata["prices"] = json_encode($prices);
                 }
                 insertdb("ocs", $ocsdata);
                 $localstrain["ocsdata"] = $localstrain;
+                if($mergeprices){
+                    $localstrain["wasmerged"] = true;
+                }
                 return $localstrain;
             }
         }
@@ -301,6 +325,7 @@
     if($forceupdate){
         echo '<BR>Full update requested. Deleting old data';
         deleterow("ocs");
+        deleterow("strains", 'title="" OR hasocs=2');
         Query("UPDATE strains SET hasocs = 0", false);
     }
     $types = query("SELECT * FROM strain_types", true);
