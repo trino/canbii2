@@ -119,6 +119,7 @@
 
 	function insertdb($Table, $DataArray, $PrimaryKey = "id", $Execute = True){
 		global $con;
+		if(!is_array($DataArray) || !$DataArray){return false;}
 		$controlledtables = ["colour_ratings", "effects", "effect_ratings", "flavors", "flavorstrains", "flavor_ratings", "overall_colour_ratings", "overall_effect_ratings", "overall_flavor_ratings", "overall_symptom_ratings", "reviews", "strains", "symptoms", "symptom_ratings", "symptom_votes", "user_effect_ratings", "user_symptom_ratings"];
 		if (is_object($con)) {
 			if(in_array($Table, $controlledtables)){
