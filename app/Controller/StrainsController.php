@@ -320,7 +320,7 @@ class StrainsController extends AppController {
         }
         $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
 
-        $conditions = array();
+        $conditions = array("hasocs" => 1);
         if ($type && isset($arr[$type])) {$conditions['type_id'] = $arr[$type];}//warning: does not handle strains properly
         if(isset($_GET["key"]) && $_GET["key"]){
             $conditions['name LIKE'] = '%' . $_GET["key"] . '%';

@@ -146,7 +146,7 @@
     }
 
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
-    echo '<DIV class="jumbotron" ID="csodata"> <h3>Ontario Cannabis Store</h3>';
+    echo '<DIV class="jumbotron" ID="csodata" STRAINID="' . $strain['Strain']['id'] . '"> <h3>Ontario Cannabis Store</h3>';
     if($OCSDATA){
         /*$dir = getcwd() . "/ocs/";
         $filename = $dir . $strain['Strain']['slug'] . ".json";

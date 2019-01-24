@@ -67,8 +67,8 @@
         $u_cond = queryappend($u_cond, 'body_type=' . $body_type);
     }
 
-    $u_cond = queryappend($u_cond, 'hasocs=1');
-    
+    //$u_cond = queryappend($u_cond, 'hasocs=1');
+
     $count = 0;
     if ($strain) {
         $j = rand(1000000, 2147483647);
@@ -80,38 +80,37 @@
             <a href="<?= $this->webroot ?>strains/<?= $s['Strain']['slug']; ?>/<?php if ($u_cond) {
                 echo $u_cond;
             } ?>">
-                        <?php
-                        $strain_hexagon = $s;
-                        include('combine/hexagon.php');
-                        ?>
 
-                <h2><?= $s['Strain']['name']; ?></a></h2>
-                        <?= substr($s['Strain']['description'], 0, 150) . '...'; ?>
+            <?php
+            $strain_hexagon = $s;
+            include('combine/hexagon.php');
+            ?>
 
+            <h2><?= $s['Strain']['name']; ?></a></h2>
 
-                <?php if (isset($s['StrainType'])) {
-            echo $s['StrainType']['title'];
-        } ?>
-                <?php if ($s['Strain']['review']) {
-            //if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
-            echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
-        } else {
-            echo '0 Reviews';
-        }
-        if ($s['Strain']['viewed']) {
-            echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
-        }
+            <?= substr($s['Strain']['description'], 0, 150) . '...'; ?>
+
+            <?php if (isset($s['StrainType'])) {
+                echo $s['StrainType']['title'];
+            }
+
+            if ($s['Strain']['review']) {
+                //if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
+                echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
+            } else {
+                echo '0 Reviews';
+            }
+
+            if ($s['Strain']['viewed']) {
+                echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
+            }
         ?>
-
-
-            <div style="float: right" class="rating<?php echo $j; ?> "></div>
+            <div style="float: right" class="rating<?= $j; ?> "></div>
             <script>
-                                $(function () {
-                                    $('.rating<?php echo $j;?>').raty({number: 5, readOnly: true, score:<?php echo $s['Strain']['rating'];?>});
-                                });
-                            </script>
-
-
+                $(function () {
+                    $('.rating<?= $j;?>').raty({number: 5, readOnly: true, score:<?= $s['Strain']['rating'];?>});
+                });
+            </script>
             <div style="clear: both;padding: 11px;"></div>
             <?php
         }

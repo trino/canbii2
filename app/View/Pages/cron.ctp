@@ -216,6 +216,14 @@
         return first("SELECT * FROM strains WHERE slug='" . $slug . "'");
     }
 
+    function trimend($Text, $Trim){
+        if( endswith(strtolower($Text), strtolower($Trim)) ){
+            $Text = left($Text, strlen($Text) - strlen($Trim));
+        }
+        return trim($Text);
+    }
+
+
     function import($strain, $JSONdata, $me, $types, $collection) {
         $tags = [];
         $strain2 = false;
@@ -266,10 +274,12 @@
             } else if (is_array($JSONdata) && isset($JSONdata["title"]) && isset($JSONdata["content"])) {//create it
                 $plant = explode(" ", $JSONdata["Plant"]);
                 $plant = $plant[0];
+                //if(endswith($JSONdata["title"], ""))
+
                 $localstrain = [
                     "hasocs" => 1,
                     "type_id" => getiterator($types, "title", $plant)["id"],
-                    "name" => $JSONdata["title"],
+                    "name" => trimend($JSONdata["title"], "pre-roll"),
                     "description2" => $JSONdata["content"],
                     "slug" => $strain,
                     "imported" => "2"//0=native, 1=leafly, 2=ocs
@@ -325,7 +335,7 @@
     table_has_column("strains", "hasocs", "TINYINT(4)");
 
     set_time_limit(0);
-    $collections = ["dried-flower-cannabis", "pre-rolled"];//, "oils-and-capsules"];
+    $collections = ["dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
     echo '<BR>Downloading all: ' . implode(", ", $collections);
     $dir = getcwd() . "/ocs";
     if(!is_dir($dir)){

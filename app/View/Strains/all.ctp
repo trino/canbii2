@@ -151,11 +151,9 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
                 $counter = 0;
             }
         }
-        if ($counter != 0) {
-        }
         ?>
         <p style="display: none;" class="symp"></p>
-        <input id="" type="reset" value="Reset Filter" class="btn btn-sm btn-primary" onclick="window.location='<?php echo $this->webroot; ?>strains/all';"/>
+        <input type="reset" value="Reset Filter" class="btn btn-sm btn-primary" onclick="window.location='<?php echo $this->webroot; ?>strains/all';"/>
     </div>
 </div>
 
