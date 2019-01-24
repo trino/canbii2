@@ -33,44 +33,44 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
         <div class="modal-content">
             <div class="modal-body">
                 <?php
-                $effect = $this->requestAction('/pages/getSym');
-                $counter = 0;
-                $second_div = 0;
-                foreach ($effect as $e) {
-                    $counter++;
-                    if ($counter == 1) {
-                        echo "<div style='";
-                        if ($second_div == 1) {
-                            echo "float:right;";
-                            $second_div = 0;
+                    $effect = $this->requestAction('/pages/getSym');
+                    $counter = 0;
+                    $second_div = 0;
+                    foreach ($effect as $e) {
+                        $counter++;
+                        if ($counter == 1) {
+                            echo "<div style='";
+                            if ($second_div == 1) {
+                                echo "float:right;";
+                                $second_div = 0;
+                            }
+                            echo "width: 50%;display:inline-block;'>";
                         }
-                        echo "width: 50%;display:inline-block;'>";
+                        ?>
+                        <div>
+                            <a style="color:black;padding:2px;" href="<?php
+                            $multiple = true;//disable for single queries only
+                            if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
+                                echo "javascript:void(";
+                                echo $e['Symptom']['id'];
+                                echo ");";
+                            } else {
+                                echo "?symptoms=";
+                                echo $e['Symptom']['id'];
+                            }
+                            ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog"
+                               id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
+                        </div>
+                        <?php
+                        if ($counter == ceil(count($effect) / 2)) {
+                            echo "</div>";
+                            $counter = 0;
+                            $second_div = 1;
+                        }
                     }
-                    ?>
-                    <div>
-                        <a style="color:black;padding:2px;" href="<?php
-                        $multiple = true;//disable for single queries only
-                        if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
-                            echo "javascript:void(";
-                            echo $e['Symptom']['id'];
-                            echo ");";
-                        } else {
-                            echo "?symptoms=";
-                            echo $e['Symptom']['id'];
-                        }
-                        ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog"
-                           id="sym_<?php echo $e['Symptom']['id']; ?>"><?php echo $e['Symptom']['title'] ?></a>
-                    </div>
-                    <?php
-                    if ($counter == ceil(count($effect) / 2)) {
+                    if ($counter != 0) {
                         echo "</div>";
-                        $counter = 0;
-                        $second_div = 1;
                     }
-                }
-                if ($counter != 0) {
-                    echo "</div>";
-                }
                 ?>
             </div>
         </div>
@@ -81,7 +81,6 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
     <div class="col-md-2">
         <ul class="">
             <li><p>Filter By</p></li>
-
             <li>
                 <a id="all_breed"
                    <?php if ($type == ''){ ?>class="border_bottom"<?php } ?>
@@ -109,13 +108,11 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
                    href="<?= $this->webroot; ?>strains/all/hybrid<?php if (isset($_GET['key'])) echo "?key=" . $_GET['key']; ?>">
                     Hybrid</a>
             </li>
-
         </ul>
     </div>
     <div class="col-md-2">
         <ul class="">
             <li><p>Sort By</p></li>
-
             <li>
                 <a href="javascript:void(0)" class="eff1" id="rated">Top Rated</a>
             </li>
@@ -131,17 +128,13 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
         </ul>
     </div>
     <div class="col-md-8">
-
         <p>Filter</p>
         <?php
         $effect = $this->requestAction('/pages/getSym');
         $counter = 0;
         foreach ($effect as $e) {
             $counter++;
-            if ($counter == 1) {
-            }
-            ?>
-            <a style="padding-right:4px;" href="<?php
+            echo '<a style="padding-right:4px;" href="';
             $multiple = true;//disable for single queries only
             if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                 echo "javascript:void(";
@@ -151,11 +144,10 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
                 echo "?symptoms=";
                 echo $e['Symptom']['id'];
             }
-            ?>" class="sym2 small-btn" data-parent="#filter_desktop"
-               id="sym_<?= $e['Symptom']['id']; ?>"><?= $e['Symptom']['title'] ?></a>
-            <?php
+            echo '" class="sym2 small-btn" data-parent="#filter_desktop" id="sym_';
+            echo $e['Symptom']['id'];
+            echo '">' . $e['Symptom']['title'] . '</a>';
             if ($counter == ceil(count($effect) / 2)) {
-
                 $counter = 0;
             }
         }

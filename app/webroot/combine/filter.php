@@ -1,8 +1,7 @@
 <SPAN debugtitle="combine/filter.php">
     <?php
     errorlog("include combine/filter.php");
-    function pluralize($text, $quantity)
-    {
+    function pluralize($text, $quantity) {
         if (substr(strtolower($text), -1) == "s") {
             $text = substr($text, 0, strlen($text) - 1);
         }
@@ -12,8 +11,7 @@
         return $text;
     }
 
-    function queryappend($Query, $texttoappend)
-    {
+    function queryappend($Query, $texttoappend) {
         if ($Query) {
             return $Query . "&" . $texttoappend;
         }
@@ -69,6 +67,8 @@
         $u_cond = queryappend($u_cond, 'body_type=' . $body_type);
     }
 
+    $u_cond = queryappend($u_cond, 'hasocs=1');
+    
     $count = 0;
     if ($strain) {
         $j = rand(1000000, 2147483647);
