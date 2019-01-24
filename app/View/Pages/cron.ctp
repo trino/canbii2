@@ -295,7 +295,7 @@
                 $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
                 if (!$ocsdata && isset($JSONdata["content"])) {//add to ocs table
                     if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
-                        $JSONdata["Terpenes"] = "";
+                        $JSONdata["Terpenes"] = [];
                     }
                     $ocsdata = [
                         "category" => $collection,
