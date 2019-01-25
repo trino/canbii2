@@ -166,23 +166,27 @@
 
     function enumstrains($collection, $page = -1){
         global $Cookie;
-        $URL = "https://ocs.ca/collections/" . $collection;
-        if($page > 0){
-            $URL .= '?page=' . $page . '&hitsPerPage=12';
-        }
-        $HTML = html_entity_decode(file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie));
-        $products = getbetween($HTML, '<div class="collection__count hidden-mobile"><span>', '</span>');
-        $itemsperpage = 12;
-        $pages = ceil($products / $itemsperpage);
-        $HTML = explode('<a href="/products/', $HTML);
-        foreach($HTML as $ID => $VAL){
-            $VAL = strip_tags(getbetween('<a href="' . $VAL, '<a href="', '"'));
-            $VAL = trim(str_replace("\\n","\n",$VAL));
-            $HTML[$ID] = $VAL;
-        }
-        if($page == -1){//getall
-            for($page = 1; $page < $pages; $page++){
-                $HTML = array_merge($HTML, enumstrains($collection, $page));
+        if($collection == "hardcoded"){
+            $HTML = ["kinky-kush", "delahaze"];
+        } else {
+            $URL = "https://ocs.ca/collections/" . $collection;
+            if ($page > 0) {
+                $URL .= '?page=' . $page . '&hitsPerPage=12';
+            }
+            $HTML = html_entity_decode(file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie));
+            $products = getbetween($HTML, '<div class="collection__count hidden-mobile"><span>', '</span>');
+            $itemsperpage = 12;
+            $pages = ceil($products / $itemsperpage);
+            $HTML = explode('<a href="/products/', $HTML);
+            foreach ($HTML as $ID => $VAL) {
+                $VAL = strip_tags(getbetween('<a href="' . $VAL, '<a href="', '"'));
+                $VAL = trim(str_replace("\\n", "\n", $VAL));
+                $HTML[$ID] = $VAL;
+            }
+            if ($page == -1) {//getall
+                for ($page = 1; $page < $pages; $page++) {
+                    $HTML = array_merge($HTML, enumstrains($collection, $page));
+                }
             }
         }
         $HTML = array_values(array_unique(array_filter($HTML)));
@@ -335,7 +339,7 @@
     table_has_column("strains", "hasocs", "TINYINT(4)");
 
     set_time_limit(0);
-    $collections = ["dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
+    $collections = ["hardcoded", "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
     echo '<BR>Downloading all: ' . implode(", ", $collections);
     $dir = getcwd() . "/ocs";
     if(!is_dir($dir)){
