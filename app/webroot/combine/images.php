@@ -13,7 +13,7 @@
 
             $imagecount=0;
             foreach($images as $file) {//for ($i = 1; $i < 5; $i++) {
-                $ext = getextension($file);
+                $ext = getextension2($file);
                 if ($ext == "jpg" || $ext == "jpeg" || $ext == "gif" || $ext == "png") {
                     $imagecount+=1;
                 }
@@ -25,7 +25,7 @@
                 //echo '<div id="Border" align="center">';
 
                 foreach ($images as $file) {//for ($i = 1; $i < 5; $i++) {
-                    $ext = getextension($file);
+                    $ext = getextension2($file);
                     if ($ext == "jpg" || $ext == "jpeg" || $ext == "gif" || $ext == "png") {
                         if ($needsTRstart) {
                             //echo '<div align="center" style="margin-left: 6%">';

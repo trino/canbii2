@@ -77,7 +77,8 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
     </div>
 </div>
 
-<div class="row">
+<div class="jumbotron ">
+<div class="row ">
     <div class="col-md-2">
         <ul class="">
             <li><p>Filter By</p></li>
@@ -136,6 +137,7 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
             $counter++;
             echo '<a style="padding-right:4px;" href="';
             $multiple = true;//disable for single queries only
+
             if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                 echo "javascript:void(";
                 echo $e['Symptom']['id'];
@@ -144,9 +146,17 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
                 echo "?symptoms=";
                 echo $e['Symptom']['id'];
             }
+
             echo '" class="sym2 small-btn" data-parent="#filter_desktop" id="sym_';
             echo $e['Symptom']['id'];
-            echo '">' . $e['Symptom']['title'] . '</a>';
+            echo '"> <span>'
+                . $e['Symptom']['title']
+                . '</span></a>';
+
+
+
+
+
             if ($counter == ceil(count($effect) / 2)) {
                 $counter = 0;
             }
@@ -155,6 +165,7 @@ if (isset($_GET['symptoms']) && $_GET['symptoms']) {
         <p style="display: none;" class="symp"></p>
         <input type="reset" value="Reset Filter" class="btn btn-sm btn-primary" onclick="window.location='<?php echo $this->webroot; ?>strains/all';"/>
     </div>
+</div>
 </div>
 
 <hr>

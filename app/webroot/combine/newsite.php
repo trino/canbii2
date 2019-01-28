@@ -154,8 +154,10 @@
 <div class="jumbotron bg-primary text-white">
     <div class="col-md-12 pa-3">
         <br>
-        <h1>Add Canbii to Your Life</h1>
-        <h3 style="font-size: 1.15rem !important;">Lifestyle Optimization Tool</h3>
+        <h1>Lifestyle Optimization</h1>
+        <h3 style="font-size: 1.15rem !important;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.
+
+        </h3>
         <br>
     </div>
 </div><br>
@@ -164,7 +166,7 @@
         <form id="FORM_13" class="contact_form" action="<?= $this->webroot ?>strains/all" method="get" id="search">
             <DIV CLASS="row text-left">
 
-                <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
+                <!--div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
                         echo $e['Symptom']['id'] . '">#hiking</a></div>
                 <div CLASS="col-xs-6 col-sm-6 col-md-3 col-lg-3"><a class="A_6" href="strains/all?symptoms=3" onclick="highlightsym($(this))" id="sym_';
                         echo $e['Symptom']['id'] . '">#reading</a></div>
@@ -195,7 +197,7 @@
                         echo $e['Symptom']['id'] . '">#driving</a></div>
 
 
-                <hr>
+                <hr-->
                 <?php
 
 

@@ -1,6 +1,7 @@
 <SPAN debugtitle="combine/hexagon.php">
     <?php
         errorlog("include combine/hexagon.php");
+    $background_hex = $this->webroot . "images/Unknown.png";
         switch ($strain_hexagon['Strain']['type_id']) {
             case 1: $background_hex = $this->webroot . "images/Indica.png"; break;
             case 2: $background_hex = $this->webroot . "images/Sativa.png"; break;

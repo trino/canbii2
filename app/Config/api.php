@@ -30,7 +30,7 @@
 
 	//get the lower-cased extension of a file path
 	//HOME/WINDOWS/TEST.JPG returns jpg
-	function getextension($path){
+	function getextension2($path){
 		return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
 	}
 

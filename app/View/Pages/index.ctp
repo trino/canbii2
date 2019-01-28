@@ -6,12 +6,13 @@
             <ul class="columns no_width">
                 <li class="column_left">
                     <h1>For the people, by the people</h1>
-                    <p>Canbii's goal is to raise the profile of cannabis as medicine, by providing the most complete and accurate data possible. </p>
+                    <p class="pt-1">Canbii's goal is to raise the profile of cannabis by providing the most complete and accurate data possible.</p>
+                    <p>Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
                 </li>
                 <li class="column_right">
                     <div class="vertical_align">
                         <div class="vertical_align_cell">
-                            <a title="Make an Appointment" href="strains/all" class="more blue large animated_element animation-slideLeft slideLeft">View Strains</a>
+                            <a title="Make an Appointment" href="strains/all" class="btn btn-success">View Strains</a>
                         </div>
                     </div>
                 </li>

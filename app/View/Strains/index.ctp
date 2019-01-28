@@ -47,7 +47,7 @@
     }
 ?>
 
-<div class="jumbotron" style="background: transparent">
+<div class="jumbotron" style="background: transparent;padding:0 !important;">
 <div class="row">
     <DIV CLASS="col-md-12">
         <h1><?= $strain['Strain']['name']; ?> - Report</h1>
@@ -146,7 +146,7 @@
     }
 
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
-    echo '<DIV class="jumbotron" ID="csodata" STRAINID="' . $strain['Strain']['id'] . '"> <h3>Ontario Cannabis Store</h3>';
+    echo '<DIV class="jumbotron" ID="csodata" STRAINID="' . $strain['Strain']['id'] . '"><div class="row"> ';
     if($OCSDATA){
         /*$dir = getcwd() . "/ocs/";
         $filename = $dir . $strain['Strain']['slug'] . ".json";
@@ -154,22 +154,23 @@
         if(file_exists($filename )) {
             $data = json_decode(file_get_contents($filename), true);
         }*/
-        $shorttext = fixtext($OCSDATA["shorttext"]);
-        echo $shorttext;
-        echo '<BR>' . html_entity_decode($OCSDATA["content"]);
-        echo '<BR>Prices: ';
+
+
+        echo "<div class='col-md-6'>";
+
+        echo '<h3>Ontario Cannabis Store</h3>';
 
         $slugs = [];
         if($OCSDATA["prices"]) {
             $prices = json_decode($OCSDATA["prices"], true);
             //vardump($OCSDATA["prices"]); vardump($prices);
-            echo '<TABLE>';
+            echo '<TABLE class="table table-bordered table-sm table-condensed">';
             foreach($prices as $data){
                 //"price", "slug", "title", "category"
                 if(!in_array($data["slug"], $slugs)) {
                     $slugs[ $data["category"] . "-" .  $data["slug"] ] = $data["slug"];
                 }
-                echo '<TR><TD>' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD><TD>' . $data["title"] . '</TD></TR>';
+                echo '<TR><TD>' . $data["title"] . '</TD><TD>' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD></TR>';
             }
             echo '</TABLE>';
         } else {
@@ -178,8 +179,17 @@
         }
 
        // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
-        echo '<BR>Available: ' . iif($OCSDATA["available"] == 1, "Yes", "No");
-        echo '<div class="clearfix mt-2"></div>';
+
+
+        echo "</div><div class='col-md-6'>";
+
+
+        $shorttext = fixtext($OCSDATA["shorttext"]);
+        //   echo $shorttext;
+        echo '<BR>' . html_entity_decode( htmlspecialchars_decode($OCSDATA["content"]));
+        echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
+
+
         foreach($slugs as $key => $slug) {
             $URL = "https://ocs.ca/products/" . $slug;
             if(textcontains($key, "-")){
@@ -189,12 +199,14 @@
                 }
                 $key = "Purchase " . implode(" ", $key) . ' Now';
             }
-            echo '<a href="' . $URL . '" class="btn btn-success float-left mr-2" TARGET="_new">' . $key . '</a>';
+            echo '<br class="clearfix"><a href="' . $URL . '" class="btn btn-success mt-2" TARGET="_new">' . $key . '</a>';
         }
         echo '<div class="clearfix"></div>';
     } else {
         echo 'MISSING DATA: ' .  $strain['Strain']['id'];
     }
+    echo '</DIV>';
+    echo '</DIV>';
     echo '</DIV>';
 ?>
 

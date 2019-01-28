@@ -6,8 +6,6 @@ if (false) {
     $content = file_get_contents($file);
     $content = trim(preg_replace('/\s\s+/', ' ', $content));
     $content = trim(preg_replace("/\r|\n/", "", $content));
-
-
     $arr = explode(" ", $content);
 
     /*
@@ -55,6 +53,9 @@ if (false) {
         $keyword = $generic['keyword'];
     }
 ?>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <meta charset="UTF-8"/>
 <meta property="og:image" content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
 <meta property="og:title" content="<?= $title; ?>"/>
@@ -103,7 +104,7 @@ if (false) {
 </head>
 
 
-<?php if (false) { ?>
+<?php if ($this->here == '/') { ?>
     <body class="background_image">
     <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background: rgba(0, 0, 0, 0.7);">
         <header class="masthead mb-auto">
@@ -116,7 +117,7 @@ if (false) {
         </header>
         <main role="main" class="cover">
             <div class="text-center pt-3">
-                <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 220px" src="<?= $this->webroot; ?>images/logo.png"/></a>
+                <a href="<?= $this->webroot; ?>" title="CANBII"><img style="width: 220px" src="<?= $this->webroot; ?>images/logo.png"/></a>
                 <br>
                 <br>
                 <p class="lead" style="max-width: 500px;margin:auto;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
@@ -146,8 +147,8 @@ if (false) {
     </div>
     </body>
 <?php } else { ?>
-    <body class="background_image">
-    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" style="">
+    <body class="" style="ba2ckground: rgba(0, 0, 0, 0.7);">
+    <div class="container" style="padding-top:1rem;">
         <header class="masthead mb-auto">
             <div class="inner">
                 <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
@@ -194,12 +195,12 @@ if (false) {
                                 </ul>
                         </nav>
 
-                        <div class="text-center py-4 my-4">
-                            <h1 class="cover-heading">ADD CANBII TO YOUR LIFE</h1>
+                        <div class="text-center my-2 py-2">
+                            <!--h1 class="cover-heading">ADD CANBII TO YOUR LIFE</h1>
                             <p class="lead">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
                             <p class="lead"></p>
                             <p class="lead"><a href="#" class="btn btn-lg btn-secondary">Website coming soon</a></p>
-                            <p class="lead"></p>
+                            <p class="lead"></p-->
                         </div>
 
                         <?php
