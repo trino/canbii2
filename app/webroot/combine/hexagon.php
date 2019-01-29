@@ -1,7 +1,7 @@
 <SPAN debugtitle="combine/hexagon.php">
     <?php
         errorlog("include combine/hexagon.php");
-    $background_hex = $this->webroot . "images/Unknown.png";
+        $background_hex = $this->webroot . "images/Unknown.png";
         switch ($strain_hexagon['Strain']['type_id']) {
             case 1: $background_hex = $this->webroot . "images/Indica.png"; break;
             case 2: $background_hex = $this->webroot . "images/Sativa.png"; break;
@@ -17,15 +17,16 @@
                     $name_arr = explode(' ', $get_text);
                     // $name_arr = preg_split( "/ (-| ) /", $strain_hexagon['Strain']['name'] );
                     $i = 0;
+                    $letters = "";
                     foreach ($name_arr as $na) {
                         $i++;
                         if ($i == 1 && $na) {
-                            echo ucfirst($na[0]);
-                        }
-                        elseif ($na){
-                            echo ucfirst($na[0]);
+                            $letters .= ucfirst($na[0]);
+                        } else if ($na){
+                            $letters .= ucfirst($na[0]);
                         }
                     }
+                    echo left(str_replace("(", "", $letters), 4);
                     errorlog("include combine/hexagon.php success");
                 ?>
             </p>

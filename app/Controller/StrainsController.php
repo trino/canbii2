@@ -4,6 +4,7 @@ class StrainsController extends AppController {
 
     public $components = array('Paginator', 'RequestHandler');
     public $helpers = array('Js');
+    private $itemsperpage = 20;//strain limit
 
     function call($name){
         echo "<BR>Calling: " . $name . " at " . time() . "<BR>";
@@ -311,22 +312,13 @@ class StrainsController extends AppController {
         $this->set('countries', $this->Country->find('all'));
         $this->set('type', $type);
         $this->set('limit', $limit);
-        if ($limit) {
-            $offset = $limit;
-            $limit = '8';
-        } else {
-            $limit = 8;
-            $offset = 0;
-        }
         $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
-
         $conditions = array("hasocs" => 1);
         if ($type && isset($arr[$type])) {$conditions['type_id'] = $arr[$type];}//warning: does not handle strains properly
         if(isset($_GET["key"]) && $_GET["key"]){
             $conditions['name LIKE'] = '%' . $_GET["key"] . '%';
         }
-
-        $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
+        $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $limit)));
         $this->set('strains', $this->Strain->find('count', array('conditions' => $conditions)));
 
         /*
@@ -374,7 +366,7 @@ class StrainsController extends AppController {
         $this->set('limit', $limit);
         $offset = 0;
         if ($limit) {$offset = $limit;}
-        $limit = 8;
+        $limit = $this->itemsperpage;
 
         if (isset($_GET['key'])) {
             $key = $_GET['key'];
@@ -429,10 +421,10 @@ class StrainsController extends AppController {
             $condition .= ') GROUP BY review_id HAVING COUNT( symptom_id ) =' . count($symptoms) . '))';
         }
         if (!$condition) {
-            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%'), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
+            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%'), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $offset)));
             $this->set('strains', $this->Strain->find('count', array('conditions' => array('name LIKE' => '%' . $key . '%'))));
         } else {
-            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%', $condition), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $limit, 'offset' => $offset)));
+            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%', $condition), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $offset)));
             $this->set('strains', $this->Strain->find('count', array('conditions' => array('name LIKE' => '%' . $key . '%', $condition))));
         }
         $this->render('all');
@@ -489,7 +481,7 @@ class StrainsController extends AppController {
 
         $offset = 0;
         if ($limit) {$offset = $limit;}
-        $limit = 8;
+        $limit = $this->itemsperpage;
 
         //echo $limit;die();
         $this->layout = 'blank';
@@ -714,14 +706,11 @@ class StrainsController extends AppController {
         $this->set('slug', $slug);
 
         $profile_filter = $this->getucond(true);
-
+        $offset = 0;
         if ($limit) {
             $offset = $limit;
-            $limit = '8';
-        } else {
-            $limit = 8;
-            $offset = 0;
         }
+        $limit = $this->itemsperpage;
         $q = $this->Strain->findBySlug($slug);
         if (!$sort || $sort == 'recent') {//do not use nested redundant if statements, generate the array cell by cell
             if (!isset($_GET['user'])) {
@@ -762,14 +751,11 @@ class StrainsController extends AppController {
         $this->set('sort', $sort);
 
         $profile_filter = $this->getucond();
-
+        $offset = 0;
         if ($limit) {
             $offset = $limit;
-            $limit = '8';
-        } else {
-            $limit = 8;
-            $offset = 0;
         }
+        $limit = $this->itemsperpage;
         $this->layout = 'blank';
 
         $this->loadModel('Review');

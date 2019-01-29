@@ -1,4 +1,8 @@
 <?php
+    $options = [
+        "makenewstrains" => false,//disable to prevent new strains from being created
+    ];
+
     function table_has_column($tablename, $column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment = false){
         $tables = describe($tablename);
         foreach($tables as $table){
@@ -123,7 +127,7 @@
         return getbetween($TEXT, htmlspecialchars($START), htmlspecialchars($END));
     }
 
-    function extractdata($productname = "blue-dream-pre-roll"){//https://ocs.ca/products/blue-dream-pre-roll
+    function extractdata($productname){//https://ocs.ca/products/blue-dream-pre-roll
         global  $Cookie;
         $productname = str_replace(" ", "-", strtolower($productname));
         $URL = "https://ocs.ca/products/" . $productname;
@@ -227,8 +231,30 @@
         return trim($Text);
     }
 
+    function cleanslug($slug = "lemon-skunk-capsules-2-5mg"){
+        if(!is_array($slug)){$slug = explode("-", $slug);}
+        $last = end($slug);
+        if (endswith($last, "mg") && is_numeric(left($last, strlen($last) - 2))) {
+            unset($slug[count($slug) - 1]);//bakerstreet-capsules-2-5mg
+            if(count($slug) > 1 && is_numeric($slug[count($slug) - 1])){
+                unset($slug[count($slug) - 1]);
+            }
+        }
+        $wordstoremove = ["oil", "oral", "spray", "mct", "thc", "peppermint", "capsules", "pre", "roll", "pack"];
+        $last = count($slug) - 1;
+        foreach(array_reverse($slug) as $index => $word){
+            $index = $last - $index;
+            if(in_array( $word, $wordstoremove )){
+                unset( $slug[$index] );
+            } else {
+                break;
+            }
+        }
+        return implode("-", $slug);
+    }
+    //vardump(cleanslug());die();
 
-    function import($strain, $JSONdata, $me, $types, $collection) {
+    function import($strain, $JSONdata, $me, $types, $collection, $options) {
         $tags = [];
         $strain2 = false;
         $originalstrain = $strain;
@@ -252,18 +278,8 @@
             }
 
             if (!$localstrain) {
-                $strain2 = explode("-", $strain);
-                if (is_numeric(end($strain2))) {
-                    unset($strain2[count($strain2) - 1]);
-                    $strain2 = implode("-", $strain2);
-                } else if (endswith($strain, "pre-roll")) {
-                    $strain2 = left($strain, strlen($strain) - 9);
-                } else if (endswith($strain, "pre-roll-pack")) {
-                    $strain2 = left($strain, strlen($strain) - 14);
-                } else {
-                    $strain2 = false;
-                }
-                if ($strain2) {
+                $strain2 = cleanslug($strain);
+                if ($strain2 && $strain2 != $strain) {
                     $localstrain = getstrain($strain2);
                     $mergeprices = true;
                     $strain = $strain2;
@@ -276,20 +292,23 @@
                     insertdb("strains", ["id" => $localstrain["id"], "hasocs" => 1]);
                 }
             } else if (is_array($JSONdata) && isset($JSONdata["title"]) && isset($JSONdata["content"])) {//create it
-                $plant = explode(" ", $JSONdata["Plant"]);
-                $plant = $plant[0];
-                //if(endswith($JSONdata["title"], ""))
-
-                $localstrain = [
-                    "hasocs" => 1,
-                    "type_id" => getiterator($types, "title", $plant)["id"],
-                    "name" => trimend($JSONdata["title"], "pre-roll"),
-                    "description2" => $JSONdata["content"],
-                    "slug" => $strain,
-                    "imported" => "2"//0=native, 1=leafly, 2=ocs
-                ];
-                if ($localstrain["name"] && $localstrain["description2"]) {
-                    $localstrain["id"] = insertdb("strains", $localstrain);
+                if($options["makenewstrains"]) {
+                    $plant = explode(" ", $JSONdata["Plant"]);
+                    $plant = $plant[0];
+                    //if(endswith($JSONdata["title"], ""))
+                    $localstrain = [
+                        "hasocs" => 1,
+                        "type_id" => getiterator($types, "title", $plant)["id"],
+                        "name" => trimend($JSONdata["title"], "pre-roll"),
+                        "description2" => $JSONdata["content"],
+                        "slug" => $strain,
+                        "imported" => "2"//0=native, 1=leafly, 2=ocs
+                    ];
+                    if ($localstrain["name"] && $localstrain["description2"]) {
+                        $localstrain["id"] = insertdb("strains", $localstrain);
+                    }
+                } else {
+                    return "Skipped, makenewstrains=false";
                 }
             } else {
                 return false;
@@ -302,7 +321,7 @@
                         $JSONdata["Terpenes"] = [];
                     }
                     $ocsdata = [
-                        "category" => $collection,
+                        "category" => $JSONdata["vendor"],
                         "strain_id" => $localstrain["id"],
                         "shorttext" => $JSONdata["shorttext"],
                         "price" => $JSONdata["price"],
@@ -329,7 +348,7 @@
                 if ($mergeprices) {
                     $localstrain["mergedwith"] = $strain2;
                 }
-                return $localstrain;
+                return array_merge($JSONdata, $localstrain);
             }
         }
         return false;
@@ -350,6 +369,16 @@
     $forceupdate = true;//set to true to forcefully update the JSON from the site
     $Cookie = "_shopify_y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _orig_referrer=https%3A%2F%2Fwww.google.ca%2F; secure_customer_sig=; _landing_page=%2F; cart_sig=; _y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_fs=2019-01-15T15%3A44%3A52.677Z; _shopify_sa_p=; _ga=GA1.2.49790356.1547567094; _gid=GA1.2.1293338108.1547567094; _age_validated=true; _shopify_sa_t=2019-01-15T16%3A13%3A03.593Z";
     $me = getme();
+    $tables = enum_tables("activities");
+    if(!$tables) {
+        Query("CREATE TABLE `activities` (`id` int(11) NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `imported` tinyint(4) NOT NULL COMMENT '(Imported from Leafly)', PRIMARY KEY (`id`)) ENGINE=InnoDB", false);
+        $activities = ["Hiking", "Exercise", "Music", "Video Games", "Cleaning", "Yoga", "Meditation", "Movies", "Study", "Reading", "Working"];
+        sort($activities);
+        foreach($activities as $activity){
+            insertdb("activities", ["title" => $activity, "imported" => 2]);
+        }
+        echo '<BR>activities table created and filled';
+    }
     if($forceupdate){
         echo '<BR>Full update requested. Deleting old and empty data';
         deleterow("ocs");
@@ -359,7 +388,8 @@
     $types = query("SELECT * FROM strain_types", true);
     $tables = enum_tables("ocs");
     if(!$tables){
-        Query("CREATE TABLE `canbii_db`.`ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;", false);
+        Query("CREATE TABLE `ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;", false);
+        echo '<BR>OCS table created';
     }
     Query("ALTER TABLE `ocs` DROP `prices`;");
     table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
@@ -384,14 +414,17 @@
                 $data = json_decode(file_get_contents($filename), true);
             }
             if($data) {
-                $data = import($strain, $data, $me, $types, $collection);
-                if($data) {
-                    if(isset($data["mergedwith"])){
+                $data = import($strain, $data, $me, $types, $collection, $options);
+                if(is_array($data)) {
+                    echo ' [VENDOR: ' . $data["vendor"] . "]";
+                    if (isset($data["mergedwith"])) {
                         echo ' <A HREF="' . $this->webroot . 'strains/' . $data["mergedwith"] . '" TARGET="_new">[MERGING WITH ' . $data["mergedwith"] . ']</A>';
                     } else {
                         echo ' <A HREF="' . $this->webroot . 'strains/' . $strain . '" TARGET="_new">[IMPORTING]</A>';
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
+                } else if($data) {
+                    echo ' <B>[' . $data. ']</B>';
                 } else {
                     echo ' ***IMPORT FAILED (MISSING OR INVALID DATA)***';
                 }

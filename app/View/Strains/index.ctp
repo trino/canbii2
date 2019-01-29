@@ -140,9 +140,19 @@
 </div>
 <?php
     function fixtext($text){
-        $text = html_entity_decode(html_entity_decode($text));
-        $text = str_replace('&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', "", $text);
+        $text = html_entity_decode(html_entity_decode(htmlspecialchars_decode($text)));
+        $text = str_replace(['&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', 'ain’'], ["", "'"], $text);
         return trim($text);
+    }
+    function slugtotext($key){
+        if(textcontains($key, "-")){
+            $key = explode("-", $key);
+            foreach($key as $INDEX => $VALUE){
+                $key[$INDEX] = ucfirst($VALUE);
+            }
+            return implode(" ", $key);
+        }
+        return $key;
     }
 
     $OCSDATA = first("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id']);
@@ -155,59 +165,44 @@
             $data = json_decode(file_get_contents($filename), true);
         }*/
 
+        echo "<div class='col-md-6'><h3>Ontario Cannabis Store</h3>";
 
-        echo "<div class='col-md-6'>";
-
-        echo '<h3>Ontario Cannabis Store</h3>';
-
-        $slugs = [];
         if($OCSDATA["prices"]) {
-            $prices = json_decode($OCSDATA["prices"], true);
-            //vardump($OCSDATA["prices"]); vardump($prices);
+            $pricelist = json_decode($OCSDATA["prices"], true);
+            $prices = [];
+            foreach($pricelist as $data){
+                $prices[$data["slug"]][] = $data;
+            }
             echo '<TABLE class="table table-bordered table-sm table-condensed">';
-            foreach($prices as $data){
-                //"price", "slug", "title", "category"
-                if(!in_array($data["slug"], $slugs)) {
-                    $slugs[ $data["category"] . "-" .  $data["slug"] ] = $data["slug"];
+            $tdm = ' style="vertical-align: middle;">';
+            foreach($prices as $slug => $pricelist){
+                $isfirst = true;
+                foreach($pricelist as $data) {
+                    //"price", "slug", "title", "category"
+                    echo '<TR><TD' . $tdm . $data["title"] . '</TD><TD' . $tdm . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD>';
+                    if($isfirst){
+                        $isfirst = false;
+                        $URL = "https://ocs.ca/products/" . $slug;
+                        $key = $data["category"];// . " " . slugtotext($data["slug"]);
+                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="purchasebtn btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">Purchase from ' . $key . '</A></TD>';
+                    }
+                    echo '</TR>';
                 }
-                echo '<TR><TD>' . $data["title"] . '</TD><TD>' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD></TR>';
             }
             echo '</TABLE>';
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
-
-       // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
-
-
-        echo "</div><div class='col-md-6'>";
-
-
-        $shorttext = fixtext($OCSDATA["shorttext"]);
-        //   echo $shorttext;
-        echo '<BR>' . html_entity_decode( htmlspecialchars_decode($OCSDATA["content"]));
+        // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
+        //$shorttext = fixtext($OCSDATA["shorttext"]);  echo $shorttext;
+        echo '</div><div class="col-md-6"><BR>' . fixtext($OCSDATA["content"]);
         echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
-
-
-        foreach($slugs as $key => $slug) {
-            $URL = "https://ocs.ca/products/" . $slug;
-            if(textcontains($key, "-")){
-                $key = explode("-", $key);
-                foreach($key as $INDEX => $VALUE){
-                    $key[$INDEX] = ucfirst($VALUE);
-                }
-                $key = "Purchase " . implode(" ", $key) . ' Now';
-            }
-            echo '<br class="clearfix"><a href="' . $URL . '" class="btn btn-success mt-2" TARGET="_new">' . $key . '</a>';
-        }
         echo '<div class="clearfix"></div>';
     } else {
         echo 'MISSING DATA: ' .  $strain['Strain']['id'];
     }
-    echo '</DIV>';
-    echo '</DIV>';
-    echo '</DIV>';
+    echo '</DIV></DIV></DIV>';
 ?>
 
 
@@ -650,4 +645,10 @@
         });
     });
 </script>
-
+<STYLE>
+    .purchasebtn{
+        width: 100%;
+        height: 100% !important;
+        margin-top: 0px !important;
+    }
+</STYLE>
