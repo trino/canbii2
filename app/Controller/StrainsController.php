@@ -354,80 +354,6 @@ class StrainsController extends AppController {
         //$this->call(__METHOD__);
         $this->filter($limit, $type);
         return;
-
-        if ($this->Session->read('User')) {
-            $this->loadModel('User');
-            $this->set('user', $this->User->findById($this->Session->read('User.id')));
-        }
-        $this->loadModel('Country');
-        $this->set('countries', $this->Country->find('all'));
-
-        $this->set('type', $type);
-        $this->set('limit', $limit);
-        $offset = 0;
-        if ($limit) {$offset = $limit;}
-        $limit = $this->itemsperpage;
-
-        if (isset($_GET['key'])) {
-            $key = $_GET['key'];
-        }else {
-            $key = '';
-        }
-        $condition = '';
-        if (isset($_GET['effects'])) {
-            $effects = $_GET['effects'];
-        }else {
-            $effects = array();
-        }
-
-        if (isset($_GET['symptoms'])) {
-            $symptoms = $_GET['symptoms'];
-            if (!is_array($symptoms)) {$symptoms = explode(",", $symptoms);}
-        } else {
-            $symptoms = array();
-        }
-
-        if ($effects) {
-            $i = 0;
-            /*
-            foreach ($effects as $e) {
-                $i++;
-                if ($i == 1){
-                    $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id FROM effect_ratings WHERE effect_id IN ( ' . $e;
-                }else{
-                    $condition .= ',' . $e;
-                }
-            }
-            $condition .= ')GROUP BY review_id HAVING COUNT( effect_id ) =' . count($effects) . '))';
-            */
-        }
-        if ($symptoms) {
-            $i = 0;
-            foreach ($symptoms as $e) {
-
-                $i++;
-                if ($i == 1) {
-                    if ($effects) {
-                        $condition .= ' AND ';
-                    }
-                    $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
-                                        FROM symptom_ratings
-                                        WHERE symptom_id
-                                        IN (' . $e;
-                } else {
-                    $condition .= ',' . $e;
-                }
-            }
-            $condition .= ') GROUP BY review_id HAVING COUNT( symptom_id ) =' . count($symptoms) . '))';
-        }
-        if (!$condition) {
-            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%'), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $offset)));
-            $this->set('strains', $this->Strain->find('count', array('conditions' => array('name LIKE' => '%' . $key . '%'))));
-        } else {
-            $this->set('strain', $this->Strain->find('all', array('conditions' => array('name LIKE' => '%' . $key . '%', $condition), 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $offset)));
-            $this->set('strains', $this->Strain->find('count', array('conditions' => array('name LIKE' => '%' . $key . '%', $condition))));
-        }
-        $this->render('all');
     }
 
     function getEffectRate($profile_filter, $strain) {
@@ -481,11 +407,17 @@ class StrainsController extends AppController {
 
         $offset = 0;
         if ($limit) {$offset = $limit;}
-        $limit = $this->itemsperpage;
 
         //echo $limit;die();
         $this->layout = 'blank';
         $key = '';
+
+        $_GET = array_merge($_GET, $_POST);
+        if(isset($_GET["limit"])){
+            $this->itemsperpage = $_GET["limit"];
+        }
+        $limit = $this->itemsperpage;
+
         if (isset($_GET['key'])) {
             $key = $_GET['key'];
             if (substr($key,0,3)=="CMD"){
@@ -497,11 +429,6 @@ class StrainsController extends AppController {
         $effects = array();
         if (isset($_GET['effects'])) {
             $effects = $_GET['effects'];
-        }
-
-        $symptoms = "";
-        if (isset($_GET['symptoms'])) {
-            $symptoms = $_GET['symptoms'];
         }
 
         $test_sort = '';
@@ -533,68 +460,63 @@ class StrainsController extends AppController {
                     $condition .= ',' . $e;
                 }
             }
+            $condition .= ') GROUP BY review_id HAVING COUNT( effect_id ) =' . count($effects) . ')';
             if ($profile_filter) {
-                $condition .= ')GROUP BY review_id
-                                    HAVING COUNT( effect_id ) =' . count($effects) . ') AND user_id IN (' . $profile_filter . '))';
-            }else {
-                $condition .= ')GROUP BY review_id
-                                    HAVING COUNT( effect_id ) =' . count($effects) . '))';
+                $condition .= ' AND user_id IN (' . $profile_filter . ')';
             }
+            $condition .= ')';
         }
 
-
-        if ($symptoms) {
-                if (is_array($symptoms)){
-                    $symptomscount=count($symptoms);
-                    $symptoms=implode(",", $symptoms);
-                }else{
-                    $symptomscount=count(explode(",", $symptoms));
+        foreach(["symptoms" => "symptom", "activities" => "activity"] as $plural => $singular) {
+            if (isset($_GET[$plural])) {
+                $symptoms = $_GET[$plural];
+                if (is_array($symptoms)) {
+                    $symptomscount = count($symptoms);
+                    $symptoms = implode(",", $symptoms);
+                } else {
+                    $symptomscount = count(explode(",", $symptoms));
                 }
-                if ($_SERVER["SERVER_NAME"] != "localhost" && $symptomscount>1 && false) {
-                    $symptomscount=1;
+                if ($_SERVER["SERVER_NAME"] != "localhost" && $symptomscount > 1 && false) {
+                    $symptomscount = 1;
                     $symptoms = explode(",", $symptoms)[0];
-                    echo "You can only search by 1 symptom at a time";
+                    echo "You can only search by 1 " . $singular . " at a time";
                 }
+                if ($condition) {
+                    $condition .= ' AND ';
+                }
+                /*
+                            $condition.= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
+                                                            FROM symptom_ratings
+                                                            WHERE symptom_id
+                                                            IN (' . $symptoms . '))';
+                            $condition .= ' GROUP BY strain_id HAVING COUNT(symptom_id) =' . $symptomscount . ')';
+                            if ($profile_filter) {  $condition .= ' AND user_id IN (' . $profile_filter . ')';}
+                            $condition .= ')';
 
-                if($condition){$condition.=' AND '; }
+                            $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
+                                                        FROM symptom_ratings
+                                                        WHERE symptom_id
+                                                        IN ( ' . $symptoms . ')
+                                                        GROUP BY review_id
+                                                        HAVING COUNT( symptom_id ) =' . $symptomscount . '))';
 
-    /*
-                $condition.= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
-                                                FROM symptom_ratings
-                                                WHERE symptom_id
-                                                IN (' . $symptoms . '))';
-                $condition .= ' GROUP BY strain_id HAVING COUNT(symptom_id) =' . $symptomscount . ')';
-                if ($profile_filter) {  $condition .= ' AND user_id IN (' . $profile_filter . ')';}
-                //$condition .= ')';
-    */
+                            //optimized new
+                            $condition .= 'Strain.id IN (SELECT strain_id
+                                                        FROM symptom_ratings
+                                                        WHERE symptom_id
+                                                        IN (' . $symptoms . ')
 
-    /*//old
-                $condition .= 'Strain.id IN (SELECT strain_id FROM reviews WHERE id IN (SELECT review_id
-                                            FROM symptom_ratings
-                                            WHERE symptom_id
-                                            IN ( ' . $symptoms . ')
-                                            GROUP BY review_id
-                                            HAVING COUNT( symptom_id ) =' . $symptomscount . '))';
-*/
-/*
-                //optimized new
-                $condition .= 'Strain.id IN (SELECT strain_id
-                                            FROM symptom_ratings
-                                            WHERE symptom_id
-                                            IN (' . $symptoms . ')
+                                                        )';
+            */
 
-                                            )';
-*/
-
-            //super query
-            //$condition .= 'SELECT strain_id, COUNT(DISTINCT symptom_id) AS matched_symptoms FROM symptom_ratings WHERE symptom_id IN (' . $symptoms  . ') GROUP BY strain_id HAVING matched_symptoms = ' . $symptomscount;
-            $condition .= 'Strain.id IN (SELECT strain_id FROM (SELECT strain_id,
-                                        COUNT(DISTINCT symptom_id) AS matched_symptoms
-                                        FROM symptom_ratings
-                                        WHERE symptom_id IN (' . $symptoms  . ')
+                //super query
+                //$condition .= 'SELECT strain_id, COUNT(DISTINCT symptom_id) AS matched_symptoms FROM symptom_ratings WHERE symptom_id IN (' . $symptoms  . ') GROUP BY strain_id HAVING matched_symptoms = ' . $symptomscount;
+                $condition .= 'Strain.id IN (SELECT strain_id FROM (SELECT strain_id,
+                                        COUNT(DISTINCT ' . $singular . '_id) AS matched_' . $plural . '
+                                        FROM ' . $singular . '_ratings
+                                        WHERE ' . $singular . '_id IN (' . $symptoms . ')
                                         GROUP BY strain_id
-                                        HAVING matched_symptoms = ' . $symptomscount . ') as IDs)';
-
+                                        HAVING matched_' . $plural . ' = ' . $symptomscount . ') as IDs)';
 
 
                 /*
@@ -602,24 +524,20 @@ class StrainsController extends AppController {
                                                 FROM symptom_ratings
                                                 WHERE symptom_id
                                                 IN (' . $symptoms . '))';
-    */
 
-    /*
                 $condition.= 'Strain.id IN (SELECT strain_id
                                                FROM reviews
                                                WHERE symptoms
                                                IN (' . $symptoms . '))';
+
+                $condition = 'WHERE Reviews.symptoms IN (' . $symptoms . ')';
+                $condition.= 'test Strain.id JOIN reviews.strain_id WHERE reviews.symptom_id IN (' . $symptoms . ')';
                 */
 
-                   // $condition = 'WHERE Reviews.symptoms IN (' . $symptoms . ')';
-
-
-               // $condition.= 'test Strain.id JOIN reviews.strain_id WHERE reviews.symptom_id IN (' . $symptoms . ')';
+                $this->makesymptomslist($symptoms, $symptomscount, $plural);
+            }
         }
         //echo( "<BR>RAN AT test: " . time() . " " . $condition);
-
-
-
 
         if (isset($_GET['sort']) && ($test_sort != 'indica' && $test_sort != 'sativa' && $test_sort != 'hybrid')) {
             $sort = $_GET['sort'];
@@ -659,7 +577,6 @@ class StrainsController extends AppController {
         }
 
         $count = $model->find('count', $parameters);
-        if($symptoms){$this->makesymptomslist($symptoms, $symptomscount);}
         $this->set('strains', $count);
         $parameters['limit'] = $limit;
         $parameters['offset'] = $offset;
@@ -667,26 +584,27 @@ class StrainsController extends AppController {
         $this->set('strain', $model->find('all', $parameters));
     }
 
-    function makesymptomslist($symptoms, $symptomscount){
+    function makesymptomslist($symptoms, $symptomscount, $table = "symptoms"){
         if($symptoms) {
-            $symptomlist = $this->listsymptoms($symptoms);
+            if (is_array($symptoms)){ $symptoms = implode(",", $symptoms);}
+            $symptoms = Query("SELECT * FROM " . $table . " WHERE id IN (" . $symptoms . ")", true);
+            //$this->loadModel('Symptom');$symptoms = $this->Symptom->find('all',array('conditions' => array('id IN (' . $symptoms . ')')));
             $delimeter = "";
             $index = 0;
-            echo "These strains have been known to help with: ";
-            foreach ($symptomlist as $symptom) {
-                echo $delimeter . $symptom['Symptom']['title'];
+            echo '<SPAN ID="' . $table . '_list">';
+            if($table == "symptoms") {
+                echo "These strains have been known to help with: ";
+            } else {
+                echo "These strains are known to be enjoyable with: ";
+            }
+            foreach ($symptoms as $symptom) {
+                echo $delimeter . $symptom['title'];
                 $index++;
                 if (!$delimeter) {$delimeter = ", ";}
                 if ($index == $symptomscount - 1) {$delimeter = " and ";}
             }
-            echo "<BR><BR>";
+            echo "<BR><BR></SPAN>";
         }
-    }
-
-    function listsymptoms($symptoms){
-        if (is_array($symptoms)){ $symptoms = implode(",", $symptoms);}
-        $this->loadModel('Symptom');
-        return $this->Symptom->find('all',array('conditions' => array('id IN (' . $symptoms . ')')));
     }
 
     //$u_cond = $this->queryappend($u_cond,

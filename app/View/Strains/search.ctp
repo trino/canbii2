@@ -35,7 +35,8 @@
         }
     }
     if ($j==0){
-        echo "No results found";
+        echo "No results found (0)";
+        vardump($GLOBALS["lastsql"]);
     }
     ?>
     <div class="clear"></div>

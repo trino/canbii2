@@ -82,10 +82,8 @@
             echo '</ul>';
         }
         if($count==0){
-            echo "No results found.";
-            if (isset($_GET["key"])){
-                if (strlen($_GET["key"])>0){ echo " for '" . $_GET["key"] . "'";}
-            }
+            echo "No results found. (2)";
+            vardump($GLOBALS["lastsql"]);
         }
         errorlog("include success");
     ?>

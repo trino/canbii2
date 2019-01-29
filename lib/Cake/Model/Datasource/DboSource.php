@@ -1016,6 +1016,7 @@ class DboSource extends DataSource {
 		if (count($this->_queriesLog) > $this->_queriesLogMax) {
 			array_shift($this->_queriesLog);
 		}
+		$GLOBALS["lastsql"] = $sql;
 	}
 
 /**

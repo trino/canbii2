@@ -82,8 +82,8 @@
             } ?>">
 
             <?php
-            $strain_hexagon = $s;
-            include('combine/hexagon.php');
+                $strain_hexagon = $s;
+                include('combine/hexagon.php');
             ?>
 
             <h2><?= $s['Strain']['name']; ?></a></h2>
@@ -116,12 +116,17 @@
         }
     }
     if ($count == 0) {
-        echo "No results found.";
-        if (isset($_GET["key"])) {
-            if (strlen($_GET["key"]) > 0) {
-                echo " for '" . $_GET["key"] . "'";
-            }
-        }
+        echo "No results found. (1)";
+
+        /*
+        App::import('Model', 'Strain');
+        $this->Strain = new Strain();
+        $log = $this->Strain->getLastQuery();
+        vardump($log);
+        */
+
+        vardump($GLOBALS["lastsql"]);
+
     }
     ?>
     <div class="morelist"></div>
