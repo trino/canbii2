@@ -32,7 +32,6 @@
             echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
             echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div  class="pull-left">' . $textR . '</div></div></div>';
         }
-
     }
 
     function perc($scale) {
@@ -198,11 +197,11 @@
         //$shorttext = fixtext($OCSDATA["shorttext"]);  echo $shorttext;
         echo '</div><div class="col-md-6"><BR>' . fixtext($OCSDATA["content"]);
         echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
-        echo '<div class="clearfix"></div>';
+        echo '<div class="clearfix"></div></DIV>';
     } else {
-        echo 'MISSING DATA: ' .  $strain['Strain']['id'];
+        echo 'MISSING OCS DATA FOR STRAIN ID: ' .  $strain['Strain']['id'];
     }
-    echo '</DIV></DIV></DIV>';
+    echo '</DIV></DIV>';
 ?>
 
 
@@ -211,74 +210,72 @@
         <p>How does this strain help with my medical condition?</p>
 
         <?php
-        if (!isset($p_filter)) {
-            $p_filter = false;
-        }
-        if (!$p_filter) {
-            foreach ($strain['OverallSymptomRating'] as $oer) {
-                $arrs[] = $oer['rate'] . '_' . $oer['symptom_id'];
+            if (!isset($p_filter)) {
+                $p_filter = false;
             }
-        } else {
-            //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-            $symptom_rate = Query("SELECT * FROM symptom_ratings WHERE strain_id=" . $strain['Strain']['id']);
-            $cnt = 0;
-            $eff_id = 0;
-            $total_rate = 0;
-            foreach ($symptom_rate as $er) {
-                $er['SymptomRating'] = $er;
-                $cnt++;
-                if ($eff_id != $er['SymptomRating']['symptom_id']) {
-                    if ($cnt != 1) {
-                        $tots = $total_rate;
-                        $total_rate = $er['SymptomRating']['rate'];
-                        $avg_rate = $tots / ($cnt - 1);
-                        $cnt = 0;
-                        $arrs[] = $avg_rate . '_' . $eff_id;
-                        $total_rate = 0;
-                    } else {
-                        $total_rate = $er['SymptomRating']['rate'];
+            function getsymptomactivity($strain, $plural, $singular, $OverallRating = false, $IDKEY, $webroot, $p_filter, $color) {
+                /*if ($p_filter === false && is_array($OverallRating)) { //i dont know what this is for
+                    foreach ($OverallRating as $oer) {
+                        $arrs[] = $oer['rate'] . '_' . $oer[$IDKEY];
+                    }
+                } else {*/
+                    //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
+                    $symptom_rate = Query("SELECT * FROM " . $singular . "_ratings WHERE strain_id=" . $strain['Strain']['id'], true);
+                    $symptom_list = [];
+                    foreach ($symptom_rate as $data) {
+                        $ID = $data[$singular . "_id"];
+                        if(!isset($symptom_list[$ID])){
+                            $symptom_list[$ID] = ["count" => 0, "total" => 0];
+                        }
+                        $symptom_list[$ID]["count"]++;
+                        $symptom_list[$ID]["total"]+= $data["rate"];
+                    }
+                    if($symptom_list) {
+                        $symptom_name = Query("SELECT * FROM " . $plural . " WHERE id IN(" . implode(",", array_keys($symptom_list)) . ")", true);
+                        foreach ($symptom_name as $symptom) {
+                            $ID = $symptom["id"];
+                            $symptom_list[$ID]["name"] = $symptom["title"];
+                            $symptom_list[$ID]["average"] = 0;
+                            if ($symptom_list[$ID]["count"]) {
+                                $symptom_list[$ID]["average"] = $symptom_list[$ID]["total"] / $symptom_list[$ID]["count"];
+                            }
+                        }
+                    }
+
+                if ($symptom_list) {
+                    $i = 0;
+                    foreach ($symptom_list as $symptom) {
+                        $i++;
+                        if ($i == 16) {
+                            break;
+                        }
+                        $rate = $symptom["average"];
+                        $length = 20 * $rate;
+                        //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
+                        $name = $symptom["name"];// getiterator($names, "id", $ars[1])["title"];
+                        echo '<div class="pull-left">' . $name . '</div>';
+                        progressbar($webroot, $length, perc($length), "", "info", $color);
                     }
                 } else {
-                    $total_rate = $total_rate + $er['SymptomRating']['rate'];
+                    printnoreviewlink($strain, $webroot);
                 }
-                $eff_id = $er['SymptomRating']['symptom_id'];
             }
-        }
-        if (isset($arrs)) {
-            rsort($arrs);
-        } else {
-            $arrs = array();
-        }
-        $i = 0;
-        if ($arrs) {
-            $ids = [];
-            foreach ($arrs as $id => $e) {
-                $arrs[$id] =  explode('_', $e);
-                $ids[] = $arrs[$id][1];
-            }
-            $names = Query("SELECT * FROM symptoms WHERE id IN(" . implode(",", $ids ) . ")");
-            foreach ($arrs as $ars) {
-                $i++;
-                if ($i == 16) {
-                    break;
+        
+            function printnoreviewlink($strain, $webroot, $allowreviews = true){
+                if($allowreviews) {
+                    echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '">No ratings yet. </a>';
+                } else {
+                    echo '<a href="#">No ratings yet. </a>';
                 }
-                $rate = $ars[0];
-                $length = 20 * $rate;
-                //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
-                $name = getiterator($names, "id", $ars[1])["title"];
-                ?>
-                <div class="pull-left"><?= $name ?></div>
-                <?php progressbar($this->webroot, $length, perc($length), "", "info", "light-blue");
             }
-        } else {
-            ?>
-            <!--a href="<?= $this->webroot; ?>review/add/<?= $strain['Strain']['slug']; ?>">No ratings yet. </a-->
-            <a href="#">No ratings yet. </a>
-            <?php
-        }
-        ?>
 
+            getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
+
+            echo '</div><div class="jumbotron"><h3>Acrivities</h3><p>What activities are more enjoyable with this strain?</p>';
+            getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-red");
+        ?>
     </div>
+
     <div class="jumbotron">
         <h3>General Ratings</h3>
         <p> What are the general ratings?</p>
@@ -333,9 +330,7 @@
             <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
         }
         if (!$duration && !$strength && !$scale) {
-            ?>
-            <a href="#">No ratings yet. </a>
-            <?php
+            printnoreviewlink($strain, $this->webroot);
         }
         ?>
 
@@ -421,9 +416,7 @@
                     progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
         } else {
-            ?>
-            <a href="#"> No ratings yet.  </a>
-            <?php
+            printnoreviewlink($strain, $this->webroot);
         }
         ?>
     </div>
@@ -454,14 +447,9 @@
                     progressbar($this->webroot, $length, perc($length), "", "danger", "light-red");
             }
         } else {
-            ?>
-            <i>
-                <a href="#">
-                    No ratings yet. 
-                    <i></i>
-                </a>
-            </i>
-            <?php
+            echo '<I>';
+            printnoreviewlink($strain, $this->webroot);
+            echo '</I>';
         }
         ?>
     </div>

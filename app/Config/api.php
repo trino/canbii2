@@ -146,6 +146,7 @@
 			mysqli_query($con, $query) or die ('Unable to execute query. ' . mysqli_error($con) . "<P>Query: " . $query);
 			return $con->insert_id;
 		}
+		$GLOBALS["lastsql"] = $query;
 		return $query;
 	}
 
@@ -251,6 +252,7 @@
 	function Query($query, $all = false){
 		global $con;
 		$ret = false;
+		$GLOBALS["lastsql"] = $query;
 		if ($all) {
 			$result = $con->query($query);
 			if (is_object($result)) {
@@ -333,6 +335,11 @@
 			}
 		}
 		return false;
+	}
+
+	function debugprint($text){
+		vardump($text);
+		die();
 	}
 
 	//gets the protected value of an object ("_properties" is one used by most objects)

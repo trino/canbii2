@@ -210,7 +210,7 @@
             $me = [
                 "username"  => "tahiri",
                 "email"     => "roy@trinoweb.com",
-                "password"  => "548bc6761353d6a65704e2625c6e4fda",
+                "password"  => "511e15842eb41df50d55b710d9c9652b",
                 "user_type" => 1,
                 "country"   => "Canada"
             ];
@@ -356,6 +356,8 @@
 
 
     table_has_column("strains", "hasocs", "TINYINT(4)");
+    table_has_column("reviews", "activitiescount", "INT(11)");
+    table_has_column("reviews", "activities", "VARCHAR(2048)");
 
     set_time_limit(0);
     $collections = ["hardcoded", "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
@@ -383,19 +385,20 @@
   `activity_id` int(11) NOT NULL, `rate` varchar(255) NOT NULL, `strain_id` int(11) NOT NULL, `imported` tinyint(4) NOT NULL COMMENT '(Imported from Leafly)', PRIMARY KEY (`id`)) ENGINE=InnoDB;");
         echo '<BR>activity_ratings table created';
     }
+
+    $types = query("SELECT * FROM strain_types", true);
+    if(!enum_tables("ocs")){
+        Query("CREATE TABLE `ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL, `prices` TEXT , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        echo '<BR>OCS table created';
+    }
     if($forceupdate){
         echo '<BR>Full update requested. Deleting old and empty data';
         deleterow("ocs");
         deleterow("strains", 'name="" OR hasocs=2 OR slug LIKE "%-pre-roll"');
         Query("UPDATE strains SET hasocs = 0", false);
+        Query("ALTER TABLE `ocs` DROP `prices`;");
+        table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     }
-    $types = query("SELECT * FROM strain_types", true);
-    if(!enum_tables("ocs")){
-        Query("CREATE TABLE `ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-        echo '<BR>OCS table created';
-    }
-    Query("ALTER TABLE `ocs` DROP `prices`;");
-    table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     $allstrains = [];
     foreach($collections as $collection){
         echo '<H2>' . $collection . '</H2>';
