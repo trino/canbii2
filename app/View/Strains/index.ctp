@@ -196,7 +196,7 @@
         // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
         //$shorttext = fixtext($OCSDATA["shorttext"]);  echo $shorttext;
         echo '</div><div class="col-md-6"><BR>' . fixtext($OCSDATA["content"]);
-        echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
+        //echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
         echo '<div class="clearfix"></div></DIV>';
     } else {
         echo 'MISSING OCS DATA FOR STRAIN ID: ' .  $strain['Strain']['id'];
