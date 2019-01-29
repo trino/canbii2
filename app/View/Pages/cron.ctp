@@ -234,6 +234,10 @@
     function cleanslug($slug = "lemon-skunk-capsules-2-5mg"){
         if(!is_array($slug)){$slug = explode("-", $slug);}
         $last = end($slug);
+        if(is_numeric($last)){
+            unset($slug[count($slug) - 1]);//bakerstreet-capsules-2-5mg
+            $last = end($slug);
+        }
         if (endswith($last, "mg") && is_numeric(left($last, strlen($last) - 2))) {
             unset($slug[count($slug) - 1]);//bakerstreet-capsules-2-5mg
             if(count($slug) > 1 && is_numeric($slug[count($slug) - 1])){
@@ -279,6 +283,7 @@
 
             if (!$localstrain) {
                 $strain2 = cleanslug($strain);
+                echo " [BEFORE: " . $strain . "][AFTER: " . $strain2 . ']';
                 if ($strain2 && $strain2 != $strain) {
                     $localstrain = getstrain($strain2);
                     $mergeprices = true;
