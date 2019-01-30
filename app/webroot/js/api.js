@@ -4,6 +4,10 @@ var is_chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigato
 var is_firefox_for_android = is_firefox && is_android;
 var fade_speed = 600;
 
+function log(text){
+    console.log(text);
+}
+
 String.prototype.isEqual = function (str) {
     if (isUndefined(str)) {
         return false;
@@ -162,7 +166,7 @@ function storageAvailable(type) {
     }
 }
 var uselocalstorage = storageAvailable('localStorage');
-log("Local storage is available: " + iif(uselocalstorage, "Yes", "No (use cookie instead)"));
+console.log("Local storage is available: " + iif(uselocalstorage, "Yes", "No (use cookie instead)"));
 function hasItem(c_name){
     if(uselocalstorage){
         return window['localStorage'].getItem(c_name) !== null;

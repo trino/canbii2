@@ -172,7 +172,7 @@
 <div class="clearfix"></div>
 
 <script>
-    var loading = '<DIV ALIGN="CENTER">Now Loading...<P><IMG SRC="<?= $this->webroot; ?>img/spinner.gif"></DIV>';
+    var loading = '<DIV ALIGN="CENTER" ID="spinner">Now Loading...<P><IMG SRC="<?= $this->webroot; ?>img/spinner.gif"></DIV>';
     var more = '<?= $GLOBALS["settings"]["limit"]; ?>';
     var spinnerVisible = false;
     var val = '';
@@ -180,13 +180,13 @@
     function showspinner() {
         if (!spinnerVisible) {
             $('.listing').html(loading);
-            $("div#spinner").fadeIn("fast");
+            $("#spinner").fadeIn("fast");
             spinnerVisible = true;
         }
     }
     function hidespinner(){
         if(spinnerVisible) {
-            var spinner = $("div#spinner");
+            var spinner = $("#spinner");
             spinner.stop();
             spinner.fadeOut("fast");
             spinnerVisible = false;
