@@ -46,11 +46,53 @@
                 //$('#colorSelector div').css('backgroundColor', '#' + hex);
             }
         });
-    })
+    });
 
     $(document).ready(function () {
         $(".fancybox").fancybox();
     });
+
+    function toggleclass(element, classname){
+        if($(element).hasClass(classname)) {
+            $(element).removeClass(classname);
+        } else {
+            $(element).addClass(classname);
+        }
+    }
+
+    function setslider(ID, rating, disabled) {
+        $('#' + ID).slider({
+            range: "min",
+            disabled: disabled,
+            value: rating,
+            min: 0,
+            max: 5,
+            slide: function (event, ui, ID) {
+                var ID = $(event.target).attr("id");
+                ID = ID.left(ID.length-1);
+                console.log(ID + " VALUE " + JSON.stringify(ui));
+                $('#' + ID + 'p').html('' + ui.value + '/5');
+                $('#' + ID + 'i').val(ui.value);
+            }
+        });
+    }
+
+    function setslider2(ID, value, disabled){
+        $("#" + ID + "__slider").slider({
+            'min': 0,
+            'max': 5,
+            disabled: disabled,
+            'step': 1,
+            'value': value,
+            'slide': function (e, ui) {
+                var ID = $(event.target).attr("id");
+                ID = ID.left(ID.length-8);
+                $('#' + ID).val(ui.value);
+                $('#' + ID + '__prompt').html('' + ui.value + '/5');
+            },
+            'range': 'min'
+        });
+    }
 </script>
 
 <div class="page_layout page_margin_top clearfix">
@@ -58,6 +100,10 @@
         <div class="page_header_left" style="white-space: nowrap;">
 
             <?php
+                function setslider($ID, $rating){
+                    echo '<script>$(function () {setslider("' . $ID . '", ' . $rating . ', true);});</script>';
+                }
+
                 function hiif($value, $true, $false = "") {
                     if ($value) {
                         return $true;
@@ -139,7 +185,7 @@
 
                 <div style="white-space: nowrap;">
                     <h1>
-                        <?php echo ucfirst($review['Strain']['name']); ?> Review
+                        <?= ucfirst($review['Strain']['name']); ?> Review
                     </h1>
                     <p style="white-space: nowrap;">
                         By <?= $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?>
@@ -226,6 +272,42 @@
 
                 <div class="clear"></div>
 
+
+                <fieldset id="qf_review__activities" class="qf-fieldset">
+                    <div class="backgroundcolor">
+                        <h2 class="slide page_margin_top">
+                            Activities Rating
+                        </h2>
+                        <p>How much did this strain enhance your activity/activities?</p>
+                        <span id="qf_review__effects__activity__inner">
+                            <?php
+                                $symptoms = Query("SELECT * FROM activities", true);
+                                if ($this->params['action'] == 'add') {
+                                    foreach ($symptoms as $effect) { ?>
+                                        <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?= $effect['id']; ?>"
+                                           class="eff3 btn qf_review__effects__activity"><?= ucfirst($effect['title']); ?></a>
+                                    <?php }
+                                } else {
+                                    $ActivityRating = Query("SELECT * FROM activity_ratings WHERE review_id=" . $review['Review']['id'], true);
+                                    if (count($ActivityRating) > 0){
+                                        foreach ($ActivityRating as $effect){
+                                            if (count($symptoms) > $effect['activity_id'] - 1) {
+                                                $symptom = findsymptom($symptoms, $effect['activity_id'], false);
+                                                progressbar($this->webroot, $effect['rate'], $symptom['title'], "", "info", "light-red");
+                                                setslider($effect['id'] . "ac", $effect['rate']);
+                                            }
+                                        }
+                                    } else {
+                                        echo "<strong>No Review For Activities</strong>";
+                                    }
+                                }
+                            ?>
+                        </span>
+                    </div>
+                </fieldset>
+
+                <div class="clear"></div>
+
                 <fieldset id="qf_review__effects" class="qf-fieldset">
                     <h2 class="slide page_margin_top">
                         Effects Rating
@@ -240,49 +322,21 @@
                         <span id="qf_review__effects__medical__inner">
                             <?php
                                 if ($this->params['action'] == 'add') {
-                                    foreach ($symptoms as $effect) {
-                                        ?>
-                                        <a href="javascript:void(0);"
-                                           onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel');"
-                                           title="<?php echo $effect['Symptom']['id']; ?>"
-                                           class="eff3 btn qf_review__effects__medical"><?php echo ucfirst($effect['Symptom']['title']); ?></a>
-                                        <?php
+                                    $symptoms = Query("SELECT * FROM symptoms", true);
+                                    foreach ($symptoms as $effect) { ?>
+                                        <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?= $effect['id']; ?>"
+                                           class="eff3 btn qf_review__effects__medical"><?= ucfirst($effect['title']); ?></a>
+                                    <?php }
+                                } else if (count($review['SymptomRating']) > 0){
+                                    foreach ($review['SymptomRating'] as $effect){
+                                        if (count($symptoms) > $effect['symptom_id'] - 1) {
+                                            $symptom = findsymptom($symptoms, $effect['symptom_id']);
+                                            progressbar($this->webroot, $effect['rate'], $symptom['title'], "", "info", "light-blue");
+                                            setslider($effect['id'] . "er", $effect['rate']);
+                                        }
                                     }
                                 } else {
-                                    if (count($review['SymptomRating']) > 0){
-                                        foreach ($review['SymptomRating'] as $effect){
-                                            if (count($symptoms) > $effect['symptom_id'] - 1) {
-                                                $symptom = findsymptom($symptoms, $effect['symptom_id']);
-                                                progressbar($this->webroot, $effect['rate'], $symptom['title'], "", "info", "light-blue");
-                                                ?>
-                                                    <!--div id="efft_<?= $effect['id']; ?>er" class="review-slider">
-                                                        <label><?= $symptoms[$effect['symptom_id'] - 1]['Symptom']['title']; ?></label>
-
-                                                        <div id="<?= $effect['id']; ?>er"></div>
-                                                        <p><?= $effect['rate']; ?>/5</p>
-
-                                                        <div class="clear"></div>
-                                                    </div-->
-                                                    <script>
-                                                        $(function () {
-                                                            $('#<?= $effect['id'];?>er').slider({
-                                                                range: "min",
-                                                                disabled: true,
-                                                                value: <?= $effect['rate'];?>,
-                                                                min: 0,
-                                                                max: 5,
-                                                                slide: function (event, ui) {
-                                                                    $('#' + id + 'p').html('' + ui.value + '/5');
-                                                                    $('#' + id + 'i').val(ui.value);
-                                                                }
-                                                            });
-                                                        });
-                                                    </script>
-                                            <?php }
-                                        }
-                                    } else {
-                                        echo "<strong>No Review For Medicinal Effects</strong>";
-                                    }
+                                    echo "<strong>No Review For Medicinal Effects</strong>";
                                 }
                             ?>
                         </span>
@@ -298,7 +352,7 @@
                         <?php
                             if ($this->params['action'] == 'add') {
                                 foreach ($effects as $effect) { ?>
-                                    <a href="javascript:void(0);" onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')" title="<?php echo $effect['Effect']['id']; ?>"
+                                    <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?php echo $effect['Effect']['id']; ?>"
                                         class="eff3 btn qf_review__effects__positive"><?php echo ucfirst($effect['Effect']['title']); ?></a>
                                 <?php }
                             } else {
@@ -317,30 +371,8 @@
                                         if (in_array($effect['effect_id'], $pos) and count($effects) > $effect['effect_id'] - 1){
                                             $theeffect = findsymptom($effects, $effect['effect_id'], 'Effect');
                                             // progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "success", "light-green");
-                                            ?>
-                                            <!--div id="efft_<?php echo $effect['id'];?>pe" class="review-slider">
-                                                <label><?php echo $effects[$effect['effect_id'] - 1]['Effect']['title'];?></label>
-
-                                                <div id="<?php echo $effect['id'];?>pe"></div>
-                                                <p><?php echo $effect['rate'];?>/5</p>
-
-                                                <div class="clear"></div>
-                                            </div-->
-
-                                            <script>
-                                                $('#<?php echo $effect['id'];?>pe').slider({
-                                                    range: "min",
-                                                    disabled: true,
-                                                    value: <?php echo $effect['rate'];?>,
-                                                    min: 0,
-                                                    max: 5,
-                                                    slide: function (event, ui) {
-                                                        $('#' + id + 'p').html('' + ui.value + '/5');
-                                                        $('#' + id + 'i').val(ui.value);
-                                                    }
-                                                });
-                                            </script>
-                                        <?php }
+                                            setslider($effect['id'] . "pe", $effect['rate']);
+                                        }
                                     }
                                 } else {
                                     echo "<strong>No Review For Positive Effects</strong>";
@@ -370,9 +402,7 @@
                                         $effect["Effect"] = $effect;
                                     }
                                     ?>
-                                     <a href="javascript:void(0);"
-                                          onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
-                                          title="<?php echo $effect['Effect']['id']; ?>"
+                                     <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?php echo $effect['Effect']['id']; ?>"
                                           class="eff3 btn btn-info qf_review__effects__negative"><?php echo ucfirst($effect['Effect']['title']); ?></a>
                                 <?php }
                             } else {
@@ -389,31 +419,10 @@
                                 if ($cnt > 0){
                                     foreach ($review['EffectRating'] as $effect){
                                         if (in_array($effect['effect_id'], $pos)){
-                                        $theeffect = findsymptom($effectz, $effect['effect_id'], 'Effect');
-                                        progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "danger", "light-red");
-                                        ?>
-                                            <!--div id="efft_<?= $effect['id'];?>ne" class="review-slider">
-                                                <label><?= $effectz[$effect['effect_id'] - 1]['Effect']['title'];?></label>
-
-                                                <div id="<?= $effect['id'];?>ne"></div>
-                                                <p><?= $effect['rate'];?>/5</p>
-
-                                                <div class="clear"></div>
-                                            </div-->
-                                            <script>
-                                                $('#<?= $effect['id'];?>ne').slider({
-                                                    range: "min",
-                                                    disabled: true,
-                                                    value: <?= $effect['rate'];?>,
-                                                    min: 0,
-                                                    max: 5,
-                                                    slide: function (event, ui) {
-                                                        $('#' + id + 'p').html('' + ui.value + '/5');
-                                                        $('#' + id + 'i').val(ui.value);
-                                                    }
-                                                });
-                                            </script>
-                                        <?php }
+                                            $theeffect = findsymptom($effectz, $effect['effect_id'], 'Effect');
+                                            progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "danger", "light-red");
+                                            setslider($effect['id'] . "ne", $effect['rate']);
+                                        }
                                     }
                                 } else {
                                     echo "<strong>No Review For Negative Effects</strong>";
@@ -449,7 +458,7 @@
                                     <span class="morecolours"></span>
                                     <?php
                                         /* foreach($colours as $colour) { ?>
-                                            <a href="javascript:void(0);" onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
+                                            <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');"
                                                 title="<?php echo $colour['Colour']['id'];?>" class="eff3 btn btn-info qf_review__aesthetics__color"><?php echo ucfirst($colour['Colour']['title']);?></a>
                                             <?php
                                         }*/
@@ -498,7 +507,7 @@
                                         $flavor['Flavor'] = $flavor;
                                     }
                                     ?>
-                                    <a href="javascript:void(0);" onclick="($(this).hasClass('sel'))?$(this).removeClass('sel'):$(this).addClass('sel')"
+                                    <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');"
                                           title="<?php echo $flavor['Flavor']['id']; ?>" class="eff3 btn btn-info qf_review__aesthetics__flavor"><?= ucfirst($flavor['Flavor']['title']); ?></a>
                                 <?php }
                             } else {
@@ -685,6 +694,10 @@
             $('.qf_review__effects__medical').click(function () {
                 addSlider($(this), 'medical');
             });
+
+            $('.qf_review__effects__activity').click(function () {
+                addSlider($(this), 'activity');
+            });
             /*$('.qf_review__aesthetics__color').click(function () {
              addSlider($(this), 'color');
              });*/
@@ -712,23 +725,22 @@
                 } else {
                     opt.addClass("selected");
                     var cat = (type == 'color' || type == 'flavor') ? 'aesthetics' : 'effects';
-                    if (cat == 'aesthetics')
+                    if (cat == 'aesthetics') {
                         h = "display:none";
+                    }
                     var innerId = '#qf_review__' + cat + '__' + type + '__inner';
-                    if (type == 'positive' || type == 'negative')
+                    if (type == 'positive' || type == 'negative') {
                         type = 'effect';
-
-                    $(innerId).append('<div id="' + id + '" class="review-slider" style="' + h + '"><h4>' + txt + '</h4><input type="hidden" id="' + id + 'i" name="' + type + '[' + sel + ']" value="0" /><div class="slider"  id="' + id + 's"></div><p id="' + id + 'p" >0/5</p><div class="clear"> </div></div>');
-                    $('#' + id + 's').slider({
-                        range: "min",
-                        value: 0,
-                        min: 0,
-                        max: 5,
-                        slide: function (event, ui) {
-                            $('#' + id + 'p').html('' + ui.value + '/5');
-                            $('#' + id + 'i').val(ui.value);
-                        }
-                    });
+                    }
+                    if( $(innerId).length == 0){
+                        console.log(innerId + " not found");
+                    } else {
+                        var HTML = '<div id="' + id + '" class="review-slider" style="' + h + '"><h4>' + txt + '</h4>';
+                        HTML += '<input type="hidden" id="' + id + 'i" name="' + type + '[' + sel + ']" value="0"/>';
+                        HTML += '<div class="slider"  id="' + id + 's"></div><p CLASS="display" id="' + id + 'p" >0/5</p><div class="clear"> </div></div>';
+                        $(innerId).append(HTML);
+                        setslider(id + 's', 0, false);
+                    }
                 }
                 jQ.val("");
             }
@@ -741,53 +753,10 @@
                 }, 'range': 'min'
             });
 
-            $("#qf_review__general__strength__slider").slider({
-                'min': 0,
-                'max': 5,
-                'step': 1,
-                'value': 0,
-                'slide': function (e, ui) {
-                    $('#qf_review__general__strength').val(ui.value);
-                    $('#qf_review__general__strength__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
-
-            $("#qf_review__general__duration__slider").slider({
-                'min': 0,
-                'max': 5,
-                'step': 1,
-                'value': 0,
-                'slide': function (e, ui) {
-                    $('#qf_review__general__duration').val(ui.value);
-                    $('#qf_review__general__duration__prompt').html('' + ui.value + ' hrs');
-                },
-                'range': 'min'
-            });
-
-            $("#qf_review__aesthetics__hairs__slider").slider({
-                'min': 1,
-                'max': 5,
-                'step': 1,
-                'value': 5,
-                'slide': function (e, ui) {
-                    $('#qf_review__aesthetics__hairs').val(ui.value);
-                    $('#qf_review__aesthetics__hairs__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
-
-            $("#qf_review__aesthetics__crystals__slider").slider({
-                'min': 1,
-                'max': 5,
-                'step': 1,
-                'value': 5,
-                'slide': function (e, ui) {
-                    $('#qf_review__aesthetics__crystals').val(ui.value);
-                    $('#qf_review__aesthetics__crystals__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
+            setslider2('qf_review__general__strength', 0, false);
+            setslider2('qf_review__general__duration', 0, false);
+            setslider2('qf_review__aesthetics__hairs', 5, false);
+            setslider2('qf_review__aesthetics__crystals', 5, false);
 
             $('#precision').raty({
                 <?php if (isset($_GET['review'])){
@@ -825,57 +794,11 @@
                 'range': 'min'
             });
 
-            $("#qf_review__general__strength__slider").slider({
-                'min': 0,
-                'max': 5,
-                disabled: true,
-                'step': 1,
-                'value':<?= $review['Review']['eff_strength'];?>,
-                'slide': function (e, ui) {
-                    $('#qf_review__general__strength').val(ui.value);
-                    $('#qf_review__general__strength__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
+            setslider2('qf_review__general__strength', <?= $review['Review']['eff_strength'];?>, true);
+            setslider2('qf_review__general__duration', <?= $review['Review']['eff_duration'];?>, true);
+            setslider2('qf_review__aesthetics__hairs', <?= $review['Review']['eff_scale'];?>, true);
+            setslider2('qf_review__aesthetics__crystals', <?= $review['Review']['eff_scale'];?>, true);
 
-            $("#qf_review__general__duration__slider").slider({
-                'min': 0,
-                'max': 5,
-                'step': 1,
-                disabled: true,
-                'value':<?= $review['Review']['eff_duration'];?>,
-                'slide': function (e, ui) {
-                    $('#qf_review__general__duration').val(ui.value);
-                    $('#qf_review__general__duration__prompt').html('' + ui.value + ' hrs');
-                },
-                'range': 'min'
-            });
-
-            $("#qf_review__aesthetics__hairs__slider").slider({
-                'min': 1,
-                'max': 5,
-                'step': 1,
-                disabled: true,
-                'value':<?= $review['Review']['eff_scale'];?>,
-                'slide': function (e, ui) {
-                    $('#qf_review__aesthetics__hairs').val(ui.value);
-                    $('#qf_review__aesthetics__hairs__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
-
-            $("#qf_review__aesthetics__crystals__slider").slider({
-                'min': 1,
-                'max': 5,
-                'step': 1,
-                disabled: true,
-                'value':<?= $review['Review']['eff_scale'];?>,
-                'slide': function (e, ui) {
-                    $('#qf_review__aesthetics__crystals').val(ui.value);
-                    $('#qf_review__aesthetics__crystals__prompt').html('' + ui.value + '/5');
-                },
-                'range': 'min'
-            });
             //$("#qf_review__other__overall__slider").slider({'min':1,'max':5,'step':1,'value':1,'slide':function(e,ui){ $('#qf_review__other__overall').val(ui.value);$('#qf_review__other__overall__prompt').html(''+ui.value+'/5'); },'range':'min'});
             $('#precision').raty({
                 cancel: false,

@@ -154,8 +154,8 @@
             $this->set('flavors',$this->Flavor->find('all'));
             */
 
-            $this->loadModel('Symptom');
-            $this->set('symptoms',$this->Symptom->find('all'));
+            //$this->loadModel('Symptom');
+            //$this->set('symptoms',$this->Symptom->find('all'));
             if (isset($_GET["review"])){
                 $this->set('editreview', $this->Review->findById($_GET["review"]));
             }

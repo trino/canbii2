@@ -95,6 +95,7 @@ if (false) {
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?= $this->webroot; ?>upvote/upvote.css">
 <script src="<?= $this->webroot; ?>upvote/jquery.upvote.js"></script>
+<script src="<?= $this->webroot; ?>js/api.js"></script>
 <script src="<?= $this->webroot; ?>js2/bootstrap-modal.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap-grid.min.css"/>
