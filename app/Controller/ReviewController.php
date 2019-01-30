@@ -146,10 +146,14 @@
             $this->set("strain",$strain);
             $this->set("strain_id",$strain['Strain']['id']);
             $this->set("strain_name",$strain['Strain']['name']);
+            //die("GOT HERE");
+            /*
             $this->set('effects',$this->Effect->find('all',array('conditions'=>array("negative"=>'0'))));
             $this->set('negative',$this->Effect->find('all',array('conditions'=>array("negative"=>'1'))));
             $this->set('colours',$this->Colour->find('all'));
             $this->set('flavors',$this->Flavor->find('all'));
+            */
+
             $this->loadModel('Symptom');
             $this->set('symptoms',$this->Symptom->find('all'));
             if (isset($_GET["review"])){

@@ -7,8 +7,7 @@
 <?php
 //$j=0;
 $count = 0;
-foreach($reviews as $review)
-{
+foreach($reviews as $review) {
 //$j++;
 
     $strain_hexagon = $review;
@@ -72,11 +71,9 @@ $count++;
 <!--</ul>-->
 <div class="clear"></div>
 <div class="morelist" style="display: none;"></div>
-<?php
-//if($reviewz && $reviewz >1){?>
+<?php //if($reviewz && $reviewz >1){ ?>
 <!--    <div class="loadmore"><a href="javascript:void(0);">Load More</a></div>-->
-    <?php
-//} ?>
+<?php //} ?>
 
 
 <!--</div>-->
@@ -106,4 +103,4 @@ $count++;
         }
        });
     });
-    </script>
+</script>

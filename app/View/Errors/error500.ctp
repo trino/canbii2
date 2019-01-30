@@ -39,7 +39,7 @@
 			if(file_exists($filepath)){
 				$size = filesize($filepath);
 				if($size) {
-					echo '<P>' . $filename . ": " . human_filesize($size) . '<BR><PRE>';
+					echo '<P>' . $filename . ": " . human_filesize($size) . '<BR><PRE STYLE="background-color: white; border: 1px solid red;">';
 					echo file_get_contents($filepath);
 					echo '</PRE></P>';
 					if($delete){unlink($filepath);}
