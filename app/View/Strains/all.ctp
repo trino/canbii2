@@ -176,9 +176,11 @@
     var more = '<?= $GLOBALS["settings"]["limit"]; ?>';
     var spinnerVisible = false;
     var val = '';
+    var currentlisting = "";
 
     function showspinner() {
         if (!spinnerVisible) {
+            currentlisting = $('.listing').html();
             $('.listing').html(loading);
             $("#spinner").fadeIn("fast");
             spinnerVisible = true;
@@ -186,6 +188,7 @@
     }
     function hidespinner(){
         if(spinnerVisible) {
+            $('.listing').html(currentlisting);
             var spinner = $("#spinner");
             spinner.stop();
             spinner.fadeOut("fast");
@@ -215,7 +218,7 @@
                 }
 
             });
-            doquery(0, false);
+            doquery(0, false, "hidden_filter select");
         });
 
         function appendtoquery(query, text){
@@ -225,28 +228,33 @@
             return text;
         }
 
-        function doquery(more, showmore){
+        var limit = 0;
+        function doquery(more, showmore, tag){
             showspinner();
-            var val = '';
+            var val = {effects: [], symptoms: [], activities: []};
             var i = 0;
             $('.effs').each(function () {
                 if ($(this).val()) {
-                    val = appendtoquery(val, 'effects[]=' + $(this).val());
+                    //val = appendtoquery(val, 'effects[]=' + $(this).val());
+                    val.effects.push($(this).val());
                 }
 
             });
             $('.symp .symps').each(function () {
                 if ($(this).val()) {
-                    val = appendtoquery(val, 'symptoms[]=' + $(this).val());
+                    //val = appendtoquery(val, 'symptoms[]=' + $(this).val());
+                    val.symptoms.push($(this).val());
                 }
             });
             $('.symp .acts').each(function () {
                 if ($(this).val()) {
-                    val = appendtoquery(val, 'activities[]=' + $(this).val());
+                    //val = appendtoquery(val, 'activities[]=' + $(this).val());
+                    val.activities.push($(this).val());
                 }
             });
 
-            val = appendtoquery(val, 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>');
+            //val = appendtoquery(val, 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>');
+            val.key = '<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
 
             $('.eff1c').each(function () {
                 //alert('test');
@@ -255,37 +263,56 @@
                 if (sort != 'DESC') {
                     sort = 'ASC';
                 }
-                val = appendtoquery(val, 'sort=' + id + '&order=' + sort);
+                //val = appendtoquery(val, 'sort=' + id + '&order=' + sort);
+                val.sort = id;
+                val.order = sort;
             });
 
             if (profile) {
-                val = appendtoquery(val, profile);
+                //val = appendtoquery(val, profile);
+                $.extend( true, val, profile );
             }
 
             if (sort && sortid) {
                 if ((sortid != 'indica' && sortid != 'sativa' && sortid != 'hybrid') || sort == 'ASC') {
-                    val = appendtoquery(val, 'sort=' + sortid + '&order=' + sort);
+                    //val = appendtoquery(val, 'sort=' + sortid + '&order=' + sort);
+                    val.sort = sortid;
+                    val.order = sort;
                 }
             }
 
+            val.table = "<?= $usetable; ?>";
+            limit += <?= $GLOBALS["settings"]["limit"]; ?>;
+            val.limit = limit;
+            //log("ATTEMPTING POST TO: <?= $this->webroot; ?>strains/filter/" + more + '<?php if ($type) {echo '/' . $type;} ?>');
+            //log(JSON.stringify(val));
             $.ajax({
                 url: '<?= $this->webroot; ?>strains/filter/' + more + '<?php if ($type) {echo '/' . $type;} ?>',
                 data: val,
-                table: "<?= $usetable; ?>",
-                type: 'post',
-                limit: <?= $GLOBALS["settings"]["limit"]; ?>,
+                type: 'POST',
                 success: function (res) {
+                    log("TAG: " + tag + " showmore: " + showmore + " more: " + more + " val: " + val + " limit: " + limit);
+
                     $('#indica').attr('href', '<?= $this->webroot;?>strains/all/indica?' + val);
                     $('#sativa').attr('href', '<?= $this->webroot;?>strains/all/sativa?' + val);
                     $('#hybrid').attr('href', '<?= $this->webroot;?>strains/all/hybrid?' + val);
                     $('#all_breed').attr('href', '<?= $this->webroot;?>strains/all?' + val);
                     hidespinner();
                     if(showmore){
+                        $('.listing').append('<HR>' + res);
+                        /*
                         $('.morelist').show();
                         $('.morelist').addClass('morelist2');
                         $('.morelist2').removeClass('morelist');
                         $('.morelist2').html(res);
                         $('.morelist2').removeClass('morelist2');
+                        */
+
+                        res = $(".loadmore").clone();
+                        $(".loadmore").remove();
+                        $('.listing').append(res);
+                        scrolltobottom();
+
                     } else {
                         $('.listing').html(res);
                     }
@@ -296,7 +323,7 @@
         var sort = '';var sortid = '';
         $('.loadmore a').live('click', function () {
             more = parseFloat(more) + <?= $GLOBALS["settings"]["limit"]; ?>;
-            doquery(1, true);
+            doquery(1, true, "loadmore.click");
         });
 
         function filternonnumeric(myString){
@@ -327,7 +354,7 @@
 
             $('.key').val('');
 
-            doquery(0, false);
+            doquery(0, false, "sym2, .act2.click");
             $('#rated').click();
         });
 
@@ -342,7 +369,7 @@
                 $('.' + $(this).attr('id')).remove();
             }
             $('.key').val('');
-            doquery(0, false);
+            doquery(0, false, "eff2.click");
         });
 
         $('.eff1').click(function () {
@@ -370,7 +397,7 @@
             if ((sortid != 'indica' && sortid != 'sativa' && sortid != 'hybrid') || sort == 'ASC') {
                 $(this).addClass('searchact');
             }
-            doquery(0, false);
+            doquery(0, false, "eff1.click");
         });
 
         $(".dialog_sym").click(function () {

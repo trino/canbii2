@@ -403,9 +403,15 @@ class StrainsController extends AppController {
         $this->set('countries', $this->Country->find('all'));
         $this->set('limit', $limit);
         $this->set('type', $type);
-
+        /*
+        vardump($_POST); die();
+        */
         $offset = 0;
-        if ($limit) {$offset = $limit;}
+        if(isset($_POST["limit"])){
+            $offset = $_POST["limit"];
+        } else if ($limit) {
+            $offset = $limit;
+        }
 
         //echo $limit;die();
         $this->layout = 'blank';
@@ -624,7 +630,9 @@ class StrainsController extends AppController {
 
         $profile_filter = $this->getucond(true);
         $offset = 0;
-        if ($limit) {
+        if(isset($_POST["limit"])){
+            $offset = $_POST["limit"];
+        } else if ($limit) {
             $offset = $limit;
         }
         $limit = $GLOBALS["settings"]["limit"];
@@ -669,7 +677,9 @@ class StrainsController extends AppController {
 
         $profile_filter = $this->getucond();
         $offset = 0;
-        if ($limit) {
+        if(isset($_POST["limit"])){
+            $offset = $_POST["limit"];
+        } else if ($limit) {
             $offset = $limit;
         }
         $limit = $GLOBALS["settings"]["limit"];

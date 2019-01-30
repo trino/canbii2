@@ -90,21 +90,22 @@
 
             <?= substr($s['Strain']['description'], 0, 150) . '...'; ?>
 
-            <?php if (isset($s['StrainType'])) {
-                echo $s['StrainType']['title'];
-            }
+            <?php
+                if (isset($s['StrainType'])) {
+                    echo $s['StrainType']['title'];
+                }
 
-            if ($s['Strain']['review']) {
-                //if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
-                echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
-            } else {
-                echo '0 Reviews';
-            }
+                if ($s['Strain']['review']) {
+                    //if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
+                    echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
+                } else {
+                    echo '0 Reviews';
+                }
 
-            if ($s['Strain']['viewed']) {
-                echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
-            }
-        ?>
+                if ($s['Strain']['viewed']) {
+                    echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
+                }
+            ?>
             <div style="float: right" class="rating<?= $j; ?> "></div>
             <script>
                 $(function () {
