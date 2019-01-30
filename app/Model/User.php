@@ -59,8 +59,7 @@ class User extends AppModel {
         ),
 	2);
 
-function equaltofield($check,$otherfield)
-    {
+    function equaltofield($check,$otherfield) {
         //get name of field
         $fname = '';
         foreach ($check as $key => $value){
@@ -68,33 +67,21 @@ function equaltofield($check,$otherfield)
             break;
         }
         return $this->data[$this->name][$otherfield] === $this->data[$this->name][$fname];
-    } 
-    function checkEmail($val)
-    {
+    }
+
+    function checkEmail($val) {
         $value = $val['email'];
         //var_dump($value);die();
-        if(str_replace(' ','',$value)!=$value)
-        return false;
-        if($value=='')
-        return false;
-        else
-        {
-            $arr = explode('@',$value);
-            //var_dump($arr);die();
-            if(count($arr)>1)
-            {
-                $domain = $arr[1];
-                $arr2 = explode('.',$domain);
-                if(count($arr2)>1)
-                return true;
-                else
-                return false;
-            }
-            else
+        if($value=='' || str_replace(' ','',$value)!=$value) {
+            return false;
+        }
+        $arr = explode('@',$value);
+        if(count($arr)>1) {
+            $domain = $arr[1];
+            $arr2 = explode('.',$domain);
+            return count($arr2)>1;
+        } else {
             return false;
         }
     }
-
-    
-
 }

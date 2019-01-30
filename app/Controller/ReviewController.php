@@ -161,18 +161,37 @@
             }
 
             if(isset($_POST['submit'])) {
-                //var_dump($_POST);die();
                 $ar['user_id'] = $this->Session->read('User.id');
                 $ar['strain_id'] = $strain['Strain']['id'];
+
+                //vardump($_POST);die();
+
                 //$this->deletereviews($ar['user_id'],  $ar['strain_id'] );//only needs 1 review per strain
 
-                $ar['on_date'] = date("y-m-d");
+               $ar['on_date'] = date("y-m-d");
                foreach($_POST as $k=>$v){
                     $ar[$k]=$v;
                }
                $this->Review->create();
                if($this->Review->save($ar))  {
                     $r_id = $this->Review->id;
+                    if(isset($_POST['activity'])&& count($_POST['activity'])>0){
+                        foreach($_POST['activity'] as $activity=>$rating) {
+                            insertdb("activity_ratings", [
+                                "user_id" => $ar['user_id'],
+                                "review_id" => $r_id,
+                                "activity_id" => $activity,
+                                "rate" => $rating,
+                                "strain_id" => $ar['strain_id']
+                            ]);
+                        }
+                        insertdb("reviews", [
+                            "id" => $r_id,
+                            "activitiescount" => count($_POST['activity']),
+                            "activities" => implode(",", array_keys($_POST['activity']))
+                        ]);
+                    }
+
                     //echo $_POST['rate'];
                     $this->change_overall_rating($strain['Strain']['id'],"strain",$_POST['rate']);
                     //die($o_R);
