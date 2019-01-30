@@ -75,7 +75,7 @@
 
                 <div style="float:left;">
                     <h3 class="block-title">
-                        <a href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>">
+                        <a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>">
                             <?= $s['Strain']['name'];?>
                         </a>
                     </h3>
@@ -102,7 +102,7 @@
                     <ul class="comment_box clearfix">
                         <li class="date clearfix">
                             <div class="value">
-                                <a style="color:white;" href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>">
+                                <a style="color:white;" href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>">
                                     <?= $s['StrainType']['title'];?>
                                 </a>
                             </div>
@@ -114,7 +114,7 @@
                     <div class="post_content">
                         <h2>
                             <a target="_blank" href="http://themeforest.net/item/medicenter-responsive-medical-health-template/4000598?ref=QuanticaLabs" title="Lorem ipsum dolor sit amat velum">
-                                <a href="<?php echo $this->webroot?>strains/<?php echo $s['Strain']['slug'];?>"><?= $s['Strain']['name'];?></a>
+                                <a href="<?= $this->webroot?>strains/<?= $s['Strain']['slug'];?>"><?= $s['Strain']['name'];?></a>
                             </a>
                         </h2>
                         <p><?= substr($s['Strain']['description'],0,160).'...';?></p>
@@ -122,7 +122,7 @@
 
                         <script>
                             $(function(){
-                                $('.rating<?php echo $j;?>').raty({number:10,readOnly:true,score:<?php echo $s['Strain']['rating'];?>});
+                                $('.rating<?= $j;?>').raty({number:10,readOnly:true,score:<?= $s['Strain']['rating'];?>});
                             });
                         </script>
 

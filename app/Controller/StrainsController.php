@@ -4,7 +4,6 @@ class StrainsController extends AppController {
 
     public $components = array('Paginator', 'RequestHandler');
     public $helpers = array('Js');
-    private $itemsperpage = 20;//strain limit
 
     function call($name){
         echo "<BR>Calling: " . $name . " at " . time() . "<BR>";
@@ -318,7 +317,7 @@ class StrainsController extends AppController {
         if(isset($_GET["key"]) && $_GET["key"]){
             $conditions['name LIKE'] = '%' . $_GET["key"] . '%';
         }
-        $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $this->itemsperpage, 'offset' => $limit)));
+        $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $GLOBALS["settings"]["limit"], 'offset' => $limit)));
         $this->set('strains', $this->Strain->find('count', array('conditions' => $conditions)));
 
         /*
@@ -414,9 +413,9 @@ class StrainsController extends AppController {
 
         $_GET = array_merge($_GET, $_POST);
         if(isset($_GET["limit"])){
-            $this->itemsperpage = $_GET["limit"];
+            $GLOBALS["settings"]["limit"] = $_GET["limit"];
         }
-        $limit = $this->itemsperpage;
+        $limit = $GLOBALS["settings"]["limit"];
 
         if (isset($_GET['key'])) {
             $key = $_GET['key'];
@@ -628,7 +627,7 @@ class StrainsController extends AppController {
         if ($limit) {
             $offset = $limit;
         }
-        $limit = $this->itemsperpage;
+        $limit = $GLOBALS["settings"]["limit"];
         $q = $this->Strain->findBySlug($slug);
         if (!$sort || $sort == 'recent') {//do not use nested redundant if statements, generate the array cell by cell
             if (!isset($_GET['user'])) {
@@ -673,7 +672,7 @@ class StrainsController extends AppController {
         if ($limit) {
             $offset = $limit;
         }
-        $limit = $this->itemsperpage;
+        $limit = $GLOBALS["settings"]["limit"];
         $this->layout = 'blank';
 
         $this->loadModel('Review');

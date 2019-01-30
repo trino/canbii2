@@ -1,7 +1,6 @@
 <?php
-    $multiple = true;//disable for single queries only
-    $usetable = "activities";//"symptoms" or "activities"
-    $limit = 20;
+    $multiple = $GLOBALS["settings"]["multiple"];
+    $usetable = $GLOBALS["settings"]["usetable"];
 
     function getasarray($key) {
         $symptoms = array();
@@ -174,7 +173,7 @@
 
 <script>
     var loading = '<DIV ALIGN="CENTER">Now Loading...<P><IMG SRC="<?= $this->webroot; ?>img/spinner.gif"></DIV>';
-    var more = '<?= $limit; ?>';
+    var more = '<?= $GLOBALS["settings"]["limit"]; ?>';
     var spinnerVisible = false;
     var val = '';
 
@@ -274,7 +273,7 @@
                 data: val,
                 table: "<?= $usetable; ?>",
                 type: 'post',
-                limit: <?= $limit; ?>,
+                limit: <?= $GLOBALS["settings"]["limit"]; ?>,
                 success: function (res) {
                     $('#indica').attr('href', '<?= $this->webroot;?>strains/all/indica?' + val);
                     $('#sativa').attr('href', '<?= $this->webroot;?>strains/all/sativa?' + val);
@@ -296,7 +295,7 @@
 
         var sort = '';var sortid = '';
         $('.loadmore a').live('click', function () {
-            more = parseFloat(more) + <?= $limit; ?>;
+            more = parseFloat(more) + <?= $GLOBALS["settings"]["limit"]; ?>;
             doquery(1, true);
         });
 

@@ -283,7 +283,7 @@
 
             if (!$localstrain) {
                 $strain2 = cleanslug($strain);
-                echo " [BEFORE: " . $strain . "][AFTER: " . $strain2 . ']';
+                //echo " [BEFORE: " . $strain . "][AFTER: " . $strain2 . ']';
                 if ($strain2 && $strain2 != $strain) {
                     $localstrain = getstrain($strain2);
                     $mergeprices = true;
