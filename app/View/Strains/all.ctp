@@ -83,9 +83,8 @@
 
 <div class="jumbotron ">
 <div class="row ">
-    <div class="col-md-2">
-        <ul class="">
-            <li><p>Filter By</p></li>
+    <div class="col-md-3">
+      <p>Filter By</p>
             <?php
                 $types = [
                     "all_breed" => ["type" => "", "addtourl" => false, "title" => "All"],
@@ -94,7 +93,7 @@
                     "hybrid" => [],
                 ];
                 foreach($types as $ID => $data){
-                    echo '<li><a id="' . $ID . '" ';
+                    echo '<a class="pr-3" id="' . $ID . '" ';
                     if(!isset($data["type"])){
                         $data["type"] = $ID;
                     }
@@ -107,12 +106,12 @@
                         $data["title"] = ucfirst($ID);
                     }
                     if (isset($_GET['key'])){ echo "?key=" . $_GET['key'];}
-                    echo '">' . $data["title"] . '</a></li>';
+                    echo '">' . $data["title"] . '</a>';
                 }
             ?>
         </ul>
     </div>
-    <div class="col-md-2">
+    <!--div class="col-md-2">
         <ul class="">
             <li><p>Sort By</p></li>
             <?php
@@ -127,9 +126,9 @@
                 }
             ?>
         </ul>
-    </div>
-    <div class="col-md-8">
-        <p>Filter</p>
+    </div-->
+    <div class="col-md-9">
+        <p>Activity</p>
         <?php
             $effect = $effectslist;
             $counter = 0;
@@ -154,8 +153,6 @@
     </div>
 </div>
 </div>
-
-<hr>
 
 <div class="listing ">
     <?php include_once('combine/filter.php'); ?>
@@ -299,7 +296,7 @@
                     $('#all_breed').attr('href', '<?= $this->webroot;?>strains/all?' + val);
                     hidespinner();
                     if(showmore){
-                        $('.listing').append('<HR>' + res);
+                        $('.listing').append('' + res);
                         /*
                         $('.morelist').show();
                         $('.morelist').addClass('morelist2');

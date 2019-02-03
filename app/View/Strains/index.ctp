@@ -10,14 +10,7 @@
     echo "<Strain id='" . $strain['Strain']['id'] . "' />";
 
     function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100) {
-        if (false) {
-            /*
-            echo '<div  class="pull-left" width: ';
-            echo (round($value, 2) > 100) ? 100 : round($value, 2);
-            echo '%;height:25px;position: absolute;left:0;"/>' . round($value / 20, 2);
-            echo '/5</div>';
-            */
-        } else {
+
             if ($textL) {
                 echo '<div class="pull-left" >&nbsp;' . $textL . '</div>';
             }
@@ -31,7 +24,6 @@
             echo '<div class="progress-bar progress-bar-';
             echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
             echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div  class="pull-left">' . $textR . '</div></div></div>';
-        }
     }
 
     function perc($scale) {
@@ -49,20 +41,20 @@
 <div class="jumbotron" style="background: transparent;padding:0 !important;">
 <div class="row">
     <DIV CLASS="col-md-12">
-        <h1><?= $strain['Strain']['name']; ?> - Report</h1>
+        <h1 class="pb-1"><?= $strain['Strain']['name']; ?> - Report</h1>
         <?php
             switch ($strain['Strain']['type_id']) {
                 case 1:
-                    echo "Indica: Best suited for night time use.";
+                    echo "Indica strain, best suited for night time use.";
                     break;
                 case 2:
-                    echo "Sativa: Best suited for day time use.";
+                    echo "Sativa strain, best suited for day time use.";
                     break;
                 case 3:
-                    echo "Hybrid Cannabis";
+                    echo "Hybrid strain.";
                     break;
             }
-            ?><br>
+            ?>
        <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?>
     </DIV>
 </div>
@@ -72,12 +64,12 @@
 <div class="row pb-2">
 
     <DIV CLASS="col-md-3">
-        <h2 class="pt-3">Overall Rating</h2>
+        <h2 class="pt-2">Overall Rating</h2>
         <div class="rating"></div>
     </DIV>
 
     <DIV CLASS="col-md-4">
-        <h2 class="pt-3"> Composition</h2>
+        <h2 class="pt-2"> Composition</h2>
         <DIV class="spanwordwrap">
             <?php
             $chemical = 0;
@@ -103,7 +95,7 @@
     </DIV>
 
     <DIV CLASS="col-md-5">
-        <h2 class="pt-3">Flavors</h2>
+        <h2 class="pt-2">Flavors</h2>
         <?php
         if ($flavor) {
             foreach ($flavor as $f) {
@@ -167,6 +159,7 @@
         echo "<div class='col-md-6'><h3>Ontario Cannabis Store</h3>";
 
         if($OCSDATA["prices"]) {
+
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
             foreach($pricelist as $data){
@@ -183,7 +176,7 @@
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
                         $key = $data["category"];// . " " . slugtotext($data["slug"]);
-                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="purchasebtn btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">Purchase from ' . $key . '</A></TD>';
+                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">Purchase from ' . $key . '</A></TD>';
                     }
                     echo '</TR>';
                 }
@@ -205,14 +198,21 @@
 ?>
 
 
+<?php
+if (!isset($p_filter)) {
+    $p_filter = false;
+}
+echo '<div class="jumbotron"><h3>Activities</h3><p>What activities are more enjoyable with this strain?</p>';
+getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-red");
+echo "</div>";
+?>
+
     <div class="jumbotron">
         <h3>Symptoms</h3>
         <p>How does this strain help with my medical condition?</p>
 
         <?php
-            if (!isset($p_filter)) {
-                $p_filter = false;
-            }
+
             function getsymptomactivity($strain, $plural, $singular, $OverallRating = false, $IDKEY, $webroot, $p_filter, $color) {
                 /*if ($p_filter === false && is_array($OverallRating)) { //i dont know what this is for
                     foreach ($OverallRating as $oer) {
@@ -271,8 +271,7 @@
 
             getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
 
-            echo '</div><div class="jumbotron"><h3>Acrivities</h3><p>What activities are more enjoyable with this strain?</p>';
-            getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-red");
+
         ?>
     </div>
 
@@ -335,6 +334,14 @@
         ?>
 
     </div>
+
+
+
+
+
+
+
+
     <div class="jumbotron">
         <h3>Effects</h3>
         <p> What are the positive effects?</p>
@@ -420,6 +427,10 @@
         }
         ?>
     </div>
+
+
+
+
     <div class="jumbotron">
         <h3>Negative Effects</h3>
         <p>What are the negative effects?</p>
@@ -454,9 +465,22 @@
         ?>
     </div>
     <div class="jumbotron">
-        <h3> Most Helpful User Review</h3>
 
         <?php include_once('combine/strain_reviews.php'); ?>
+
+
+        <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
+            See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
+        </a>
+    </div>
+
+
+
+    <div class="jumbotron">
+        <h3><?= $strain['Strain']['name']; ?> Images</h3>
+        <?php include('combine/images.php'); ?>
+
+
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -464,13 +488,6 @@
             });
         </script>
 
-        <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
-            See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
-        </a>
-    </div>
-    <div class="jumbotron">
-        <h3><?= $strain['Strain']['name']; ?> Images</h3>
-        <?php include('combine/images.php'); ?>
         <div class="clearfix"></div>
     </div>
 
@@ -633,10 +650,3 @@
         });
     });
 </script>
-<STYLE>
-    .purchasebtn{
-        width: 100%;
-        height: 100% !important;
-        margin-top: 0px !important;
-    }
-</STYLE>

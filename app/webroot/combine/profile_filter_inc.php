@@ -149,7 +149,7 @@ if(!isset($card_id)){
    {
     ?>
    <label>Patient Card (Optional)<?php if($card_pass){?> <a href="javascript:void(0);" style="color: red;" onclick="$('#card_id').toggle();$('#card_pass').toggle();">Change</a><?php }?></label>
-   <?php if($card_pass){?><input type="text" name="" style="width: 98%;" disabled id="card_pass" value="<?= $card_pass;?>"  /><?php }?>
+   <?php if($card_pass){?><input type="text" name="" style="" disabled id="card_pass" value="<?= $card_pass;?>"  /><?php }?>
    <input type="text" name="card_id" id="card_id" style="width: 98%;<?php if($card_pass){echo 'display:none;'; }?>" value="<?= $card_id?>" <?php if($card_pass){?>style="display: none; width: 98%;"<?php }?> title="(Optional)"/>
    <?php
    }

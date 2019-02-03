@@ -153,9 +153,11 @@ if (false) {
         <header class="masthead mb-auto">
             <div class="inner">
                 <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Home</a>
-                    <a class="nav-link" href="#">Launching 02/19</a>
+                <nav class="nav nav-masthead justify-content-center mt-2">
+                    <a class="nav-link active" href="<?= $this->webroot; ?>/strains/all">Strains</a>
+                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Facebook</a>
+                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Twitter</a>
+                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Instagram</a>
                 </nav>
             </div>
         </header>
@@ -166,7 +168,7 @@ if (false) {
             <div class="">
                 <div class="row">
                     <div class="col-md-12">
-                        <nav class="navbar navbar-expand-lg navbar-light" style="padding:0">
+                        <nav class="navbar navbar-expand-lg navbar-light" style="padding:0;display:none;">
                             <button class="navbar-toggler float-right" type="button" data-toggle="collapse"
                                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="Toggle navigation">
@@ -215,12 +217,15 @@ if (false) {
                 </div>
             </div>
         </main>
+        <hr>
         <footer class="mastfoot mt-auto">
             <div class="inner mt-3">
                 <p>
-                    <a href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a> / Copyright <?php echo "2014-" . date('Y'); ?>
-                    / <a href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
-                    / <a href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+                    <a class="text-secondary pr-2" href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a>
+                    <a class="text-secondary pr-2" href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
+                    <a class="text-secondary pr-2" href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
+                    <span class="text-secondary"> Copyright <?php echo "2014-" . date('Y'); ?></span>
+
                 </p>
             </div>
         </footer>

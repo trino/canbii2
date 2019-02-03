@@ -23,10 +23,12 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.75rem !important;
     font-weight: bold;
 }
+
 .backgroundcolor {
     background: #444;
     padding: 15px 20px;
 }
+
 .module {
     float: left;
     width: 50%;
@@ -56,22 +58,28 @@ h1, h2, h3, h4, h5, h6 {
     background-size: cover;
     background-position: center;
     width: 100%;
-   background-image: url("../images/bg123.jpg");
+    background-image: url("../images/bg123.jpg");
 }
 
-.stack-trace{
+.stack-trace {
     background-color: white !important;
 }
 
 .jumbotron {
-    padding: 1.75rem 1rem !important;background: #333;
+    padding: 1.75rem 1rem !important;
+    background: #333;
 }
 
 .border_bottom {
     border-bottom: 0px solid #1b83c6 !important;
 }
 
-hr{border-top: 1px solid #222 !important;padding-top:1rem;padding-bottom:0rem;margin-bottom:0 !important;}
+hr {
+    border-top: 1px solid #333 !important;
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    margin-bottom: 0 !important;
+}
 
 .btn-secondary,
 .btn-secondary:hover,
@@ -80,7 +88,6 @@ hr{border-top: 1px solid #222 !important;padding-top:1rem;padding-bottom:0rem;ma
     text-shadow: none; /* Prevent inheritance from `body` */
     background-color: #fff;
 }
-
 
 html,
 body {
@@ -131,6 +138,7 @@ body {
     .masthead-brand {
         float: left;
     }
+
     .nav-masthead {
         float: right;
     }
@@ -139,6 +147,7 @@ body {
 .cover {
 
 }
+
 .cover .btn-lg {
     padding: .75rem 1.25rem;
     font-weight: 700;

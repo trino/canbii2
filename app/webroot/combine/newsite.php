@@ -155,9 +155,10 @@
     }
 </script>
 <div class="jumbotron bg-primary text-white">
-    <div class="col-md-12 pa-3">
+    <div class="col-md-12">
         <br>
         <h1>Lifestyle Optimization</h1>
+        <h3 style="font-size: 1.15rem !important;">Launching with the Ontario Cannabis Store</h3>
         <h3 style="font-size: 1.15rem !important;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.
 
         </h3>
@@ -185,4 +186,5 @@
         </form>
     </div>
 </div>
+<br>
 <hr>
