@@ -175,8 +175,8 @@
                     if ($isfirst) {
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
-                        $key = $data["category"];// . " " . slugtotext($data["slug"]);
-                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">Purchase from ' . $key . '</A></TD>';
+                        $key = "Purchase " . slugtotext($data["category"]) . " from " . $data["vendor"];//purchase "type" from "vendor"
+                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">' . $key . '</A></TD>';
                     }
                     echo '</TR>';
                 }
