@@ -46,7 +46,29 @@ h1, h2, h3, h4, h5, h6 {
     height: 100px
 }
 
-.selected{
+.nowrap {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#qf_review__aesthetics__color .review-slider {
+    display: inline-block;
+}
+
+#qf_review__aesthetics__flavor .review-slider {
+    display: inline-block;
+}
+
+.page_title{
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+.sel{
+    border: 5px solid black;
     border-radius: 5px;
     background: red;
     padding: 5px;

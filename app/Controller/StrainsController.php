@@ -310,6 +310,7 @@ class StrainsController extends AppController {
         $this->loadModel('Country');
         $this->set('countries', $this->Country->find('all'));
         $this->set('type', $type);
+        $limit = $GLOBALS["settings"]["limit"];
         $this->set('limit', $limit);
         $arr = array('indica' => 1, 'sativa' => 2, 'hybrid' => 3);
         $conditions = array("hasocs" => 1);
@@ -406,13 +407,8 @@ class StrainsController extends AppController {
         /*
         vardump($_POST); die();
         */
-        $offset = 0;
-        if(isset($_POST["limit"])){
-            $offset = $_POST["limit"];
-        } else if ($limit) {
-            $offset = $limit;
-        }
-
+        $offset = $limit;
+        
         //echo $limit;die();
         $this->layout = 'blank';
         $key = '';

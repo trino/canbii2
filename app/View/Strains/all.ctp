@@ -337,15 +337,15 @@
                 eletype = "activities";
                 eleclass = "acts";
             }
-            var test = $(this).hasClass("selected");
+            var test = $(this).hasClass("sel");
             log("Testing: " + test);
             if (test) {
                 $("#filter_desktop #" + ID).removeClass('searchact3');
                 $("#filter_dialog #" + ID).removeClass('searchact3');
                 $('#in_' + eleclass + ID).remove();
-                $(this).removeClass("selected");
+                $(this).removeClass("sel");
             } else {
-                $(this).addClass("selected");
+                $(this).addClass("sel");
                 $("#filter_desktop #" + ID).addClass('searchact3');
                 $("#filter_dialog #" + ID).addClass('searchact3');
                 $('.symp').append('<input ID="in_' + eleclass + ID + '" type="hidden" name="' + eletype + '[]" value="' + filternonnumeric(ID) + '" class="' + eleclass + ' check' + ID + ' ' + eleclass + ID + '"  />')

@@ -6,36 +6,8 @@
 <script type="text/javascript" src="<?= $this->webroot; ?>js/layout.js?ver=1.0.2"></script>
 <link href="<?= $this->webroot; ?>css/raty.css" rel="stylesheet" type="text/css"/>
 <link href="<?= $this->webroot; ?>css/colorpicker.css" rel="stylesheet" type="text/css"/>
-
 <link href="<?= $this->webroot; ?>css/layout.css" rel="stylesheet" type="text/css" title="progress bar"/>
 <!-- script src="<?= $this->webroot; ?>js/bootstrap.min.js"></script-->
-
-<style>
-    .nowrap {
-        overflow: auto;
-        white-space: nowrap;
-    }
-
-    #qf_review__aesthetics__color .review-slider {
-        display: inline-block;
-    }
-
-    #qf_review__aesthetics__flavor .review-slider {
-        display: inline-block;
-    }
-
-    .page_title{
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-    }
-
-    .sel{
-        border: 5px solid black;
-    }
-</style>
 
 <script>
     $(function () {
