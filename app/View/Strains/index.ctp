@@ -366,9 +366,9 @@ echo "</div>";
                 $effect = getiterator($effects, "id", $oer['effect_id']);
                 //if ($this->requestAction('/strains/getPosEff/' . $oer['effect_id'])) {
                 if ($effect["negative"]) {
-                    $arr[] = $oer['rate'] . '_' . $oer['effect_id'];
-                } else {
                     $arr_neg[] = $oer['rate'] . '_' . $oer['effect_id'];
+                } else {
+                    $arr[] = $oer['rate'] . '_' . $oer['effect_id'];
                 }
             }
         }

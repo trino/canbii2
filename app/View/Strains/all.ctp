@@ -332,18 +332,23 @@
             more = 0;
             var eletype = "symptoms";
             var eleclass = "symps";
+            var ID = $(this).attr("id");
             if($(this).hasClass("act2")){
                 eletype = "activities";
                 eleclass = "acts";
             }
-            if ($(this).attr('class').replace('searchact3', '') == $(this).attr('class')) {
-                $("#filter_desktop #" + $(this).attr("id")).addClass('searchact3');
-                $("#filter_dialog #" + $(this).attr("id")).addClass('searchact3');
-                $('.symp').append('<input type="hidden" name="' + eletype + '[]" value="' + filternonnumeric($(this).attr('id')) + '" class="' + eleclass + ' check' + $(this).attr('id') + ' ' + eleclass + $(this).attr('id') + '"  />')
+            var test = $(this).hasClass("selected");
+            log("Testing: " + test);
+            if (test) {
+                $("#filter_desktop #" + ID).removeClass('searchact3');
+                $("#filter_dialog #" + ID).removeClass('searchact3');
+                $('#in_' + eleclass + ID).remove();
+                $(this).removeClass("selected");
             } else {
-                $("#filter_desktop #" + $(this).attr("id")).removeClass('searchact3');
-                $("#filter_dialog #" + $(this).attr("id")).removeClass('searchact3');
-                $('.' + eleclass + $(this).attr('id')).remove();
+                $(this).addClass("selected");
+                $("#filter_desktop #" + ID).addClass('searchact3');
+                $("#filter_dialog #" + ID).addClass('searchact3');
+                $('.symp').append('<input ID="in_' + eleclass + ID + '" type="hidden" name="' + eletype + '[]" value="' + filternonnumeric(ID) + '" class="' + eleclass + ' check' + ID + ' ' + eleclass + ID + '"  />')
             }
             if (($("#filter_dialog").data('bs.modal') || {}).isShown) {
                 $("#filter_dialog").modal('hide');
