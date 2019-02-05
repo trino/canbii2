@@ -14,7 +14,7 @@
         
         function showAll($offset=0) {
             $this->set('offset',$offset);
-            $limit = 8;
+            $limit = $GLOBALS["settings"]["reviewlimit"];
             if(!isset($_GET['filter'])) {
                 $reviews = $this->Review->find('all', array('limit' => $limit, 'offset' => $offset));
             } else {
@@ -26,7 +26,7 @@
         
         function show_all_blank($offset) {
             $this->layout = 'blank';
-            $limit = 8;
+            $limit = $GLOBALS["settings"]["reviewlimit"];
             if(!isset($_GET['filter'])) {
                 $reviews = $this->Review->find('all', array('limit' => $limit, 'offset' => $offset));
             } else {
@@ -42,11 +42,10 @@
             
             if($limit){
                 $offset = $limit;
-                $limit = '8';
             } else {
-                $limit = 8;
                 $offset = 0;
             }
+            $limit = $GLOBALS["settings"]["reviewlimit"];
             
             $id =$this->Session->read('User.id');
             if (isset($_GET["delete"])){
@@ -71,11 +70,10 @@
             $this->set('limit',$limit);
             if($limit){
                 $offset = $limit;
-                $limit = '8';
             } else {
-                $limit = 8;
                 $offset = 0;
             }
+            $limit = $GLOBALS["settings"]["reviewlimit"];
             $this->layout = 'blank';
             $id =$this->Session->read('User.id');
             $reviews = $this->Review->find('all',array("conditions"=>array('user_id'=>$id),'limit'=>$limit,'offset'=>$offset));
