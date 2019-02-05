@@ -118,7 +118,6 @@
     }
     if ($count == 0) {
         echo "No results found. (1)";
-
         /*
         App::import('Model', 'Strain');
         $this->Strain = new Strain();
@@ -127,14 +126,20 @@
         */
 
         vardump($GLOBALS["lastsql"]);
-
     }
-    ?>
-    <div class="morelist"></div>
-    <?php if ($strains && ($strains) > 8) {
+
+    echo '<div class="morelist"></div>';
+    $remaining = $strains - $offset - $limit;
+    //echo "Strains: " . $strains . " Limit: "  . $limit . " Offset: " . $offset . " Remaining: " . $remaining;
+    if ($strains && ($strains) > $GLOBALS["settings"]["limit"]) {
         echo '<div class="loadmore mb-5"><a class="btn btn-primary" href="javascript:void(0);">Show more</a></div>';
     } ?>
     <script>
+        var strains = <?= $strains; ?>;
+        var offset = <?= $offset; ?>;
+        var limit = <?= $limit; ?>;
+        var remaining = <?= $remaining; ?>;
+
         $(function () {
             var j = 0;
             $('.item_content').each(function () {
@@ -151,6 +156,11 @@
                 }
             });
         });
+        <?php
+            if($remaining < 1){
+                echo "$('.loadmore').hide();";
+            }
+        ?>
     </script>
 </SPAN>
 <?php errorlog("include combine/filter.php success!"); ?>

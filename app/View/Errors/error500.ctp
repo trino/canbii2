@@ -27,26 +27,31 @@
 		echo "<P>Path: " . APP . '</P>';
 
 		echo $this->element('exception_stack_trace');
+		if(!function_exists('human_filesize')) {
+			function human_filesize($bytes, $decimals = 2) {
+				$size = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+				if ($bytes < 1024) {
+					$decimals = 0;
+				}
+				$factor = floor((strlen($bytes) - 1) / 3);
+				return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+			}
 
-		function human_filesize($bytes, $decimals = 2) {
-			$size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
-			if($bytes < 1024){$decimals = 0;}
-			$factor = floor((strlen($bytes) - 1) / 3);
-			return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
-		}
-		function printerrorlog($filename, $delete = false){
-			$filepath = APP . "/tmp/logs/" . $filename;
-			if(file_exists($filepath)){
-				$size = filesize($filepath);
-				if($size) {
-					echo '<P>' . $filename . ": " . human_filesize($size) . '<BR><PRE STYLE="background-color: white; border: 1px solid red;">';
-					echo file_get_contents($filepath);
-					echo '</PRE></P>';
-					if($delete){unlink($filepath);}
+			function printerrorlog($filename, $delete = false) {
+				$filepath = APP . "/tmp/logs/" . $filename;
+				if (file_exists($filepath)) {
+					$size = filesize($filepath);
+					if ($size) {
+						echo '<P>' . $filename . ": " . human_filesize($size) . '<BR><PRE STYLE="background-color: white; border: 1px solid red;">';
+						echo file_get_contents($filepath);
+						echo '</PRE></P>';
+						if ($delete) {
+							unlink($filepath);
+						}
+					}
 				}
 			}
 		}
-
 		printerrorlog("debug.log", true);
 		printerrorlog("error.log", true);
 	}

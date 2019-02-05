@@ -320,6 +320,7 @@ class StrainsController extends AppController {
         }
         $this->set('strain',  $this->Strain->find('all', array('conditions' => $conditions, 'order' => 'Strain.viewed DESC ,Strain.id DESC', 'limit' => $GLOBALS["settings"]["limit"], 'offset' => $limit)));
         $this->set('strains', $this->Strain->find('count', array('conditions' => $conditions)));
+        $this->set('offset', 0);
 
         /*
         if ($type == '') {
@@ -408,7 +409,7 @@ class StrainsController extends AppController {
         vardump($_POST); die();
         */
         $offset = $limit;
-        
+        if(!$offset || $offset === null){$offset = 0;}
         //echo $limit;die();
         $this->layout = 'blank';
         $key = '';
@@ -579,6 +580,10 @@ class StrainsController extends AppController {
 
         $count = $model->find('count', $parameters);
         $this->set('strains', $count);
+        $this->set('limit', $limit);
+        $this->set('offset', $offset);
+
+
         $parameters['limit'] = $limit;
         $parameters['offset'] = $offset;
         //var_dump($parameters);

@@ -1,1 +1,1 @@
-<?php include_once('combine/filter.php');?>
+<SPAN ID="filter.ctp"><?php include_once('combine/filter.php');?></SPAN>

@@ -177,15 +177,14 @@
 
     function showspinner() {
         if (!spinnerVisible) {
-            currentlisting = $('.listing').html();
-            $('.listing').html(loading);
+            $('.morelist').html(loading);
             $("#spinner").fadeIn("fast");
             spinnerVisible = true;
         }
     }
     function hidespinner(){
         if(spinnerVisible) {
-            $('.listing').html(currentlisting);
+            $('.morelist').html('');
             var spinner = $("#spinner");
             spinner.stop();
             spinner.fadeOut("fast");
@@ -296,18 +295,14 @@
                     $('#all_breed').attr('href', '<?= $this->webroot;?>strains/all?' + val);
                     hidespinner();
                     if(showmore){
-                        $('.listing').append('' + res);
-                        /*
+                        //$('.listing').append('' + res);
+
                         $('.morelist').show();
                         $('.morelist').addClass('morelist2');
                         $('.morelist2').removeClass('morelist');
                         $('.morelist2').html(res);
                         $('.morelist2').removeClass('morelist2');
-                        */
 
-                        res = $(".loadmore").clone();
-                        $(".loadmore").remove();
-                        $('.listing').append(res);
                         scrolltobottom();
 
                     } else {

@@ -1,7 +1,57 @@
 <?php
+    header( 'Content-type: text/html; charset=utf-8' );
+    @ini_set('zlib.output_compression',0);
+    @ini_set('implicit_flush',1);
+    @ob_end_clean();
+
+    Configure::write('debug', 0);
+
     $options = [
         "makenewstrains" => false,//disable to prevent new strains from being created
     ];
+?>
+<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
+<SCRIPT>
+    function bottom(){
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+</SCRIPT>
+<STYLE>
+    .parent{
+        position: relative;
+        top: -9px;
+        width: 100%;
+        min-width: 100px;
+    }
+    .progress{
+        background-color: lightblue;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 18px;
+        z-index: 1;
+    }
+    .indicator{
+        width: 100%;
+        text-align: center;
+        z-index: 20;
+        color: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 18px;
+    }
+</STYLE>
+<TABLE WIDTH="100%">
+    <TR>
+        <TD>
+<?php
+    function purge($text = "", $bottom = true){
+        if($bottom){$text .= '<SCRIPT>bottom();</SCRIPT>';}
+        if($text){echo $text;}
+        flush();
+        if( ob_get_level() > 0 ){ob_flush();}
+    }
 
     function table_has_column($tablename, $column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment = false){
         $tables = describe($tablename);
@@ -256,7 +306,14 @@
         }
         return implode("-", $slug);
     }
-    //vardump(cleanslug());die();
+
+    function fromclassname($slug){
+        $slug = explode("-", $slug);
+        foreach($slug as $KEY => $VALUE){
+            $slug[$KEY] = ucfirst($VALUE);
+        }
+        return trim(implode(" ", $slug));
+    }
 
     function import($strain, $JSONdata, $me, $types, $collection, $options) {
         $tags = [];
@@ -326,7 +383,7 @@
                         $JSONdata["Terpenes"] = [];
                     }
                     $ocsdata = [
-                        "category" => $JSONdata["vendor"],
+                        "category" => $JSONdata["type"],
                         "strain_id" => $localstrain["id"],
                         "shorttext" => $JSONdata["shorttext"],
                         "price" => $JSONdata["price"],
@@ -344,7 +401,20 @@
                 }
                 if (isset($JSONdata["variants"])) {
                     foreach ($JSONdata["variants"] as $variant) {
-                        $prices[] = ["price" => $variant["price"], "slug" => $originalstrain, "title" => $variant["public_title"], "category" => $collection];
+                        $data = [//data to be included in prices JSON
+                            "price" =>      $variant["price"],
+                            "slug" =>       $originalstrain,
+                            "title" =>      $variant["public_title"],
+                            "category" =>   $collection,
+                            "vendor" =>     $JSONdata["vendor"]
+                        ];
+                        if($data["title"] === null){
+                            $data["title"] = $variant["title"];
+                        }
+                        if($data["title"] == "Default Title"){
+                            $data["title"] = $variant["name"];
+                        }
+                        $prices[] = $data;
                     }
                     $ocsdata["prices"] = json_encode($prices);
                 }
@@ -405,45 +475,65 @@
         table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     }
     $allstrains = [];
+
+    echo '</TD></TR><TR><TD>';
+    //slug, vendor, status(importing, make new strains, skipped, failed), type, real name (without dash 1), our link, ocs link
+    echo '<TABLE WIDTH="100%" BORDER="1" STYLE="border-collapse: collapse;"><THEAD><TR><TH>OCS Slug</TH><TH>Type</TH><TH>Progress</TH><TH>Vendor</TH><TH>Canbii Slug</TH><TH>Status</TH></TR></THEAD>';
+
     foreach($collections as $collection){
-        echo '<H2>' . $collection . '</H2>';
         $strains = enumstrains($collection);
         $allstrains = array_merge($strains);
         $data = json_encode($strains, JSON_PRETTY_PRINT);
         $filename = $dir . $collection . ".json";
         file_put_contents($filename, $data);
-        foreach($strains as $strain){
+        $count = count($strains);
+        foreach($strains as $INDEX => $strain){
             //echo '<BR><A HREF="' . $this->webroot . 'strains/' . $strain . '" TARGET="_new">' . $strain . '</A>';
-            echo '<BR>' . $strain;
+            $URL = 'https://ocs.ca/products/' . $strain;
+            echo '<TR><TD><A HREF="' . $URL . '">' . $strain . '</A></TD><TD>' . $collection . '</TD><TD>';
+            $percent = round(($INDEX+1)/$count*100);
+            echo '<DIV CLASS="parent"><DIV CLASS="progress" STYLE="width: ' . $percent . '%;"></DIV><DIV CLASS="indicator">' . ($INDEX+1) . '/' . $count . '=' . $percent . '%</DIV></DIV></TD>';
             $filename = $dir . $strain . ".json";
             $data = false;
+
+            $DIDIT = false;
+            $STATUS = ['SKIPPED'];
             if(!file_exists($filename) || $forceupdate) {
-                echo ' [DOWNLOADING HTML]';
+                $STATUS = ['DOWNLOADING HTML'];
                 $data = extractdata($strain);
             } else if(file_exists($filename)) {
-                echo ' [LOADING JSON FILE]';
+                $STATUS = ['LOADING JSON FILE'];
                 $data = json_decode(file_get_contents($filename), true);
             }
+
             if($data) {
                 $data = import($strain, $data, $me, $types, $collection, $options);
                 if(is_array($data)) {
-                    echo ' [VENDOR: ' . $data["vendor"] . "]";
+                    $DIDIT = true;
+                    echo '<TD>' . $data["vendor"] . '</TD><TD><A TARGET="_new" HREF="' . $this->webroot . 'strains/';
                     if (isset($data["mergedwith"])) {
-                        echo ' <A HREF="' . $this->webroot . 'strains/' . $data["mergedwith"] . '" TARGET="_new">[MERGING WITH ' . $data["mergedwith"] . ']</A>';
+                        $STATUS[] = "Merged";
+                        echo $data["mergedwith"] . '">' . fromclassname($data["mergedwith"]) . '</A></TD>';
                     } else {
-                        echo ' <A HREF="' . $this->webroot . 'strains/' . $strain . '" TARGET="_new">[IMPORTING]</A>';
+                        $STATUS[] = "Imported";
+                        echo $strain . '">' . fromclassname($strain) . '</A></TD>';
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else if($data) {
-                    echo ' <B>[' . $data. ']</B>';
+                    $STATUS[] = $data;
                 } else {
-                    echo ' ***IMPORT FAILED (MISSING OR INVALID DATA)***';
+                    $STATUS[] = '***IMPORT FAILED (MISSING OR INVALID DATA)***';
                 }
             } else {
-                echo ' [ERROR: DATA MISSING]';
+                $STATUS[] = 'ERROR: DATA MISSING';
             }
+            if(!$DIDIT){
+                echo '<TD COLSPAN="2"></TD>';
+            }
+            purge('<TD>[' . implode("] [", $STATUS) . ']</TD></TR>');
         }
     }
     $data = json_encode($allstrains, JSON_PRETTY_PRINT);
     file_put_contents($dir . "allstrains.json", $data);
+    die('</TABLE>Done!</TD></TR></TABLE>');
 ?>
