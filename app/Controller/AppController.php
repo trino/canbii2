@@ -31,4 +31,15 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    function RenderView($Folder, $View, $Variables, $Layout = true){
+        $view = new View($this,false);
+        $view->viewPath=$Folder;  // Directory inside view directory to search for .ctp files
+        if(!$Layout){$view->layout=false;} // if you want to disable layout
+        if(is_array($Variables)) {
+            foreach ($Variables as $KEY => $VALUE) {
+                $view->set($KEY, $VALUE); // set your variables for view here
+            }
+        }
+        return $view->render($View);
+    }
 }

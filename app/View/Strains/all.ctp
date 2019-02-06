@@ -314,8 +314,9 @@
 
         var sort = '';var sortid = '';
         $('.loadmore a').live('click', function () {
-            more = parseFloat(more) + <?= $GLOBALS["settings"]["limit"]; ?>;
-            doquery(1, true, "loadmore.click");
+            more = parseFloat(more);
+            doquery(more, true, "loadmore.click");
+            more += <?= $GLOBALS["settings"]["limit"]; ?>;
         });
 
         function filternonnumeric(myString){
