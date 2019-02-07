@@ -289,15 +289,15 @@
 	function vardump($JSON){
 		$HTML = json_encode($JSON, JSON_PRETTY_PRINT);
 		$HTML = str_replace(array("\r\n","\r","\n","\\r","\\n","\\r\\n"),"<br/>",$HTML);
-		echo '<PRE STYLE="background-color: white; border: 1px solid red; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">' . $HTML . '</PRE>';
+		echo '<PRE STYLE="background-color: white; border: 1px solid red; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; color: black !important;">' . $HTML . '</PRE>';
 	}
 
 	function getbetween($text, $start, $end = false){
-		$startpos = strpos($text, $start);
+		$startpos = stripos($text, $start);
 		if($startpos === false){return false;}
 		$text = right($text, strlen($text) - ($startpos + strlen($start)));
 		if($end === false){return $text;}
-		$startpos = strpos($text, $end);
+		$startpos = stripos($text, $end);
 		if($startpos === false){return false;}
 		$text = left($text, $startpos);
 		return $text;

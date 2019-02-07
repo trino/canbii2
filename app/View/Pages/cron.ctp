@@ -1153,6 +1153,22 @@
             ]
         ]
     ];
+
+
+/*
+$data = file_get_cookie_contents_ocs("GET", "https://cdn.shopify.com/s/files/1/2636/1928/products/http-52-60-121-34-upload-100211-00841464000065-a1c1-c01_1024x1024.png", false, false, "_y=c544ae2d-8E9C-4201-D3D0-383ABAC540ED; _shopify_y=c544ae2d-8E9C-4201-D3D0-383ABAC540ED; _s=c544ae36-0C0B-4F2A-EBDD-35479E9DA03E; _shopify_s=c544ae36-0C0B-4F2A-EBDD-35479E9DA03E; _shopify_fs=2019-02-07T00%3A03%3A57.142Z; _fbp=fb.1.1549497837440.241724310", false, [
+    "Accept" => " text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*" . "/*;q=0.8",
+    "Accept-Encoding" => "gzip, deflate, br",
+    "if-modified-since" => "Wed, 06 Feb 2019 23:29:50 GMT",
+    "Referer" => false,
+    "Connection" => false,
+    "Host" => false,
+    "If-None-Match" => false
+]);
+vardump($data);
+die();
+*/
+
 ?>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
 <SCRIPT>
@@ -1243,7 +1259,7 @@
         return $Text;
     }
 
-    function file_get_cookie_contents_ocs($method = "GET", $URL, $querydata = false, $POSTdata = false, $Cookie = false){
+    function file_get_cookie_contents_ocs($method = "GET", $URL, $querydata = false, $POSTdata = false, $Cookie = false, $isGZIP = true, $HEADERS = false){
         $headers = [
             'Referer' =>  			'https://ocs.ca/collections/1-gram-packs-of-cannabis?page=4&hitsPerPage=12',
             'Accept' => 			'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -1256,6 +1272,15 @@
             'If-None-Match' =>		'cacheable:b2a12efabf26cf0744bfd308dc9e7d5d',
             'Upgrade-Insecure-Requests' => 1
         ];
+        if(is_array($HEADERS)){
+            foreach($HEADERS as $KEY => $VALUE){
+                if($VALUE) {
+                    $headers[$KEY] = $VALUE;
+                } else {
+                    unset($headers[$KEY]);
+                }
+            }
+        }
         if(is_array($Cookie)){
             $header = $Cookie;
             $Cookie = "";
@@ -1284,7 +1309,11 @@
             }
         }
         try{
-            return gzdecode(file_get_contents($URL, false, $context));
+            $DATA = file_get_contents($URL, false, $context);
+            if($isGZIP) {
+                return gzdecode($DATA);
+            }
+            return $DATA;
         } catch (Exception $e){
             return $URL . " failed";
         }
@@ -1358,6 +1387,12 @@
         } else {
             $data["Missing"] = $HTML2;
         }
+        $images = explode('</div>', getbetween($HTML, '<div class="product-images__carousel">', '</div></div>'));
+        foreach($images as $INDEX => $HTML){
+            $HTML = trim(str_replace('<div class="product-images__slide">', '', $HTML));
+            $images[$INDEX] = "https:" . getbetween($HTML, '<img src="', '?');
+        }
+        $data["images"] = $images;
         return $data;
     }
 
@@ -1467,7 +1502,8 @@
         return $data;
     }
 
-    function import($strain, $JSONdata, $me, $types, $collection, $options, $extradata, $negativeeffects) {
+    function import($strain, $JSONdata, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir) {
+        global $Cookie;
         $tags = [];
         $strain2 = false;
         $originalstrain = $strain;
@@ -1566,6 +1602,22 @@
                     $ocsdata["prices"] = json_encode($prices);
                 }
 
+                $JSONdata["downloadedimages"] = 0;
+                if (isset($JSONdata["images"])) {
+                    foreach ($JSONdata["images"] as $INDEX => $URL) {
+                        $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
+                        if(!file_exists($filename)){
+                            $DATA = file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie);
+                            if($DATA) {
+                                file_put_contents($filename, $DATA);
+                                $JSONdata["downloadedimages"] += 1;
+                            } else {
+                                echo $URL . " FAILED TO DOWNLOAD";die();
+                            }
+                        }
+                    }
+                }
+
                 if(isset($extradata[$strain])){
                     $data = $extradata[$strain];
                     if(!is_array($data)){$data = [$data];}
@@ -1584,7 +1636,7 @@
                             }
                         }
                     }
-                    //handleeffect
+                    //handle effects, symptoms, flavors
                     $ocsdata["lift_url"] = json_encode($URLs);
                 }
 
@@ -1649,7 +1701,6 @@
     table_has_column("ocs", "lift_des", "TEXT");
     table_has_column("ocs", "lift_thc", "VARCHAR(16)");
     table_has_column("ocs", "lift_cbd", "VARCHAR(16)");
-
     $allstrains = [];
 
     echo '</TD></TR><TR><TD>';
@@ -1683,7 +1734,7 @@
             }
 
             if($data) {
-                $data = import($strain, $data, $me, $types, $collection, $options, $extradata, $negativeeffects);
+                $data = import($strain, $data, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir);
                 if(is_array($data)) {
                     $DIDIT = true;
                     echo '<TD>' . $data["vendor"] . '</TD><TD><A TARGET="_new" HREF="' . $this->webroot . 'strains/';
@@ -1693,6 +1744,9 @@
                     } else {
                         $STATUS[] = "Imported";
                         echo $strain . '">' . fromclassname($strain) . '</A></TD>';
+                    }
+                    if($data["downloadedimages"] > 0){
+                        $STATUS[] = "Downloaded: " . $data["downloadedimages"] . " images";
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else if($data) {
