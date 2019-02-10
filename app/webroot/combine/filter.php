@@ -97,9 +97,9 @@
 
                 if ($s['Strain']['review']) {
                     //if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
-                    echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
+                  //  echo $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
                 } else {
-                    echo '0 Reviews';
+                  //  echo '0 Reviews';
                 }
 
                 if ($s['Strain']['viewed']) {

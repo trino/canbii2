@@ -503,7 +503,7 @@
 
             <div class="backgroundcolor">
 
-                <h3>Overall Rating</h3>
+                <h3>canbii Rating</h3>
 
                 <div id="preci" data-score="2">
                     <div id="precision" data-score="1" class="left" style="cursor: pointer;"></div>

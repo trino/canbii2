@@ -334,7 +334,7 @@
                 eleclass = "acts";
             }
             var test = $(this).hasClass("sel");
-            log("Testing: " + test);
+          //  log("Testing: " + test);
             if (test) {
                 $("#filter_desktop #" + ID).removeClass('searchact3');
                 $("#filter_dialog #" + ID).removeClass('searchact3');

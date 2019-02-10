@@ -45,7 +45,7 @@ if (false) {
     if (!isset($title)) {
         $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
     }
-    $title .= ' - Canbii - Personalized Cannabis';
+    $title .= ' - Personalized Cannabis';
     if (!isset($description)) {
         $description = $generic['description'];
     }
@@ -155,9 +155,9 @@ if (false) {
                 <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
                 <nav class="nav nav-masthead justify-content-center mt-2">
                     <a class="nav-link active" href="<?= $this->webroot; ?>/strains/all">Strains</a>
-                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Facebook</a>
-                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Twitter</a>
-                    <a class="nav-link" href="<?= $this->webroot; ?>/strains/all">Instagram</a>
+                    <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiionline">Facebook</a>
+                    <a class="nav-link" target="_blank" href="https://twitter.com/canbiionline">Twitter</a>
+                    <a class="nav-link" target="_blank" href="https://www.instagram.com/canbiionline">Instagram</a>
                 </nav>
             </div>
         </header>

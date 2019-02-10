@@ -334,7 +334,7 @@ $('#<?php echo $effect['id'];?>s').slider({
             <legend>Comments, etc.</legend>
             <div class="qf-input-wrapper qf-slider-input-wrapper" id="qf_review__other__overall__wrapper">
 <span class="qf-label-span" id="qf_review__other__overall__label_span">
-<label id="qf_review__other__overall__label" for="qf_review__other__overall">Overall Rating</label>
+<label id="qf_review__other__overall__label" for="qf_review__other__overall">canbii Rating</label>
 </span>
 
                 <div id="preci">

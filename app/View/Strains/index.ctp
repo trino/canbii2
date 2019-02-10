@@ -64,7 +64,7 @@
     <div class="row pb-2">
 
         <DIV CLASS="col-md-3">
-            <h2 class="pt-2">Overall Rating</h2>
+            <h2 class="pt-2">Canbii Rating</h2>
             <div class="rating"></div>
         </DIV>
 
@@ -171,12 +171,20 @@
                 $isfirst = true;
                 foreach ($pricelist as $data) {
                     //"price", "slug", "title", "category"
-                    echo '<TR><TD' . $tdm . $data["title"] . '</TD><TD' . $tdm . money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD>';
+                    echo '<TR><TD>'  . $data["title"] . '</TD><TD>'. money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD>';
                     if ($isfirst) {
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
-                        $key = "Purchase " . slugtotext($data["category"]) . " from " . $data["vendor"];//purchase "type" from "vendor"
-                        echo '<TD ROWSPAN="' . count($pricelist) . '"' . $tdm . '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">' . $key . '</A></TD>';
+                        $key = "Purchase Now" ;//purchase "type" from "vendor"
+                        echo '<TD ROWSPAN="' . count($pricelist) . '" >'
+                            . "<strong>" . slugtotext($data["category"]) . " from " . $data["vendor"] . "</strong><br>"
+                            . '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">'
+
+
+                            . $key .
+                            '</A>';
+
+                        echo '</TD>';
                     }
                     echo '</TR>';
                 }
@@ -200,134 +208,78 @@
         $p_filter = false;
     }
     echo '<div class="jumbotron"><h3>Activities</h3><p>What activities are more enjoyable with this strain?</p>';
-    getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-red");
-    echo "</div>";
-?>
+    getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-blue");
+    echo "</div>";        function getsymptomactivity($strain, $plural, $singular, $OverallRating = false, $IDKEY, $webroot, $p_filter, $color) {
+    /*if ($p_filter === false && is_array($OverallRating)) { //i dont know what this is for
+        foreach ($OverallRating as $oer) {
+            $arrs[] = $oer['rate'] . '_' . $oer[$IDKEY];
+        }
+    } else {*/
+    //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
+    $symptom_rate = Query("SELECT * FROM " . $singular . "_ratings WHERE strain_id=" . $strain['Strain']['id'], true);
+    $symptom_list = [];
+    foreach ($symptom_rate as $data) {
+        $ID = $data[$singular . "_id"];
+        if (!isset($symptom_list[$ID])) {
+            $symptom_list[$ID] = ["count" => 0, "total" => 0];
+        }
+        $symptom_list[$ID]["count"]++;
+        $symptom_list[$ID]["total"] += $data["rate"];
+    }
+    if ($symptom_list) {
+        $symptom_name = Query("SELECT * FROM " . $plural . " WHERE id IN(" . implode(",", array_keys($symptom_list)) . ")", true);
+        foreach ($symptom_name as $symptom) {
+            $ID = $symptom["id"];
+            $symptom_list[$ID]["name"] = $symptom["title"];
+            $symptom_list[$ID]["average"] = 0;
+            if ($symptom_list[$ID]["count"]) {
+                $symptom_list[$ID]["average"] = $symptom_list[$ID]["total"] / $symptom_list[$ID]["count"];
+            }
+        }
+    }
 
+    if ($symptom_list) {
+        $i = 0;
+        foreach ($symptom_list as $symptom) {
+            $i++;
+            if ($i == 16) {
+                break;
+            }
+            $rate = $symptom["average"];
+            $length = 20 * $rate;
+            //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
+            $name = $symptom["name"];// getiterator($names, "id", $ars[1])["title"];
+            echo '<div class="pull-left">' . $name . '</div>';
+            progressbar($webroot, $length, perc($length), "", "info", $color);
+        }
+    } else {
+        printnoreviewlink($strain, $webroot);
+    }
+}
+
+function printnoreviewlink($strain, $webroot, $allowreviews = true) {
+    if ($allowreviews) {
+      //  echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
+        echo '<a href="#">No ratings yet. </a>';
+
+    } else {
+        echo '<a href="#">No ratings yet. </a>';
+    }
+}
+
+?>
+<?php if(false){ ?>
 <div class="jumbotron">
     <h3>Symptoms</h3>
     <p>How does this strain help with my medical condition?</p>
 
     <?php
 
-        function getsymptomactivity($strain, $plural, $singular, $OverallRating = false, $IDKEY, $webroot, $p_filter, $color) {
-            /*if ($p_filter === false && is_array($OverallRating)) { //i dont know what this is for
-                foreach ($OverallRating as $oer) {
-                    $arrs[] = $oer['rate'] . '_' . $oer[$IDKEY];
-                }
-            } else {*/
-            //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-            $symptom_rate = Query("SELECT * FROM " . $singular . "_ratings WHERE strain_id=" . $strain['Strain']['id'], true);
-            $symptom_list = [];
-            foreach ($symptom_rate as $data) {
-                $ID = $data[$singular . "_id"];
-                if (!isset($symptom_list[$ID])) {
-                    $symptom_list[$ID] = ["count" => 0, "total" => 0];
-                }
-                $symptom_list[$ID]["count"]++;
-                $symptom_list[$ID]["total"] += $data["rate"];
-            }
-            if ($symptom_list) {
-                $symptom_name = Query("SELECT * FROM " . $plural . " WHERE id IN(" . implode(",", array_keys($symptom_list)) . ")", true);
-                foreach ($symptom_name as $symptom) {
-                    $ID = $symptom["id"];
-                    $symptom_list[$ID]["name"] = $symptom["title"];
-                    $symptom_list[$ID]["average"] = 0;
-                    if ($symptom_list[$ID]["count"]) {
-                        $symptom_list[$ID]["average"] = $symptom_list[$ID]["total"] / $symptom_list[$ID]["count"];
-                    }
-                }
-            }
 
-            if ($symptom_list) {
-                $i = 0;
-                foreach ($symptom_list as $symptom) {
-                    $i++;
-                    if ($i == 16) {
-                        break;
-                    }
-                    $rate = $symptom["average"];
-                    $length = 20 * $rate;
-                    //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
-                    $name = $symptom["name"];// getiterator($names, "id", $ars[1])["title"];
-                    echo '<div class="pull-left">' . $name . '</div>';
-                    progressbar($webroot, $length, perc($length), "", "info", $color);
-                }
-            } else {
-                printnoreviewlink($strain, $webroot);
-            }
-        }
-
-        function printnoreviewlink($strain, $webroot, $allowreviews = true) {
-            if ($allowreviews) {
-                echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
-            } else {
-                echo '<a href="#">No ratings yet. </a>';
-            }
-        }
-
-        getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
+       getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
     ?>
 </div>
-
-<div class="jumbotron">
-    <h3>General Ratings</h3>
-    <p> What are the general ratings?</p>
-    <?php
-        $scale = 0;
-        $strength = 0;
-        $duration = 0;
-        $count = "";
-        if (!$p_filter) {
-            $count = count($strain['Review']);
-            if ($count) {
-                foreach ($strain['Review'] as $r) {
-                    $scale = $scale + $r['eff_scale'];
-                    $strength = $strength + $r['eff_strength'];
-                    $duration = $duration + $r['eff_duration'];
-                }
-            }
-        } else {
-            $effect_review = $this->requestAction('/strains/getEffectReview/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-            $count = count($strain['Review']);
-            if ($count) {
-                foreach ($effect_review as $r) {
-                    $scale = $scale + $r['Review']['eff_scale'];
-                    $strength = $strength + $r['Review']['eff_strength'];
-                    $duration = $duration + $r['Review']['eff_duration'];
-                }
-            }
-        }
-        if ($count) {
-            $Factor = 10;//20;
-            $scale = ($scale / $count) * $Factor;
-            $strength = ($strength / $count) * $Factor;
-            $duration = ($duration / $count) * $Factor;
-        }
-        if ($scale) {
-            ?>
-            <div class="pull-left"> Sedative</div>
-            <?php progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple");
-        }
-        if ($strength) {
-            ?>
-            <div class="pull-left">
-                Strength
-            </div>
-            <?php progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple");
-        }
-        if ($duration) {
-            ?>
-            <div class="pull-left">
-                Duration
-            </div>
-            <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
-        }
-        if (!$duration && !$strength && !$scale) {
-            printnoreviewlink($strain, $this->webroot);
-        }
-    ?>
-</div>
+<?php } ?>
 
 
 <div class="jumbotron">
@@ -417,6 +369,69 @@
 </div>
 
 
+
+<div class="jumbotron">
+    <h3>General Ratings</h3>
+    <p> What are the general ratings?</p>
+    <?php
+    $scale = 0;
+    $strength = 0;
+    $duration = 0;
+    $count = "";
+    if (!$p_filter) {
+        $count = count($strain['Review']);
+        if ($count) {
+            foreach ($strain['Review'] as $r) {
+                $scale = $scale + $r['eff_scale'];
+                $strength = $strength + $r['eff_strength'];
+                $duration = $duration + $r['eff_duration'];
+            }
+        }
+    } else {
+        $effect_review = $this->requestAction('/strains/getEffectReview/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
+        $count = count($strain['Review']);
+        if ($count) {
+            foreach ($effect_review as $r) {
+                $scale = $scale + $r['Review']['eff_scale'];
+                $strength = $strength + $r['Review']['eff_strength'];
+                $duration = $duration + $r['Review']['eff_duration'];
+            }
+        }
+    }
+    if ($count) {
+        $Factor = 10;//20;
+        $scale = ($scale / $count) * $Factor;
+        $strength = ($strength / $count) * $Factor;
+        $duration = ($duration / $count) * $Factor;
+    }
+    if ($scale) {
+        ?>
+        <div class="pull-left"> Sedative</div>
+        <?php progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple");
+    }
+    if ($strength) {
+        ?>
+        <div class="pull-left">
+            Strength
+        </div>
+        <?php progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple");
+    }
+    if ($duration) {
+        ?>
+        <div class="pull-left">
+            Duration
+        </div>
+        <?php progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
+    }
+    if (!$duration && !$strength && !$scale) {
+        printnoreviewlink($strain, $this->webroot);
+    }
+    ?>
+</div>
+
+
+
+<?php if(false){ ?>
 <div class="jumbotron">
     <h3>Negative Effects</h3>
     <p>What are the negative effects?</p>
@@ -451,10 +466,11 @@
     ?>
 </div>
 
+<?php } ?>
 <div class="jumbotron">
     <?php include_once('combine/strain_reviews.php'); ?>
     <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
-        See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
+        Hide This on Live - See All Reviews for <?= $strain['Strain']['name']; ?> &raquo;
     </a>
 </div>
 
