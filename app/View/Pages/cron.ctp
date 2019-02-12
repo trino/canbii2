@@ -1602,18 +1602,20 @@ die();
                 }
 
                 $JSONdata["downloadedimages"] = 0;
+                $JSONdata["skippedimages"] = 0;
                 if (isset($JSONdata["images"])){//} && false) {
                     foreach ($JSONdata["images"] as $INDEX => $URL) {
                         $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
-                        if(!file_exists($filename)){
+                        if(file_exists($filename)) {
+                            $JSONdata["skippedimages"] += 1;
+                        } else {
                             //$DATA = file_get_contents("GET", $URL, false, false, $Cookie);
                             $DATA = file_get_contents($URL);
                             if($DATA) {
                                 file_put_contents($filename, $DATA);
                                 $JSONdata["downloadedimages"] += 1;
                             } else {
-                                echo $URL . " FAILED TO DOWNLOAD";
-                                die();
+                                die( $URL . " FAILED TO DOWNLOAD" );
                             }
                         }
                     }
@@ -1748,6 +1750,9 @@ die();
                     }
                     if($data["downloadedimages"] > 0){
                         $STATUS[] = "Downloaded: " . $data["downloadedimages"] . " images";
+                    }
+                    if($data["skippedimages"] > 0){
+                        $STATUS[] = "Skipped: " . $data["skippedimages"] . " images";
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else if($data) {
