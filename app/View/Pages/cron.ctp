@@ -1390,7 +1390,7 @@ die();
         $images = explode('</div>', getbetween($HTML, '<div class="product-images__carousel">', '</div></div>'));
         foreach($images as $INDEX => $HTML){
             $HTML = trim(str_replace('<div class="product-images__slide">', '', $HTML));
-            $images[$INDEX] = "https:" . getbetween($HTML, '<img src="', '?');
+            $images[$INDEX] = "https:" . getbetween($HTML, '<img src="', '"');
         }
         $data["images"] = $images;
         return $data;

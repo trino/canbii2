@@ -28,16 +28,24 @@
 
 	function getfilename($path, $WithExtension = false){
 		if ($WithExtension) {
-			return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
+			$path = pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
 		} else {
-			return pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
+			$path = pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
 		}
+		return trimend($path, "?");
 	}
 
+	function trimend($text, $endtext){
+		$start = strpos($endtext, "?");
+		if($start !== false){
+			$text = left($text, $start);
+		}
+		return $text;
+	}
 	//get the lower-cased extension of a file path
 	//HOME/WINDOWS/TEST.JPG returns jpg
 	function getextension2($path){
-		return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
+		return trimend(strtolower(pathinfo($path, PATHINFO_EXTENSION)), "?"); // extension only, no period
 	}
 
 	function file_size($path){
