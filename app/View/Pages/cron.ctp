@@ -1206,6 +1206,15 @@ die();
     <TR>
         <TD>
 <?php
+    function is_item_array($array){
+        foreach($array as $key => $value){
+            if(!is_numeric($key)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function purge($text = "", $bottom = true){
         if($bottom){$text .= '<SCRIPT>bottom();</SCRIPT>';}
         if($text){echo $text;}
@@ -1559,26 +1568,27 @@ die();
             }
 
             if (isset($localstrain["id"]) && $localstrain["id"]) {
-                $ocsdata = first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
+                $ocsdata = false;// first("SELECT * FROM ocs WHERE strain_id=" . $localstrain["id"]);
                 if (!$ocsdata && isset($JSONdata["content"])) {//add to ocs table
                     if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
                         $JSONdata["Terpenes"] = [];
                     }
                     $ocsdata = [
-                        "category" => $JSONdata["type"],
+                        "slug"      => $originalstrain,
+                        "category"  => $JSONdata["type"],
                         "strain_id" => $localstrain["id"],
                         "shorttext" => $JSONdata["shorttext"],
-                        "price" => $JSONdata["price"],
-                        "plant" => $JSONdata["Plant"],
-                        "terpenes" => implode(", ", $JSONdata["Terpenes"]),
-                        "content" => $JSONdata["content"],
+                        "price"     => $JSONdata["price"],
+                        "plant"     => $JSONdata["Plant"],
+                        "terpenes"  => implode(", ", $JSONdata["Terpenes"]),
+                        "content"   => $JSONdata["content"],
                         "available" => $JSONdata["available"] == "true",
-                        "ocs_id" => $JSONdata["id"]
+                        "ocs_id"    => $JSONdata["id"]
                     ];
                 }
 
                 $prices = [];
-                if ($mergeprices && isset($ocsdata["prices"]) && $ocsdata["prices"]) {
+                if ($mergeprices && isset($ocsdata["prices"]) && isJSON($ocsdata["prices"])) {
                     $prices = json_decode($ocsdata["prices"], true);
                 }
                 if (isset($JSONdata["variants"])) {
@@ -1623,7 +1633,7 @@ die();
 
                 if(isset($extradata[$strain])){
                     $data = $extradata[$strain];
-                    if(!is_array($data)){$data = [$data];}
+                    if(is_item_array($data)){$data = [$data];}
                     //wanted:       lift and leafly: link, description, thc, cbd
                     //OCS table:    lift_url (TEXT), lift_description (TEXT), lift_thc (VARCHAR 16), lift_cbd (VARCHAR 16)
                     //data:         lift_url, lift_vendor, lift_thc, lift_cbd, lift_des, lift_flavors, lift_effects (combined, use $negativeeffects to compare) OR lift_badeffects AND lift_goodeffects, urls (leafly, array)
@@ -1700,6 +1710,7 @@ die();
         table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
     }
 
+    table_has_column("ocs", "slug", "VARCHAR(255)", false, false, "id");
     table_has_column("ocs", "lift_url", "TEXT");
     table_has_column("ocs", "lift_des", "TEXT");
     table_has_column("ocs", "lift_thc", "VARCHAR(16)");

@@ -35,6 +35,11 @@
 		return trimend($path, "?");
 	}
 
+	function isJSON($Text){
+		json_decode($Text);
+		return (json_last_error() == JSON_ERROR_NONE);
+	}
+
 	function trimend($text, $endtext){
 		$start = strpos($text, $endtext);
 		if($start !== false){
