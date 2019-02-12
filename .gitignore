@@ -7,3 +7,4 @@ shop/*
 \app\tmp\*
 /app/tmp/*
 
+*.png

@@ -1616,13 +1616,21 @@ die();
                 if (isset($JSONdata["images"])){//} && false) {
                     foreach ($JSONdata["images"] as $INDEX => $URL) {
                         $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
+                        $dir2 = left($dir, strlen($dir) - 4) . "/images/strains/" . $localstrain["id"];
+                        if(!is_dir($dir2)){
+                            mkdir($dir2);
+                        }
+                        $actualfilename = $dir2 . "/" . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
                         if(file_exists($filename)) {
+                            $JSONdata["skippedimages"] += 1;
+                            rename($filename, $actualfilename);
+                        } else if(file_exists($actualfilename)) {
                             $JSONdata["skippedimages"] += 1;
                         } else {
                             //$DATA = file_get_contents("GET", $URL, false, false, $Cookie);
                             $DATA = file_get_contents($URL);
                             if($DATA) {
-                                file_put_contents($filename, $DATA);
+                                file_put_contents($actualfilename, $DATA);
                                 $JSONdata["downloadedimages"] += 1;
                             } else {
                                 die( $URL . " FAILED TO DOWNLOAD" );
