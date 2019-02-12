@@ -1447,12 +1447,11 @@ die();
         return $me;
     }
 
-
     function getstrain($slug){
         return first("SELECT * FROM strains WHERE slug='" . $slug . "'");
     }
 
-    function trimend($Text, $Trim){
+    function trimend2($Text, $Trim){
         if( endswith(strtolower($Text), strtolower($Trim)) ){
             $Text = left($Text, strlen($Text) - strlen($Trim));
         }
@@ -1544,7 +1543,7 @@ die();
                     $localstrain = [
                         "hasocs" => 1,
                         "type_id" => getiterator($types, "title", $plant)["id"],
-                        "name" => trimend($JSONdata["title"], "pre-roll"),
+                        "name" => trimend2($JSONdata["title"], "pre-roll"),
                         "description2" => $JSONdata["content"],
                         "slug" => $strain,
                         "imported" => "2"//0=native, 1=leafly, 2=ocs
@@ -1603,16 +1602,18 @@ die();
                 }
 
                 $JSONdata["downloadedimages"] = 0;
-                if (isset($JSONdata["images"]) && false) {
+                if (isset($JSONdata["images"])){//} && false) {
                     foreach ($JSONdata["images"] as $INDEX => $URL) {
                         $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
                         if(!file_exists($filename)){
-                            $DATA = file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie);
+                            //$DATA = file_get_contents("GET", $URL, false, false, $Cookie);
+                            $DATA = file_get_contents($URL);
                             if($DATA) {
                                 file_put_contents($filename, $DATA);
                                 $JSONdata["downloadedimages"] += 1;
                             } else {
-                                echo $URL . " FAILED TO DOWNLOAD";die();
+                                echo $URL . " FAILED TO DOWNLOAD";
+                                die();
                             }
                         }
                     }

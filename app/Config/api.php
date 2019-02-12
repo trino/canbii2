@@ -36,7 +36,7 @@
 	}
 
 	function trimend($text, $endtext){
-		$start = strpos($endtext, "?");
+		$start = strpos($text, $endtext);
 		if($start !== false){
 			$text = left($text, $start);
 		}
