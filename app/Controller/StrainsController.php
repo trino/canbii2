@@ -379,7 +379,7 @@ class StrainsController extends AppController {
         return $now;
     }
 
-    function filter($offset = 0, $type = '', $layout = "blank", $tag) {
+    function filter($offset = 0, $type = '', $layout = "blank", $tag = "unknown") {
         //$this->call(__METHOD__);
         $this->loadModel('Country');
         $this->loadModel('Strainslim');
