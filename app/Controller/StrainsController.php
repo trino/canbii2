@@ -302,7 +302,7 @@ class StrainsController extends AppController {
             $this->loadModel('User');
             $this->set('user',$this->User->findById($this->Session->read('User.id')));
         }
-        $this->filter($limit, $type, $this->layout);
+        $this->filter($limit, $type, $this->layout, "all");
         /*
         $this->loadModel('Country');
         $this->set('countries', $this->Country->find('all'));
@@ -334,7 +334,7 @@ class StrainsController extends AppController {
 
     function search($type = '', $limit = 0) {
         //$this->call(__METHOD__);
-        $this->filter($limit, $type);
+        $this->filter($limit, $type, "search");
         return;
     }
 
@@ -379,7 +379,7 @@ class StrainsController extends AppController {
         return $now;
     }
 
-    function filter($offset = 0, $type = '', $layout = "blank") {
+    function filter($offset = 0, $type = '', $layout = "blank", $tag) {
         //$this->call(__METHOD__);
         $this->loadModel('Country');
         $this->loadModel('Strainslim');
@@ -466,7 +466,7 @@ class StrainsController extends AppController {
                                         GROUP BY strain_id
                                         HAVING matched_' . $plural . ' = ' . $symptomscount . ') as IDs)';
 
-                $this->makesymptomslist($symptoms, $symptomscount, $plural);
+                $this->makesymptomslist($symptoms, $symptomscount, $plural, "filter: " . $tag);
             }
         }
 
@@ -517,15 +517,16 @@ class StrainsController extends AppController {
         $this->set('strain', $model->find('all', $parameters));
     }
 
-    function makesymptomslist($symptoms, $symptomscount, $table = "symptoms"){
-        if($symptoms) {
+    function makesymptomslist($symptoms, $symptomscount, $table = "symptoms", $tag){
+        $needsHTML = $tag != "filter: all";
+        if($symptoms && $needsHTML) {
             if (is_array($symptoms)){ $symptoms = implode(",", $symptoms);}
             $symptoms = Query("SELECT * FROM " . $table . " WHERE id IN (" . $symptoms . ")", true);
             //$this->loadModel('Symptom');$symptoms = $this->Symptom->find('all',array('conditions' => array('id IN (' . $symptoms . ')')));
             $delimeter = "";
             $index = 0;
-            echo '<SPAN ID="' . $table . '_list">';
-            if($table == "symptoms") {
+            echo '<SPAN ID="' . $table . '_list" TAG="' . $tag . '">';
+            if ($table == "symptoms") {
                 echo "These strains have been known to help with: ";
             } else {
                 echo "These strains are known to be enjoyable with: ";
