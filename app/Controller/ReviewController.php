@@ -116,7 +116,6 @@
                 $this->Session->setFlash('This review does not exist','default',array('class'=>'bad'));
             }
             //debug($review);
-
         }
 
         function index(){
@@ -158,20 +157,17 @@
                 $this->set('editreview', $this->Review->findById($_GET["review"]));
             }
 
-            if(isset($_POST['submit'])) {
+            if(isset($_POST['eff_scale'])) {
+                //vardump($_POST); die();
+
                 $ar['user_id'] = $this->Session->read('User.id');
                 $ar['strain_id'] = $strain['Strain']['id'];
-
-                //vardump($_POST);die();
-
-                //$this->deletereviews($ar['user_id'],  $ar['strain_id'] );//only needs 1 review per strain
-
-               $ar['on_date'] = date("y-m-d");
-               foreach($_POST as $k=>$v){
-                    $ar[$k]=$v;
-               }
-               $this->Review->create();
-               if($this->Review->save($ar))  {
+                $ar['on_date'] = date("y-m-d");
+                foreach($_POST as $k=>$v){
+                     $ar[$k]=$v;
+                }
+                $this->Review->create();
+                if($this->Review->save($ar))  {
                     $r_id = $this->Review->id;
                     $ar['review_id'] = $this->addrating($ar['strain_id'], "strains", $_POST['rate'], false, $r_id);
                     foreach(["effect", "medical" => "symptom", "color" => "colour", "flavor", "activity"] as $POSTKEY => $TABLE){
@@ -196,7 +192,7 @@
                     $this->Strain->saveField('review',$review);
                     $this->Session->setFlash('Review Saved, thank you for your support','default',array('class'=>'good'));
                     $this->redirect('all');
-               }
+                }
             }
         }
 
@@ -214,6 +210,9 @@
                     "strain_id"     => $strainID,
                     "rate"          => $rating
                 ];
+
+                // vardump($table . "_ratings");vardump($data);die();
+
                 insertdb($table . "_ratings", $data);//add the rating for the item to the table
                 $data = first("SELECT AVG(rate) as rate FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
                 $ID = first("SELECT id FROM overall_" . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);

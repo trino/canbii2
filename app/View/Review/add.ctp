@@ -9,64 +9,6 @@
 <link href="<?= $this->webroot; ?>css/layout.css" rel="stylesheet" type="text/css" title="progress bar"/>
 <!-- script src="<?= $this->webroot; ?>js/bootstrap.min.js"></script-->
 
-<script>
-    $(function () {
-        $('#colorpickerHolder').ColorPicker({
-            flat: true,
-            onSubmit: function (hsb, hex, rgb) {
-                $('.morecolours').html("<div style='background-color:#" + hex + "; width:40px;height:20px;margin:5px;float:left;'><input type='hidden' name='color[]'value='" + hex + "'/></div>")
-                //$('#colorSelector div').css('backgroundColor', '#' + hex);
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        $(".fancybox").fancybox();
-    });
-
-    function toggleclass(element, classname){
-        if($(element).hasClass(classname)) {
-            $(element).removeClass(classname);
-        } else {
-            $(element).addClass(classname);
-        }
-    }
-
-    function setslider(ID, rating, disabled) {
-        $('#' + ID).slider({
-            range: "min",
-            disabled: disabled,
-            value: rating,
-            min: 0,
-            max: 5,
-            slide: function (event, ui, ID) {
-                var ID = $(event.target).attr("id");
-                ID = ID.left(ID.length-1);
-                console.log(ID + " VALUE " + JSON.stringify(ui));
-                $('#' + ID + 'p').html('' + ui.value + '/5');
-                $('#' + ID + 'i').val(ui.value);
-            }
-        });
-    }
-
-    function setslider2(ID, value, disabled){
-        $("#" + ID + "__slider").slider({
-            'min': 0,
-            'max': 5,
-            disabled: disabled,
-            'step': 1,
-            'value': value,
-            'slide': function (e, ui) {
-                var ID = $(event.target).attr("id");
-                ID = ID.left(ID.length-8);
-                $('#' + ID).val(ui.value);
-                $('#' + ID + '__prompt').html('' + ui.value + '/5');
-            },
-            'range': 'min'
-        });
-    }
-</script>
-
 <div class="page_layout page_margin_top clearfix">
     <div class="page_header clearfix" style="white-space: nowrap;">
         <div class="page_header_left" style="white-space: nowrap;">
@@ -83,8 +25,8 @@
                     return $false;
                 }
 
-                //http://localhost/metronic/templates/admin/ui_general.html
-                //Acceptable colors:
+                // http://localhost/metronic/templates/admin/ui_general.html
+                // Acceptable colors:
                 // Metronic: success (green), info (blue), warning (yellow), danger (red). Active does not work
                 // Old: light-purple, light-red, light-blue, light-green
                 function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "light-purple", $striped = false, $active = false, $min = 0, $max = 5) {
@@ -110,7 +52,7 @@
                         return $r['Review'][$name];
                     }
                     return $default;
-                }////searchact2=selected link object
+                }
 
                 function findsymptom($symptoms, $ID, $Field = 'Symptom') {
                     foreach ($symptoms as $symptom) {
@@ -375,7 +317,7 @@
                                     }
                                     ?>
                                      <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?php echo $effect['Effect']['id']; ?>"
-                                          class="eff3 btn btn-info qf_review__effects__negative"><?php echo ucfirst($effect['Effect']['title']); ?></a>
+                                            class="eff3 btn btn-info qf_review__effects__negative"><?php echo ucfirst($effect['Effect']['title']); ?></a>
                                 <?php }
                             } else {
                                 $pos = array();
@@ -521,7 +463,6 @@
                 <?php
                     if (isset($_GET["review"])) {
                         $score = getdata($editreview, 'rate');
-                        //<script> $('qf_review__other__overall__slider').raty({ score: 3 });</script>
                     }
                     if ($this->params['action'] == 'add') { ?>
                         <textarea title="Comments" rows="8" maxlength="4000" name="review" STYLE="width: 100%"
@@ -548,38 +489,9 @@
             if (isset($strain)) {
                 echo "<h2>Strain Images</h2>";
                 include('combine/images.php');
-                /*
-                for ($i = 1; $i < 5; $i++) {
-                    $image = "images/strains/" . $strain['Strain']['id'] . "/" . $strain['Strain']['slug'] . "_" . $i . ".jpg";
-                    $filename = getcwd() . "/" . $image; //C:\wamp\www\marijuana\app\webroot
-                    $image = $this->webroot . $image;
-
-                    // $image = $This->webroot . "images/strains/" . $strain['Strain']['id'] . "/" . $strain['Strain']['slug'] . "_" . $i . ".jpg";
-
-                    if (file_exists($filename)) {
-                        $breaker++;
-
-                        ?>
-                        <center>
-                            <a class="fancybox" rel="group"
-                               href="<?= $image ?>"
-                                >
-                                <img style="max-width: 270px;max-height: 400px;"
-                                     class="reportimage"
-                                     src="<?php echo $image; ?>"
-                                    />
-                            </a>
-                        </center>
-                        <?
-                        if ($breaker == 2) {
-                        }
-                    }
-                }
-                */
             }
         ?>
     </div>
-
 
     <?php
         if ($this->Session->read('User') && $this->params['action'] != 'detail') {
@@ -615,12 +527,12 @@
 
                 <div align="Center">
                     <?php if ($vote == 0){ ?>
-                        <a href="javascript:void(0);" id="<?= $rand1 . '_' . $review['Review']['id']; ?>" class="btns yes"
-                           style="background-color: #40b2e2; padding-left:6px; padding-right:6px; padding-top: 5px; padding-bottom: 5px; margin-right:5px"><strong
-                                    style="color: white">YES<?php if ($review['Review']['helpful']) { ?> (<?php echo $review['Review']['helpful']; ?>)<?php } ?></strong></a>
-                        <a class="btns no" href="javascript:void(0);" id="<?php echo ($rand1 + 1) . '_' . $review['Review']['id']; ?>"
-                           style="background-color: #1e84c6; padding-left:10px; padding-right:10px; padding-top: 5px; padding-bottom: 5px; margin-right:5px"><strong
-                                    style="color: white">NO<?php if ($review['Review']['not_helpful']) { ?> (<?php echo $review['Review']['not_helpful']; ?>)<?php } ?></strong></a>
+                        <a href="javascript:void(0);" id="<?= $rand1 . '_' . $review['Review']['id']; ?>" class="btns yes" style="background-color: #40b2e2; padding-left:6px; padding-right:6px; padding-top: 5px; padding-bottom: 5px; margin-right:5px">
+                            <strong style="color: white">YES<?php if ($review['Review']['helpful']) { ?> (<?php echo $review['Review']['helpful']; ?>)<?php } ?></strong>
+                        </a>
+                        <a class="btns no" href="javascript:void(0);" id="<?php echo ($rand1 + 1) . '_' . $review['Review']['id']; ?>" style="background-color: #1e84c6; padding-left:10px; padding-right:10px; padding-top: 5px; padding-bottom: 5px; margin-right:5px">
+                            <strong style="color: white">NO<?php if ($review['Review']['not_helpful']) { ?> (<?php echo $review['Review']['not_helpful']; ?>)<?php } ?></strong>
+                        </a>
                     <?php } else{
                         $lightcolor = ':#CCC;';
                         $darkcolor = ':#aaa;';
@@ -650,17 +562,102 @@
     </div>
 
 <script>
-    $(function () {
-        <?php if($this->params['action']=='add'){ ?>
-            $('#reviews1').submit(function () {
-                if ($('#qf_review__other__overall').val() == '0') {
-                    $('.errorz').show();
-                    return false;
-                } else {
-                    $('.errorz').hide();
-                    return true;
-                }
+    $(document).ready(function () {
+        $(".fancybox").fancybox();
+    });
 
+    function toggleclass(element, classname){
+        if($(element).hasClass(classname)) {
+            $(element).removeClass(classname);
+        } else {
+            $(element).addClass(classname);
+        }
+    }
+
+    function setslider(ID, rating, disabled) {
+        $('#' + ID).slider({
+            range: "min",
+            disabled: disabled,
+            value: rating,
+            min: 0,
+            max: 5,
+            slide: function (event, ui, ID) {
+                var ID = $(event.target).attr("id");
+                ID = ID.left(ID.length-1);
+                console.log(ID + " VALUE " + JSON.stringify(ui));
+                $('#' + ID + 'p').html('' + ui.value + '/5');
+                $('#' + ID + 'i').val(ui.value);
+            }
+        });
+    }
+
+    function setslider2(ID, value, disabled){
+        $("#" + ID + "__slider").slider({
+            'min': 0,
+            'max': 5,
+            disabled: disabled,
+            'step': 1,
+            'value': value,
+            'slide': function (e, ui) {
+                var ID = $(event.target).attr("id");
+                ID = ID.left(ID.length-8);
+                $('#' + ID).val(ui.value);
+                $('#' + ID + '__prompt').html('' + ui.value + '/5');
+            },
+            'range': 'min'
+        });
+    }
+
+    function openWindowWithPost(data, url) {
+        var form = document.createElement("form");
+        form.method = "POST";
+        if(isUndefined(url)){
+            url = window.location.href;
+        }
+        form.id = "postform";
+        form.action = url;
+        form.style.display = "none";
+        for (var key in data) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = data[key];
+            form.appendChild(input);
+        }
+        document.body.appendChild(form);
+        $("#postform").submit();
+    }
+
+    function formsubmithandler(){
+        if ($('#qf_review__other__overall').val() == '0') {
+            $('.errorz').show();
+            return false;
+        }
+        $('.errorz').hide();
+        var data = getform("#reviews1");
+        $(".review-slider").each(function(){
+            var ID = $(this).attr("id");
+            if(ID.startswith("flavor")){
+                data["flavor[" + ID.right(ID.length - 6) + "]"] = 5;
+            }
+        });
+        openWindowWithPost(data);
+    }
+
+    $(function () {
+        $('#colorpickerHolder').ColorPicker({
+            flat: true,
+            onSubmit: function (hsb, hex, rgb) {
+                $('.morecolours').html("<div style='background-color:#" + hex + "; width:40px;height:20px;margin:5px;float:left;'><input type='hidden' name='color[]'value='" + hex + "'/></div>")
+                //$('#colorSelector div').css('backgroundColor', '#' + hex);
+            }
+        });
+
+        <?php if($this->params['action']=='add'){ ?>
+            $('#reviews1').submit(function (event) {
+                event.preventDefault();
+                formsubmithandler();
+                return false;
             });
 
             $('.qf_review__effects__medical').click(function () {
@@ -690,6 +687,7 @@
                 var opt = jQ.find('option:selected');
                 var txt = jQ.text();
                 var id = type + sel;
+                var value = 0;
                 var h = "";
                 if ($('#' + id).length != 0) {
                     opt.removeClass("selected");
@@ -699,6 +697,7 @@
                     var cat = (type == 'color' || type == 'flavor') ? 'aesthetics' : 'effects';
                     if (cat == 'aesthetics') {
                         h = "display:none";
+                        value = 1;
                     }
                     var innerId = '#qf_review__' + cat + '__' + type + '__inner';
                     if (type == 'positive' || type == 'negative') {
@@ -708,8 +707,8 @@
                         console.log(innerId + " not found");
                     } else {
                         var HTML = '<div id="' + id + '" class="review-slider" style="' + h + '"><h4>' + txt + '</h4>';
-                        HTML += '<input type="hidden" id="' + id + 'i" name="' + type + '[' + sel + ']" value="0"/>';
-                        HTML += '<div class="slider"  id="' + id + 's"></div><p CLASS="display" id="' + id + 'p" >0/5</p><div class="clear"> </div></div>';
+                        HTML += '<input type="hidden" id="' + id + 'i" name="' + type + '[' + sel + ']" value="' + value + '"/>';
+                        HTML += '<div class="slider"  id="' + id + 's"></div><p CLASS="display" id="' + id + 'p" >' + value + '/5</p><div class="clear"> </div></div>';
                         $(innerId).append(HTML);
                         setslider(id + 's', 0, false);
                     }
@@ -793,6 +792,7 @@
                 }
             });
         <?php } ?>
+
         $('.yes').click(function () {
             var id = $(this).attr('id');
             var arr = id.split('_');
@@ -810,6 +810,7 @@
             $('#' + o + '_' + r_id).attr('onclick', 'return false;');
             $(this).attr('style', $(this).attr('style').replace('background:#FFF;', 'background:#e5e5e5;display:inline-block;padding:8px 7px;'));
         });
+
         $('.no').click(function () {
             var id = $(this).attr('id');
 

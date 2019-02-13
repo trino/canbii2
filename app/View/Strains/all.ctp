@@ -231,20 +231,16 @@
             var i = 0;
             $('.effs').each(function () {
                 if ($(this).val()) {
-                    //val = appendtoquery(val, 'effects[]=' + $(this).val());
                     val.effects.push($(this).val());
                 }
-
             });
             $('.symp .symps').each(function () {
                 if ($(this).val()) {
-                    //val = appendtoquery(val, 'symptoms[]=' + $(this).val());
                     val.symptoms.push($(this).val());
                 }
             });
             $('.symp .acts').each(function () {
                 if ($(this).val()) {
-                    //val = appendtoquery(val, 'activities[]=' + $(this).val());
                     val.activities.push($(this).val());
                 }
             });

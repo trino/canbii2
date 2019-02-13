@@ -287,7 +287,6 @@
     }
 ?>
 
-<?php if(false){ ?>
 <div class="jumbotron">
     <h3>Symptoms</h3>
     <p>How does this strain help with my medical condition?</p>
@@ -295,7 +294,6 @@
        getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
     ?>
 </div>
-<?php } ?>
 
 <div class="jumbotron">
     <h3>Effects</h3>
@@ -371,9 +369,7 @@
                 $length = 20 * $rate;
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
-                ?>
-                <div class="pull-left"><?= $name; ?></div>
-                <?php
+                echo '<div class="pull-left">' . $name . '</div>';
                 progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
         } else {
