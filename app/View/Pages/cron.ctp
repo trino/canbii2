@@ -7,7 +7,7 @@
     Configure::write('debug', 0);
 
     $options = [
-        "makenewstrains" => false,//disable to prevent new strains from being created
+        "makenewstrains" => true,//disable to prevent new strains from being created
     ];
 
     $negativeeffects = ["Bad Taste", "Cough", "Dry Mouth", "Harsh", "Headache", "Lazy", "Red Eyes", "Talkative", "Weak"];
