@@ -1461,14 +1461,14 @@ die();
     }
 
     function trimend2($Text, $Trim){
-        if( endswith(strtolower($Text), strtolower($Trim)) ){
+        if(endswith(strtolower($Text), strtolower($Trim)) ){
             $Text = left($Text, strlen($Text) - strlen($Trim));
         }
         return trim($Text);
     }
 
     function cleanslug($slug = "lemon-skunk-capsules-2-5mg"){
-        if(!is_array($slug)){$slug = explode("-", $slug);}
+        if(!is_array($slug)){$slug = explode("-", strtolower($slug));}
         $last = end($slug);
         if(is_numeric($last)){
             unset($slug[count($slug) - 1]);//bakerstreet-capsules-2-5mg
@@ -1480,17 +1480,22 @@ die();
                 unset($slug[count($slug) - 1]);
             }
         }
-        $wordstoremove = ["oil", "oral", "spray", "mct", "thc", "peppermint", "capsules", "pre", "roll", "pack"];
+        $wordstoremove = ["oil", "oral", "spray", "mct", "thc", "peppermint", "capsules", "pre", "roll", "pack", "canaca", "sativa", "redecan", "woodstock", "symbl", "cbd"];
         $last = count($slug) - 1;
         foreach(array_reverse($slug) as $index => $word){
             $index = $last - $index;
-            if(in_array( $word, $wordstoremove )){
+            if(in_array(strtolower($word), $wordstoremove) || is_numeric($word)){
                 unset( $slug[$index] );
             } else {
                 break;
             }
         }
-        return implode("-", $slug);
+        $slug = implode("-", $slug);
+        $vendors = ["Alta Vie", "San Rafael", "Haven St", "roll pack"];
+        foreach($vendors as $vendor){
+            $slug = trimend2($slug, "-" . str_replace(" ", "-", strtolower($vendor)));
+        }
+        return $slug;
     }
 
     function fromclassname($slug){
@@ -1508,6 +1513,10 @@ die();
             $data["id"] = insertdb('effects', $data);
         }
         return $data;
+    }
+
+    function cleanname($name){
+        return trimend(trim(trimend(trimend2($name, "pre-roll"), "(")), "Â");
     }
 
     function import($strain, $JSONdata, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir) {
@@ -1550,15 +1559,17 @@ die();
                     $plant = $plant[0];
                     //if(endswith($JSONdata["title"], ""))
                     $localstrain = [
-                        "hasocs" => 1,
-                        "type_id" => getiterator($types, "title", $plant)["id"],
-                        "name" => trimend2($JSONdata["title"], "pre-roll"),
-                        "description2" => $JSONdata["content"],
-                        "slug" => $strain,
-                        "imported" => "2"//0=native, 1=leafly, 2=ocs
+                        "hasocs"        => 1,
+                        "type_id"       => getiterator($types, "title", $plant)["id"],
+                        "name"          => cleanname($JSONdata["title"]),
+                        "description2"  => $JSONdata["content"],
+                        "slug"          => $strain,
+                        "imported"      => "2"//0=native, 1=leafly, 2=ocs
                     ];
                     if ($localstrain["name"] && $localstrain["description2"]) {
                         $localstrain["id"] = insertdb("strains", $localstrain);
+                    } else {
+                        return "Error, name or description were blank";
                     }
                 } else {
                     return "Skipped, makenewstrains=false";
@@ -1583,7 +1594,9 @@ die();
                         "terpenes"  => implode(", ", $JSONdata["Terpenes"]),
                         "content"   => $JSONdata["content"],
                         "available" => $JSONdata["available"] == "true",
-                        "ocs_id"    => $JSONdata["id"]
+                        "ocs_id"    => $JSONdata["id"],
+                        "ocs_thc"   => $JSONdata["thc"],
+                        "ocs_cbd"   => $JSONdata["cbd"]
                     ];
                 }
 
@@ -1679,7 +1692,7 @@ die();
 
     set_time_limit(0);
     $collections = ["hardcoded", "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
-    echo '<BR>Downloading all: ' . implode(", ", $collections);
+    purge('<BR>Downloading all: ' . implode(", ", $collections));
     $dir = getcwd() . "/ocs";
     if(!is_dir($dir)){
         mkdir($dir, 0777);
@@ -1696,23 +1709,23 @@ die();
         foreach($activities as $activity){
             insertdb("activities", ["title" => $activity, "imported" => 2]);
         }
-        echo '<BR>activities table created and filled with (' . implode(", ", $activities) . ")";
+        purge('<BR>activities table created and filled with (' . implode(", ", $activities) . ")");
     }
     if(!enum_tables("activity_ratings")) {
         Query("CREATE TABLE `activity_ratings` ( `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `review_id` int(11) NOT NULL,
   `activity_id` int(11) NOT NULL, `rate` varchar(255) NOT NULL, `strain_id` int(11) NOT NULL, `imported` tinyint(4) NOT NULL COMMENT '(Imported from Leafly)', PRIMARY KEY (`id`)) ENGINE=InnoDB;");
-        echo '<BR>activity_ratings table created';
+        purge('<BR>activity_ratings table created');
     }
 
     $types = query("SELECT * FROM strain_types", true);
     if(!enum_tables("ocs")){
         Query("CREATE TABLE `ocs` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `shorttext` TEXT NOT NULL , `price` INT NOT NULL, `category` VARCHAR(255) NOT NULL , `plant` VARCHAR(255) NOT NULL , `terpenes` VARCHAR(512) NOT NULL , `content` TEXT NOT NULL , `available` TINYINT NOT NULL , `ocs_id` INT NOT NULL, `prices` TEXT , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-        echo '<BR>OCS table created';
+        purge('<BR>OCS table created');
     }
     if($forceupdate){
-        echo '<BR>Full update requested. Deleting old and empty data';
+        purge('<BR>Full update requested. Deleting old and empty data');
         deleterow("ocs");
-        deleterow("strains", 'name="" OR hasocs=2 OR slug LIKE "%-pre-roll"');
+        deleterow("strains", 'name="" OR hasocs=2 OR slug LIKE "%-pre-roll" OR name LIKE "%Pre-Roll%" OR name LIKE "%(%THC%)" OR ((slug LIKE "%-1" OR name LIKE "%oil" OR name LIKE "%Capsules" OR name LIKE "%Softgels%") AND id > 3500)');
         Query("UPDATE strains SET hasocs = 0", false);
         Query("ALTER TABLE `ocs` DROP `prices`;");
         table_has_column("ocs", "prices", "TEXT");//$column, $type = false, $null = false, $default = false, $after = false, $isprimarykey = false, $comment
@@ -1723,6 +1736,8 @@ die();
     table_has_column("ocs", "lift_des", "TEXT");
     table_has_column("ocs", "lift_thc", "VARCHAR(16)");
     table_has_column("ocs", "lift_cbd", "VARCHAR(16)");
+    table_has_column("ocs", "ocs_thc", "VARCHAR(16)");
+    table_has_column("ocs", "ocs_cbd", "VARCHAR(16)");
     $allstrains = [];
 
     echo '</TD></TR><TR><TD>';

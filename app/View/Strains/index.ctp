@@ -7,10 +7,11 @@
 <script type="text/javascript" src="<?= $this->webroot; ?>js/jquery.plugin.html2canvas.js"></script>
 
 <?php
+    $DATA = query("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id'], true);
+
     echo "<Strain id='" . $strain['Strain']['id'] . "' />";
 
     function progressbar($webroot, $value, $textL = "", $textR = "", $color = "success", $color2 = "", $striped = false, $active = false, $min = 0, $max = 100) {
-
         if ($textL) {
             echo '<div class="pull-left" >&nbsp;' . $textL . '</div>';
         }
@@ -18,7 +19,6 @@
         echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
         echo (round($value, 2) > 100) ? 100 : round($value, 2);
         echo '%;height:20px;"/>';
-
         echo "</div>";
         return;
         echo '<div class="progress-bar progress-bar-';
@@ -73,20 +73,29 @@
             <DIV class="spanwordwrap">
                 <?php
                     $chemical = 0;
-                    function printchemical($chemical, $strain, $acronym, $wikipedia) {
-                        if ($strain['Strain'][strtolower($acronym)] != "0") {
+                    function printchemical($chemical, $strain, $DATA, $acronym, $wikipedia) {
+                        $acronym = strtolower($acronym);
+                        if ($strain['Strain'][$acronym] == "0") {
+                            foreach($DATA as $CELL){
+                                foreach(["ocs_", "thc_"] as $site) {
+                                    if (isset($CELL[$site . $acronym]) && $CELL[$site . $acronym] && $CELL[$site . $acronym] != "0" && $strain['Strain'][$acronym] == "0") {
+                                        $strain['Strain'][$acronym] = $CELL[$site . $acronym];
+                                    }
+                                }
+                            }
+                        }
+                        if ($strain['Strain'][$acronym] != "0") {
                             $chemical++;
-                            echo "<span class=' eff2' style='margin-right: 5px;'><a style='color: white' target='new' href='" . $wikipedia . "'>" . strtoupper($acronym) . ":</a> ";
-                            echo $strain['Strain'][strtolower($acronym)] . "%</span> ";
+                            echo '<span class="eff2" style="margin-right: 5px;"><a style="color: white" target="new" href="' . $wikipedia . '">' . strtoupper($acronym) . ':</a> ' . $strain['Strain'][$acronym] . '%</span> ';
                         };
                         return $chemical;
                     }
 
-                    $chemical = printchemical($chemical, $strain, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
-                    $chemical = printchemical($chemical, $strain, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
-                    $chemical = printchemical($chemical, $strain, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
-                    $chemical = printchemical($chemical, $strain, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
-                    $chemical = printchemical($chemical, $strain, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
+                    $chemical = printchemical($chemical, $strain, $DATA, "thc", "http://en.wikipedia.org/wiki/Tetrahydrocannabinol");
+                    $chemical = printchemical($chemical, $strain, $DATA, "cbd", "http://en.wikipedia.org/wiki/Cannabidiol");
+                    $chemical = printchemical($chemical, $strain, $DATA, "cbn", "http://en.wikipedia.org/wiki/Cannabinol");
+                    $chemical = printchemical($chemical, $strain, $DATA, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
+                    $chemical = printchemical($chemical, $strain, $DATA, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
                     if ($chemical == 0) {
                         echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
                     }
@@ -146,9 +155,15 @@
         return $key;
     }
 
-    $DATA = query("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id'], true);
+    $imagedir = getcwd() . "/images/strains/" . $strain['Strain']['id'] . "/";
+    $webroot = $this->webroot . "images/strains/" . $strain['Strain']['id'] . "/";
+    $images = scandir($imagedir);
+    unset($images[0]);
+    unset($images[1]);
+    $tdm = ' style="vertical-align: middle;">';
     foreach($DATA as $OCSDATA) {
         echo '<DIV class="jumbotron" ID="csodata" STRAINID="' . $strain['Strain']['id'] . '"><div class="row"> ';
+        $slug = false;
         /*$dir = getcwd() . "/ocs/";
         $filename = $dir . $strain['Strain']['slug'] . ".json";
         $data = false;
@@ -156,43 +171,49 @@
             $data = json_decode(file_get_contents($filename), true);
         }*/
 
-        echo "<div class='col-md-6'><h3>Ontario Cannabis Store</h3>";
-
+        echo '<div class="col-md-12"><h3>Ontario Cannabis Store';//</h3>";
         if ($OCSDATA["prices"]) {
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
+            $hasname = false;
             foreach ($pricelist as $data) {
                 $prices[$data["slug"]][] = $data;
+                $slug = $data["slug"];
             }
-            echo '<TABLE class="table table-bordered table-sm table-condensed">';
-            $tdm = ' style="vertical-align: middle;">';
             foreach ($prices as $slug => $pricelist) {
                 $isfirst = true;
                 foreach ($pricelist as $data) {
+                    $text = slugtotext($data["category"]);
+                    if(!$hasname){
+                        if($text != "hardcoded") {
+                            echo " - " . slugtotext($data["category"]);
+                        }
+                        echo '</H3></div><div class="col-md-6"><TABLE class="table table-bordered table-sm table-condensed">';
+                        $hasname = true;
+                    }
                     //"price", "slug", "title", "category"
                     echo '<TR><TD>'  . $data["title"] . '</TD><TD>'. money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD>';
                     if ($isfirst) {
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
-                        $key = "Purchase Now" ;//purchase "type" from "vendor"
-                        echo '<TD ROWSPAN="' . count($pricelist) . '" >';
-                        $text = slugtotext($data["category"]);
-                        if($text == "hardcoded"){
-                            $text = "";
-                        } else {
-                            $text .= " from ";
-                        }
-                        echo "<strong>" . $text . $data["vendor"] . "</strong><br>";
-                        echo '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;" TARGET="_new">' . $key . '</A>';
+                        echo '<TD ROWSPAN="' . count($pricelist) . '" VALIGN="MIDDLE">';
+                        echo '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;margin-top: 0px !important;" TARGET="_new">Purchase from ' . $data["vendor"] . '</A>';
                         echo '</TD>';
                     }
                     echo '</TR>';
                 }
             }
             echo '</TABLE>';
+            if($slug){
+                foreach($images as $image){
+                    if(startswith($image, $slug)){
+                        echo '<IMG SRC="' . $webroot . $image . '" CLASS="reportimage">';
+                    }
+                }
+            }
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
-            echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+            echo '</H3></div><div class="col-md-6">' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
         // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
         //$shorttext = fixtext($OCSDATA["shorttext"]);  echo $shorttext;
