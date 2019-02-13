@@ -196,7 +196,7 @@
                     if ($isfirst) {
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
-                        echo '<TD ROWSPAN="' . count($pricelist) . '" VALIGN="MIDDLE">';
+                        echo '<TD ROWSPAN="' . count($pricelist) . '" STYLE="vertical-align: middle !important;">';
                         echo '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;margin-top: 0px !important;" TARGET="_new">Purchase from ' . $data["vendor"] . '</A>';
                         echo '</TD>';
                     }
@@ -278,11 +278,11 @@
         }
     }
 
-    function printnoreviewlink($strain, $webroot, $allowreviews = false) {
-        if ($allowreviews) {//set $allowreviews to false if you don't want this link
+    function printnoreviewlink($strain, $webroot) {
+        if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
             echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
         } else {
-            echo '<a href="#">No ratings yet. </a>';
+            echo 'No ratings yet.';
         }
     }
 ?>
