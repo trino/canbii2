@@ -347,7 +347,7 @@ class StrainsController extends AppController {
         return $q;
     }
 
-    function getSympto2mRate($profile_filter, $strain) {
+    function getSymptomRate($profile_filter, $strain) {
         //$this->call(__METHOD__);
         //echo urlencode("SELECT id FROM users WHERE nationality='asian'");die();
         //echo $profile_filter;die();

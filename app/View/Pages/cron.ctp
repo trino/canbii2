@@ -1716,6 +1716,10 @@ die();
   `activity_id` int(11) NOT NULL, `rate` varchar(255) NOT NULL, `strain_id` int(11) NOT NULL, `imported` tinyint(4) NOT NULL COMMENT '(Imported from Leafly)', PRIMARY KEY (`id`)) ENGINE=InnoDB;");
         purge('<BR>activity_ratings table created');
     }
+    if(!enum_tables("overall_activity_ratings")) {
+        Query("CREATE TABLE `overall_activity_ratings` ( `id` INT NOT NULL AUTO_INCREMENT , `strain_id` INT NOT NULL , `activity_id` INT NOT NULL , `rate` INT NOT NULL , `imported` TINYINT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        purge('<BR>overall_activity_ratings table created');
+    }
 
     $types = query("SELECT * FROM strain_types", true);
     if(!enum_tables("ocs")){

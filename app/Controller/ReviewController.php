@@ -173,74 +173,23 @@
                $this->Review->create();
                if($this->Review->save($ar))  {
                     $r_id = $this->Review->id;
-
-                    if(isset($_POST['activity'])&& count($_POST['activity'])>0){
-                        foreach($_POST['activity'] as $activity=>$rating) {
-                            insertdb("activity_ratings", [
-                                "user_id" => $ar['user_id'],
-                                "review_id" => $r_id,
-                                "activity_id" => $activity,
-                                "rate" => $rating,
-                                "strain_id" => $ar['strain_id']
-                            ]);
+                    $ar['review_id'] = $this->addrating($ar['strain_id'], "strains", $_POST['rate'], false, $r_id);
+                    foreach(["effect", "medical" => "symptom", "color" => "colour", "flavor", "activity"] as $POSTKEY => $TABLE){
+                        if(is_numeric($POSTKEY)){
+                            $POSTKEY = $TABLE;
                         }
-                        insertdb("reviews", [
-                            "id" => $r_id,
-                            "activitiescount" => count($_POST['activity']),
-                            "activities" => implode(",", array_keys($_POST['activity']))
-                        ]);
+                        if(isset($_POST[$POSTKEY]) && count($_POST[$POSTKEY])>0){
+                            $lastkey = array_key_last($_POST[$POSTKEY]);
+                            foreach($_POST[$POSTKEY] as $k=>$v ){
+                                $this->addrating($strain['Strain']['id'], $TABLE, $v, $k, $r_id, $ar['user_id'], $k == $lastkey);
+                            }
+                        }
                     }
 
-                    //echo $_POST['rate'];
-                    $this->change_overall_rating($strain['Strain']['id'],"strain",$_POST['rate']);
-                    //die($o_R);
-                    $ar['review_id'] = $r_id;
-                    if(isset($_POST['effect'])&& count($_POST['effect'])>0){
-                        foreach($_POST['effect'] as $k=>$v ){
-                            $this->change_overall_rating($strain['Strain']['id']."_".$k,"effect",$v);
-                            $ar['effect_id'] = $k;
-                            $ar['rate'] = $v;
-                            $this->EffectRating->create();
-                            $this->EffectRating->save($ar);
-                        }
-                    }
-                    if(isset($_POST['medical'])&& count($_POST['medical'])>0){
-                        foreach($_POST['medical'] as $k=>$v ){
-                            $this->change_overall_rating($strain['Strain']['id']."_".$k,"symptom",$v);
-                            $ar['symptom_id'] = $k;
-                            $ar['rate'] = $v;
-                            $this->SymptomRating->create();
-                            $this->SymptomRating->save($ar);
-                        }
-                    }
-                    if(isset($_POST['color'])&& count($_POST['color'])>0){
-                        foreach($_POST['color'] as $k=>$v ){
-                            /*$this->change_overall_rating($strain['Strain']['id']."_".$k,"colour",$v);
-                            $ar['colour_id'] = $k;
-                            $ar['rate'] = $v;
-                            $this->ColourRating->create();
-                            $this->ColourRating->save($ar);
-                            */
-                            $ar['color'] =$v;
-                            $this->ReviewColor->create();
-                            $this->ReviewColor->save($ar);
-                        }
-                    }
-                    if(isset($_POST['flavor'])&& count($_POST['flavor'])>0){
-                        foreach($_POST['flavor'] as $k=>$v ){
-                            $this->change_overall_rating($strain['Strain']['id']."_".$k,"flavor",$v);
-                            $ar['flavor_id'] = $k;
-                            $ar['rate'] = $v;
-                            $this->FlavorRating->create();
-                            $this->FlavorRating->save($ar);
-                        }
-                    }
-                    
                     $this->Strain->id = $strain['Strain']['id'];
+                    $review = 1;
                     if($strain['Strain']['review']){
-                        $review = $strain['Strain']['review'] + 1;
-                    } else {
-                        $review = 1;
+                        $review += $strain['Strain']['review'];
                     }
 
                     $this->factorreview($r_id);
@@ -249,6 +198,38 @@
                     $this->redirect('all');
                }
             }
+        }
+
+        function addrating($strainID, $table, $rating, $itemID = false, $reviewID = false, $userID = false, $islast = false){
+            //$table = strain (no $itemID), effect, symptom, color, flavor, activity
+            if($table == "strains"){//review already made, recalculate the average for the strain
+                $data = first("SELECT AVG(rate) as rating, COUNT(*) as review FROM reviews WHERE strain_id = " . $strainID);
+                $data["id"] = $strainID;
+                insertdb("strains", $data);
+            } else {
+                $data = [
+                    "user_id"       => $userID,
+                    "review_id"     => $reviewID,
+                    $table . "_id"  => $itemID,
+                    "strain_id"     => $strainID,
+                    "rate"          => $rating
+                ];
+                insertdb($table . "_ratings", $data);//add the rating for the item to the table
+                $data = first("SELECT AVG(rate) as rate FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
+                $ID = first("SELECT id FROM overall_" . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
+                if($ID){$data["id"] = $ID["id"];}
+                insertdb("overall_" . $table . "_ratings", $data);//recalculate the average for the item
+                if($islast && ($table == "activity" || $table == "symptom")){//only update when all the items have been added to the activities and symptoms review tables
+                    $data = first("SELECT GROUP_CONCAT(" . $table . "_id) as rate, COUNT(*) as count FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND review_id = " . $reviewID);
+                    if($table == "activity"){$table = "activitie";}//special pluralization
+                    insertdb("reviews", [
+                       "id"                 =>  $reviewID,
+                        $table . "s"        => $data["rate"],
+                        $table . "scount"   => $data["count"]
+                    ]);//add all the items to the review itself
+                }
+            }
+            return $reviewID;
         }
 
         function updatereviews($UpdateAverages = false){
@@ -273,6 +254,7 @@
             }
             echo "Updated review counts";
         }
+
         //if $reviewid is specified, $userid must match the user_id of the review, $strainid is ignored
         function deletereviews($userid, $strainid, $reviewid=""){
             $this->loadModel("Strains");
@@ -324,78 +306,6 @@
             return -1;
         }
 
-        function change_overall_rating($id,$table,$rate){//id=strain id
-            $this->checkSess();
-            if($table =='strain'){
-                $this->loadModel('Strain');
-                $st = $this->Strain->findById($id);
-                $overallrate = ($st['Strain']['rating']+$rate)/2;
-                $overallrate = round($overallrate,2);
-                //return $overallrate;
-                $this->Strain->id = $st['Strain']['id'];
-                $this->Strain->saveField('rating',$overallrate);
-            } else {
-                $arr = explode("_", $id);
-                $eff['strain_id'] = $arr[0];
-                if ($table == 'effect') {
-                    $this->loadModel('OverallEffectRating');
-                    $eff['effect_id'] = $arr[1];
-                    if ($st = $this->OverallEffectRating->find('first', array('conditions' => array("strain_id" => $eff['strain_id'], "effect_id" => $eff['effect_id'])))) {
-                        $overallrate = ($st['OverallEffectRating']['rate'] + $rate) / 2;
-                        $overallrate = round($overallrate, 2);
-                        $this->OverallEffectRating->id = $st['OverallEffectRating']['id'];
-                        $this->OverallEffectRating->saveField('rate', $overallrate);
-                    } else {
-                        $eff['rate'] = $rate;
-                        $this->OverallEffectRating->create();
-                        $this->OverallEffectRating->save($eff);
-                    }
-                }
-                if ($table == 'symptom') {
-                    $this->loadModel('OverallSymptomRating');
-                    $eff['symptom_id'] = $arr[1];
-                    if ($st = $this->OverallSymptomRating->find('first', array('conditions' => array("strain_id" => $eff['strain_id'], "symptom_id" => $eff['symptom_id'])))) {
-                        $overallrate = ($st['OverallSymptomRating']['rate'] + $rate) / 2;
-                        $this->OverallSymptomRating->id = $st['OverallSymptomRating']['id'];
-                        $overallrate = round($overallrate, 2);
-                        $this->OverallSymptomRating->saveField('rate', $overallrate);
-                    } else {
-                        $eff['rate'] = $rate;
-                        $this->OverallSymptomRating->create();
-                        $this->OverallSymptomRating->save($eff);
-                    }
-                }
-                if ($table == 'colour') {
-                    $this->loadModel('OverallColourRating');
-                    $eff['colour_id'] = $arr[1];
-                    if ($st = $this->OverallColourRating->find('first', array('conditions' => array("strain_id" => $eff['strain_id'], "colour_id" => $eff['colour_id'])))) {
-                        $overallrate = ($st['OverallColourRating']['rate'] + $rate) / 2;
-                        $this->OverallColourRating->id = $st['OverallColourRating']['id'];
-                        $overallrate = round($overallrate, 2);
-                        $this->OverallColourRating->saveField('rate', $overallrate);
-                    } else {
-                        $eff['rate'] = $rate;
-                        $this->OverallColourRating->create();
-                        $this->OverallColourRating->save($eff);
-                    }
-                }
-                if ($table == 'flavor') {
-                    $this->loadModel('OverallFlavorRating');
-                    $eff['flavor_id'] = $arr[1];
-                    if ($st = $this->OverallFlavorRating->find('first', array('conditions' => array("strain_id" => $eff['strain_id'], "flavor_id" => $eff['flavor_id'])))) {
-                        $overallrate = ($st['OverallFlavorRating']['rate'] + $rate) / 2;
-                        $overallrate = round($overallrate, 2);
-                        $this->OverallFlavorRating->id = $st['OverallFlavorRating']['id'];
-                        $this->OverallFlavorRating->saveField('rate', $overallrate);
-                    } else {
-                        $eff['rate'] = $rate;
-                        $this->OverallFlavorRating->create();
-                        $this->OverallFlavorRating->save($eff);
-                    }
-                }
-            }
-        }
-        
         function rating($strain_id,$eff_id,$table){
             $this->checkSess();
             $this->loadModel('EffectRating');
@@ -429,7 +339,6 @@
                   }
                 //var_dump($arr);    
             }
-            
         }
 
 

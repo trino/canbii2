@@ -53,6 +53,13 @@
 		return trimend(strtolower(pathinfo($path, PATHINFO_EXTENSION)), "?"); // extension only, no period
 	}
 
+	if(!function_exists("array_key_last")){
+		function array_key_last($array) {
+			$keys = array_keys($array);
+			return end($keys);
+		}
+	}
+
 	function file_size($path){
 		if (file_exists($path)) {
 			return filesize($path);
