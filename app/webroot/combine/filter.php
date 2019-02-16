@@ -112,7 +112,7 @@
                     $('.rating<?= $j;?>').raty({number: 5, readOnly: true, score:<?= $s['Strain']['rating'];?>});
                 });
             </script>
-            <div style="clear: both;padding: 11px;"></div>
+            <div style="clear: both;padding: 15px;"></div>
             <?php
         }
     }

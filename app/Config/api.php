@@ -3,7 +3,7 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	$GLOBALS["settings"] = [
-		"limit" 		=> 20,
+		"limit" 		=> 200,
 		"reviewlimit" 	=> 20,
 		"usetable" 		=> "activities",//"symptoms" or "activities"
 		"multiple" 		=> true,//disable for single queries only

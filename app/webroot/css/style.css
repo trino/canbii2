@@ -167,6 +167,17 @@ body {
     .nav-masthead {
         float: right;
     }
+
+}
+
+@media (max-width: 48em) {
+
+    .inner{
+        text-align: center !important;
+
+    }
+    .logo{margin-bottom: 1rem;}
+
 }
 
 .cover {

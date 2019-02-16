@@ -36,25 +36,25 @@ if (false) {
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <?php
-    $generic = $this->requestAction('/pages/getGeneric');
-    if (ucfirst($this->params['action']) == 'Index' && ucfirst($this->params['controller']) != 'Strains') {
-        $gtitle = 'Home';
-    } else {
-        $gtitle = ucfirst($this->params['action']);
-    }
-    if (!isset($title)) {
-        $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
-    }
-    $title .= ' - Personalized Cannabis';
-    if (!isset($description)) {
-        $description = $generic['description'];
-    }
-    if (!isset($keyword)) {
-        $keyword = $generic['keyword'];
-    }
+$generic = $this->requestAction('/pages/getGeneric');
+if (ucfirst($this->params['action']) == 'All' && ucfirst($this->params['controller']) == 'Strains') {
+    $gtitle = 'Home';
+} else {
+    $gtitle = ucfirst($this->params['action']);
+}
+if (!isset($title)) {
+    $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
+}
+$title .= ' - Personalized Cannabis';
+if (!isset($description)) {
+    $description = $generic['description'];
+}
+if (!isset($keyword)) {
+    $keyword = $generic['keyword'];
+}
 ?>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 <meta charset="UTF-8"/>
 <meta property="og:image" content="<?= protocol . $_SERVER['SERVER_NAME'] . $this->webroot . 'images/logo.png'; ?>"/>
@@ -148,11 +148,13 @@ if (false) {
     </div>
     </body>
 <?php } else { ?>
-    <body class="" style="ba2ckground: rgba(0, 0, 0, 0.7);">
+
+
+    <body>
     <div class="container" style="padding-top:1rem;">
         <header class="masthead mb-auto">
             <div class="inner">
-                <a href="<?= $this->webroot; ?>" title="MEDICAL MARIJUANA"><img style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
+                <a href="<?= $this->webroot; ?>" title="CANBII MARIJUANA"><img class="logo"  style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
                 <nav class="nav nav-masthead justify-content-center mt-2">
                     <a class="nav-link active" href="<?= $this->webroot; ?>/strains/all">Strains</a>
                     <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiionline">Facebook</a>
@@ -178,7 +180,8 @@ if (false) {
                                 <ul class="navbar-nav ml-auto">
                                     <?php
                                     if (!function_exists("quicklistitem")) {
-                                        function quicklistitem($webroot, $url, $value, $accesskey, $name)  {
+                                        function quicklistitem($webroot, $url, $value, $accesskey, $name)
+                                        {
                                             echo '<LI CLASS="nav-item';
                                             if ($value) {
                                                 echo ' active current_page_item';
@@ -207,11 +210,11 @@ if (false) {
                         </div>
 
                         <?php
-                            if (isset($homepage)) {
-                                include("combine/newsite.php");
-                            }
-                            echo $this->Session->flash();
-                            echo $this->fetch('content');
+                        if (isset($homepage)) {
+                            include("combine/newsite.php");
+                        }
+                        echo $this->Session->flash();
+                        echo $this->fetch('content');
                         ?>
                     </div>
                 </div>

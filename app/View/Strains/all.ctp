@@ -1,3 +1,36 @@
+<!--div class="jumbotron bg-primary text-white">
+    <div class="col-md-12">
+        <br>
+        <h1>Lifestyle Optimization</h1>
+        <h3 style="font-size: 1.15rem !important;">Launching with the Ontario Cannabis Store</h3>
+        <h3 style="font-size: 1.15rem !important;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.
+
+        </h3>
+        <br>
+    </div>
+</div-->
+
+
+<div class="announcement page_margin_top clearfix">
+    <ul class="columns no_width">
+        <li class="column_left">
+            <h1>Launching with the Ontario Cannabis Store</h1>
+            <p class="pt-1">For the people, by the people</p>
+
+            <p class="pt-1">Canbii's goal is to raise the profile of cannabis by providing the most complete and accurate data possible.</p>
+            <p>Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+            <p>Sativa = Say time | Indica = Night time | Hybrid = Balanced</p>
+        </li>
+        <li class="column_right">
+            <div class="vertical_align">
+                <div class="vertical_align_cell">
+                    <a title="Make an Appointment" href="strains/all" class="btn btn-success">View Strains</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<br>
 <?php
     $multiple = $GLOBALS["settings"]["multiple"];
     $usetable = $GLOBALS["settings"]["usetable"];
@@ -81,9 +114,9 @@
     </div>
 </div>
 
-<div class="jumbotron ">
-<div class="row ">
-    <div class="col-md-3">
+<div class="jumbotron" style="padding-top:1rem !important;">
+<div class="row">
+    <div class="col-md-3 pt-3">
       <p>Filter By</p>
             <?php
                 $types = [
@@ -127,7 +160,7 @@
             ?>
         </ul>
     </div-->
-    <div class="col-md-9">
+    <div class="col-md-9 pt-3">
         <p>Activity</p>
         <?php
             $effect = $effectslist;
