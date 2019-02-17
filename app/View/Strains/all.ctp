@@ -10,12 +10,7 @@
 </div-->
 
 
-<div class="text-center">
 
-            <h1>Launching with the Ontario Cannabis Store</h1>
-            <p class="pt-2">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
-
-</div>
 
 
 <?php
@@ -101,48 +96,67 @@ $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction
         </div>
     </div>
 </div>
-<br>
-<div class="jumbotron" style="">
+
+
+<div class="text-center pt-4">
+
+    <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
+    <p class="pt-2">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+
+</div>
+
+
+<div class="jumbotron" style="background: transparent;padding-top:.5rem !important;margin-bottom:3rem !important;">
 
 
     <div class=" row ">
 
-        <div class="col-md-4">
-            <div style="float:left;">
-                <img src="<?= $this->webroot; ?>images/IndicaIcon.png" alt="">
-            </div>
-            <div style="float:left;padding-left: 15px;">
-                <h1>Indica</h1>
-                Best for Night Time Use
-            </div>
+        <div class="col-md-2">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
+            <div class=" row ">
 
-            <div style="float:left;">
-                <img src="<?= $this->webroot; ?>images/SativaIcon.png" alt="">
+            <div class="col-md-4">
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/IndicaIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Indica</h1>
+                    Night Time Use
+                </div>
             </div>
-            <div style="float:left;padding-left: 15px;">
-                <h1>Sativa</h1>
-                Best for Day Time Use
+            <div class="col-md-4">
+
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/SativaIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Sativa</h1>
+                    Day Time Use
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/HybridIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Hybrid</h1>
+                    Best of Both Worlds
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div style="float:left;">
-                <img src="<?= $this->webroot; ?>images/HybridIcon.png" alt="">
-            </div>
-            <div style="float:left;padding-left: 15px;">
-                <h1>Hybrid</h1>
-                Best of Both Worlds
-            </div>
+        </div>
+        <div class="col-md-2">
+
         </div>
     </div>
 </div>
-<div class="mb-4" style="">
+<div class="jumbotron" style="">
 
 
-<div class="row">
-        <div class="col-md-3">
-            <p>Filter By</p>
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Filter By</h1>
             <?php
             $types = [
                 "all_breed" => ["type" => "", "addtourl" => false, "title" => "All"],
@@ -151,7 +165,7 @@ $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction
                 "hybrid" => [],
             ];
             foreach ($types as $ID => $data) {
-                echo '<a class="pr-3" id="' . $ID . '" ';
+                echo '<a class="mr-1 mb-1 btn btn-primary" id="' . $ID . '" ';
                 if (!isset($data["type"])) {
                     $data["type"] = $ID;
                 }
@@ -171,7 +185,7 @@ $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction
                 echo '">' . $data["title"] . '</a>';
             }
             ?>
-            </ul>
+            <div class="clearfix py-1"></div>
         </div>
         <!--div class="col-md-2">
         <ul class="">
@@ -189,33 +203,39 @@ $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction
         ?>
         </ul>
     </div-->
-        <div class="col-md-9">
-            <p>Activity</p>
+        <div class="col-md-8">
+            <h1>Canbii Activity</h1>
             <?php
             $effect = $effectslist;
             $counter = 0;
             $class = left($usetable, 3);
             foreach ($effect as $e) {
                 $counter++;
-                echo '<a style="padding-right:4px;" href="';
+                echo '<a style="" href="';
                 if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                     echo "javascript:void(" . $e['id'] . ");";
                 } else {
                     echo "?" . $usetable . "=" . $e['id'];
                 }
-                echo '" class="' . $class . '2 small-btn" data-parent="#filter_desktop" id="' . $class . '_';
+                echo '" class="' . $class . '2 btn btn-primary mr-1 mb-1" data-parent="#filter_desktop" id="' . $class . '_';
                 echo $e['id'] . '"> <span>' . $e['title'] . '</span></a>';
                 if ($counter == ceil(count($effect) / 2)) {
                     $counter = 0;
                 }
             }
-            ?>
+            ?> <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">Reset</a>
+
             <p style="display: none;" class="symp"></p>
-            <input type="reset" value="Reset Filter" class="btn btn-sm btn-primary" onclick="window.location='<?= $this->webroot; ?>strains/all';"/>
         </div>
     </div>
 </div>
 
+<div class="row ">
+    <div class="col-md-12 pb-3">
+        <h1>Online Store</h1>
+
+    </div>
+</div>
 <div class="listing ">
     <?php include_once('combine/filter.php'); ?>
 </div>

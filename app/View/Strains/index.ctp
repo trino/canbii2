@@ -46,7 +46,7 @@ if (isset($s)) {
 <div class="jumbotron" style="background: transparent;padding-bottom:0 !important;padding-top:0 !important;">
     <div class="row">
         <DIV CLASS="col-md-12">
-            <h1 class="text-center" style="font-size: 2.5rem !important;"><?= $strain['Strain']['name']; ?> - Canbii Report</h1>
+            <h1 class="text-center" style="font-size: 2.5rem !important;"><?= $strain['Strain']['name']; ?> Canbii Report</h1>
            <p class="pt-0 pb-3 text-center" ><?php
             switch ($strain['Strain']['type_id']) {
                 case 1:
@@ -216,8 +216,10 @@ if(file_exists($filename )) {
                 }
 
                 echo '<span class="badge badge-secondary mr-2">' . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</span>';
-            }
-            echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-sm btn-success" TARGET="_new">Purchase Now </A>';
+            }            echo '<div class="clearfix p-1"></div>';
+            echo '<div class="clearfix p-1"></div>';
+
+            echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-success btn-block" TARGET="_new">Purchase from ' . $data["vendor"] . '</A>';
             echo '<div class="clearfix p-1"></div>';
 
         }
@@ -242,7 +244,7 @@ if(file_exists($filename )) {
 
     } else {
 
-        echo "<br><br>234234324324324324<br><br>";
+        echo "<br><br>234234324324324324 do we use this?<br><br>";
         $slugs["Purchase Now"] = $strain['Strain']['slug'];
         echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
 
@@ -251,7 +253,7 @@ if(file_exists($filename )) {
 
 
     echo '</div>';
-    echo '<div class="clearfix py-2"></div>';
+    echo '<div class="clearfix py-4"></div>';
 
 
     // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
@@ -267,7 +269,7 @@ if (!isset($p_filter)) {
 }
 
 
-echo '<div class="jumbotron"><h3>Activities</h3><p>What activities are enhanced with this strain?</p>';
+echo '<div class="jumbotron"><h3>Canbii Activities</h3><p>What activities are enhanced with this strain?</p>';
 getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-blue");
 echo "</div>";
 
