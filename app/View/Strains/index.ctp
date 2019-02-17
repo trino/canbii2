@@ -16,7 +16,7 @@ function progressbar($webroot, $value, $textL = "", $textR = "", $color = "succe
     if ($textL) {
         echo '<div class="pull-left" >&nbsp;' . $textL . '</div>';
     }
-    echo '<div style="clear: both">';
+    echo '<div class="progress" style="clear: both">';
     echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
     echo (round($value, 2) > 100) ? 100 : round($value, 2);
     echo '%;height:20px;"/>';
@@ -39,24 +39,27 @@ if (isset($s)) {
     echo '</a>';
 }
 ?>
+<!--pre> <span style="color:green">
+<?php print_r($strain['Strain']); ?></span>
+</pre-->
 
-<div class="jumbotron" style="background: transparent;padding:0 !important;">
+<div class="jumbotron" style="background: transparent;padding-bottom:0 !important;padding-top:0 !important;">
     <div class="row">
         <DIV CLASS="col-md-12">
-            <h1 class="pb-1"><?= $strain['Strain']['name']; ?> - Value Report</h1>
-            <?php
+            <h1 class="text-center" style="font-size: 2.5rem !important;"><?= $strain['Strain']['name']; ?> - Canbii Report</h1>
+           <p class="pt-0 pb-3 text-center" ><?php
             switch ($strain['Strain']['type_id']) {
                 case 1:
-                    echo "Indica strain, best suited for night time use.";
+                    echo "Indica strain - best suited for night time use";
                     break;
                 case 2:
-                    echo "Sativa strain, best suited for day time use.";
+                    echo "Sativa strain - best suited for day time use";
                     break;
                 case 3:
-                    echo "Hybrid strain.";
+                    echo "Hybrid strain - balanced high";
                     break;
             }
-            ?>
+            ?></p>
             <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?>
         </DIV>
     </div>
@@ -130,10 +133,10 @@ if (isset($s)) {
                 }
             } else {
                 ?>
-                <a class="text-white" href="#">
-                    No flavors yet.
+                <!--a class="text-white" href="#">
                     <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
-                </a>
+                </a-->                    No flavors yet
+
                 <?php
             }
             ?>
@@ -195,7 +198,6 @@ if(file_exists($filename )) {
         foreach ($prices as $slug => $pricelist) {
 
 
-
             foreach ($pricelist as $data) {
                 $text = slugtotext($data["category"]);
 
@@ -215,7 +217,8 @@ if(file_exists($filename )) {
 
                 echo '<span class="badge badge-secondary mr-2">' . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</span>';
             }
-            echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-sm btn-success" TARGET="_new">Purchase Now </A>';                        echo '<div class="clearfix p-1"></div>';
+            echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-sm btn-success" TARGET="_new">Purchase Now </A>';
+            echo '<div class="clearfix p-1"></div>';
 
         }
         echo '</div>';
@@ -239,7 +242,7 @@ if(file_exists($filename )) {
 
     } else {
 
-echo "<br><br>234234324324324324<br><br>";
+        echo "<br><br>234234324324324324<br><br>";
         $slugs["Purchase Now"] = $strain['Strain']['slug'];
         echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
 
@@ -320,21 +323,23 @@ function getsymptomactivity($strain, $plural, $singular, $OverallRating = false,
 function printnoreviewlink($strain, $webroot)
 {
     if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
-        echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
+        // echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
+        echo 'No ratings yet';
+
     } else {
-        echo 'No ratings yet.';
+        echo 'No ratings yet';
     }
 }
 
 ?>
 
-<div class="jumbotron">
+<!--div class="jumbotron">
     <h3>Symptoms</h3>
     <p>How does this strain help with my medical condition?</p>
     <?php
     getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
     ?>
-</div>
+</div-->
 
 <div class="jumbotron">
     <h3>Effects</h3>
@@ -427,13 +432,19 @@ function printnoreviewlink($strain, $webroot)
     $strength = 0;
     $duration = 0;
     $count = "";
+    $count_effects = 0;
     if (!$p_filter) {
         $count = count($strain['Review']);
         if ($count) {
             foreach ($strain['Review'] as $r) {
-                $scale = $scale + $r['eff_scale'];
-                $strength = $strength + $r['eff_strength'];
-                $duration = $duration + $r['eff_duration'];
+
+                if ($r['eff_scale'] != 0 && $r['eff_strength'] != 0 && $r['eff_duration'] != 0) {
+                    $count_effects++;
+                    // echo $r['eff_scale'] . $r['eff_strength'] . $r['eff_duration'];
+                    $scale = $scale + $r['eff_scale'];
+                    $strength = $strength + $r['eff_strength'];
+                    $duration = $duration + $r['eff_duration'];
+                }
             }
         }
     } else {
@@ -441,17 +452,20 @@ function printnoreviewlink($strain, $webroot)
         $count = count($strain['Review']);
         if ($count) {
             foreach ($effect_review as $r) {
-                $scale = $scale + $r['Review']['eff_scale'];
-                $strength = $strength + $r['Review']['eff_strength'];
-                $duration = $duration + $r['Review']['eff_duration'];
+                if ($r['Review']['eff_scale'] != 0 && $r['Review']['eff_strength'] != 0 && $r['Review']['eff_duration'] != 0) {
+                    $count_effects++;
+                    $scale = $scale + $r['Review']['eff_scale'];
+                    $strength = $strength + $r['Review']['eff_strength'];
+                    $duration = $duration + $r['Review']['eff_duration'];
+                }
             }
         }
     }
-    if ($count) {
-        $Factor = 10;//20;
-        $scale = ($scale / $count) * $Factor;
-        $strength = ($strength / $count) * $Factor;
-        $duration = ($duration / $count) * $Factor;
+    if ($count_effects) {
+        $Factor = 20;//20;
+        $scale = ($scale / $count_effects) * $Factor;
+        $strength = ($strength / $count_effects) * $Factor;
+        $duration = ($duration / $count_effects) * $Factor;
     }
     if ($scale) {
         echo '<div class="pull-left">Sedative</div>';
@@ -514,7 +528,7 @@ function printnoreviewlink($strain, $webroot)
 </div>
 
 <div class="jumbotron">
-    <h3><?= $strain['Strain']['name']; ?> Images</h3>
+    <h3><?= $strain['Strain']['name']; ?> Dried Flower Images</h3>
     <?php include('combine/images.php'); ?>
     <script type="text/javascript">
         $(document).ready(function () {

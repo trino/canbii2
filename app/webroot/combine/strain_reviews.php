@@ -16,7 +16,7 @@ if ($helpful) {
                             $rand2 = rand(100, 999);
                             ?>
                         </a-->
-                        <h2><?= $helpful['Strain']['name']; ?> -  Most Helpful Review</h2>
+                        <h2><?= $helpful['Strain']['name']; ?> Best Review</h2>
 
                         <script>
                             $(function () {
@@ -46,7 +46,7 @@ if ($helpful) {
     </div>
 
 <?php } else {
-    echo '<div style="padding-top: 10px;padding-bottom:10px;"><i>No reviews yet<br></i></div>';
+    echo '<div style="padding-top: 10px;padding-bottom:10px;">No reviews yet</div>';
 }
 errorlog("include combine/strain_reviews.php success");
 ?>

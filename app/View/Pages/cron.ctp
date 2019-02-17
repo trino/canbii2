@@ -1626,7 +1626,7 @@ die();
 
                 $JSONdata["downloadedimages"] = 0;
                 $JSONdata["skippedimages"] = 0;
-                if (isset($JSONdata["images"])){//} && false) {
+                if (isset($JSONdata["images"]) && false) {
                     foreach ($JSONdata["images"] as $INDEX => $URL) {
                         $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
                         $dir2 = left($dir, strlen($dir) - 4) . "/images/strains/" . $localstrain["id"];
