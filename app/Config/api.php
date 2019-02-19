@@ -61,6 +61,10 @@
 			$keys = array_keys($array);
 			return end($keys);
 		}
+		function array_value_last($array) {
+			$keys = array_values($array);
+			return end($keys);
+		}
 	}
 
 	function file_size($path){
@@ -309,8 +313,12 @@
 		}
 	}
 
-	function vardump($JSON){
-		$HTML = json_encode($JSON, JSON_PRETTY_PRINT);
+	function vardump($JSON, $isHTML = false){
+		if($isHTML){
+			$HTML = htmlspecialchars($JSON);
+		} else {
+			$HTML = json_encode($JSON, JSON_PRETTY_PRINT);
+		}
 		$HTML = str_replace(array("\r\n","\r","\n","\\r","\\n","\\r\\n"),"<br/>",$HTML);
 		echo '<PRE STYLE="background-color: white; border: 1px solid red; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; color: black !important;">' . $HTML . '</PRE>';
 	}

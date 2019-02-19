@@ -301,8 +301,7 @@
 
 <div class="jumbotron">
     <h3>Effects</h3>
-    <p> What are the positive effects?</p>
-
+    <p>What are the positive effects?</p>
     <?php
         $p_filter = 0;
         if (isset($arr_filter)) {
@@ -389,7 +388,7 @@
         $scale = 0;
         $strength = 0;
         $duration = 0;
-        $count = "";
+        $count = 0;
         if (!$p_filter) {
             $count = count($strain['Review']);
             if ($count) {
@@ -430,6 +429,13 @@
         }
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
+        } else {
+            echo "Based on " . $count;
+            if($count == 1){
+                echo "1 review";
+            } else {
+                echo $count . " reviews";
+            }
         }
     ?>
 </div>

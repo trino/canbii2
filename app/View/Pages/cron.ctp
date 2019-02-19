@@ -3,13 +3,59 @@
     @ini_set('zlib.output_compression',0);
     @ini_set('implicit_flush',1);
     @ob_end_clean();
+    $dir = getcwd() . "/ocs";
 
     Configure::write('debug', 0);
 
     $options = [
-        "makenewstrains" => true,//disable to prevent new strains from being created
+        "makenewstrains" => true,//disable to prevent new strains from bedownloadimagesing created
+        "downloadimages" => false,//disable to prevent downloading images
     ];
 
+    function is_item_array($array){
+        foreach($array as $key => $value){
+            if(!is_numeric($key)){
+                return true;
+            }
+        }
+        return false;
+    }
+?>
+<SCRIPT>
+    function bottom(){
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+</SCRIPT>
+<STYLE>
+    .parent{
+        position: relative;
+        top: -9px;
+        width: 100%;
+        min-width: 100px;
+    }
+    .progress{
+        background-color: lightblue;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 18px;
+        z-index: 1;
+        border-radius: 0px !important;
+    }
+    .indicator{
+        width: 100%;
+        text-align: center;
+        z-index: 20;
+        color: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 18px;
+        border-radius: 0px !important;
+    }
+</STYLE>
+<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
+<?php
     $negativeeffects = ["Bad Taste", "Cough", "Dry Mouth", "Harsh", "Headache", "Lazy", "Red Eyes", "Talkative", "Weak"];
     $extradata = [//CAUTION: lift_effects and lift_symptoms values are inverted (so truevalue=100-value)
         "ace-valley-cbd" => [
@@ -1154,67 +1200,87 @@
         ]
     ];
 
+    function extractreviews($page = false, $URL = false, $count = false){
+        if(is_numeric($page)){//10 per page
+            $start = strpos($URL, "?");
+            $URL = left($URL, $start) . '/reviews';//https://www.leafly.com/products/details/liiv-bali-kush/reviews
+            if($page > 1){
+                $URL .= "?page=" . $page;
+            }
+            $HTML = file_get_contents($URL);
+            $REVIEWS = explode('<div class="product-review"', $HTML);
+        } else {//3 per page
+            $REVIEWS = explode('<div class="product-review"', getbetween($page, '<div class="product-reviews">', '<p class="heading"><span class="heading-text">About Us</span></p>'));
+        }
+        unset($REVIEWS[0]);
+        foreach($REVIEWS as $INDEX => $REVIEWHTML) {
+            $REVIEWS[$INDEX] = [
+                "name" => getbetween($REVIEWHTML, '<div class="author">', '</div>'),
+                "rate" => getbetween($REVIEWHTML, 'star-rating="', '" class'),
+                "time" => trim(getbetween($REVIEWHTML, '<span am-time-ago="', '" title'), "'"),
+                "text" => getbetween($REVIEWHTML,'<div class="full-review-text">', '</div>')
+            ];
+        }
+        return array_values($REVIEWS);
+    }
 
-/*
-$data = file_get_cookie_contents_ocs("GET", "https://cdn.shopify.com/s/files/1/2636/1928/products/http-52-60-121-34-upload-100211-00841464000065-a1c1-c01_1024x1024.png", false, false, "_y=c544ae2d-8E9C-4201-D3D0-383ABAC540ED; _shopify_y=c544ae2d-8E9C-4201-D3D0-383ABAC540ED; _s=c544ae36-0C0B-4F2A-EBDD-35479E9DA03E; _shopify_s=c544ae36-0C0B-4F2A-EBDD-35479E9DA03E; _shopify_fs=2019-02-07T00%3A03%3A57.142Z; _fbp=fb.1.1549497837440.241724310", false, [
-    "Accept" => " text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*" . "/*;q=0.8",
-    "Accept-Encoding" => "gzip, deflate, br",
-    "if-modified-since" => "Wed, 06 Feb 2019 23:29:50 GMT",
-    "Referer" => false,
-    "Connection" => false,
-    "Host" => false,
-    "If-None-Match" => false
-]);
-vardump($data);
-die();
-*/
+    function extractleafly($URL){
+        //$URL = https://www.leafly.com/products/details/liiv-bali-kush?q=bali-kush&cat=product
+        $SCRIPT = '<script type="application/ld+json">';
+        $HTML = file_get_contents($URL);
+        $DATA = ["reviews" => []];
+        $start = strpos($HTML, $SCRIPT);
+        while($start !== false){
+            $end = strpos($HTML, '</script>', $start);
+            $JSON = mid($HTML, $start + strlen($SCRIPT), $end - strlen($SCRIPT) - $start);
+            $DATA = array_merge($DATA, json_decode($JSON, true));
+            $start = strpos($HTML, $SCRIPT, $end);
+        }
+        if($DATA["aggregateRating"]["reviewCount"] > 0){
+            $pages = ceil($DATA["aggregateRating"]["reviewCount"] / 10);
+            echo '<BR>' . $URL . " " . $DATA["aggregateRating"]["reviewCount"] . " Reviews found across " . $pages . " pages";
+            if($DATA["aggregateRating"]["reviewCount"] > 3) {
+                $REVIEWS = [];
+                for($page = 1; $page <= $pages; $page++){
+                    $REVIEWS = array_merge($REVIEWS, extractreviews($page, $URL, $DATA["aggregateRating"]["reviewCount"]));
+                }
+            } else {
+                $REVIEWS = extractreviews($HTML);
+            }
+            $DATA["reviews"] = $REVIEWS;
+        }
+        return $DATA;
+    }
 
-?>
-<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
-<SCRIPT>
-    function bottom(){
-        window.scrollTo(0,document.body.scrollHeight);
+    function getleaflydata($filename, $url){
+        if(!file_exists($filename)) {
+            $DATA = extractleafly($url);
+            $JSON = json_encode($DATA, JSON_PRETTY_PRINT);
+            file_put_contents($filename, $JSON);
+            return $DATA;
+        }
+        return json_decode(file_get_contents($filename), true);
     }
-</SCRIPT>
-<STYLE>
-    .parent{
-        position: relative;
-        top: -9px;
-        width: 100%;
-        min-width: 100px;
-    }
-    .progress{
-        background-color: lightblue;
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 18px;
-        z-index: 1;
-    }
-    .indicator{
-        width: 100%;
-        text-align: center;
-        z-index: 20;
-        color: red;
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 18px;
-    }
-</STYLE>
-<TABLE WIDTH="100%">
-    <TR>
-        <TD>
-<?php
-    function is_item_array($array){
-        foreach($array as $key => $value){
-            if(!is_numeric($key)){
-                return true;
+
+    foreach($extradata as $strain => $data){
+        if(!is_item_array($data)){
+            $data = $data[0];
+        }
+        foreach($data["urls"] as $url){
+            $urldata = parse_url($url);
+            $urldata["path"] = explode("/", trim($urldata["path"], "/"));
+            parse_str($urldata["query"], $urldata["query"]);
+            if(isset($urldata["query"]["cat"]) && $urldata["query"]["cat"] == "product"){
+                $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
+                if(!file_exists($filename)){
+                    purge("<BR>Downloading Leafly data: " . $strain . " to " . $filename);
+                    getleaflydata($filename, $url);
+                }
             }
         }
-        return false;
     }
 
+    echo '<TABLE WIDTH="100%"><TR><TD>';
     function purge($text = "", $bottom = true){
         if($bottom){$text .= '<SCRIPT>bottom();</SCRIPT>';}
         if($text){echo $text;}
@@ -1626,7 +1692,7 @@ die();
 
                 $JSONdata["downloadedimages"] = 0;
                 $JSONdata["skippedimages"] = 0;
-                if (isset($JSONdata["images"]) && false) {
+                if (isset($JSONdata["images"]) && $options["downloadimages"]) {
                     foreach ($JSONdata["images"] as $INDEX => $URL) {
                         $filename = $dir . $originalstrain . "-" . $INDEX . "." . getextension2($URL);
                         $dir2 = left($dir, strlen($dir) - 4) . "/images/strains/" . $localstrain["id"];
@@ -1652,6 +1718,8 @@ die();
                     }
                 }
 
+                $localstrain["reviewsadded"] = 0;
+                $localstrain["reviewsskipped"] = 0;
                 if(isset($extradata[$strain])){
                     $data = $extradata[$strain];
                     if(is_item_array($data)){$data = [$data];}
@@ -1667,6 +1735,37 @@ die();
                         foreach(["lift_des", "lift_thc", "lift_cbd"] as $column){
                             if($ocsdata[$column] == "0" && strlen($cell[$column]) > 0){
                                 $ocsdata[$column] = $cell[$column];
+                            }
+                        }
+                        if(isset($cell["urls"]) && is_array($cell["urls"])) {
+                            foreach ($cell["urls"] as $url) {
+                                $urldata = parse_url($url);
+                                $urldata["path"] = explode("/", trim($urldata["path"], "/"));
+                                parse_str($urldata["query"], $urldata["query"]);
+                                if (isset($urldata["query"]["cat"]) && $urldata["query"]["cat"] == "product") {
+                                    $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
+                                    $localstrain["reviewfile"] = $filename;
+                                    $data = getleaflydata($filename, $url);
+
+                                    foreach ($data["reviews"] as $reviewindex => $review) {
+                                        $found = first("SELECT * FROM reviews WHERE strain_id=" . $localstrain["id"] . " AND form='leafly_" . $reviewindex . "'");
+                                        if ($found) {
+                                            $localstrain["reviewsskipped"] += 1;
+                                        } else {
+                                            $localstrain["reviewsadded"] += 1;
+                                            insertdb("reviews", [
+                                                "user_id" => $me["id"],
+                                                "form" => "leafly_" . $reviewindex,
+                                                "rate" => $review["rate"],
+                                                "review" => $review["text"],
+                                                "strain_id" => $localstrain["id"],
+                                                "activities" => 0,
+                                                "symptoms" => 0,
+                                                "on_date" => left($review["time"], 10)
+                                            ]);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1693,7 +1792,6 @@ die();
     set_time_limit(0);
     $collections = ["hardcoded", "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
     purge('<BR>Downloading all: ' . implode(", ", $collections));
-    $dir = getcwd() . "/ocs";
     if(!is_dir($dir)){
         mkdir($dir, 0777);
     }
@@ -1791,6 +1889,15 @@ die();
                     }
                     if($data["skippedimages"] > 0){
                         $STATUS[] = "Skipped: " . $data["skippedimages"] . " images";
+                    }
+                    $reviews = false;
+                    if(isset($data["reviewsadded"]) && $data["reviewsadded"] > 0){
+                        $STATUS[] = "Imported: " . $data["reviewsadded"] . " reviews";
+                        $reviews = true;
+                    }
+                    if(isset($data["reviewsskipped"]) && $data["reviewsskipped"] > 0){
+                        $STATUS[] = "Skipped: " . $data["reviewsskipped"] . " reviews";
+                        $reviews = true;
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else if($data) {
