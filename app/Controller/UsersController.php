@@ -5,11 +5,13 @@ class UsersController extends AppController {
         $URL="";
         if(isset($_GET['url'])) {
             $URL=$_GET['url'];
-            if ($_SERVER["SERVER_NAME"] == "localhost"){
+            /*
+            if ($GLOBALS["settings"]["islocal"]){
                 $URL = substr($URL, 1, strlen($URL)-1);
                 $strpos = strpos($URL, "/");
                 $URL = substr($URL, $strpos, strlen($URL)-$strpos);
             }
+            */
         }
         return $URL;
     }

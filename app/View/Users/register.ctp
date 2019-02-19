@@ -61,14 +61,20 @@
             </li>
 
             <li class="column">
-                <div class="dropcap " style="border:1px solid #e8e8e8;padding: 0px 20px 10px 20px;">
-                    <h2 class="box_header  page_margin_top">Login</h2>
+                <div class="dropcap" style="border:1px solid #e8e8e8;padding: 0px 20px 10px 20px;">
+                    <h2 class="box_header page_margin_top">Login</h2>
                     <div class="clearfix"></div>
                     <?php
-                        echo $this->Form->create('UserLogin', array('url' => 'login?url=' . $url, 'class' => 'contact_form'));
-                        echo $this->Form->input('username', array('div' => array('class' => '')));
-                        echo $this->Form->input('password', array('div' => array('class' => '')));
-                        echo $this->Form->submit('Login', array('class' => 'more blue ', 'style' => 'float:left;margin-top:14px;'));
+                        $username = "";
+                        $password = "";
+                        if($GLOBALS["settings"]["islocal"]){
+                            $username = "admin";
+                            $password = "Pass1234!";
+                        }
+                        echo $this->Form->create('UserLogin',   array('url' => 'login?url=' . $url, 'class' => 'contact_form'));
+                        echo $this->Form->input('username',     array('value' => $username, 'div' => array('class' => '')));
+                        echo $this->Form->input('password',     array('value' => $password, 'div' => array('class' => '')));
+                        echo $this->Form->submit('Login',       array('class' => 'more blue ', 'style' => 'float:left;margin-top:14px;'));
                         echo $this->Form->end();
                     ?>
                     <div style="padding-top: 10px;" class="clearfix"></div>
