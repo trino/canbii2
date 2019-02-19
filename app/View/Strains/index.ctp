@@ -205,9 +205,11 @@
             }
             echo '</TABLE>';
             if($slug){
-                foreach($images as $image){
-                    if(startswith($image, $slug)){
-                        echo '<IMG SRC="' . $webroot . $image . '" CLASS="reportimage">';
+                foreach($images as $ID => $image){
+                    if(startswith($image, $slug) && !textcontains($image, "_")){
+                        echo '<div align="center" style="float:left;"><a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a></div>';
+                        //echo '<IMG SRC="' . $webroot . $image . '" CLASS="reportimage">';
+                        unset($images[$ID]);
                     }
                 }
             }

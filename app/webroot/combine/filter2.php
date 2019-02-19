@@ -82,8 +82,8 @@
             echo '</ul>';
         }
         if($count==0){
-            echo "No results found. (2)";
-            vardump($GLOBALS["lastsql"]);
+            echo "No results found.";
+            //vardump($GLOBALS["lastsql"]);
         }
         errorlog("include success");
     ?>
