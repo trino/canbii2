@@ -1,29 +1,45 @@
+<!--div class="jumbotron bg-primary text-white">
+    <div class="col-md-12">
+        <br>
+        <h1>Lifestyle Optimization</h1>
+        <h3 style="font-size: 1.15rem !important;">Launching with the Ontario Cannabis Store</h3>
+        <h3 style="font-size: 1.15rem !important;">Canada's leading activity and value-based strain selection tool for recreational cannabis users.
+        </h3>
+        <br>
+    </div>
+</div-->
+
+
+
+
+
 <?php
-    $multiple = $GLOBALS["settings"]["multiple"];
-    $usetable = $GLOBALS["settings"]["usetable"];
+$multiple = $GLOBALS["settings"]["multiple"];
+$usetable = $GLOBALS["settings"]["usetable"];
 
-    function getasarray($key) {
-        $symptoms = array();
-        if (isset($_GET[$key]) && $_GET[$key]) {
-            $symptoms = $_GET[$key];
-            if (!is_array($symptoms)) {
-                $symptoms = explode(",", $symptoms);
-            }
-        }
-        return $symptoms;
-    }
-
-    $effects = array();
-    $symptoms = getasarray("symptoms");
-    $activities = getasarray("activities");
-
-    if (isset($_GET['effects']) && $_GET['effects']) {
-        foreach ($_GET['effects'] as $ef) {
-            $effects[] = $ef;
+function getasarray($key)
+{
+    $symptoms = array();
+    if (isset($_GET[$key]) && $_GET[$key]) {
+        $symptoms = $_GET[$key];
+        if (!is_array($symptoms)) {
+            $symptoms = explode(",", $symptoms);
         }
     }
+    return $symptoms;
+}
 
-    $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction('/pages/getSym');
+$effects = array();
+$symptoms = getasarray("symptoms");
+$activities = getasarray("activities");
+
+if (isset($_GET['effects']) && $_GET['effects']) {
+    foreach ($_GET['effects'] as $ef) {
+        $effects[] = $ef;
+    }
+}
+
+$effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction('/pages/getSym');
 ?>
 
 <script src="<?= $this->webroot; ?>js/raty.js"></script>
@@ -42,118 +58,184 @@
         <div class="modal-content">
             <div class="modal-body">
                 <?php
-                    $effect = $effectslist;
-                    $counter = 0;
-                    $second_div = 0;
-                    foreach ($effect as $e) {
-                        $counter++;
-                        if ($counter == 1) {
-                            echo "<div style='";
-                            if ($second_div == 1) {
-                                echo "float:right;";
-                                $second_div = 0;
-                            }
-                            echo "width: 50%;display:inline-block;'>";
+                $effect = $effectslist;
+                $counter = 0;
+                $second_div = 0;
+                foreach ($effect as $e) {
+                    $counter++;
+                    if ($counter == 1) {
+                        echo "<div style='";
+                        if ($second_div == 1) {
+                            echo "float:right;";
+                            $second_div = 0;
                         }
-                        ?>
-                        <div>
-                            <a style="color:black;padding:2px;" href="<?php
-                                if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
-                                    echo "javascript:void(" . $e['id'] . ");";
-                                } else {
-                                    echo "?" . $usetable . "=" . $e['id'];
-                                }
-                            ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog" id="sym_<?= $e['id']; ?>"><?= $e['title'] ?></a>
-                        </div>
-                        <?php
-                        if ($counter == ceil(count($effect) / 2)) {
-                            echo "</div>";
-                            $counter = 0;
-                            $second_div = 1;
-                        }
+                        echo "width: 50%;display:inline-block;'>";
                     }
-                    if ($counter != 0) {
+                    ?>
+                    <div>
+                        <a style="color:black;padding:2px;" href="<?php
+                        if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
+                            echo "javascript:void(" . $e['id'] . ");";
+                        } else {
+                            echo "?" . $usetable . "=" . $e['id'];
+                        }
+                        ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog" id="sym_<?= $e['id']; ?>"><?= $e['title'] ?></a>
+                    </div>
+                    <?php
+                    if ($counter == ceil(count($effect) / 2)) {
                         echo "</div>";
+                        $counter = 0;
+                        $second_div = 1;
                     }
+                }
+                if ($counter != 0) {
+                    echo "</div>";
+                }
                 ?>
             </div>
         </div>
     </div>
 </div>
 
-<div class="jumbotron ">
-<div class="row ">
-    <div class="col-md-3">
-      <p>Filter By</p>
-            <?php
-                $types = [
-                    "all_breed" => ["type" => "", "addtourl" => false, "title" => "All"],
-                    "indica" => [],
-                    "sativa" => [],
-                    "hybrid" => [],
-                ];
-                foreach($types as $ID => $data){
-                    echo '<a class="pr-3" id="' . $ID . '" ';
-                    if(!isset($data["type"])){
-                        $data["type"] = $ID;
-                    }
-                    if ($type == $data["type"]){ echo ' class="border_bottom"'; }
-                    echo 'href="' . $this->webroot . 'strains/all';
-                    if(!isset($data["addtourl"]) || $data["addtourl"]){
-                        echo '/' . $ID;
-                    }
-                    if(!isset($data["title"])){
-                        $data["title"] = ucfirst($ID);
-                    }
-                    if (isset($_GET['key'])){ echo "?key=" . $_GET['key'];}
-                    echo '">' . $data["title"] . '</a>';
-                }
-            ?>
-        </ul>
+
+<div class="jumbo3tron" style="background: transpar8ent;padding-top:.5rem !important;margin-bottom:3rem !important;">
+
+
+    <div class="text-center pt-4 ">
+
+        <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
+        <p class="pt-2">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+
     </div>
-    <!--div class="col-md-2">
+
+
+    <div class=" row ">
+
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class=" row ">
+
+            <div class="col-md-4">
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/IndicaIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Indica</h1>
+                    Night Time Use
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/SativaIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Sativa</h1>
+                    Day Time Use
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="float:left;">
+                    <img src="<?= $this->webroot; ?>images/HybridIcon.png" alt="">
+                </div>
+                <div style="float:left;padding-left: 15px;">
+                    <h1>Hybrid</h1>
+                    Best of Both Worlds
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+<div class="jumbotron" style="">
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Filter By</h1>
+            <?php
+            $types = [
+                "all_breed" => ["type" => "", "addtourl" => false, "title" => "All"],
+                "indica" => [],
+                "sativa" => [],
+                "hybrid" => [],
+            ];
+            foreach ($types as $ID => $data) {
+                echo '<a class="mr-1 mb-1 btn btn-primary" id="' . $ID . '" ';
+                if (!isset($data["type"])) {
+                    $data["type"] = $ID;
+                }
+                if ($type == $data["type"]) {
+                    echo ' class="border_bottom"';
+                }
+                echo 'href="' . $this->webroot . 'strains/all';
+                if (!isset($data["addtourl"]) || $data["addtourl"]) {
+                    echo '/' . $ID;
+                }
+                if (!isset($data["title"])) {
+                    $data["title"] = ucfirst($ID);
+                }
+                if (isset($_GET['key'])) {
+                    echo "?key=" . $_GET['key'];
+                }
+                echo '">' . $data["title"] . '</a>';
+            }
+            ?>
+            <div class="clearfix py-1"></div>
+        </div>
+        <!--div class="col-md-2">
         <ul class="">
             <li><p>Sort By</p></li>
             <?php
-                $sorts = [
-                    "rated"     => "Top Rated",
-                    "viewed"    => "Most Viewed",
-                    "reviewed"  => "Most Reviewed",
-                    "alpha"     => "Alphabetically"
-                ];
-                foreach($sorts as $ID => $sort){
-                    echo '<li><a href="javascript:void(0)" class="eff1" id="' . $ID . '">' . $sort . '</a></li>';
-                }
-            ?>
+        $sorts = [
+            "rated" => "Top Rated",
+            "viewed" => "Most Viewed",
+            "reviewed" => "Most Reviewed",
+            "alpha" => "Alphabetically"
+        ];
+        foreach ($sorts as $ID => $sort) {
+            echo '<li><a href="javascript:void(0)" class="eff1" id="' . $ID . '">' . $sort . '</a></li>';
+        }
+        ?>
         </ul>
     </div-->
-    <div class="col-md-9">
-        <p>Activity</p>
-        <?php
+        <div class="col-md-8">
+            <h1>Canbii Activity</h1>
+            <?php
             $effect = $effectslist;
             $counter = 0;
             $class = left($usetable, 3);
             foreach ($effect as $e) {
                 $counter++;
-                echo '<a style="padding-right:4px;" href="';
+                echo '<a style="" href="';
                 if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
                     echo "javascript:void(" . $e['id'] . ");";
                 } else {
                     echo "?" . $usetable . "=" . $e['id'];
                 }
-                echo '" class="' . $class . '2 small-btn" data-parent="#filter_desktop" id="' . $class . '_';
+                echo '" class="' . $class . '2 btn btn-primary mr-1 mb-1" data-parent="#filter_desktop" id="' . $class . '_';
                 echo $e['id'] . '"> <span>' . $e['title'] . '</span></a>';
                 if ($counter == ceil(count($effect) / 2)) {
                     $counter = 0;
                 }
             }
-        ?>
-        <p style="display: none;" class="symp"></p>
-        <input type="reset" value="Reset Filter" class="btn btn-sm btn-primary" onclick="window.location='<?= $this->webroot; ?>strains/all';"/>
+            ?> <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">Reset</a>
+
+            <p style="display: none;" class="symp"></p>
+        </div>
     </div>
 </div>
-</div>
 
+<div class="row ">
+    <div class="col-md-12 pb-3">
+        <h1>Online Store</h1>
+
+    </div>
+</div>
 <div class="listing ">
     <?php include_once('combine/filter.php'); ?>
 </div>
@@ -182,8 +264,9 @@
             spinnerVisible = true;
         }
     }
-    function hidespinner(){
-        if(spinnerVisible) {
+
+    function hidespinner() {
+        if (spinnerVisible) {
             $('.morelist').html('');
             var spinner = $("#spinner");
             spinner.stop();
@@ -217,15 +300,16 @@
             doquery(0, false, "hidden_filter select");
         });
 
-        function appendtoquery(query, text){
-            if(query){
+        function appendtoquery(query, text) {
+            if (query) {
                 return query + "&" + text;
             }
             return text;
         }
 
         var limit = 0;
-        function doquery(more, showmore, tag){
+
+        function doquery(more, showmore, tag) {
             showspinner();
             var val = {effects: [], symptoms: [], activities: []};
             var i = 0;
@@ -262,7 +346,7 @@
 
             if (profile) {
                 //val = appendtoquery(val, profile);
-                $.extend( true, val, profile );
+                $.extend(true, val, profile);
             }
 
             if (sort && sortid) {
@@ -276,10 +360,14 @@
             val.table = "<?= $usetable; ?>";
             limit += <?= $GLOBALS["settings"]["limit"]; ?>;
             val.limit = limit;
-            //log("ATTEMPTING POST TO: <?= $this->webroot; ?>strains/filter/" + more + '<?php if ($type) {echo '/' . $type;} ?>');
+            //log("ATTEMPTING POST TO: <?= $this->webroot; ?>strains/filter/" + more + '<?php if ($type) {
+            echo '/' . $type;
+        } ?>');
             //log(JSON.stringify(val));
             $.ajax({
-                url: '<?= $this->webroot; ?>strains/filter/' + more + '<?php if ($type) {echo '/' . $type;} ?>',
+                url: '<?= $this->webroot; ?>strains/filter/' + more + '<?php if ($type) {
+                    echo '/' . $type;
+                } ?>',
                 data: val,
                 type: 'POST',
                 success: function (res) {
@@ -290,7 +378,7 @@
                     $('#hybrid').attr('href', '<?= $this->webroot;?>strains/all/hybrid?' + val);
                     $('#all_breed').attr('href', '<?= $this->webroot;?>strains/all?' + val);
                     hidespinner();
-                    if(showmore){
+                    if (showmore) {
                         //$('.listing').append('' + res);
 
                         $('.morelist').show();
@@ -308,15 +396,16 @@
             });
         }
 
-        var sort = '';var sortid = '';
+        var sort = '';
+        var sortid = '';
         $('.loadmore a').live('click', function () {
             more = parseFloat(more);
             doquery(more, true, "loadmore.click");
             more += <?= $GLOBALS["settings"]["limit"]; ?>;
         });
 
-        function filternonnumeric(myString){
-            return myString.replace(/\D/g,'');
+        function filternonnumeric(myString) {
+            return myString.replace(/\D/g, '');
         }
 
         $('.sym2, .act2').click(function () {
@@ -325,12 +414,12 @@
             var eletype = "symptoms";
             var eleclass = "symps";
             var ID = $(this).attr("id");
-            if($(this).hasClass("act2")){
+            if ($(this).hasClass("act2")) {
                 eletype = "activities";
                 eleclass = "acts";
             }
             var test = $(this).hasClass("sel");
-          //  log("Testing: " + test);
+            //  log("Testing: " + test);
             if (test) {
                 $("#filter_desktop #" + ID).removeClass('searchact3');
                 $("#filter_dialog #" + ID).removeClass('searchact3');
@@ -400,24 +489,24 @@
         });
 
         <?php
-            if ($effects) {
-                foreach ($effects as $eff) {
-                    echo PHP_EOL . "$('#eff_" . $eff . "').click();";
-                }
+        if ($effects) {
+            foreach ($effects as $eff) {
+                echo PHP_EOL . "$('#eff_" . $eff . "').click();";
             }
-            if ($activities) {
-                foreach ($activities as $act) {
-                    echo PHP_EOL . "$('#act_" . $act . "').click();";
-                }
+        }
+        if ($activities) {
+            foreach ($activities as $act) {
+                echo PHP_EOL . "$('#act_" . $act . "').click();";
             }
-            if ($symptoms) {
-                foreach ($symptoms as $eff) {
-                    echo PHP_EOL . "$('#filter_dialog #sym_" . $eff . "').click();";
-                }
+        }
+        if ($symptoms) {
+            foreach ($symptoms as $eff) {
+                echo PHP_EOL . "$('#filter_dialog #sym_" . $eff . "').click();";
             }
-            if (isset($_GET['sort']) && $_GET['sort']) {
-                echo PHP_EOL . "$('#" . str_replace('reviewed', 'viewed', $_GET['sort']) . "').click();";
-            }
+        }
+        if (isset($_GET['sort']) && $_GET['sort']) {
+            echo PHP_EOL . "$('#" . str_replace('reviewed', 'viewed', $_GET['sort']) . "').click();";
+        }
         ?>
     });
 </script>

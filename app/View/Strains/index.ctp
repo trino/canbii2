@@ -38,7 +38,7 @@
     }
 ?>
 
-<div class="jumbotron" style="background: transparent;padding:0 !important;">
+<div class="jumbotron" style="background: transparent;padding-bottom:0 !important;padding-top:0 !important;">
     <div class="row">
         <DIV CLASS="col-md-12">
             <h1 class="pb-1"><?= $strain['Strain']['name']; ?> - Report</h1>
@@ -127,10 +127,11 @@
                     }
                 } else {
                     ?>
-                        <a class="text-white" href="#">
+                        <!--a class="text-white" href="#">
                             No flavors yet.
                             <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
-                        </a>
+                        </a-->
+                        No flavors yet.
                     <?php
                 }
             ?>
@@ -201,6 +202,7 @@
                         echo '</TD>';
                     }
                     echo '</TR>';
+                    $hasname = true;
                 }
             }
             echo '</TABLE>';
@@ -213,7 +215,7 @@
                     }
                 }
             }
-        } else {
+        } else {//if no OCS price data is found
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo '</H3></div><div class="col-md-6">' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
@@ -289,13 +291,13 @@
     }
 ?>
 
-<div class="jumbotron">
+<!--div class="jumbotron">
     <h3>Symptoms</h3>
     <p>How does this strain help with my medical condition?</p>
     <?php
-       getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
+       //getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
     ?>
-</div>
+</div-->
 
 <div class="jumbotron">
     <h3>Effects</h3>
@@ -476,7 +478,7 @@
 </div>
 
 <div class="jumbotron">
-    <h3><?= $strain['Strain']['name']; ?> Images</h3>
+    <h3><?= $strain['Strain']['name']; ?> Dried Flower Images</h3>
     <?php include('combine/images.php'); ?>
     <script type="text/javascript">
         $(document).ready(function () {
