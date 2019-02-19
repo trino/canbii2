@@ -257,43 +257,36 @@
 
                         <div class="clear"></div>
 
-                        <!--div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
+
+
+
+                        <DIV>
+                        <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
                         <h3>
                             Positive Effects
                         </h3>
                         <p>What positive effect(s) did this strain have on you?</p>
                         <span id="qf_review__effects__positive__inner">
                         <?php
+                            $pos = Query("SELECT * FROM effects WHERE negative=0", true);
                             if ($this->params['action'] == 'add') {
-                                foreach ($effects as $effect) { ?>
-                                    <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?php echo $effect['Effect']['id']; ?>"
-                                        class="eff3 btn qf_review__effects__positive"><?php echo ucfirst($effect['Effect']['title']); ?></a>
+                                foreach ($pos as $effect) { ?>
+                                    <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');" title="<?= $effect['id']; ?>"
+                                        class="eff3 btn btn-info qf_review__effects__positive"><?= ucfirst($effect['title']); ?></a>
                                 <?php }
                             } else {
-                                $pos = array();
-                                foreach ($effects as $e) {
-                                    array_push($pos, $e['Effect']['id']);
-                                }
-                                $cnt = 0;
-                                foreach ($review['EffectRating'] as $effect) {
-                                    if (in_array($effect['effect_id'], $pos)) {
-                                        $cnt++;
-                                    }
-                                }
-                                if ($cnt > 0){
-                                    foreach ($review['EffectRating'] as $effect){
-                                        if (in_array($effect['effect_id'], $pos) and count($effects) > $effect['effect_id'] - 1){
-                                            $theeffect = findsymptom($effects, $effect['effect_id'], 'Effect');
-                                            // progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "success", "light-green");
-                                            setslider($effect['id'] . "pe", $effect['rate']);
-                                        }
+                                if ($pos > 0){
+                                    foreach ($pos as $effect){
+                                        $theeffect = findsymptom($effects, $effect['effect_id'], 'Effect');
+                                        progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "success", "light-green");
+                                        setslider($effect['id'] . "pe", $effect['rate']);
                                     }
                                 } else {
                                     echo "<strong>No Review For Positive Effects</strong>";
                                 }
                             }
                         ?>
-                        </div-->
+                        </div>
 
 
                         <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
