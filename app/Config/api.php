@@ -38,6 +38,16 @@
 		return trimend($path, "?");
 	}
 
+	function trim2($text, $text2trim){
+		if(startswith($text, $text2trim)){
+			$text = right($text, strlen($text) - strlen($text2trim));
+		}
+		if(endswith($text, $text2trim)){
+			$text = left($text, strlen($text) - strlen($text2trim));
+		}
+		return $text;
+	}
+
 	function isJSON($Text){
 		json_decode($Text);
 		return (json_last_error() == JSON_ERROR_NONE);
@@ -292,8 +302,13 @@
 				$ret = true;
 				$data = mysqli_fetch_all($result, MYSQLI_ASSOC);// or die ('Unable to execute query. '. mysqli_error($con) . "<P>Query: " . $query);
 				unescape($data);
+				if(is_string($all)){
+					foreach($data as $KEY => $VALUE){
+						$data[$KEY] = [$all => $VALUE];//for backwards compatibility with Cake's SQL
+					}
+				}
 			} else {
-				debugprint($query . " returned no results");
+				return [];
 			}
 		}
 		if(!$ret) {$data = $con->query($query);}

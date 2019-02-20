@@ -54,5 +54,7 @@
 		}
 		printerrorlog("debug.log", true);
 		printerrorlog("error.log", true);
+	} else {
+		echo "<P>Debug mode is not enabled (500)";
 	}
 ?>

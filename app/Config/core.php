@@ -34,15 +34,11 @@
  * In development mode, you need to click the flash message to continue.
  */
 
-	/*
 	$debugmode = 0;
-	if(isset($_GET["debugmode"])){
-		if($_GET["debugmode"] == "TrinoWeb1234!"){
-			$debugmode = 2;
-		}
+	if($GLOBALS["settings"]["islocal"]){
+		$debugmode = 2;
 	}
-	*/
-	Configure::write('debug', 0);
+	Configure::write('debug', $debugmode);
 	
 /**
  * Configure the Error handler used to handle errors for your application. By default

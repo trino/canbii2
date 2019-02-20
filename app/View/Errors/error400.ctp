@@ -23,5 +23,7 @@
 	 */
 	if (Configure::read('debug') > 0) {
 		echo $this->element('exception_stack_trace');
+	} else {
+		echo "<P>Debug mode is not enabled (400)";
 	}
 ?>

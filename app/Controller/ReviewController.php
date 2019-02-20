@@ -92,22 +92,38 @@
             $this->loadModel('FlavorRating');
             $this->loadModel('ReviewColor');
             $this->loadModel('VoteIp');
-            $this->set('vip',$this->VoteIp);
-
-            $this->set('effects',$this->Effect->find('all',array('conditions'=>array("negative"=>'0'))));
-            $this->set('negative',$this->Effect->find('all',array('conditions'=>array("negative"=>'1'))));
-            $this->set("effectz",$this->Effect->find('all'));
-            $this->set('colours',$this->Colour->find('all'));
-            $rc = $this->ReviewColor->find('all',array('conditions'=>array('review_id'=>$id)));
-            $this->set('review_color',$rc);
-            $this->set('flavors',$this->Flavor->find('all'));
-            $this->loadModel('Symptom');
-            $this->set('symptoms',$this->Symptom->find('all'));
-            $this->set('review',$this->Review->findById($id));
-
             $review = $this->Review->findById($id);
-
             if (isset($review['Strain'])) {
+                $strainid = $review['Strain']["id"];
+
+                //$this->set('vip',$this->VoteIp);
+                //SQL: SELECT `VoteIp`.`id`, `VoteIp`.`ip`, `VoteIp`.`strain_id`, `VoteIp`.`review_id`, `VoteIp`.`vote_yes` FROM `canbii_db`.`vote_ips` AS `VoteIp` WHERE `review_id` = 19664 AND `ip` = '::1' LIMIT 1
+                $this->set('vip', query("SELECT * FROM vote_ips WHERE review_id=" . $id . " LIMTI 1", "VoteIp"));
+
+
+                $positive_effects = implode(",", collapsearray(query("SELECT id FROM effects WHERE negative=0", true), "id"));
+                $negative_effects = implode(",", collapsearray(query("SELECT id FROM effects WHERE negative=1", true), "id"));
+
+                //$this->set('effects', $this->Effect->find('all',array('conditions'=>array("negative"=>'0'))));
+                $this->set('effects', query("SELECT * FROM effect_ratings WHERE effect_id IN(" . $positive_effects . ") AND review_id = " . $id, true));
+                //$this->set('negative',$this->Effect->find('all',array('conditions'=>array("negative"=>'1'))));
+                $this->set('negative', query("SELECT * FROM effect_ratings WHERE effect_id IN(" . $negative_effects . ") AND review_id = " . $id, true));
+                $this->set("effectz",query("SELECT * FROM effect_ratings WHERE review_id=" . $id, true));
+
+                $this->set('colours',$this->Colour->find('all'));
+
+                $rc = $this->ReviewColor->find('all',array('conditions'=>array('review_id'=>$id)));
+
+                $this->set('review_color',$rc);
+                $this->set('flavors',$this->Flavor->find('all'));
+                $this->loadModel('Symptom');
+                $this->set('symptoms',$this->Symptom->find('all'));
+
+                foreach($review as $KEY => $VALUE){
+                    $this->set(strtolower($KEY), [$KEY => $VALUE]);
+                }
+                $this->set("review", $review);
+
                 $this->set('title','Review: '. $review['Strain']['name']);
                 $this->set('description','Review for '.$review['Review']['review'].'. General rating, effects rating, aesthetic rating and other reviews for '.$review['Strain']['name']);
                 $this->set('keyword',$review['Strain']['name'].' , review , effect rating, general rating , aesthetic rating , Canbii , Medical , Marijuana , Medical Marijuana');
@@ -115,7 +131,6 @@
             } else {
                 $this->Session->setFlash('This review does not exist','default',array('class'=>'bad'));
             }
-            //debug($review);
         }
 
         function index(){
@@ -196,13 +211,18 @@
             }
         }
 
-        function addrating($strainID, $table, $rating, $itemID = false, $reviewID = false, $userID = false, $islast = false){
+        function addrating($strainID, $table, $rating = -1, $itemID = false, $reviewID = false, $userID = false, $islast = false){
             //$table = strain (no $itemID), effect, symptom, color, flavor, activity
             if($table == "strains"){//review already made, recalculate the average for the strain
                 $data = first("SELECT AVG(rate) as rating, COUNT(*) as review FROM reviews WHERE strain_id = " . $strainID);
                 $data["id"] = $strainID;
                 insertdb("strains", $data);
             } else {
+                if($table == "activities"){
+                    $table = "activity";
+                } else if (endswith($table, "s")){
+                    $table = left($table, strlen($table) - 1);
+                }
                 $data = [
                     "user_id"       => $userID,
                     "review_id"     => $reviewID,
@@ -210,9 +230,6 @@
                     "strain_id"     => $strainID,
                     "rate"          => $rating
                 ];
-
-                // vardump($table . "_ratings");vardump($data);die();
-
                 insertdb($table . "_ratings", $data);//add the rating for the item to the table
                 $data = first("SELECT AVG(rate) as rate FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
                 $ID = first("SELECT id FROM overall_" . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);

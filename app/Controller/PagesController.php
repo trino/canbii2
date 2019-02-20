@@ -51,8 +51,6 @@ class PagesController extends AppController {
         $this->set('homepage','1');
     }
 
-
-
     public function landing(){
 
     }
@@ -98,8 +96,6 @@ class PagesController extends AppController {
             $this->redirect('contact_us');
         }
     }
-
-
 
     function doctors(){
         if(isset($_POST['name'])&&$_POST['name']){

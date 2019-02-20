@@ -12,8 +12,11 @@
 <div class="page_layout page_margin_top clearfix">
     <div class="page_header clearfix" style="white-space: nowrap;">
         <div class="page_header_left" style="white-space: nowrap;">
-
             <?php
+                /*vardump($review);
+                vardump($effects);
+                vardump($negative);*/
+
                 function setslider($ID, $rating){
                     echo '<script>$(function () {setslider("' . $ID . '", ' . $rating . ', true);});</script>';
                 }
@@ -186,7 +189,6 @@
 
                 <div class="clear"></div>
 
-
                 <fieldset id="qf_review__activities" class="qf-fieldset">
                     <div class="backgroundcolor">
                         <h2 class="slide page_margin_top">
@@ -257,10 +259,8 @@
 
                         <div class="clear"></div>
 
+                    <DIV>
 
-
-
-                        <DIV>
                         <div style="border-bottom: 1px solid #dadada;margin:10px 0;"></div>
                         <h3>
                             Positive Effects
@@ -275,11 +275,17 @@
                                         class="eff3 btn btn-info qf_review__effects__positive"><?= ucfirst($effect['title']); ?></a>
                                 <?php }
                             } else {
-                                if ($pos > 0){
-                                    foreach ($pos as $effect){
-                                        $theeffect = findsymptom($effects, $effect['effect_id'], 'Effect');
-                                        progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "success", "light-green");
-                                        setslider($effect['id'] . "pe", $effect['rate']);
+                                if ($effects > 0){
+                                    foreach ($effects as $effect){
+                                        if(isset($effect['effect_id'])){
+                                            $theeffect = findsymptom($effects, $effect['effect_id'], 'Effect');
+                                            progressbar($this->webroot, $effect['rate'], $theeffect['title'], "", "success", "light-green");
+                                            setslider($effect['id'] . "pe", $effect['rate']);
+                                        } else {
+                                            echo $effect['effect_id'] . " not found in";
+                                            vardump($effect);
+                                            vardump($effects);
+                                        }
                                     }
                                 } else {
                                     echo "<strong>No Review For Positive Effects</strong>";
@@ -506,11 +512,9 @@
                     $ip = $_SERVER['REMOTE_ADDR'];
                     $rand1 = rand(100, 999);
                     //$rand2 = rand(100, 999);
-                    $q5 = $vip->find('first', array('conditions' => array('review_id' => $review['Review']['id'], 'ip' => $ip)));
-
-                    if ($q5) {
+                    if ($vip) {
                         $vote = 1;
-                        $yes = $q5['VoteIp']['vote_yes'];
+                        $yes = $vip['VoteIp'][0]['vote_yes'];
                     } else {
                         $vote = 0;
                     }

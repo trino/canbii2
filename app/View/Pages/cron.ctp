@@ -5,11 +5,10 @@
     @ob_end_clean();
     $dir = getcwd() . "/ocs";
 
-    Configure::write('debug', 0);
-
     $options = [
-        "makenewstrains" => true,//disable to prevent new strains from bedownloadimagesing created
-        "downloadimages" => false,//disable to prevent downloading images
+        "makenewstrains"    => true,//disable to prevent new strains from bedownloadimagesing created
+        "downloadimages"    => false,//disable to prevent downloading images
+        "forceratingcalc"   => false,//enable to force a recalculation of the rating average
     ];
 
     function is_item_array($array){
@@ -20,6 +19,9 @@
         }
         return false;
     }
+
+    App::uses('ReviewController', 'Controller');
+    $ReviewController = new ReviewController();
 ?>
 <SCRIPT>
     function bottom(){
@@ -53,8 +55,17 @@
         height: 18px;
         border-radius: 0px !important;
     }
+    .error{
+        color: white;
+        background-color: red;
+        font-weight: bold;
+        text-align: center;
+        animation: blinker 1s cubic-bezier(.5, 0, .5, .5) infinite alternate;
+    }
+    @keyframes blinker { to { opacity: 0; } }
 </STYLE>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
+<TABLE WIDTH="100%"><TR><TD>
 <?php
     $negativeeffects = ["Bad Taste", "Cough", "Dry Mouth", "Harsh", "Headache", "Lazy", "Red Eyes", "Talkative", "Weak"];
     $extradata = [//CAUTION: lift_effects and lift_symptoms values are inverted (so truevalue=100-value)
@@ -1224,37 +1235,145 @@
         return array_values($REVIEWS);
     }
 
-    function extractleafly($URL){
+    function isURL($text){
+        //if(textcontains($text, "<") || textcontains($text, PHP_EOL) || strlen($text) > 255){return false;}
+        //if(startswith($text, "http://") || startswith($text, "https://")) {
+            return filter_var($text, FILTER_VALIDATE_URL);
+        //}
+        //return false;
+    }
+
+    function cleanhtml($HTML){
+        $HTML = preg_replace('/\R/', '', $HTML);
+        $HTML = preg_replace('/\s+/', ' ', $HTML);
+        $HTML = str_replace('> <', '><', $HTML);
+        return $HTML;
+    }
+
+    function extractleafly($URL, $type = "product"){
         //$URL = https://www.leafly.com/products/details/liiv-bali-kush?q=bali-kush&cat=product
-        $SCRIPT = '<script type="application/ld+json">';
-        $HTML = file_get_contents($URL);
-        $DATA = ["reviews" => []];
-        $start = strpos($HTML, $SCRIPT);
-        while($start !== false){
-            $end = strpos($HTML, '</script>', $start);
-            $JSON = mid($HTML, $start + strlen($SCRIPT), $end - strlen($SCRIPT) - $start);
-            $DATA = array_merge($DATA, json_decode($JSON, true));
-            $start = strpos($HTML, $SCRIPT, $end);
+        $HTML = $URL;
+        $DATA = [];
+        if(isURL($URL)) {
+            $DATA["url"] = $URL;
+            $HTML = file_get_contents($URL);
         }
-        if($DATA["aggregateRating"]["reviewCount"] > 0){
-            $pages = ceil($DATA["aggregateRating"]["reviewCount"] / 10);
-            echo '<BR>' . $URL . " " . $DATA["aggregateRating"]["reviewCount"] . " Reviews found across " . $pages . " pages";
-            if($DATA["aggregateRating"]["reviewCount"] > 3) {
-                $REVIEWS = [];
-                for($page = 1; $page <= $pages; $page++){
-                    $REVIEWS = array_merge($REVIEWS, extractreviews($page, $URL, $DATA["aggregateRating"]["reviewCount"]));
+        switch($type) {
+            case "product":
+                $SCRIPT = '<script type="application/ld+json">';
+                $DATA["reviews"] = [];
+                $start = strpos($HTML, $SCRIPT);
+                while ($start !== false) {
+                    $end = strpos($HTML, '</script>', $start);
+                    $JSON = mid($HTML, $start + strlen($SCRIPT), $end - strlen($SCRIPT) - $start);
+                    $DATA = array_merge($DATA, json_decode($JSON, true));
+                    $start = strpos($HTML, $SCRIPT, $end);
                 }
-            } else {
-                $REVIEWS = extractreviews($HTML);
-            }
-            $DATA["reviews"] = $REVIEWS;
+                if ($DATA["aggregateRating"]["reviewCount"] > 0) {
+                    $pages = ceil($DATA["aggregateRating"]["reviewCount"] / 10);
+                    echo '<BR>' . $URL . " " . $DATA["aggregateRating"]["reviewCount"] . " Reviews found across " . $pages . " pages";
+                    if ($DATA["aggregateRating"]["reviewCount"] > 3) {
+                        $REVIEWS = [];
+                        for ($page = 1; $page <= $pages; $page++) {
+                            $REVIEWS = array_merge($REVIEWS, extractreviews($page, $URL, $DATA["aggregateRating"]["reviewCount"]));
+                        }
+                    } else {
+                        $REVIEWS = extractreviews($HTML);
+                    }
+                    $DATA["reviews"] = $REVIEWS;
+                }
+                break;
+            case "strain":
+                $description = getbetween($HTML, '<div class="description" itemprop="description">', '</div>');
+                $description = trim(strip_tags($description, '<p><br>'));
+                $description = trim2(trim2($description, '<p>'), '</p>');
+                $DATA = [
+                    "url"           => $URL,
+                    "name"          => getbetween($HTML, '<h1 class="heading--sm heading-md--lg l--spacer" itemprop="name">', '</h1>'),
+                    "description"   => $description,
+                    "effects"       => extractleafly($HTML, 'Effects'),
+                    "medical"       => extractleafly($HTML, 'Medical'),
+                    "negatives"     => extractleafly($HTML, 'Negatives'),
+                    "flavors"       => extractleafly($HTML, 'Flavors'),
+                    "lineage"       => extractleafly($HTML, 'Lineage'),
+                    "growinfo"      => extractleafly($HTML, 'Growinfo'),
+                    "images"        => extractleafly($HTML, 'Photos'),
+                    "reviews"       => extractleafly($HTML, 'Reviews'),
+                ];
+                break;
+
+            //sections of a leafly strain
+            case "Reviews":
+                $HTML = getbetween($HTML, '<h2 class="heading--md heading-md--lg">Review Highlights</h2>', '</section>');
+                $DATA["total"] = getbetween($HTML, 'View All (', ')</a>');
+                $DATA["url"]   = 'https://www.leafly.com' . getbetween($HTML, 'href="', '">');
+                $DATA["examples"] = [];
+                $HTML = explode('<div class="m-review">', $HTML);
+                unset($HTML[0]);
+                foreach($HTML as $effect) {
+                    $url = getbetween($effect, 'href="', '"');
+                    $DATA["examples"][] = [
+                        "user_url"   => "https://www.leafly.com" . $url,
+                        "user_name"  => getbetween($effect, '<a class="no-color" href="' . $url . '">', '</a>'),
+                        "timestamp"  => getbetween($effect, 'datetime="', '"'),
+                        "rating"     => getbetween($effect, 'star-rating="', '"'),
+                        "review_url" => "https://www.leafly.com" . getbetween(getbetween($effect, '<div class="m-review__more-details grid-1 l-grid">', '</div>'), '<a href="', '"'),
+                        "review_txt" => getbetween($effect, '<p class="copy--xs copy-md--md">&#8220;', '&#8221;</p>')
+                    ];
+                }
+                break;
+            case "Photos":
+                $HTML = getbetween($HTML, '<h2 class="heading--md heading-md--lg">Photos</h2>', '</section>');
+                $DATA["total"] = getbetween($HTML, 'View All (', ')</a>');
+                $DATA["url"]   = 'https://www.leafly.com' . getbetween($HTML, 'href="', '">');
+                $DATA["examples"] = [];
+                $HTML = explode('<li class="pull-left l-grid__item--space">', $HTML);
+                unset($HTML[0]);
+                foreach($HTML as $effect){
+                    $DATA["examples"][] = getbetween($effect, 'src="', '"');
+                }
+                break;
+            case "Growinfo":
+                $HTML = getbetween($URL, '<div m-animate m-animate-default="" m-animate-play="backgroundFadeIn" class="growInfoContainer">', '<div class="strain-tile notranslate" ng-cloak>');
+                $HTML = explode('<div class="growInfoRow', $HTML);
+                unset($HTML[0]);
+                foreach($HTML as $effect){
+                    $DATA[ trim(getbetween($effect, '<div col col-sm="2" class="strain__data">', '<')) ] = trim(strip_tags(getbetween($effect, '<div col="one-third" class="selected">', '</div>')));
+                }
+                break;
+            case "Lineage":
+                $HTML = getbetween($URL, str_replace("`", "'", '<div class="strain__lineage strain__dataTab" ng-style="{`visibility`:`visible`}" ng-show="currentDataTab===`lineage`">'), '</section>');
+                $HTML = explode('<li class="pull-left">', $HTML);
+                unset($HTML[0]);
+                foreach($HTML as $effect){
+                    $DATA[] = getbetween($effect, '<tspan y="380" x="0" text-anchor="end">', '</tspan>');
+                }
+                break;
+            case "Flavors":
+                $HTML = getbetween($URL, '<section class="strain__flavors padding-listItem divider bottom">', '</section>');
+                $HTML = explode('</li>', $HTML);
+                foreach($HTML as $effect){
+                    $DATA[] = getbetween($effect, 'title="', '"');
+                }
+                unset($DATA[array_key_last($DATA)]);
+                break;
+            case "Effects": case "Medical": case "Negatives":
+                $HTML = cleanhtml($URL);
+                $start = '<div class="m-histogram" ng-style="{' . "'visibility':'visible'}" . '" ng-show="currentAttributeTab===' . "'" . $type . "'" . '">';
+                $HTML = getbetween($HTML, $start, '</div></div></div></div></div>');
+                $HTML = explode('<div class="m-histogram-item-wrapper">', $HTML);
+                unset($HTML[0]);
+                foreach($HTML as $effect){
+                    $DATA[ getbetween($effect, '<div class="m-attr-label copy--sm">', '</div>') ] = round(getbetween($effect, '<div class="m-attr-bar" style="width:', '%">'), 2);
+                }
+                break;
         }
         return $DATA;
     }
 
-    function getleaflydata($filename, $url){
+    function getleaflydata($filename, $url, $type = "product"){
         if(!file_exists($filename)) {
-            $DATA = extractleafly($url);
+            $DATA = extractleafly($url, $type);
             $JSON = json_encode($DATA, JSON_PRETTY_PRINT);
             file_put_contents($filename, $JSON);
             return $DATA;
@@ -1266,21 +1385,30 @@
         if(!is_item_array($data)){
             $data = $data[0];
         }
-        foreach($data["urls"] as $url){
-            $urldata = parse_url($url);
-            $urldata["path"] = explode("/", trim($urldata["path"], "/"));
-            parse_str($urldata["query"], $urldata["query"]);
-            if(isset($urldata["query"]["cat"]) && $urldata["query"]["cat"] == "product"){
-                $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
-                if(!file_exists($filename)){
-                    purge("<BR>Downloading Leafly data: " . $strain . " to " . $filename);
-                    getleaflydata($filename, $url);
+        if(isset($data["urls"])) {
+            foreach ($data["urls"] as $url) {
+                $urldata = parse_url($url);
+                $urldata["path"] = explode("/", trim($urldata["path"], "/"));
+                parse_str($urldata["query"], $urldata["query"]);
+                if (isset($urldata["query"]["cat"])) {
+                    $filename = false;
+                    switch ($urldata["query"]["cat"]) {
+                        case "product":
+                            $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
+                            break;
+                        case "strain":
+                            $filename = $dir . '/' . $strain . "-leaflystrain.json";
+                            break;
+                    }
+                    if ($filename && !file_exists($filename)) {
+                        purge("<BR>Downloading Leafly " . $urldata["query"]["cat"] . " data: " . $strain . " to " . $filename);
+                        getleaflydata($filename, $url, $urldata["query"]["cat"]);
+                    }
                 }
             }
         }
     }
 
-    echo '<TABLE WIDTH="100%"><TR><TD>';
     function purge($text = "", $bottom = true){
         if($bottom){$text .= '<SCRIPT>bottom();</SCRIPT>';}
         if($text){echo $text;}
@@ -1585,7 +1713,30 @@
         return trimend(trim(trimend(trimend2($name, "pre-roll"), "(")), "Â");
     }
 
-    function import($strain, $JSONdata, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir) {
+    function processeffects($ReviewController, $effects, $table, $reviewID = false, $userID = false, $strainID = false, $negative = false){
+        $RET = [];
+        if(!isset($GLOBALS["effects"][$table])){
+            $GLOBALS["effects"][$table] = query("SELECT * FROM " . $table, true);
+        }
+        $lastkey = array_key_last($effects);
+        foreach($effects as $effectname => $effectrating){
+            $effect = getiterator($GLOBALS["effects"][$table], "title", $effectname);
+            if(!$effect){
+                $effect = ["title" => $effectname];
+                if($table == "effects"){
+                    $effect["negative"] = $negative;
+                }
+                $effect["id"] = ["id" => insertdb($table, $effect)];
+            }
+            $RET[] = $effect["id"];
+            if($reviewID){
+                $ReviewController->addrating($strainID, $table, $effectrating, $effect["id"], $reviewID, $userID, $lastkey == $effectname);
+            }
+        }
+        return implode(",", $RET);
+    }
+
+    function import($strain, $JSONdata, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir, $ReviewController) {
         global $Cookie;
         $tags = [];
         $strain2 = false;
@@ -1650,6 +1801,11 @@
                     if (!isset($JSONdata["Terpenes"]) || !is_array($JSONdata["Terpenes"])) {
                         $JSONdata["Terpenes"] = [];
                     }
+                    foreach(["thc", "cbd"] as $column) {
+                        if (!isset($JSONdata[$column]) && isset($JSONdata[ strtoupper($column) ])) {
+                            $JSONdata[$column] = $JSONdata[strtoupper($column)];
+                        }
+                    }
                     $ocsdata = [
                         "slug"      => $originalstrain,
                         "category"  => $JSONdata["type"],
@@ -1712,7 +1868,8 @@
                                 file_put_contents($actualfilename, $DATA);
                                 $JSONdata["downloadedimages"] += 1;
                             } else {
-                                die( $URL . " FAILED TO DOWNLOAD" );
+                                $JSONdata["error"] = $URL . " FAILED TO DOWNLOAD";
+                                return $JSONdata;
                             }
                         }
                     }
@@ -1742,29 +1899,67 @@
                                 $urldata = parse_url($url);
                                 $urldata["path"] = explode("/", trim($urldata["path"], "/"));
                                 parse_str($urldata["query"], $urldata["query"]);
-                                if (isset($urldata["query"]["cat"]) && $urldata["query"]["cat"] == "product") {
-                                    $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
-                                    $localstrain["reviewfile"] = $filename;
-                                    $data = getleaflydata($filename, $url);
-
-                                    foreach ($data["reviews"] as $reviewindex => $review) {
-                                        $found = first("SELECT * FROM reviews WHERE strain_id=" . $localstrain["id"] . " AND form='leafly_" . $reviewindex . "'");
-                                        if ($found) {
-                                            $localstrain["reviewsskipped"] += 1;
-                                        } else {
-                                            $localstrain["reviewsadded"] += 1;
-                                            insertdb("reviews", [
-                                                "user_id" => $me["id"],
-                                                "form" => "leafly_" . $reviewindex,
-                                                "rate" => $review["rate"],
-                                                "review" => $review["text"],
-                                                "strain_id" => $localstrain["id"],
-                                                "activities" => 0,
-                                                "symptoms" => 0,
-                                                "on_date" => left($review["time"], 10)
-                                            ]);
-                                        }
+                                if (isset($urldata["query"]["cat"])){
+                                    switch ($urldata["query"]["cat"]) {
+                                        case "product":
+                                            $filename = $dir . '/' . array_value_last($urldata["path"]) . "-leafly.json";
+                                            $localstrain["reviewfile"] = $filename;
+                                            $data = getleaflydata($filename, $url);
+                                            foreach ($data["reviews"] as $reviewindex => $review) {
+                                                $found = first("SELECT * FROM reviews WHERE strain_id=" . $localstrain["id"] . " AND form='leafly_" . $reviewindex . "'");
+                                                if ($found) {
+                                                    $localstrain["reviewsskipped"] += 1;
+                                                } else {
+                                                    $localstrain["reviewsadded"] += 1;
+                                                    insertdb("reviews", [
+                                                        "user_id" => $me,
+                                                        "form" => "leafly_" . $reviewindex,
+                                                        "rate" => $review["rate"],
+                                                        "review" => $review["text"],
+                                                        "strain_id" => $localstrain["id"],
+                                                        "activitiescount" => 0,
+                                                        "symptomscount" => 0,
+                                                        "on_date" => left($review["time"], 10)
+                                                    ]);
+                                                }
+                                            }
+                                            break;
+                                        case "strain":
+                                            $filename = $dir . '/' . $strain . "-leaflystrain.json";
+                                            $localstrain["strainfile"] = $filename;
+                                            $found = first("SELECT * FROM reviews WHERE strain_id=" . $localstrain["id"] . " AND form='leaflystrain'");
+                                            if ($found) {
+                                                $localstrain["reviewsskipped"] += 1;
+                                            } else {
+                                                $data = getleaflydata($filename, $url, "strain");
+                                                if (isset($data["reviews"]["examples"][0])) {
+                                                    $localstrain["reviewsadded"] += 1;
+                                                    $review = $data["reviews"]["examples"][0];
+                                                    $reviewdata = [
+                                                        "user_id" => $me,
+                                                        "form" => "leaflystrain",
+                                                        "rate" => $review["rating"],
+                                                        "review" => $review["review_txt"],
+                                                        "strain_id" => $localstrain["id"],
+                                                        "activitiescount" => 0,
+                                                        "symptomscount" => count($data["medical"]),
+                                                        "symptoms" => processeffects($ReviewController, $data["medical"], "symptoms"),
+                                                        "on_date" => left($review["timestamp"], 10)
+                                                    ];
+                                                    $reviewdata["id"] = insertdb("reviews", $reviewdata);
+                                                    processeffects($ReviewController, $data["medical"],   "symptoms", $reviewdata["id"], $me, $localstrain["id"]);
+                                                    processeffects($ReviewController, $data["effects"],   "effects",  $reviewdata["id"], $me, $localstrain["id"], 0);
+                                                    processeffects($ReviewController, $data["negatives"], "effects",  $reviewdata["id"], $me, $localstrain["id"], 1);
+                                                } else {
+                                                    $JSONdata["error"] = "Example review not found";
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            $JSONdata["error"] = "CAT '" . $urldata["query"]["cat"] . "' not handled";
                                     }
+                                } else {
+                                    $JSONdata["error"] = "CAT not present";
                                 }
                             }
                         }
@@ -1873,7 +2068,7 @@
             }
 
             if($data) {
-                $data = import($strain, $data, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir);
+                $data = import($strain, $data, $me, $types, $collection, $options, $extradata, $negativeeffects, $dir, $ReviewController);
                 if(is_array($data)) {
                     $DIDIT = true;
                     echo '<TD>' . $data["vendor"] . '</TD><TD><A TARGET="_new" HREF="' . $this->webroot . 'strains/';
@@ -1890,20 +2085,24 @@
                     if($data["skippedimages"] > 0){
                         $STATUS[] = "Skipped: " . $data["skippedimages"] . " images";
                     }
-                    $reviews = false;
                     if(isset($data["reviewsadded"]) && $data["reviewsadded"] > 0){
-                        $STATUS[] = "Imported: " . $data["reviewsadded"] . " reviews";
-                        $reviews = true;
+                        $STATUS[] = "Imported: " . $data["reviewsadded"] . " reviews (recalculating)";
+                        $ReviewController->addrating($data["id"], "strains");
+                    } else if($options["forceratingcalc"]) {
+                        $STATUS[] = "Forced rating recalculation";
+                        $ReviewController->addrating($data["id"], "strains");
                     }
                     if(isset($data["reviewsskipped"]) && $data["reviewsskipped"] > 0){
                         $STATUS[] = "Skipped: " . $data["reviewsskipped"] . " reviews";
-                        $reviews = true;
+                    }
+                    if(isset($data["error"])){
+                        $STATUS[] = '<S>' . $data["error"] . '</S>';
                     }
                     file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
                 } else if($data) {
                     $STATUS[] = $data;
                 } else {
-                    $STATUS[] = '***IMPORT FAILED (MISSING OR INVALID DATA)***';
+                    $STATUS[] = '<S>***IMPORT FAILED (MISSING OR INVALID DATA)***</S>';
                 }
             } else {
                 $STATUS[] = 'ERROR: DATA MISSING';
@@ -1911,7 +2110,7 @@
             if(!$DIDIT){
                 echo '<TD COLSPAN="2"></TD>';
             }
-            purge('<TD>[' . implode("] [", $STATUS) . ']</TD></TR>');
+            purge('<TD>[' . str_replace(['<S>', '</S>'], ['<SPAN CLASS="error">', '</SPAN>'], implode("] [", $STATUS)) . ']</TD></TR>');
         }
     }
     $data = json_encode($allstrains, JSON_PRETTY_PRINT);

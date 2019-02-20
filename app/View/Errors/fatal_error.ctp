@@ -62,5 +62,7 @@ if (Configure::read('debug') > 0) {
 
     printerrorlog("debug.log", true);
     printerrorlog("error.log", true);
+}else {
+    echo "<P>Debug mode is not enabled (fatal)";
 }
 ?>
