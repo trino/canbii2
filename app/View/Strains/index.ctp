@@ -97,7 +97,7 @@
                     $chemical = printchemical($chemical, $strain, $DATA, "cbc", "http://en.wikipedia.org/wiki/Cannabichromene");
                     $chemical = printchemical($chemical, $strain, $DATA, "thcv", "http://en.wikipedia.org/wiki/Tetrahydrocannabivarin");
                     if ($chemical == 0) {
-                        echo "<span class=' eff2' style=''>Not enough data, check back soon</span>";
+                        echo '<span class="eff2">Not enough data, check back soon</span>';
                     }
                 ?>
             </DIV>
@@ -156,6 +156,14 @@
         return $key;
     }
 
+    function imagematch($image, $slug){
+        if(startswith($image, $slug) && !textcontains($image, "_")){
+            $image = getfilename($image, false);
+            $image = right($image, strlen($image) - strlen($slug));
+            return is_numeric($image);
+        }
+    }
+
     $imagedir = getcwd() . "/images/strains/" . $strain['Strain']['id'] . "/";
     $webroot = $this->webroot . "images/strains/" . $strain['Strain']['id'] . "/";
     $images = scandir($imagedir);
@@ -208,7 +216,7 @@
             echo '</TABLE>';
             if($slug){
                 foreach($images as $ID => $image){
-                    if(startswith($image, $slug) && !textcontains($image, "_")){
+                    if(imagematch($image, $slug)){
                         echo '<div align="center" style="float:left;"><a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a></div>';
                         //echo '<IMG SRC="' . $webroot . $image . '" CLASS="reportimage">';
                         unset($images[$ID]);
@@ -430,12 +438,7 @@
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
         } else {
-            echo "Based on " . $count;
-            if($count == 1){
-                echo "1 review";
-            } else {
-                echo $count . " reviews";
-            }
+            echo "Based on " . $count . "review" . iif($count == 1, "", "s");
         }
     ?>
 </div>

@@ -142,6 +142,7 @@
         <div class="col-md-4">
             <h1>Filter By</h1>
             <?php
+                $URL = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 $types = [
                     "all_breed" => ["type" => "", "addtourl" => false, "title" => "All"],
                     "indica" => [],
@@ -149,14 +150,14 @@
                     "hybrid" => [],
                 ];
                 foreach ($types as $ID => $data) {
-                    echo '<a class="mr-1 mb-1 btn btn-primary" id="' . $ID . '" ';
+                    echo '<a id="' . $ID . '" class="mr-1 mb-1 btn btn-primary';
                     if (!isset($data["type"])) {
                         $data["type"] = $ID;
                     }
                     if ($type == $data["type"]) {
-                        echo ' class="border_bottom"';
+                        echo ' sel';
                     }
-                    echo 'href="' . $this->webroot . 'strains/all';
+                    echo '" href="' . $this->webroot . 'strains/all';
                     if (!isset($data["addtourl"]) || $data["addtourl"]) {
                         echo '/' . $ID;
                     }

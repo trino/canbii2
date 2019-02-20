@@ -117,7 +117,7 @@
         }
     }
     if ($count == 0) {
-        echo "No results found. (1)";
+        echo "No results found.";
         /*
         App::import('Model', 'Strain');
         $this->Strain = new Strain();
@@ -125,7 +125,7 @@
         vardump($log);
         */
 
-        vardump($GLOBALS["lastsql"]);
+        //vardump($GLOBALS["lastsql"]);
     }
 
     echo '<div class="morelist"></div>';
