@@ -266,7 +266,7 @@ class StrainsController extends AppController {
         if($user){
             return $user["username"];
         }
-        return "";
+        return "Unknown";
     }
 
     function helpful($id, $yes) {
