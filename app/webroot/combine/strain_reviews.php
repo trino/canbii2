@@ -41,7 +41,7 @@ if ($helpful) {
                         </p>
                         <div class="posted_by">
                             Reviewed by <a class="author" href="<?= $this->webroot; ?>strains/review/all?user=<?= $userid; ?>"
-                                           title="<?= $username); ?>"><?= $username; ?></a>
+                                           title="<?= $username; ?>"><?= $username; ?></a>
                             <?php if ($helpful['Review']['on_date'] != "0000-00-00") {
                                 echo " on " . $helpful['Review']['on_date'];
                             } ?>
