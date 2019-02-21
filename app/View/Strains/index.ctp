@@ -167,7 +167,7 @@
     $imagedir = getcwd() . "/images/strains/" . $strain['Strain']['id'] . "/";
     $webroot = $this->webroot . "images/strains/" . $strain['Strain']['id'] . "/";
     $images = [];
-    if(is_dir($imagedir)) {
+    if(is_dir(left($imagedir, strlen($imagedir) -1))) {
         $images = scandir($imagedir);
     }
     unset($images[0]);
