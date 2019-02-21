@@ -260,13 +260,16 @@ class StrainsController extends AppController {
        die(var_dump($this->params));
     }
 
-    function getUserName($id) {
+    function getUserName($id, $allowunknown = true) {
         //$this->call(__METHOD__);
         $user = first("SELECT username FROM users WHERE id=" . $id);
         if($user){
             return $user["username"];
         }
-        return "Unknown";
+        if($allowunknown) {
+            return "Unknown";
+        }
+        return false;
     }
 
     function helpful($id, $yes) {

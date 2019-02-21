@@ -99,7 +99,6 @@
                 </div>
 
             <?php } else { ?>
-
                 <div style="white-space: nowrap;">
                     <h1>
                         <?= ucfirst($review['Strain']['name']); ?> Review

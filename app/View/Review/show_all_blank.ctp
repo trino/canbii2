@@ -11,6 +11,13 @@ foreach ($reviews as $review) {
                         //if ($j % 2 == 0) {echo "<div style='clear:both;border-bottom:1px solid #E8E8E8;padding:5px 0px;'> </div>"; }
                         //$j++;
                         $j=$review['Review']['id'];
+                        $userid =   $review['Review']['user_id'];
+                        $username = $this->requestAction('/strains/getUserName/' . $userid, false);
+                        if($username === false){
+                            $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
+                            $userid = $user["id"];
+                            $username = $user["username"];
+                        }
                         ?>
 
                         <li class="page_margin_top" style="margin: 15px;">
@@ -41,8 +48,9 @@ foreach ($reviews as $review) {
 
                                 <div class="posted_by" style="font-size: 11px; color: #909090; line-height: 140%;">
                                     reviewed by <a class="author"
-                                                   href="<?= $this->webroot; ?>strains/review/all?user=<?php echo $review['Review']['user_id']; ?>"
-                                                   title="<?php echo $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?>"><?php echo $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?></a>                                    <?php if ($review['Review']['on_date'] != "0000-00-00") {
+                                                   href="<?= $this->webroot; ?>strains/review/all?user=<?= $userid; ?>"
+                                                   title="<?= $username; ?>"><?= $username; ?></a>
+                                    <?php if ($review['Review']['on_date'] != "0000-00-00") {
                                         echo " on " . $review['Review']['on_date'];
                                     } ?>
                                 </div>

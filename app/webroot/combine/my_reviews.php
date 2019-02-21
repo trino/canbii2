@@ -17,6 +17,13 @@
                 }
                 foreach ($reviews as $review) {
                     if ($review['Strain']["id"] != $id) {
+                        $userid =   $review['Review']['user_id'];
+                        $username = $this->requestAction('/strains/getUserName/' . $userid, false);
+                        if($username === false){
+                            $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
+                            $userid = $user["id"];
+                            $username = $user["username"];
+                        }
                         $strain_hexagon = $review;
                         //if ($j % 2 == 0) {echo "<div style='clear:both;border-bottom:1px solid #E8E8E8;padding:5px 0px;'> </div>"; }
                         //$j++;
@@ -28,8 +35,7 @@
                             <div class="comment_details">
                                 <a href="<?= $this->webroot ?>strains/<?= $strain_hexagon['Strain']['slug']; ?>">
                                     <?php include('combine/hexagon.php'); ?>
-                                    <h2><?= $review['Strain']['name']; ?> <span style="font-size: 12px;"> View Report &raquo;</span>
-                                    </h2>
+                                    <h2><?= $review['Strain']['name']; ?> <span style="font-size: 12px;"> View Report &raquo;</span></h2>
                                 </a>
 
                                 <div class="rating<?= $j; ?> rat"></div>
@@ -49,9 +55,8 @@
 
 
                                 <div class="posted_by" style="font-size: 11px; color: #909090; line-height: 140%;">
-                                    reviewed by <a class="author"
-                                                   href="<?= $this->webroot; ?>strains/review/all?user=<?= $review['Review']['user_id']; ?>"
-                                                   title="<?= $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?>"><?= $this->requestAction('/strains/getUserName/' . $review['Review']['user_id']); ?></a>
+                                    reviewed by <a class="author" href="<?= $this->webroot; ?>strains/review/all?user=<?= $userid; ?>"
+                                                   title="<?= $username ; ?>"><?= $username ; ?></a>
                                     <?php if ($review['Review']['on_date'] != "0000-00-00") {
                                         echo " on <strong>" . $review['Review']['on_date']."</strong>";
                                     } ?>

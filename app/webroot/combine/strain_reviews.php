@@ -14,6 +14,13 @@ if ($helpful) {
                             $j = 0;
                             $rand1 = rand(100, 999);
                             $rand2 = rand(100, 999);
+                            $userid =   $helpful['Review']['user_id'];
+                            $username = $this->requestAction('/strains/getUserName/' . $userid, false);
+                            if($username === false){
+                                $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
+                                $userid = $user["id"];
+                                $username = $user["username"];
+                            }
                             ?>
                         </a-->
                         <h2><?= $helpful['Strain']['name']; ?> Best Review</h2>
@@ -33,8 +40,8 @@ if ($helpful) {
                             <!--?= substr($helpful['Review']['review'], 0, 270) . '...'; ?-->
                         </p>
                         <div class="posted_by">
-                            Reviewed by <a class="author" href="<?php echo $this->webroot; ?>strains/review/all?user=<?php echo $helpful['Review']['user_id']; ?>"
-                                           title="<?php echo $this->requestAction('/strains/getUserName/' . $helpful['Review']['user_id']); ?>"><?php echo $this->requestAction('/strains/getUserName/' . $helpful['Review']['user_id']); ?></a>
+                            Reviewed by <a class="author" href="<?= $this->webroot; ?>strains/review/all?user=<?= $userid; ?>"
+                                           title="<?= $username); ?>"><?= $username; ?></a>
                             <?php if ($helpful['Review']['on_date'] != "0000-00-00") {
                                 echo " on " . $helpful['Review']['on_date'];
                             } ?>

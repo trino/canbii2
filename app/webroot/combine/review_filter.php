@@ -13,14 +13,22 @@
                         $rand2 = rand(100,999);
                         $q5 = $vip->find('first',array('conditions'=>array('review_id'=>$r['Review']['id'],'ip'=>$ip)));
                         if($q5){$vote = 1;$yes = $q5['VoteIp']['vote_yes'];}else{$vote = 0;}
+
+                        $userid =   $review['Review']['user_id'];
+                        $username = $this->requestAction('/strains/getUserName/' . $userid, false);
+                        if($username === false){
+                            $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
+                            $userid = $user["id"];
+                            $username = $user["username"];
+                        }
                         ?>
                         <li class="comment clearfix">
                             <div class="comment_author_avatar">&nbsp;</div>
                             <div class="comment_details">
                                 <div class="posted_by">
                                     Reviewed by
-                                    <a class="author" href="<?= $this->webroot;?>strains/review/all?user=<?= $r['Review']['user_id'];?>" title="Jonh Doe">
-                                        <?= $this->requestAction('/strains/getUserName/'.$r['Review']['user_id']);?>
+                                    <a class="author" href="<?= $this->webroot;?>strains/review/all?user=<?= $userid;?>" title="<?= $username; ?>">
+                                        <?= $username;?>
                                     </a>
                                     <?php if($r['Review']['on_date']!= "0000-00-00") {echo " on " . $r['Review']['on_date'];}?>
                                 </div>
