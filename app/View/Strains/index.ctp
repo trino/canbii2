@@ -166,7 +166,10 @@
 
     $imagedir = getcwd() . "/images/strains/" . $strain['Strain']['id'] . "/";
     $webroot = $this->webroot . "images/strains/" . $strain['Strain']['id'] . "/";
-    $images = scandir($imagedir);
+    $images = [];
+    if(is_dir($imagedir)) {
+        $images = scandir($imagedir);
+    }
     unset($images[0]);
     unset($images[1]);
     $tdm = ' style="vertical-align: middle;">';
