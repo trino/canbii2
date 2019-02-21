@@ -262,9 +262,11 @@ class StrainsController extends AppController {
 
     function getUserName($id) {
         //$this->call(__METHOD__);
-        $this->loadModel('User');
-        $q = $this->User->findById($id);
-        return $q['User']['username'];
+        $user = first("SELECT username FROM users WHERE id=" . $id);
+        if($user){
+            return $user["username"];
+        }
+        return "";
     }
 
     function helpful($id, $yes) {
