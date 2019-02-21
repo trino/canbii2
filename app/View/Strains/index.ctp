@@ -17,17 +17,20 @@
         }
         echo '<div style="clear: both">';
         echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
+        if($value >= 1){
+            $value = $value * 20;
+        }
         echo (round($value, 2) > 100) ? 100 : round($value, 2);
         echo '%;height:20px;"/>';
         echo "</div>";
         return;
-        echo '<div class="progress-bar progress-bar-';
-        echo $color . '" role="progressbar" aria-valuenow="' . $value . '" aria-valuemin="' . $min . '" aria-valuemax="' . $max . '" style="';
-        echo 'width: ' . round($value / ($max - $min) * 100) . '%"><div  class="pull-left">' . $textR . '</div></div></div>';
     }
 
     function perc($scale) {
-        return '' . round($scale / 20, 2) . "/5";
+        if($scale < 1){
+            $scale = round($scale * 0.01, 2);
+        }
+        return $scale . "/5";
     }
 
     $strain_hexagon = $strain;
@@ -282,7 +285,7 @@
                     break;
                 }
                 $rate = $symptom["average"];
-                $length = 20 * $rate;
+                $length = $rate;
                 //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
                 $name = $symptom["name"];// getiterator($names, "id", $ars[1])["title"];
                 echo '<div class="pull-left">' . $name . '</div>';
@@ -324,16 +327,14 @@
         }
 
         if (!$p_filter) {
-            $effectids = collapsearray($strain['OverallEffectRating'], "effect_id");
-            if ($effectids) {
-                $effects = Query("SELECT * FROM effects WHERE id IN (" . implode(",", $effectids) . ")", true);
-                foreach ($strain['OverallEffectRating'] as $oer) {
-                    $effect = getiterator($effects, "id", $oer['effect_id']);
-                    //if ($this->requestAction('/strains/getPosEff/' . $oer['effect_id'])) {
+            $SQL = "SELECT effect_id as id, title, negative, AVG(rate) as rate FROM effect_ratings JOIN effects ON (effects.id=effect_ratings.effect_id) WHERE strain_id=" . $strain["Strain"]["id"] . " GROUP BY effect_id";
+            $effects = query($SQL, true);
+            if ($effects) {
+                foreach ($effects as $effect) {
                     if ($effect["negative"]) {
-                        $arr_neg[] = $oer['rate'] . '_' . $oer['effect_id'];
+                        $arr_neg[] = $effect['rate'] . '_' . $effect['id'];
                     } else {
-                        $arr[] = $oer['rate'] . '_' . $oer['effect_id'];
+                        $arr[] = $effect['rate'] . '_' . $effect['id'];
                     }
                 }
             }
@@ -380,7 +381,7 @@
                     break;
                 }
                 $rate = $ar[0];
-                $length = 20 * $rate;
+                $length = $rate;
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
                 echo '<div class="pull-left">' . $name . '</div>';
@@ -401,47 +402,47 @@
         $duration = 0;
         $count = 0;
         if (!$p_filter) {
-            $count = count($strain['Review']);
-            if ($count) {
-                foreach ($strain['Review'] as $r) {
-                    $scale = $scale + $r['eff_scale'];
-                    $strength = $strength + $r['eff_strength'];
-                    $duration = $duration + $r['eff_duration'];
-                }
-            }
+            $effect_review = $strain['Review'];
         } else {
             $effect_review = $this->requestAction('/strains/getEffectReview/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-            $count = count($strain['Review']);
-            if ($count) {
-                foreach ($effect_review as $r) {
-                    $scale = $scale + $r['Review']['eff_scale'];
-                    $strength = $strength + $r['Review']['eff_strength'];
-                    $duration = $duration + $r['Review']['eff_duration'];
+        }
+        $count = count($strain['Review']);
+        if ($count) {
+            $count = 0;
+            $reviews = [];
+            foreach ($effect_review as $r) {
+                if(!isset($r['Review'])){
+                    $r['Review'] = $r;
                 }
+                if($r['Review']['eff_scale'] || $r['Review']['eff_strength'] || $r['Review']['eff_duration']){$count++;}
+                $reviews[] = $r['Review']["id"];
+                $scale = $scale + $r['Review']['eff_scale'];
+                $strength = $strength + $r['Review']['eff_strength'];
+                $duration = $duration + $r['Review']['eff_duration'];
             }
         }
+
         if ($count) {
-            $Factor = 10;//20;
-            $scale = ($scale / $count) * $Factor;
-            $strength = ($strength / $count) * $Factor;
-            $duration = ($duration / $count) * $Factor;
+            $scale = ($scale / $count);// * $Factor;
+            $strength = ($strength / $count);// * $Factor;
+            $duration = ($duration / $count);// * $Factor;
         }
         if ($scale) {
-            echo '<div class="pull-left">Sedative</div>';
+            echo '<div class="pull-left" TITLE="' . $scale . " " . $count . '">Sedative</div>';
             progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple");
         }
         if ($strength) {
-            echo '<div class="pull-left">Strength</div>';
+            echo '<div class="pull-left" TITLE="' . $strength . " " . $count . '">Strength</div>';
             progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple");
         }
         if ($duration) {
-            echo '<div class="pull-left">Duration</div>';
+            echo '<div class="pull-left" TITLE="' . $duration . " " . $count . '">Duration</div>';
             progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
         }
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
         } else {
-            echo "Based on " . $count . "review" . iif($count == 1, "", "s");
+            echo '<SPAN TITLE="' . implode(", ", $reviews) . '">Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
         }
     ?>
 </div>
@@ -467,7 +468,7 @@
                     break;
                 }
                 $rate = $ar[0];
-                $length = 20 * $rate;
+                $length =  $rate;
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
                 echo '<div class="pull-left">' . $name . '</div>';
