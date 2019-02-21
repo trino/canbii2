@@ -12,8 +12,8 @@ foreach ($reviews as $review) {
                         //$j++;
                         $j=$review['Review']['id'];
                         $userid =   $review['Review']['user_id'];
-                        $username = $this->requestAction('/strains/getUserName/' . $userid, false);
-                        if($username === false){
+                        $username = $this->requestAction('/strains/getUserName/' . $userid);
+                        if($username == "Unknown"){
                             $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
                             $userid = $user["id"];
                             $username = $user["username"];

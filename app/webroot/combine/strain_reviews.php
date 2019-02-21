@@ -15,8 +15,8 @@ if ($helpful) {
                             $rand1 = rand(100, 999);
                             $rand2 = rand(100, 999);
                             $userid =   $helpful['Review']['user_id'];
-                            $username = $this->requestAction('/strains/getUserName/' . $userid, false);
-                            if($username === false){
+                            $username = $this->requestAction('/strains/getUserName/' . $userid);
+                            if($username == "Unknown"){
                                 $user = first("SELECT * FROM users WHERE email='roy@trinoweb.com'");
                                 $userid = $user["id"];
                                 $username = $user["username"];
