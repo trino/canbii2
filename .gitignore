@@ -6,5 +6,5 @@ shop/*
 \app\webroot\cs\*
 \app\tmp\*
 /app/tmp/*
+/app/webroot/images/strains/*
 
-*.png
