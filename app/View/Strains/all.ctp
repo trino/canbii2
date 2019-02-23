@@ -96,7 +96,7 @@
 <div class="jumbo3tron" style="background: transpar8ent;padding-top:.5rem !important;margin-bottom:3rem !important;">
     <div class="text-center pt-4 ">
         <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
-        <p class="pt-2">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+        <p class="pt-2 pb-2">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
     </div>
 
     <div class=" row ">

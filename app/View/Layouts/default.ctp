@@ -243,7 +243,7 @@ if (!isset($keyword)) {
 <!--DIV ID="users-device-size"></DIV-->
 <?php // echo $this->element('sql_dump'); ?>
 
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c437a982227d36b"></script>
+<!--script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c437a982227d36b"></script-->
 
 <?php if ($_SERVER['SERVER_NAME'] == "canbii.com") { ?>
     <script>

@@ -15,7 +15,7 @@
         if ($textL) {
             echo '<div class="pull-left" >&nbsp;' . $textL . '</div>';
         }
-        echo '<div style="clear: both">';
+        echo '<div style="clear: both" class="progress">';
         echo '<img src="' . $webroot . 'images/bar_chart/' . $color2 . '.png" style="width: ';
         if($value >= 1){
             $value = $value * 20;
@@ -176,17 +176,15 @@
     unset($images[0]);
     unset($images[1]);
     $tdm = ' style="vertical-align: middle;">';
-    foreach($DATA as $OCSDATA) {
-        echo '<DIV class="jumbotron" ID="csodata" STRAINID="' . $strain['Strain']['id'] . '"><div class="row"> ';
-        $slug = false;
-        /*$dir = getcwd() . "/ocs/";
-        $filename = $dir . $strain['Strain']['slug'] . ".json";
-        $data = false;
-        if(file_exists($filename )) {
-            $data = json_decode(file_get_contents($filename), true);
-        }*/
 
-        echo '<div class="col-md-12"><h3>Ontario Cannabis Store';//</h3>";
+
+
+
+echo '<DIV class="jumbotron">';
+
+foreach($DATA as $OCSDATA) {
+        $slug = false;
+        echo '<h3>Ontario Cannabis Store';//</h3>";
         if ($OCSDATA["prices"]) {
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
@@ -203,43 +201,51 @@
                         if($text != "hardcoded") {
                             echo " - " . slugtotext($data["category"]);
                         }
-                        echo '</H3></div><div class="col-md-6"><TABLE class="table table-bordered table-sm table-condensed">';
+                        echo '</H3>';
                         $hasname = true;
                     }
-                    //"price", "slug", "title", "category"
-                    echo '<TR><TD>'  . $data["title"] . '</TD><TD>'. money_format(LC_MONETARY, $data["price"] * 0.01) . '</TD>';
+                    echo ''  . $data["title"]. money_format(LC_MONETARY, $data["price"] * 0.01) . '';
                     if ($isfirst) {
                         $isfirst = false;
                         $URL = "https://ocs.ca/products/" . $slug;
-                        echo '<TD ROWSPAN="' . count($pricelist) . '" STYLE="vertical-align: middle !important;">';
                         echo '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;margin-top: 0px !important;" TARGET="_new">Purchase from ' . $data["vendor"] . '</A>';
-                        echo '</TD>';
                     }
-                    echo '</TR>';
                     $hasname = true;
                 }
             }
-            echo '</TABLE>';
+
             if($slug){
                 foreach($images as $ID => $image){
                     if(imagematch($image, $slug)){
                         echo '<div align="center" style="float:left;"><a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a></div>';
-                        //echo '<IMG SRC="' . $webroot . $image . '" CLASS="reportimage">';
                         unset($images[$ID]);
                     }
                 }
             }
-        } else {//if no OCS price data is found
+        } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
-            echo '</H3></div><div class="col-md-6">' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+            echo '</H3>' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
-        // echo '<BR>Terpenes: ' . $OCSDATA["terpenes"];
-        //$shorttext = fixtext($OCSDATA["shorttext"]);  echo $shorttext;
-        echo '</div><div class="col-md-6"><BR>' . fixtext($OCSDATA["content"]);
-        //echo '<br><strong>Available:</strong> ' . iif($OCSDATA["available"] == 1, "Yes", "No");
-        echo '<div class="clearfix"></div></DIV>';
-        echo '</DIV></DIV>';
+
+        echo fixtext($OCSDATA["content"]);
+
     }
+
+
+
+echo '</div>';
+
+
+
+
+
+
+
+
+
+
+
+
 
     if (!isset($p_filter)) {
         $p_filter = false;
@@ -423,9 +429,9 @@
         }
 
         if ($count) {
-            $scale = ($scale / $count);// * $Factor;
-            $strength = ($strength / $count);// * $Factor;
-            $duration = ($duration / $count);// * $Factor;
+            $scale = round($scale / $count,2);// * $Factor;
+            $strength = round($strength / $count,2);// * $Factor;
+            $duration = round($duration / $count,2);// * $Factor;
         }
         if ($scale) {
             echo '<div class="pull-left" TITLE="' . $scale . " " . $count . '">Sedative</div>';
@@ -442,7 +448,7 @@
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
         } else {
-            echo '<SPAN TITLE="' . implode(", ", $reviews) . '">Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
+            echo '<SPAN TITLE="' . implode(", ", $reviews) . '"><br>Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
         }
     ?>
 </div>

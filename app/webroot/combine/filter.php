@@ -84,7 +84,7 @@
                 $j++;
                 $count++;
                 $OCSdata = query("SELECT * FROM ocs WHERE strain_id = " . $s['Strain']["id"], true);
-                echo '<DIV CLASS="strain"><a href="' . $this->webroot . 'strains/' . $s['Strain']['slug'] . '/';
+                echo '<DIV CLASS="jumbotron"><a href="' . $this->webroot . 'strains/' . $s['Strain']['slug'] . '/';
                 if ($u_cond) {
                     echo $u_cond;
                 }
@@ -92,22 +92,8 @@
                 $strain_hexagon = $s;
                 include('combine/hexagon.php');
                 echo '<h2>' . $s['Strain']['name'] . '</a></h2>';
-                echo substr($s['Strain']['description'], 0, 150) . '...';
+                echo substr($s['Strain']['description'], 0, 130) . '...';
 
-                if (isset($s['StrainType'])) {
-                    echo $s['StrainType']['title'];
-                }
-
-                if ($s['Strain']['review']) {
-                    if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
-                    echo ", " . $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
-                } else {
-                    echo ', 0 Reviews';
-                }
-
-                if ($s['Strain']['viewed']) {
-                    echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
-                }
                 ?>
                     <div style="float: right" class="rating<?= $j; ?>"></div>
                     <script>
@@ -117,25 +103,48 @@
                     </script>
 
                 <?php
-                    echo '<DIV CLASS="products">';
+                    echo '<DIV CLASS="">';
                     $first = true;
                     foreach($OCSdata as $OCS){
                         if($OCS["prices"]) {
                             $product = json_decode($OCS["prices"], true)[0];
                             if($first) {
-                                echo "Vendors: ";
+                             //   echo "Producers: ";
                             } else {
                                 echo ", ";
                             }
-                            echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
+                          //  echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
+                           echo '<SPAN CLASS="">' . $product["vendor"] . '</SPAN>';
                             if($product["category"] != "hardcoded") {
-                                echo '- <SPAN CLASS="category">' . cleanslug($product["category"]) . '</SPAN>';
+                                echo ' (' . cleanslug($product["category"]) . ')';
                             }
-                            echo '</A>';
+                           // echo '</A>';
                             $first = false;
                         }
                     }
-                    echo '</DIV></DIV><div style="clear: both;padding: 15px;"></div>';
+
+
+echo "<div style='clear;both;'></div>";
+
+
+                if (isset($s['StrainType'])) {
+                    echo $s['StrainType']['title'];
+                }
+
+
+                if ($s['Strain']['review']) {
+                    if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
+                    echo ", " . $s['Strain']['review'] . pluralize(" Data Point", $s['Strain']['review']);
+                } else {
+                    echo ', 0 Data Points';
+                }
+
+                if ($s['Strain']['viewed']) {
+                    echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
+                }
+
+
+                    echo '</DIV></DIV>';
             }
         }
 

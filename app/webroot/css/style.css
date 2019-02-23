@@ -122,8 +122,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .strain{
-    border: 2px solid green;
-    border-radius: 10px;
+    padding: 1.5rem 1.5rem !important;
+    background: #333;
+    border-radius: 2.5rem;
 }
 .products{
     margin-left: 68px;
@@ -151,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sel{
-background-color:  #999;
+background-color:  #444;border-color: #444;
 }
 
 .hexagon {
