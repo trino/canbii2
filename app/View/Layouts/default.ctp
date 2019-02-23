@@ -38,12 +38,12 @@ if (false) {
 <?php
 $generic = $this->requestAction('/pages/getGeneric');
 if (ucfirst($this->params['action']) == 'All' && ucfirst($this->params['controller']) == 'Strains') {
-    $gtitle = 'Home';
+    $gtitle = '';
 } else {
     $gtitle = ucfirst($this->params['action']);
 }
 if (!isset($title)) {
-    $title = str_replace('_', ' ', $gtitle) . ' - ' . $generic['title'];
+    $title = str_replace('_', ' ', $gtitle) . '' . $generic['title'];
 }
 $title .= ' - Personalized Cannabis';
 if (!isset($description)) {

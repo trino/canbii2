@@ -41,27 +41,30 @@
     }
 ?>
 
-<div class="jumbotron" style="background: transparent;padding-bottom:0 !important;padding-top:0 !important;">
-    <div class="row">
-        <DIV CLASS="col-md-12">
-            <h1 class="pb-1"><?= $strain['Strain']['name']; ?> - Report</h1>
-            <?php
-                switch ($strain['Strain']['type_id']) {
-                    case 1:
-                        echo "Indica strain, best suited for night time use.";
-                        break;
-                    case 2:
-                        echo "Sativa strain, best suited for day time use.";
-                        break;
-                    case 3:
-                        echo "Hybrid strain.";
-                        break;
-                }
-            ?>
-            <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?>
-        </DIV>
+
+
+<div class="jumbotron jumbotron_top" style="">
+    <div class="text-center">
+        <h1 style="font-size: 2.5rem !important;">          <?= $strain['Strain']['name']; ?> Canbii Report
+        </h1>
+        <p class="pt-2 pb-2">   <?php
+            switch ($strain['Strain']['type_id']) {
+                case 1:
+                    echo "Indica strain, best suited for night time use";
+                    break;
+                case 2:
+                    echo "Sativa strain, best suited for day time use";
+                    break;
+                case 3:
+                    echo "Hybrid strain, balanced high";
+                    break;
+            }
+            ?><p class="text-justify">
+            <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
     </div>
+
 </div>
+
 
 <div class="jumbotron bg-primary text-white">
     <div class="row pb-2">
@@ -131,10 +134,10 @@
                 } else {
                     ?>
                         <!--a class="text-white" href="#">
-                            No flavors yet.
+                            No flavors yet
                             <span style="font-size: 26px;padding-left:10px;" class="fa fa-star-half-full"></span>
                         </a-->
-                        No flavors yet.
+                        No flavors yet
                     <?php
                 }
             ?>
@@ -175,17 +178,13 @@
     }
     unset($images[0]);
     unset($images[1]);
-    $tdm = ' style="vertical-align: middle;">';
 
-
-
-
-echo '<DIV class="jumbotron">';
-
-foreach($DATA as $OCSDATA) {
+    echo '<DIV class="jumbotron">';
+    echo '<h3>Ontario Cannabis Store</h3>';
+    foreach ($DATA as $OCSDATA) {
         $slug = false;
-        echo '<h3>Ontario Cannabis Store';//</h3>";
         if ($OCSDATA["prices"]) {
+
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
             $hasname = false;
@@ -193,47 +192,54 @@ foreach($DATA as $OCSDATA) {
                 $prices[$data["slug"]][] = $data;
                 $slug = $data["slug"];
             }
+
+
+
             foreach ($prices as $slug => $pricelist) {
-                $isfirst = true;
                 foreach ($pricelist as $data) {
                     $text = slugtotext($data["category"]);
-                    if(!$hasname){
-                        if($text != "hardcoded") {
-                            echo " - " . slugtotext($data["category"]);
+                    if (!$hasname) {
+                        if ($text != "hardcoded") {
+
+                            echo "<h3>" . slugtotext($data["category"]) . ' by ' . $data["vendor"] . "</h3>";
                         }
-                        echo '</H3>';
                         $hasname = true;
                     }
-                    echo ''  . $data["title"]. money_format(LC_MONETARY, $data["price"] * 0.01) . '';
-                    if ($isfirst) {
-                        $isfirst = false;
-                        $URL = "https://ocs.ca/products/" . $slug;
-                        echo '<A HREF="' . $URL . '" CLASS="btn btn-sm btn-success mt-2" STYLE="height:100% !important;margin-top: 0px !important;" TARGET="_new">Purchase from ' . $data["vendor"] . '</A>';
-                    }
-                    $hasname = true;
                 }
             }
 
-            if($slug){
-                foreach($images as $ID => $image){
-                    if(imagematch($image, $slug)){
-                        echo '<div align="center" style="float:left;"><a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a></div>';
+
+            if ($slug) {
+                foreach ($images as $ID => $image) {
+                    if (imagematch($image, $slug)) {
+                        echo '<a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a>';
                         unset($images[$ID]);
                     }
                 }
             }
+
+            echo "<div class='clearfix py-1'></div>";
+            echo fixtext($OCSDATA["content"]);
+            echo "<div class='clearfix pt-1'></div>";
+
+            foreach ($prices as $slug => $pricelist) {
+                foreach ($pricelist as $data) {
+                             echo "<div class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</div>';
+                }
+            }
+
+
+            echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-success" TARGET="_new">Purchase Now</A>';
+
+
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
-            echo '</H3>' . money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+            echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
-
-        echo fixtext($OCSDATA["content"]);
+        echo "<div class='clearfix py-3'></div>";
 
     }
-
-
-
-echo '</div>';
+    echo '</div>';
 
 
 
@@ -304,9 +310,11 @@ echo '</div>';
 
     function printnoreviewlink($strain, $webroot) {
         if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
-            echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
+            echo 'No ratings yet';
+
+            //  echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
         } else {
-            echo 'No ratings yet.';
+            echo 'No ratings yet';
         }
     }
 ?>
@@ -387,7 +395,7 @@ echo '</div>';
                     break;
                 }
                 $rate = $ar[0];
-                $length = $rate;
+                $length = round($rate,2);
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
                 echo '<div class="pull-left">' . $name . '</div>';
@@ -400,7 +408,7 @@ echo '</div>';
 </div>
 
 <div class="jumbotron">
-    <h3>General Ratings</h3>
+    <h3>General</h3>
     <p> What are the general ratings?</p>
     <?php
         $scale = 0;
@@ -448,7 +456,7 @@ echo '</div>';
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
         } else {
-            echo '<SPAN TITLE="' . implode(", ", $reviews) . '"><br>Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
+            echo '<SPAN TITLE="' . implode(", ", $reviews) . '">Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
         }
     ?>
 </div>
