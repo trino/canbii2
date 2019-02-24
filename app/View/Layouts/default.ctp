@@ -156,7 +156,9 @@ if (!isset($keyword)) {
             <div class="inner">
                 <a href="<?= $this->webroot; ?>" title="CANBII MARIJUANA"><img class="logo"  style="width: 200px" src="<?= $this->webroot; ?>images/logo.png"/></a>
                 <nav class="nav nav-masthead justify-content-center mt-2">
-                    <a class="nav-link active" href="<?= $this->webroot; ?>/strains/all">Strains</a>
+
+
+                    <a class="nav-link active" href="<?= $this->webroot; ?>strains/all">Products</a>
                     <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiionline">Facebook</a>
                     <a class="nav-link" target="_blank" href="https://twitter.com/canbiionline">Twitter</a>
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/canbiionline">Instagram</a>
@@ -200,8 +202,8 @@ if (!isset($keyword)) {
                                     ?>
                                 </ul>
                         </nav>
-
-                        <div class="text-center my-2 py-2">
+<hr>
+                        <div class="">
                             <!--h1 class="cover-heading">ADD CANBII TO YOUR LIFE</h1>
                             <p class="lead">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
                             <p class="lead"></p>
@@ -225,6 +227,7 @@ if (!isset($keyword)) {
             <div class="inner mt-3">
                 <p>
                     <a class="text-secondary pr-2" href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a>
+                    <a class="text-secondary pr-2" href="mailto:info@canbii.com" title="canbii" target="_blank">info@canbii.com</a>
                     <a class="text-secondary pr-2" href="<?= $this->webroot . 'pages/privacy'; ?>" target="_blank">Privacy Policy</a>
                     <a class="text-secondary pr-2" href="<?= $this->webroot . 'pages/terms'; ?>" target="_blank">Terms & Conditions</a>
                     <span class="text-secondary"> Copyright <?php echo "2014-" . date('Y'); ?></span>

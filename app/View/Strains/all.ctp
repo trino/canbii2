@@ -93,7 +93,7 @@
 </div>
 
 
-<div class="jumbotron_top" style="">
+<div class="jumbotron_top jumbotron" style="">
     <div class="text-center">
         <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
         <p class="pt-2 pb-3">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
@@ -107,7 +107,7 @@
                     <div style="float:left;">
                         <img src="<?= $this->webroot; ?>images/IndicaIcon.png" alt="">
                     </div>
-                    <div style="float:left;padding-left: 15px;">
+                    <div style="float:left;padding-left: 15px;padding-bottom: 15px;">
                         <h1>Indica</h1>
                         Night Time Use
                     </div>
@@ -117,7 +117,7 @@
                     <div style="float:left;">
                         <img src="<?= $this->webroot; ?>images/SativaIcon.png" alt="">
                     </div>
-                    <div style="float:left;padding-left: 15px;">
+                    <div style="float:left;padding-left: 15px;padding-bottom: 15px;">
                         <h1>Sativa</h1>
                         Day Time Use
                     </div>
@@ -126,7 +126,7 @@
                     <div style="float:left;">
                         <img src="<?= $this->webroot; ?>images/HybridIcon.png" alt="">
                     </div>
-                    <div style="float:left;padding-left: 15px;">
+                    <div style="float:left;padding-left: 15px;padding-bottom: 15px;">
                         <h1>Hybrid</h1>
                         Best of Both Worlds
                     </div>
@@ -142,7 +142,7 @@
 
 <div class="jumbotron" style="">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <h1>Filter By</h1>
             <?php
                 $URL = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -170,7 +170,7 @@
                     if (isset($_GET['key'])) {
                         echo "?key=" . $_GET['key'];
                     }
-                    echo '">' . $data["title"] . '</a>';
+                    echo '">#' . $data["title"] . '</a>';
                 }
             ?>
             <div class="clearfix py-1"></div>
@@ -191,12 +191,20 @@
         ?>
         </ul>
     </div-->
-        <div class="col-md-8">
+        <div class="col-md-12">
+            <div class="clearfix py-1"></div>
+<?php
+$class = left($usetable, 3);
+
+?>
             <h1>Canbii Activity</h1>
+
+            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">All</a>
+
+
             <?php
                 $effect = $effectslist;
                 $counter = 0;
-                $class = left($usetable, 3);
                 foreach ($effect as $e) {
                     $counter++;
                     echo '<a style="" href="';
@@ -206,13 +214,12 @@
                         echo "?" . $usetable . "=" . $e['id'];
                     }
                     echo '" class="' . $class . '2 btn btn-primary mr-1 mb-1" data-parent="#filter_desktop" id="' . $class . '_';
-                    echo $e['id'] . '"> <span>' . $e['title'] . '</span></a>';
+                    echo $e['id'] . '"> <span>#' . $e['title'] . '</span></a>';
                     if ($counter == ceil(count($effect) / 2)) {
                         $counter = 0;
                     }
                 }
             ?>
-            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">Reset</a>
             <p style="display: none;" class="symp"></p>
         </div>
     </div>
@@ -359,7 +366,7 @@
                 data: val,
                 type: 'POST',
                 success: function (res) {
-                    log("TAG: " + tag + " showmore: " + showmore + " more: " + more + " val: " + val + " limit: " + limit);
+                 //   log("TAG: " + tag + " showmore: " + showmore + " more: " + more + " val: " + val + " limit: " + limit);
 
                     $('#indica').attr('href', '<?= $this->webroot;?>strains/all/indica?' + val);
                     $('#sativa').attr('href', '<?= $this->webroot;?>strains/all/sativa?' + val);

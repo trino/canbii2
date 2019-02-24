@@ -534,7 +534,7 @@ class StrainsController extends AppController {
                 echo "These strains are known to be enjoyable with: ";
             }
             foreach ($symptoms as $symptom) {
-                echo $delimeter . $symptom['title'];
+                echo $delimeter . '#'. $symptom['title'];
                 $index++;
                 if (!$delimeter) {$delimeter = ", ";}
                 if ($index == $symptomscount - 1) {$delimeter = " and ";}

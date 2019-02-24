@@ -224,7 +224,7 @@
 
             foreach ($prices as $slug => $pricelist) {
                 foreach ($pricelist as $data) {
-                             echo "<div class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</div>';
+                             echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</div>';
                 }
             }
 
@@ -300,7 +300,7 @@
                 $length = $rate;
                 //$name =  $this->requestAction('/strains/getSymptom/' . $ars[1]);
                 $name = $symptom["name"];// getiterator($names, "id", $ars[1])["title"];
-                echo '<div class="pull-left">' . $name . '</div>';
+                echo '<div class="pull-left">#' . $name . '</div>';
                 progressbar($webroot, $length, perc($length), "", "info", $color);
             }
         } else {
@@ -398,7 +398,7 @@
                 $length = round($rate,2);
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
-                echo '<div class="pull-left">' . $name . '</div>';
+                echo '<div class="pull-left">#' . $name . '</div>';
                 progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
         } else {
@@ -442,15 +442,15 @@
             $duration = round($duration / $count,2);// * $Factor;
         }
         if ($scale) {
-            echo '<div class="pull-left" TITLE="' . $scale . " " . $count . '">Sedative</div>';
+            echo '<div class="pull-left" TITLE="' . $scale . " " . $count . '">#Sedative</div>';
             progressbar($this->webroot, $scale, perc($scale), "", "warning", "light-purple");
         }
         if ($strength) {
-            echo '<div class="pull-left" TITLE="' . $strength . " " . $count . '">Strength</div>';
+            echo '<div class="pull-left" TITLE="' . $strength . " " . $count . '">#Strength</div>';
             progressbar($this->webroot, $strength, perc($strength), "", "warning", "light-purple");
         }
         if ($duration) {
-            echo '<div class="pull-left" TITLE="' . $duration . " " . $count . '">Duration</div>';
+            echo '<div class="pull-left" TITLE="' . $duration . " " . $count . '">#Duration</div>';
             progressbar($this->webroot, $duration, perc($duration), "", "warning", "light-purple");
         }
         if (!$duration && !$strength && !$scale) {
@@ -485,7 +485,7 @@
                 $length =  $rate;
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
-                echo '<div class="pull-left">' . $name . '</div>';
+                echo '<div class="pull-left">#' . $name . '</div>';
                 progressbar($this->webroot, $length, perc($length), "", "danger", "light-red");
             }
         } else {
@@ -498,6 +498,7 @@
 
 <?php } ?>
 <div class="jumbotron">
+    hide all this entire section
     <?php include_once('combine/strain_reviews.php'); ?>
     <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
         Hide This on Live - See All Reviews for <?= $strain['Strain']['id'] . ": " . $strain['Strain']['name']; ?> &raquo;
@@ -505,7 +506,7 @@
 </div>
 
 <div class="jumbotron">
-    <h3><?= $strain['Strain']['name']; ?> Dried Flower Images</h3>
+    <h3><?= trim($strain['Strain']['name']); ?>Dried Flower Images</h3>
     <?php include('combine/images.php'); ?>
     <script type="text/javascript">
         $(document).ready(function () {
