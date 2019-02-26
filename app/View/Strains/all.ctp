@@ -53,39 +53,39 @@
         <div class="modal-content">
             <div class="modal-body">
                 <?php
-                $effect = $effectslist;
-                $counter = 0;
-                $second_div = 0;
-                foreach ($effect as $e) {
-                    $counter++;
-                    if ($counter == 1) {
-                        echo "<div style='";
-                        if ($second_div == 1) {
-                            echo "float:right;";
-                            $second_div = 0;
+                    $effect = $effectslist;
+                    $counter = 0;
+                    $second_div = 0;
+                    foreach ($effect as $e) {
+                        $counter++;
+                        if ($counter == 1) {
+                            echo "<div style='";
+                            if ($second_div == 1) {
+                                echo "float:right;";
+                                $second_div = 0;
+                            }
+                            echo "width: 50%;display:inline-block;'>";
                         }
-                        echo "width: 50%;display:inline-block;'>";
+                        ?>
+                        <div>
+                            <a style="color:black;padding:2px;" href="<?php
+                            if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
+                                echo "javascript:void(" . $e['id'] . ");";
+                            } else {
+                                echo "?" . $usetable . "=" . $e['id'];
+                            }
+                            ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog" id="sym_<?= $e['id']; ?>"><?= $e['title'] ?></a>
+                        </div>
+                        <?php
+                        if ($counter == ceil(count($effect) / 2)) {
+                            echo "</div>";
+                            $counter = 0;
+                            $second_div = 1;
+                        }
                     }
-                    ?>
-                    <div>
-                        <a style="color:black;padding:2px;" href="<?php
-                        if ($_SERVER["SERVER_NAME"] == "localhost" || $multiple) {//LOOK FOR ME!!!!
-                            echo "javascript:void(" . $e['id'] . ");";
-                        } else {
-                            echo "?" . $usetable . "=" . $e['id'];
-                        }
-                        ?>" class="sym2 dialog_sym small-btn" data-parent="#dialog" id="sym_<?= $e['id']; ?>"><?= $e['title'] ?></a>
-                    </div>
-                    <?php
-                    if ($counter == ceil(count($effect) / 2)) {
+                    if ($counter != 0) {
                         echo "</div>";
-                        $counter = 0;
-                        $second_div = 1;
                     }
-                }
-                if ($counter != 0) {
-                    echo "</div>";
-                }
                 ?>
             </div>
         </div>
@@ -153,12 +153,14 @@
                     "hybrid" => [],
                 ];
                 foreach ($types as $ID => $data) {
-                    echo '<a id="' . $ID . '" class="mr-1 mb-1 btn btn-primary';
+                    echo '<a id="' . $ID . '" class="mr-1 mb-1 btn ';
                     if (!isset($data["type"])) {
                         $data["type"] = $ID;
                     }
                     if ($type == $data["type"]) {
-                        echo ' sel';
+                        echo 'btn-success';
+                    } else {
+                        echo 'btn-primary';
                     }
                     echo '" href="' . $this->webroot . 'strains/all';
                     if (!isset($data["addtourl"]) || $data["addtourl"]) {

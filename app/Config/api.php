@@ -292,6 +292,23 @@
 		}
 	}
 
+	function fixtext($text) {
+		$text = html_entity_decode(html_entity_decode(htmlspecialchars_decode($text)));
+		$text = str_replace(['&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', 'ain’', 'Â', 'â€™'], ["", "'", '', "'"], $text);
+		return trim($text);
+	}
+
+	function slugtotext($key) {
+		if (textcontains($key, "-")) {
+			$key = explode("-", $key);
+			foreach ($key as $INDEX => $VALUE) {
+				$key[$INDEX] = ucfirst($VALUE);
+			}
+			return implode(" ", $key);
+		}
+		return $key;
+	}
+
 	function Query($query, $all = false){
 		global $con;
 		$ret = false;

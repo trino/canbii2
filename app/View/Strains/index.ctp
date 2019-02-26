@@ -45,7 +45,7 @@
 
 <div class="jumbotron jumbotron_top" style="">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;">          <?= $strain['Strain']['name']; ?> Canbii Report
+        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']); ?> Canbii Report
         </h1>
         <p class="pt-2 pb-2">   <?php
             switch ($strain['Strain']['type_id']) {
@@ -145,23 +145,6 @@
     </div>
 </div>
 <?php
-    function fixtext($text) {
-        $text = html_entity_decode(html_entity_decode(htmlspecialchars_decode($text)));
-        $text = str_replace(['&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', 'ain’'], ["", "'"], $text);
-        return trim($text);
-    }
-
-    function slugtotext($key) {
-        if (textcontains($key, "-")) {
-            $key = explode("-", $key);
-            foreach ($key as $INDEX => $VALUE) {
-                $key[$INDEX] = ucfirst($VALUE);
-            }
-            return implode(" ", $key);
-        }
-        return $key;
-    }
-
     function imagematch($image, $slug){
         if(startswith($image, $slug) && !textcontains($image, "_")){
             $image = getfilename($image, false);
@@ -184,7 +167,6 @@
     foreach ($DATA as $OCSDATA) {
         $slug = false;
         if ($OCSDATA["prices"]) {
-
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
             $hasname = false;
@@ -192,8 +174,6 @@
                 $prices[$data["slug"]][] = $data;
                 $slug = $data["slug"];
             }
-
-
 
             foreach ($prices as $slug => $pricelist) {
                 foreach ($pricelist as $data) {
@@ -207,7 +187,6 @@
                     }
                 }
             }
-
 
             if ($slug) {
                 foreach ($images as $ID => $image) {
@@ -228,10 +207,7 @@
                 }
             }
 
-
             echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-success" TARGET="_new">Purchase Now</A>';
-
-
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
@@ -501,12 +477,12 @@
     hide all this entire section
     <?php include_once('combine/strain_reviews.php'); ?>
     <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">
-        Hide This on Live - See All Reviews for <?= $strain['Strain']['id'] . ": " . $strain['Strain']['name']; ?> &raquo;
+        Hide This on Live - See All Reviews for <?= $strain['Strain']['id'] . ": " . fixtext($strain['Strain']['name']); ?> &raquo;
     </a>
 </div>
 
 <div class="jumbotron">
-    <h3><?= trim($strain['Strain']['name']); ?>Dried Flower Images</h3>
+    <h3><?= fixtext(trim($strain['Strain']['name'])); ?>Dried Flower Images</h3>
     <?php include('combine/images.php'); ?>
     <script type="text/javascript">
         $(document).ready(function () {

@@ -39,6 +39,16 @@ class Strain extends AppModel {
 		)
 	);
 
+    public function afterFind($results, $primary = false) {
+        foreach($results as $KEY => $DATA) {
+            if (isset($DATA["Strain"]["name"])) {
+                $NAME = trim(str_replace( chr( 194 ) . chr( 160 ), ' ', $DATA["Strain"]["name"]));
+                $results[$KEY]['Strain']['name'] = $NAME;
+            }
+        }
+        return $results;
+    }
+
     /*
     public $conditions = array('hasocs' => 1);
     public function beforeFind($queryData) {

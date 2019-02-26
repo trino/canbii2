@@ -64,7 +64,7 @@ $filter = '';
 else
 $filter = $_GET['filter'];
 ?>
-			<strong>Filter By: </strong><a class="filter_by" href="<?php echo $this->request->webroot;?>review/showAll/?filter=rate&sort=<?php echo $sort;?>">Most Rated</a> <a class="filter_by" href="<?php echo $this->request->webroot;?>review/showAll/?filter=on_date&sort=<?php echo $sort;?>">Most Recent</a> 
+			<strong>Filter B testy: </strong><a class="filter_by" href="<?php echo $this->request->webroot;?>review/showAll/?filter=rate&sort=<?php echo $sort;?>">Most Rated</a> <a class="filter_by" href="<?php echo $this->request->webroot;?>review/showAll/?filter=on_date&sort=<?php echo $sort;?>">Most Recent</a>
 		</div>
 
 

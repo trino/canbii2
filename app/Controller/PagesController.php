@@ -158,7 +158,7 @@ class PagesController extends AppController {
         $this->loadModel('Strain');
         $q = $this->Strain->find('first',array('conditions'=>array('slug'=>$slug)));
         
-        $this->set('title',$q['Strain']['name']);
+        $this->set('title', fixtext($q['Strain']['name']));
         $this->set('description',$q['Strain']['description']);
         $this->set('keyword',$q['Strain']['name'].' , Canbii , Medical , Marijuana , Medical Marijuana');
         
