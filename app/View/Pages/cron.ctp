@@ -67,6 +67,7 @@
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
 <TABLE WIDTH="100%"><TR><TD>
 <?php
+    $CAT = '?cat=strain';
     $negativeeffects = ["Bad Taste", "Cough", "Dry Mouth", "Harsh", "Headache", "Lazy", "Red Eyes", "Talkative", "Weak"];
     $extradata = [//CAUTION: lift_effects and lift_symptoms values are inverted (so truevalue=100-value)
         "ace-valley-cbd" => [
@@ -118,6 +119,7 @@
             "lift_effects" => ["Lazy" => 28.3333, "Red Eyes" => 36.6667, "Cough" => 45],
             "lift_symptoms" => ["Mood" => 30, "Appetite" => 41.6667, "Back Pain" => 41.6667, "Muscle Spasms" => 46.6667, "Headaches" => 48.3333],
             "urls" => [
+                "https://www.leafly.com/indica/alien-dawg?cat=strain",
                 "https://www.leafly.com/products/details/nebula-gardens-alien-dawg?q=alien-dawg&cat=product",
                 "https://www.leafly.com/products/details/silverpeak-alien-dawg?q=alien-dawg&cat=product",
                 "https://www.leafly.com/products/details/kynd-cannabis-company-alien-dawg?q=alien-dawg&cat=product",
@@ -135,6 +137,7 @@
             "lift_flavors" => "earthy, pine, sweet",
             "lift_effects" => ["Harsh" => 33.3333, "Weak" => 45, "Red Eyes" => 50, "Motivated" => 36.6667, "Sleepy" => 41.6667, "Giggly" => 45, "Anti-Anxiety" => 45, "Calming" => 46.6667],
             "urls" => [
+                "https://www.leafly.com/indica/argyle?cat=strain",
                 "https://www.leafly.com/products/details/tweed-argyle-flower?q=argyle&cat=product",
                 "https://www.leafly.com/products/details/tweed-argyle-oil?q=argyle&cat=product",
                 "https://www.leafly.com/products/details/tweed-argyle-softgels?q=argyle&cat=product"
@@ -149,6 +152,7 @@
             "lift_flavors" => "earthy, sweet, citrus",
             "lift_effects" => ["Talkative" => 40, "Lazy" => 43.3333, "Bad Taste" => 46.6667, "Motivated" => 15, "Calming" => 35, "Anxiety" => 36.6667, "Pain Relief" => 38.3333],
             "urls" => [
+                "https://www.leafly.com/indica/bakerstreet?cat=strain",
                 "https://www.leafly.com/products/details/tweed-bakerstreet-flower?q=bakerstreet&cat=product",
                 "https://www.leafly.com/products/details/tweed-bakerstreet-oil?q=bakerstreet&cat=product",
                 "https://www.leafly.com/products/details/tweed-bakerstreet-softgel?q=bakerstreet&cat=product"
@@ -206,6 +210,7 @@
             "lift_badeffects" => ["dry mouth" => "56.6667"],
             "lift_goodeffects" => ["uplifted" => "45", "happy" => "48.3333", "relaxed" => "50", "calming" => "53.3333", "energetic" => "58.3333"],
             "urls" => [
+                "https://www.leafly.com/hybrid/banana-split?cat=strain",
                 "https://www.leafly.com/products/details/dream-city-banana-split?q=banana-split&cat=product",
                 "https://www.leafly.com/products/details/tall-tree-society-banana-split?q=banana-split&cat=product",
                 "https://www.leafly.com/products/details/aurora-cannabis-inc-banana-split?q=banana-split&cat=product",
@@ -223,7 +228,10 @@
             "lift_flavors" => "",
             "lift_badeffects" => [],
 	        "lift_goodeffects" => ["energetic" => "66.6667", "awake" => "78.3333"],
-            "urls" => ["https://www.leafly.com/products/details/flowr-bc-delahaze?q=bc-delahaze&cat=product"]
+            "urls" => [
+                "https://www.leafly.com/sativa/delahaze?cat=strain",
+                "https://www.leafly.com/products/details/flowr-bc-delahaze?q=bc-delahaze&cat=product"
+            ]
         ],
         "bc-pink-kush" => [
             "lift_url" => "https://lift.co/strains/flowr-bc-pink-kush",
@@ -234,7 +242,10 @@
             "lift_flavors" => "",
             "lift_badeffects" => [],
             "lift_goodeffects" => [],
-            "urls" => ["https://www.leafly.com/products/details/flowr-bc-pink-kush?q=bc-pink-kush&cat=product"]
+            "urls" => [
+                "https://www.leafly.com/hybrid/pink-kush?cat=strain",
+                "https://www.leafly.com/products/details/flowr-bc-pink-kush?q=bc-pink-kush&cat=product"
+            ]
         ],
         "bc-sensi-star" => [
             "lift_url" => "https://lift.co/strains/flowr-bc-sensi-star",
@@ -245,7 +256,10 @@
             "lift_flavors" => "",
             "lift_badeffects" => [],
             "lift_goodeffects" => [],
-            "urls" => ["https://www.leafly.com/products/details/flowr-bc-sensi-star?q=bc-sensi-star&cat=product"]
+            "urls" => [
+                "https://www.leafly.com/indica/sensi-star?cat=strain",
+                "https://www.leafly.com/products/details/flowr-bc-sensi-star?q=bc-sensi-star&cat=product"
+            ]
         ],
         "blue-dream" => [
             "lift_url" => "https://lift.co/strains/aurora-recreational-blue-dream",
@@ -272,7 +286,7 @@
             "lift_badeffects" => ["dry mouth" => "45"],
             "lift_goodeffects" => ["relaxed" => "33.3333", "sleepy" => "38.3333", "happy" => "58.3333", "euphoric" => "61.6667", "calming" => "61.6667"],
             "urls" => [
-                "https://www.leafly.com/indica/blueberry-kush?q=blueberry-kush&cat=strain",//STRAIN
+                "https://www.leafly.com/indica/blueberry-kush?q=blueberry-kush&cat=strain",
                 "https://www.leafly.com/products/details/thclear-disposable-pens-blueberry-kush-1-gram?q=blueberry-kush&cat=product",
                 "https://www.leafly.com/products/details/moani-naturals-blueberry-kush?q=blueberry-kush&cat=product",
                 "https://www.leafly.com/products/details/denver-terpenes-blueberry-kush?q=blueberry-kush&cat=product",
@@ -386,6 +400,7 @@
             "lift_goodeffects" => [],
             "lift_symptoms" => ["inflammation" => "11.6667", "anxiety" => "28.3333", "back pain" => "30", "insomnia" => "38.3333"],
             "urls" => [
+                "https://www.leafly.com/hybrid/cold-creek-kush" . $CAT,
                 "https://www.leafly.com/products/details/seven-oaks-cold-creek-kush?q=cold-creek-kush&cat=product",
                 "https://www.leafly.com/products/details/redecan-cold-creek-kush?q=cold-creek-kush&cat=product",
                 "https://www.leafly.com/products/details/dutchie-products-dutchie-cold-creek-kush?q=cold-creek-kush&cat=product",
@@ -401,7 +416,10 @@
             "lift_flavors" => "citrus, earthy, citrusy",
             "lift_badeffects" => ["lazy" => "50", "hungry" => "50", "weak" => "53.3333"],
             "lift_goodeffects" => ["tasteful" => "23.3333", "happy" => "31.6667", "uplifted" => "35", "energetic" => "35", "alert" => "36.6667"],
-            "urls" => ["https://www.leafly.com/products/details/canna-farms-critical-super-silver-haze?q=critical-super-silver-haze&cat=product"]
+            "urls" => [
+                "https://www.leafly.com/sativa/super-silver-haze" . $CAT,
+                "https://www.leafly.com/products/details/canna-farms-critical-super-silver-haze?q=critical-super-silver-haze&cat=product"
+            ]
         ],
         "delahaze" => [
             "lift_url" => "https://lift.co/strains/san-rafael-71-delahaze",
@@ -716,7 +734,8 @@
             "lift_flavors" => "piney",
             "lift_badeffects" => [],
             "lift_goodeffects" => ["relaxed" => "40", "calming" => "45", "focused" => "61.6667"],
-            "lift_vendor" => "UP"
+            "lift_vendor" => "UP",
+            "urls" => ["https://www.leafly.com/products/details/up-cannabis-moon?cat=product"]
         ] ,
         "napali-cbd" => [
             "lift_url" => "https://lift.co/strains/haven-st-napali-cbd",
@@ -751,6 +770,7 @@
             "lift_goodeffects" => [],
             "lift_symptoms" => ["stress" => "6.66667", "anxiety" => "13.3333", "pain" => "30"],
             "urls" => [
+                "https://www.leafly.com/indica/northern-lights" . $CAT,
                 "https://www.leafly.com/products/details/ministry-of-cannabis-northern-lights-moc?q=northern-lights-moc&cat=product",
                 "https://www.leafly.com/products/details/crafted-extracts-northern-lights?q=northern-lights-moc&cat=product"
             ]
@@ -973,6 +993,7 @@
             "lift_badeffects" => ["bad taste" => "58.3333", "lazy" => "61.6667", "hungry" => "75"],
             "lift_goodeffects" => ["euphoric" => "28.3333", "sleepy" => "43.3333", "calming" => "45", "relaxed" => "45", "happy" => "61.6667"],
             "urls" => [
+                "https://www.leafly.com/indica/sunset" . $CAT,
                 "https://www.leafly.com/products/details/lbs-sunset?q=sunset&cat=product",
                 "https://www.leafly.com/products/details/lbs-sunset-25-mg-capsules?q=sunset&cat=product"
             ]
@@ -1144,6 +1165,7 @@
                 "lift_badeffects" => ["hungry" => "46.6667", "dry eyes" => "61.6667", "dry mouth" => "65"],
                 "lift_goodeffects" => ["relaxed" => "15", "uplifted" => "16.6667", "sleepy" => "20", "euphoric" => "30", "energetic" => "31.6667"],
                 "urls" => [
+                    "https://www.leafly.com/sativa/white-shark" . $CAT,
                     "https://www.leafly.com/products/details/weedmd-white-shark?q=white-shark&cat=product",
                     "https://www.leafly.com/products/details/redecan-white-shark?q=white-shark&cat=product"
                 ]
