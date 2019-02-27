@@ -102,21 +102,27 @@
 </div>
 <script>
     var lastsearch;
+    function toggleclass(element){
+        if($(element).hasClass('btn-primary')) {
+            $(element).removeClass('btn-primary');
+            $(element).addClass('btn-success');
+        } else {
+            $(element).removeClass('btn-success');
+            $(element).addClass('btn-primary');
+        }
+    }
 
-$(function(){
-$('.opt').live('click',function(){
-	$("#strainz").val($(this).attr("title"));
-   $("#sub").removeAttr("disabled"); 
-  if($(this).attr('class').replace('sel',"")!=$(this).attr('class'))
-	{
-		$(this).removeClass('sel');
-		return
-	}
-	$('.opt').each(function(){
-		$(this).removeClass('sel');
-	});
-	$(this).addClass('sel');
-})
+    $(function(){
+        $('.opt').live('click',function(){
+            $("#strainz").val($(this).attr("title"));
+            ("#sub").removeAttr("disabled");
+            toggleclass(this);
+            $('.opt').each(function(){
+                $(this).removeClass('sel');
+            });
+        }
+    );
+
 $('#searchName').on('keydown keyup click input submit mouseenter', function(){
 	var txt = $(this).val();
     if (txt.length > 2 && txt !=lastsearch) {

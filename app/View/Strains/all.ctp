@@ -135,9 +135,6 @@
         </div>
         <div class="col-md-2"></div>
     </div>
-
-
-
 </div>
 
 <div class="jumbotron" style="">
@@ -190,20 +187,15 @@
             foreach ($sorts as $ID => $sort) {
                 echo '<li><a href="javascript:void(0)" class="eff1" id="' . $ID . '">' . $sort . '</a></li>';
             }
+            $class = left($usetable, 3);
         ?>
         </ul>
     </div-->
         <div class="col-md-12">
             <div class="clearfix py-1"></div>
-<?php
-$class = left($usetable, 3);
-
-?>
             <h1>Canbii Activity</h1>
 
             <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">All</a>
-
-
             <?php
                 $effect = $effectslist;
                 $counter = 0;
@@ -253,6 +245,18 @@ $class = left($usetable, 3);
     var spinnerVisible = false;
     var val = '';
     var currentlisting = "";
+
+    function toggleclass(element){
+        if($(element).hasClass('btn-primary')) {
+            $(element).removeClass('btn-primary');
+            $(element).addClass('btn-success');
+            return false;
+        } else {
+            $(element).removeClass('btn-success');
+            $(element).addClass('btn-primary');
+            return true;
+        }
+    }
 
     function showspinner() {
         if (!spinnerVisible) {
@@ -415,15 +419,15 @@ $class = left($usetable, 3);
                 eletype = "activities";
                 eleclass = "acts";
             }
-            var test = $(this).hasClass("sel");
+            var test = toggleclass(this);
+
+
             //  log("Testing: " + test);
             if (test) {
                 $("#filter_desktop #" + ID).removeClass('searchact3');
                 $("#filter_dialog #" + ID).removeClass('searchact3');
                 $('#in_' + eleclass + ID).remove();
-                $(this).removeClass("sel");
             } else {
-                $(this).addClass("sel");
                 $("#filter_desktop #" + ID).addClass('searchact3');
                 $("#filter_dialog #" + ID).addClass('searchact3');
                 $('.symp').append('<input ID="in_' + eleclass + ID + '" type="hidden" name="' + eletype + '[]" value="' + filternonnumeric(ID) + '" class="' + eleclass + ' check' + ID + ' ' + eleclass + ID + '"  />')

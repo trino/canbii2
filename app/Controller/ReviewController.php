@@ -231,6 +231,9 @@
                     "rate"          => $rating
                 ];
                 insertdb($table . "_ratings", $data);//add the rating for the item to the table
+                if(is_array($itemID)) {
+                    $itemID = $itemID["id"];
+                }
                 $data = first("SELECT AVG(rate) as rate FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
                 $ID = first("SELECT id FROM overall_" . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
                 if($ID){$data["id"] = $ID["id"];}

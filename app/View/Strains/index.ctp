@@ -45,24 +45,24 @@
 
 <div class="jumbotron jumbotron_top" style="">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']); ?> Canbii Report
-        </h1>
-        <p class="pt-2 pb-2">   <?php
-            switch ($strain['Strain']['type_id']) {
-                case 1:
-                    echo "Indica strain, best suited for night time use";
-                    break;
-                case 2:
-                    echo "Sativa strain, best suited for day time use";
-                    break;
-                case 3:
-                    echo "Hybrid strain, balanced high";
-                    break;
-            }
-            ?><p class="text-justify">
-            <?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
+        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']); ?> Canbii Report</h1>
+        <p class="pt-2 pb-2">
+            <?php
+                switch ($strain['Strain']['type_id']) {
+                    case 1:
+                        echo "Indica strain, best suited for night time use";
+                        break;
+                    case 2:
+                        echo "Sativa strain, best suited for day time use";
+                        break;
+                    case 3:
+                        echo "Hybrid strain, balanced high";
+                        break;
+                }
+            ?>
+        </P>
+        <p class="text-justify"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
     </div>
-
 </div>
 
 
@@ -92,7 +92,8 @@
                         }
                         if ($strain['Strain'][$acronym] != "0") {
                             $chemical++;
-                            echo '<span class="eff2" style="margin-right: 5px;"><a style="color: white" target="new" href="' . $wikipedia . '">' . strtoupper($acronym) . ':</a> ' . $strain['Strain'][$acronym] . '%</span> ';
+                            echo '<span class="eff2" style="margin-right: 5px;"><a style="color: white" target="new" href="' . $wikipedia . '">' . strtoupper($acronym) . ':</a> ';
+                            echo str_replace('%%', '%',  $strain['Strain'][$acronym] . '%</span> ');
                         };
                         return $chemical;
                     }

@@ -563,10 +563,12 @@
     });
 
     function toggleclass(element, classname){
-        if($(element).hasClass(classname)) {
-            $(element).removeClass(classname);
+        if($(element).hasClass('btn-primary')) {
+            $(element).removeClass('btn-primary');
+            $(element).addClass('btn-success');
         } else {
-            $(element).addClass(classname);
+            $(element).removeClass('btn-success');
+            $(element).addClass('btn-primary');
         }
     }
 

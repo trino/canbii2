@@ -137,10 +137,20 @@ class StrainsController extends AppController {
         $this->loadModel('SymptomVote');
 
         $q = $this->Strain->find('first', array('conditions' => array('slug' => $slug)));
+        if(!$q){
+            $OCS = first("SELECT * FROM ocs WHERE slug LIKE '" . $slug . "'");
+            if($OCS){
+                $OCS = first("SELECT * FROM strains WHERE id=" . $OCS["strain_id"]);
+                $this->redirect("/strains/" . $OCS["slug"]);
+            } else {
+                die("SLUG '" . $slug . "' NOT FOUND");
+            }
+        }
+
         //debug($q );
-        $this->set('title', $q['Strain']['name']);
-        $this->set('description', $q['Strain']['description']);
-        $this->set('keyword', $q['Strain']['name'] . ' , Canbii , Medical , Marijuana , Medical Marijuana');
+        $this->set('title',         $q['Strain']['name']);
+        $this->set('description',   $q['Strain']['description']);
+        $this->set('keyword',       $q['Strain']['name'] . ' , Canbii , Medical , Marijuana , Medical Marijuana');
         
         $params_vote_sum = array(
             "conditions"=>array("SymptomVote.strain_id"=>$q['Strain']['id']),
