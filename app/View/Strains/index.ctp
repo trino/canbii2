@@ -482,7 +482,7 @@
 </div>
 
 <div class="jumbotron">
-    <h3><?= fixtext(trim($strain['Strain']['name'])); ?>Dried Flower Images</h3>
+    <h3><?= fixtext(trim($strain['Strain']['name'])); ?> Dried Flower Images</h3>
     <?php include('combine/images.php'); ?>
     <script type="text/javascript">
         $(document).ready(function () {
