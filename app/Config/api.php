@@ -430,9 +430,7 @@
 		return first("SELECT COUNT(" . $SQL . ") as count FROM " . $table)["count"];
 	}
 
-if(!function_exists("money_format")){
-	function money_format($ignored, $value) {
+	function money_format2($ignored, $value) {
 		return '$' . number_format($value, 2);
-	}
-}
+	}9
 ?>

@@ -203,14 +203,14 @@
 
             foreach ($prices as $slug => $pricelist) {
                 foreach ($pricelist as $data) {
-                             echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format(LC_MONETARY, $data["price"] * 0.01) . '</div>';
+                             echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format2(LC_MONETARY, $data["price"] * 0.01) . '</div>';
                 }
             }
 
             echo '<A HREF="' . "https://ocs.ca/products/" . $slug . '" CLASS="btn btn-success" TARGET="_new">Purchase Now</A>';
         } else {
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
-            echo money_format(LC_MONETARY, $OCSDATA["price"] * 0.01);
+            echo money_format2(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
         echo "<div class='clearfix py-3'></div>";
 
