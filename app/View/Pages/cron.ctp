@@ -20,11 +20,15 @@
         $SQL .= "SELECT id, rate, '" . $table . "' as tablename FROM " . $table . " WHERE rate > 5";
     }
 
-    if(query($SQL, true)){
+    $data = query($SQL, true);
+    if($data){
         $options["ratingserror"] = true;
         $options["forceratingcalc"] = true;
-        foreach($ratingstables as $table){
-            query("UPDATE '" . $table . "' SET rate = rate / 20 WHERE rate > 5");
+        //foreach($ratingstables as $table){
+        //    query("UPDATE '" . $table . "' SET rate = rate / 20 WHERE rate > 5");
+        //}
+        foreach($data as $row){
+            insertdb($row["table"], ["id" => $row["id"], "rate" => $row["rate"] / 20]);
         }
     }
 
@@ -10762,7 +10766,7 @@
         }
         return 0;
     }
-error_reporting(E_ALL);
+
     function processfound(&$localstrain, $found){
         if ($found == 0) {
             $localstrain["reviewsskipped"] += 1;
