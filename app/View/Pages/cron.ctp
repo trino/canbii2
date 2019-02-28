@@ -28,7 +28,7 @@
         //    query("UPDATE '" . $table . "' SET rate = rate / 20 WHERE rate > 5");
         //}
         foreach($data as $row){
-            insertdb($row["table"], ["id" => $row["id"], "rate" => $row["rate"] / 20]);
+            insertdb($row["tablename"], ["id" => $row["id"], "rate" => $row["rate"] / 20]);
         }
     }
 
