@@ -45,7 +45,7 @@
 
 <div class="jumbotron jumbotron_top" style="">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']); ?> Canbii Report</h1>
+        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) .  $strain["Strain"]["id"]; ?> Canbii Report</h1>
         <p class="pt-2 pb-2">
             <?php
                 switch ($strain['Strain']['type_id']) {
@@ -163,7 +163,7 @@
     unset($images[0]);
     unset($images[1]);
 
-    echo '<DIV class="jumbotron">';
+    echo '<DIV class="jumbotron hide-class" >';
     echo '<h3>Ontario Cannabis Store</h3>';
     foreach ($DATA as $OCSDATA) {
         $slug = false;
@@ -287,11 +287,11 @@
 
     function printnoreviewlink($strain, $webroot) {
         if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
-            echo 'No ratings yet';
+            echo '<p>No ratings yet</p>';
 
             //  echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
         } else {
-            echo 'No ratings yet';
+            echo '<p>No ratings yet</p>';
         }
     }
 ?>
@@ -433,7 +433,7 @@
         if (!$duration && !$strength && !$scale) {
             printnoreviewlink($strain, $this->webroot);
         } else {
-            echo '<SPAN TITLE="' . implode(", ", $reviews) . '">Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
+          //  echo '<SPAN TITLE="' . implode(", ", $reviews) . '">Based on ' . $count . " review" . iif($count == 1, "", "s") . '</SPAN>';
         }
     ?>
 </div>
@@ -475,6 +475,7 @@
 
 <?php } ?>
 <div class="jumbotron">
+    <h3>Top Review</h3>
     hide all this entire section
     <?php include_once('combine/strain_reviews.php'); ?>
     <a href="<?= $this->webroot; ?>strains/review/<?= $strain['Strain']['slug']; ?>">

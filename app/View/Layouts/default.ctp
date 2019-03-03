@@ -78,7 +78,6 @@ if (!isset($keyword)) {
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/superfish.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery.qtip.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/jquery-ui-1.9.2.custom.css"/>
-<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/style.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/responsive.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/animations.css"/>
 <script type="text/javascript" src="<?= $this->webroot; ?>js2/jquery.hint.js"></script>
@@ -100,6 +99,8 @@ if (!isset($keyword)) {
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/bootstrap-grid.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>css/style.css"/>
+<link rel="stylesheet" type="text/css" href="<?= $this->webroot; ?>style2/style.css"/>
+
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= $this->webroot; ?>js/bootstrap.bundle.min.js"></script>
 </head>
@@ -158,7 +159,7 @@ if (!isset($keyword)) {
                 <nav class="nav nav-masthead justify-content-center mt-2">
 
 
-                    <a class="nav-link active" href="<?= $this->webroot; ?>strains/all">Products</a>
+                    <a class="nav-link active" href="<?= $this->webroot; ?>strains/all">Strains</a>
                     <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiionline">Facebook</a>
                     <a class="nav-link" target="_blank" href="https://twitter.com/canbiionline">Twitter</a>
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/canbiionline">Instagram</a>

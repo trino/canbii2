@@ -92,10 +92,9 @@
                 $strain_hexagon = $s;
                 include('combine/hexagon.php');
                 echo '<h2>' . $s['Strain']['name'] . '</a></h2>';
-                echo substr($s['Strain']['description'], 0, 130) . '...';
 
                 ?>
-                    <div style="float: right" class="rating<?= $j; ?>"></div>
+                    <div class="rating<?= $j; ?>"></div>
                     <script>
                         $(function () {
                             $('.rating<?= $j;?>').raty({number: 5, readOnly: true, score:<?= $s['Strain']['rating'];?>});
@@ -103,8 +102,15 @@
                     </script>
 
                 <?php
-                    echo '<DIV CLASS="">';
-                    $first = true;
+
+
+                echo '<DIV style="padding-top:10px;">';
+
+                echo substr($s['Strain']['description'], 0, 130) . '...';
+
+                echo "<div style='clear;both;'></div>Available in ";
+
+                $first = true;
                     foreach($OCSdata as $OCS){
                         if($OCS["prices"]) {
                             $product = json_decode($OCS["prices"], true)[0];
@@ -114,11 +120,13 @@
                                 echo ", ";
                             }
                           //  echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
-                           echo '<SPAN CLASS="">' . $product["vendor"] . '</SPAN>';
                             if($product["category"] != "hardcoded") {
-                                echo ' (' . cleanslug($product["category"]) . ')';
+                                echo ' ' . cleanslug($product["category"]) . '';
                             }
-                           // echo '</A>';
+                            echo '<SPAN CLASS=""> by ' . $product["vendor"] . '</SPAN>';
+
+
+                            // echo '</A>';
                             $first = false;
                         }
                     }
@@ -128,15 +136,15 @@ echo "<div style='clear;both;'></div>";
 
 
                 if (isset($s['StrainType'])) {
-                    echo $s['StrainType']['title'];
+                    echo "" .  $s['StrainType']['title'] . '';
                 }
 
 
                 if ($s['Strain']['review']) {
                     if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
-                    echo ", " . $s['Strain']['review'] . pluralize(" Data Point", $s['Strain']['review']);
+                    echo ", " . $s['Strain']['review'] . pluralize(" Review", $s['Strain']['review']);
                 } else {
-                    echo ', 0 Data Points';
+                    echo ', 0 Reviews';
                 }
 
                 if ($s['Strain']['viewed']) {

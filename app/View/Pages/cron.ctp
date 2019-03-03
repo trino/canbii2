@@ -7,7 +7,7 @@
 
     $options = [
         "makenewstrains"    => true,//disable to prevent new strains from bedownloadimagesing created
-        "downloadimages"    => false,//disable to prevent downloading images
+        "downloadimages"    => true,//disable to prevent downloading images
         "forceratingcalc"   => false,//enable to force a recalculation of the rating average              ONLY DO THIS ONCE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ];
 

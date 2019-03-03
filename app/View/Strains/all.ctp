@@ -34,7 +34,7 @@
         }
     }
 
-    $effectslist = Query("SELECT * FROM " . $usetable, true);// $this->requestAction('/pages/getSym');
+    $effectslist = Query("SELECT * FROM " . $usetable . " where enabled = 1", true);// $this->requestAction('/pages/getSym');
 ?>
 
 <script src="<?= $this->webroot; ?>js/raty.js"></script>
@@ -96,7 +96,7 @@
 <div class="jumbotron_top jumbotron" style="">
     <div class="text-center">
         <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
-        <p class="pt-2 pb-3">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+        <p class="pt-0 pb-3">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
     </div>
 
     <div class=" row ">
@@ -195,7 +195,7 @@
             <div class="clearfix py-1"></div>
             <h1>Canbii Activity</h1>
 
-            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mr-1 mb-1">All</a>
+            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mb-1">#All</a>
             <?php
                 $effect = $effectslist;
                 $counter = 0;

@@ -23,7 +23,7 @@ if ($helpful) {
                             }
                             ?>
                         </a-->
-                        <h2><?= $helpful['Strain']['name']; ?> Best Review</h2>
+                        <!--h2><?= $helpful['Strain']['name']; ?> Best Review</h2-->
 
                         <script>
                             $(function () {
