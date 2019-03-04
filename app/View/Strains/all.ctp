@@ -193,7 +193,7 @@
     </div-->
         <div class="col-md-12">
             <div class="clearfix py-1"></div>
-            <h1>Canbii Activity</h1>
+            <h1>Pick Activity</h1>
 
             <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mb-1">#All</a>
             <?php
@@ -220,12 +220,12 @@
 </div>
 
 <div class="row ">
-    <div class="col-md-12 pb-3">
+    <div class="col-md-12">
         <h1>Online Store</h1>
     </div>
 </div>
 
-<div class="listing ">
+<div class="listing "><br>
     <?php include_once('combine/filter.php'); ?>
 </div>
 

@@ -45,7 +45,7 @@
 
 <div class="jumbotron jumbotron_top" style="">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) .  $strain["Strain"]["id"]; ?> Canbii Report</h1>
+        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?> Canbii Report</h1>
         <p class="pt-2 pb-2">
             <?php
                 switch ($strain['Strain']['type_id']) {
@@ -61,7 +61,7 @@
                 }
             ?>
         </P>
-        <p class="text-justify"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
+        <p class="text-justify" style="    padding: 0 1.5rem;"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
     </div>
 </div>
 
@@ -163,7 +163,7 @@
     unset($images[0]);
     unset($images[1]);
 
-    echo '<DIV class="jumbotron hide-class" >';
+    echo '<DIV class="jumbotron" >';
     echo '<h3>Ontario Cannabis Store</h3>';
     foreach ($DATA as $OCSDATA) {
         $slug = false;
@@ -474,7 +474,7 @@
 </div>
 
 <?php } ?>
-<div class="jumbotron">
+<div class="jumbotron hide-class">
     <h3>Top Review</h3>
     hide all this entire section
     <?php include_once('combine/strain_reviews.php'); ?>

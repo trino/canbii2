@@ -63,7 +63,7 @@
         }
     }
     if ($breaker==0){
-        echo "<P>No images</P>";
+        echo "<P>No images yet</P>";
     }
     errorlog("include combine/images.php success");
 ?>
