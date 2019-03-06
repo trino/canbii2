@@ -137,13 +137,21 @@ class StrainsController extends AppController {
         $this->loadModel('SymptomVote');
 
         $q = $this->Strain->find('first', array('conditions' => array('slug' => $slug)));
+
         if(!$q){
-            $OCS = first("SELECT * FROM ocs WHERE slug LIKE '" . $slug . "'");
+            if(is_numeric($slug)){
+                $SQL = "SELECT * FROM strains WHERE id=" . $slug;
+            } else {
+                $SQL = "SELECT * FROM ocs WHERE slug LIKE '%" . $slug . "%' OR strain_id='" . $slug . "'";
+            }
+            $OCS = first($SQL);
             if($OCS){
-                $OCS = first("SELECT * FROM strains WHERE id=" . $OCS["strain_id"]);
+                if(isset($OCS["strain_id"])) {
+                    $OCS = first("SELECT * FROM strains WHERE id=" . $OCS["strain_id"]);
+                }
                 $this->redirect("/strains/" . $OCS["slug"]);
             } else {
-                die("SLUG '" . $slug . "' NOT FOUND");
+                die("SLUG '" . $slug . "' NOT FOUND USING: " . $SQL );
             }
         }
 

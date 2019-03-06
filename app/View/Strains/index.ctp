@@ -165,8 +165,9 @@
 
     echo '<DIV class="jumbotron" >';
     echo '<h3>Ontario Cannabis Store</h3>';
-    foreach ($DATA as $OCSDATA) {
+    foreach ($DATA as $INDEX => $OCSDATA) {
         $slug = false;
+        $DATA[$INDEX]["images"] = [];
         if ($OCSDATA["prices"]) {
             $pricelist = json_decode($OCSDATA["prices"], true);
             $prices = [];
@@ -181,7 +182,6 @@
                     $text = slugtotext($data["category"]);
                     if (!$hasname) {
                         if ($text != "hardcoded") {
-
                             echo "<h3>" . slugtotext($data["category"]) . ' by ' . $data["vendor"] . "</h3>";
                         }
                         $hasname = true;
@@ -192,6 +192,8 @@
             if ($slug) {
                 foreach ($images as $ID => $image) {
                     if (imagematch($image, $slug)) {
+                        $DATA[$INDEX]["slug"] = $slug;
+                        $DATA[$INDEX]["images"][] = $image;
                         echo '<a class="fancybox" rel="group" href="' . $webroot . $image . '"><img class="reportimage" src="' . $webroot . $image . '"/></a>';
                         unset($images[$ID]);
                     }
@@ -204,7 +206,7 @@
 
             foreach ($prices as $slug => $pricelist) {
                 foreach ($pricelist as $data) {
-                             echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format2(LC_MONETARY, $data["price"] * 0.01) . '</div>';
+                     echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format2(LC_MONETARY, $data["price"] * 0.01) . '</div>';
                 }
             }
 
@@ -244,27 +246,9 @@
             }
         } else {*/
         //$symptom_rate = $this->requestAction('/strains/getSymptomRate/' . urlencode($profile_filter) . '/' . $strain['Strain']['id']);
-        $symptom_rate = Query("SELECT * FROM " . $singular . "_ratings WHERE strain_id=" . $strain['Strain']['id'], true);
-        $symptom_list = [];
-        foreach ($symptom_rate as $data) {
-            $ID = $data[$singular . "_id"];
-            if (!isset($symptom_list[$ID])) {
-                $symptom_list[$ID] = ["count" => 0, "total" => 0];
-            }
-            $symptom_list[$ID]["count"]++;
-            $symptom_list[$ID]["total"] += $data["rate"];
-        }
-        if ($symptom_list) {
-            $symptom_name = Query("SELECT * FROM " . $plural . " WHERE id IN(" . implode(",", array_keys($symptom_list)) . ")", true);
-            foreach ($symptom_name as $symptom) {
-                $ID = $symptom["id"];
-                $symptom_list[$ID]["name"] = $symptom["title"];
-                $symptom_list[$ID]["average"] = 0;
-                if ($symptom_list[$ID]["count"]) {
-                    $symptom_list[$ID]["average"] = $symptom_list[$ID]["total"] / $symptom_list[$ID]["count"];
-                }
-            }
-        }
+
+        $SQL = "SELECT activity_id, COUNT(*) as count, SUM(rate) as total, AVG(rate) as average, title as name, category FROM " . $singular . "_ratings JOIN " . $plural . " ON (" . $singular . "_ratings.activity_id=" . $plural . ".id) WHERE strain_id=" . $strain['Strain']['id'] . " GROUP BY activity_id ORDER BY rate DESC";
+        $symptom_list = Query($SQL, true); //echo "SQL: " . $SQL ;
 
         if ($symptom_list) {
             $i = 0;
