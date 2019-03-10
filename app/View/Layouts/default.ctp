@@ -106,7 +106,7 @@ if (!isset($keyword)) {
 </head>
 
 
-<?php if ($this->here == '/') { ?>
+<?php if ($this->here == '/' && false) { ?>
     <body class="background_image">
     <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background: rgba(0, 0, 0, 0.7);">
         <header class="masthead mb-auto">
