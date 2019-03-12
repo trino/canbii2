@@ -9,7 +9,8 @@
 		"usetable" 		=> "activities",//"symptoms" or "activities"
 		"multiple" 		=> true,//disable for single queries only
 		"allowreviews" 	=> true,//disable to prevent reviews from being placed
-		"islocal"		=> $_SERVER['HTTP_HOST'] == "localhost"
+		"islocal"		=> $_SERVER['HTTP_HOST'] == "localhost",
+		"imagepanel" 	=> false,//allow use of the image renaming/deleting panel
 	];
 
 	$currentURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

@@ -3,6 +3,9 @@
     errorlog("include combine/images.php");
     $needsTRstart=true;
     $needsTRend=false;
+
+    $imagepanelenabled = $GLOBALS["settings"]["imagepanel"];
+
     if(!isset($GLOBALS["includedfancy"])){
         $GLOBALS["includedfancy"] = true;
         echo '<link rel="stylesheet" type="text/css" href="' . $this->webroot . 'style2/fancybox/jquery.fancybox.css"/>
@@ -54,7 +57,7 @@
             $scanned = true;
             $images = scandir($dir, SCANDIR_SORT_ASCENDING);
         }
-        if(isset($_GET["images"])){
+        if(isset($_GET["images"]) && $imagepanelenabled ){
             //if(!$scanned) {$images = scandir($dir, SCANDIR_SORT_ASCENDING);}
             echo '<TABLE WIDTH="100%"><TH>Image</TH><TH>Action</TH>';
             $breaker = 1;
@@ -123,7 +126,7 @@
     if ($breaker==0){
         echo "<P>No images yet</P>";
     }
-    if(isset($_GET["images"])){
+    if(isset($_GET["images"]) && $imagepanelenabled){
 ?>
 <SCRIPT>
     var actions = {
