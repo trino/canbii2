@@ -4,11 +4,14 @@
     @ini_set('implicit_flush',1);
     @ob_end_clean();
     $dir = getcwd() . "/ocs";
+    $me = getme();
+    set_time_limit(0);
 
     $options = [
         "makenewstrains"    => true,//disable to prevent new strains from bedownloadimagesing created
         "downloadimages"    => true,//disable to prevent downloading images
         "forceratingcalc"   => false,//enable to force a recalculation of the rating average              ONLY DO THIS ONCE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        "forcefull"         => false,//enable to purge old data to load all of it fresh
     ];
 
     $ratingstables = ['activity_ratings', 'colour_ratings', 'effect_ratings', 'flavor_ratings', 'symptom_ratings'];
@@ -41,6 +44,7 @@
         return false;
     }
 
+    /*
     $FILENAME = getcwd() . '/description.csv';
     if(file_exists($FILENAME)) {
         $data = loadCSV($FILENAME);
@@ -61,6 +65,7 @@
         echo $FILENAME . " not found";
     }
     die("<BR>DONE");
+    */
 
     App::uses('ReviewController', 'Controller');
     $ReviewController = new ReviewController();
@@ -480,7 +485,7 @@
     }
 
     function extractdata($productname){//https://ocs.ca/products/blue-dream-pre-roll
-        global  $Cookie;
+        global $Cookie;
         $productname = str_replace(" ", "-", strtolower($productname));
         $URL = "https://ocs.ca/products/" . $productname;
         $HTML = file_get_cookie_contents_ocs("GET", $URL, false, false, $Cookie);
@@ -525,6 +530,56 @@
         $data["images"] = $images;
         return $data;
     }
+
+    function mergeslugs($first, $duplicateID){
+        if($duplicateID != $first["id"]) {
+            deleterow("strains", "id=" . $duplicateID);
+            foreach(["activity_ratings", "colour_ratings", "doctor_strains", "effect_ratings", "flavor_ratings", "overall_activity_ratings", "overall_colour_ratings", "overall_effect_ratings", "overall_flavor_ratings", "overall_symptom_ratings", "symptom_ratings", "symptom_votes", "user_effect_ratings", "user_symptom_ratings"] as $table){
+                $items = query("SELECT * FROM " . $table . " WHERE strain_id=" . $duplicateID, true);
+                foreach($items as $item){
+                    $item["strain_id"] = $first["id"];
+                    insertdb($table, $item);
+                }
+            }
+
+            $ocs = query("SELECT * FROM ocs WHERE strain_id=" . $duplicateID);
+            $ocs["strain_id"] = $first["id"];
+            $ocs["slug"] = $first["slug"];
+            insertdb("ocs", $ocs);
+        }
+    }
+
+    deleterow("strains", "slug='sun'");
+    deleterow("strains", "slug='sativa-pre-roll-pack'");
+    $duplicates = query("SELECT id, slug, count(*) as count FROM strains ORDER BY id DESC GROUP BY slug HAVING count > 1", true);
+    $duplicate[] = first("SELECT * FROM strains WHERE slug='sativa-pre-roll-pack'");
+    $duplicate[] = first("SELECT * FROM strains WHERE slug='sativa-oil-1'");
+    $types = query("SELECT * FROM strain_types", true);
+    foreach($duplicates as $duplicate){
+        if($duplicate) {
+            switch($duplicate["slug"]){
+                case "sativa-oil-1": case "sativa-pre-roll-pack":
+                    $duplicate["slug"] = "sativa";
+                    break;
+            }
+            $first = first("SELECT id FROM strains WHERE slug='" . $duplicate["slug"] . "'");
+            mergeslugs($first, $duplicate["id"]);
+            purge('Fixing: ' . $duplicate["slug"]);
+        }
+    }
+    $needed = ["bali-kush" => "bali-kush-liiv", "galiano" => "galiano", "relief" => "relief", "san-fernando-valley" => "san-fernando-valley-1"];
+    foreach($needed as $CANBIIslug => $OCSslug){
+        $filename = $dir . "/" . $OCSslug . ".json";
+        $URL = 'https://ocs.ca/products/' . $OCSslug;
+        if(!file_exists($filename)) {
+            $data = extractdata($OCSslug);
+        } else if(file_exists($filename)) {
+            $data = json_decode(file_get_contents($filename), true);
+        }
+        $data = import($CANBIIslug, $data, $me, $types, "hardcoded", $options, $extradata, $negativeeffects, $dir, $ReviewController);
+        purge("FIXING: " . $CANBIIslug);
+    }
+    die("DONE FIXING DUPLICATES");
 
     function enumstrains($collection, $page = -1){
         global $Cookie;
@@ -978,17 +1033,15 @@
     table_has_column("reviews", "activitiescount", "INT(11)");
     table_has_column("reviews", "activities", "VARCHAR(2048)");
 
-    set_time_limit(0);
-    $collections = ["hardcoded", "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
+    $collections = ["hardcoded"];//, "dried-flower-cannabis", "pre-rolled", "oils-and-capsules"];
     purge('<BR>Downloading all: ' . implode(", ", $collections));
     if(!is_dir($dir)){
         mkdir($dir, 0777);
     }
     $dir .= "/";
 
-    $forceupdate = true;//set to true to forcefully update the JSON from the site
+    $forceupdate = $options["forcefull"];//set to true to forcefully update the JSON from the site
     $Cookie = "_shopify_y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _orig_referrer=https%3A%2F%2Fwww.google.ca%2F; secure_customer_sig=; _landing_page=%2F; cart_sig=; _y=81cab18d-8927-4e0e-bc4e-0e16f1f46cdc; _s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_s=522fd587-BFB4-4F82-3871-6CB32CBB9150; _shopify_fs=2019-01-15T15%3A44%3A52.677Z; _shopify_sa_p=; _ga=GA1.2.49790356.1547567094; _gid=GA1.2.1293338108.1547567094; _age_validated=true; _shopify_sa_t=2019-01-15T16%3A13%3A03.593Z";
-    $me = getme();
     if(!enum_tables("activities")) {
         Query("CREATE TABLE `activities` (`id` int(11) NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `imported` tinyint(4) NOT NULL COMMENT '(Imported from Leafly)', PRIMARY KEY (`id`)) ENGINE=InnoDB");
         $activities = ["Hiking", "Exercise", "Music", "Video Games", "Cleaning", "Yoga", "Meditation", "Movies", "Study", "Reading", "Working"];
