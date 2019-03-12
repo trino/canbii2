@@ -43,11 +43,15 @@
 
 
 
-<div class="jumbotron jumbotron_top" style="">
-    <div class="text-center">
+<div class="jumbotron jumbotron_top">
+    <div oldclass="text-center">
         <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?> Canbii Report</h1>
         <p class="pt-2 pb-2">
             <?php
+                /*
+                $strain_hexagon = $strain;
+                include('combine/hexagon.php');
+
                 switch ($strain['Strain']['type_id']) {
                     case 1:
                         echo "Indica strain, best suited for night time use";
@@ -59,6 +63,12 @@
                         echo "Hybrid strain, balanced high";
                         break;
                 }
+                */
+                $strain = [$strain];
+                $offset = -1;
+                $limit = 1;
+                include('combine/filter.php');
+                $strain = $strain[0];
             ?>
         </P>
         <p class="text-justify" style="    padding: 0 1.5rem;"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>

@@ -348,7 +348,7 @@ class StrainsController extends AppController {
         $this->set('limit', $limit);
         
         $this->Strain->unbindModel(array('hasMany'=>array('OverallEffectRating','OverallSymptomRating','Flavorstrain','Review','StrainImage')));
-        $this->set('strain', $this->Strain->find('all', array('order' => 'Strain.id')));
+        $this->set('strain', $this->Strain->find('all', array('order' => 'Strain.rating DESC, Strain.id DESC')));
         //$this->set('strains', $this->Strain->find('count'));
     }
 
@@ -524,9 +524,8 @@ class StrainsController extends AppController {
         if ($order) {
             $parameters['order'] = $order;
         } else {
-            $parameters['order'] = 'Strain.viewed DESC, Strain.id DESC';
+            $parameters['order'] = 'Strain.rating DESC, Strain.id DESC';
         }
-
         $count = $model->find('count', $parameters);
         $this->set('strains', $count);
         $this->set('limit', $limit);

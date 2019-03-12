@@ -78,6 +78,13 @@
         //$u_cond = queryappend($u_cond, 'hasocs=1');
 
         $count = 0;
+
+        if($offset == 0) {
+            echo $strains . " result" . iif($strains != 1, "s") . " found";
+        }
+
+        $activitylist = query("SELECT * FROM activities", true);
+
         if ($strain) {
             $j = rand(1000000, 2147483647);
             foreach ($strain as $s) {
@@ -100,7 +107,6 @@
                             $('.rating<?= $j;?>').raty({number: 5, readOnly: true, score:<?= $s['Strain']['rating'];?>});
                         });
                     </script>
-
                 <?php
 
 
@@ -111,34 +117,40 @@
                 echo "<div style='clear;both;'></div>Available in ";
 
                 $first = true;
-                    foreach($OCSdata as $OCS){
-                        if($OCS["prices"]) {
-                            $product = json_decode($OCS["prices"], true)[0];
-                            if($first) {
-                             //   echo "Producers: ";
-                            } else {
-                                echo ", ";
-                            }
-                          //  echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
-                            if($product["category"] != "hardcoded") {
-                                echo ' ' . cleanslug($product["category"]) . '';
-                            }
-                            echo '<SPAN CLASS=""> by ' . $product["vendor"] . '</SPAN>';
 
-
-                            // echo '</A>';
-                            $first = false;
+                foreach($OCSdata as $OCS){
+                    if($OCS["prices"]) {
+                        $product = json_decode($OCS["prices"], true)[0];
+                        if($first) {
+                         //   echo "Producers: ";
+                        } else {
+                            echo ", ";
                         }
+                      //  echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
+                        if($product["category"] != "hardcoded") {
+                            echo ' ' . cleanslug($product["category"]) . '';
+                        }
+                        echo '<SPAN CLASS=""> by ' . $product["vendor"] . '</SPAN>';
+                        // echo '</A>';
+                        $first = false;
                     }
+                }
 
+                $activities = [];
+                foreach($s["Review"] as $review){
+                    $activity = explode(",", $review["activities"]);
+                    foreach($activity as $act){
+                        $activities[$act] = getiterator($activitylist, "id", $act)["title"];
+                    }
+                }
+                $activities = array_filter($activities);
+                asort($activities);
 
-echo "<div style='clear;both;'></div>";
-
+                echo '<div style="clear;both;"></div>';
 
                 if (isset($s['StrainType'])) {
                     echo "" .  $s['StrainType']['title'] . '';
                 }
-
 
                 if ($s['Strain']['review']) {
                     if ($s['Strain']['review'] == 1) {$Reviews = " Review";} else {$Reviews = " Reviews";}
@@ -151,27 +163,30 @@ echo "<div style='clear;both;'></div>";
                     echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
                 }
 
+                if($activities) {
+                    echo '<BR>';
+                    foreach ($activities as $activity) {
+                        echo '<a class="btn btn-primary mr-1 mb-1"> <span>#' . $activity . '</span></a>';
+                    }
+                }
 
-                    echo '</DIV></DIV>';
+                echo '</DIV></DIV>';
             }
         }
 
         if ($count == 0) {
             echo "No results found.";
-            /*
-            App::import('Model', 'Strain');
-            $this->Strain = new Strain();
-            $log = $this->Strain->getLastQuery();
-            vardump($log);
-            */
-            //vardump($GLOBALS["lastsql"]);
         }
 
-        echo '<div class="morelist"></div>';
-        $remaining = $strains - $offset - $limit;
-        //echo "Strains: " . $strains . " Limit: "  . $limit . " Offset: " . $offset . " Remaining: " . $remaining;
-        if ($strains && ($strains) > $GLOBALS["settings"]["limit"]) {
-            echo '<div class="loadmore mb-5"><a class="btn btn-primary" href="javascript:void(0);">Show more</a></div>';
+        if(isset($strains)) {
+            echo '<div class="morelist"></div>';
+            $remaining = $strains - $offset - $limit;
+            //echo "Strains: " . $strains . " Limit: "  . $limit . " Offset: " . $offset . " Remaining: " . $remaining;
+            if ($strains && ($strains) > $GLOBALS["settings"]["limit"]) {
+                echo '<div class="loadmore mb-5"><a class="btn btn-primary" href="javascript:void(0);">Show more</a></div>';
+            }
+        } else {
+            $strains = 0;
         }
     ?>
     <script>

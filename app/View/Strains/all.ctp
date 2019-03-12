@@ -191,11 +191,11 @@
         ?>
         </ul>
     </div-->
-        <div class="col-md-12">
+        <div class="col-md-12" ID="activitylist">
             <div class="clearfix py-1"></div>
             <h1>Pick Activity</h1>
 
-            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" class="<?= $class ?>2 btn btn-success mb-1">#All</a>
+            <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" ID="resetbtn" class="<?= $class ?>2 btn btn-success mb-1">#All</a>
             <?php
                 $effect = $effectslist;
                 $counter = 0;
@@ -419,8 +419,11 @@
                 eletype = "activities";
                 eleclass = "acts";
             }
-            var test = toggleclass(this);
 
+            var test = toggleclass(this);
+            if ($("#activitylist .btn-success").length == 0 || $("#resetbtn").hasClass("btn-success")){
+                toggleclass("#resetbtn");
+            }
 
             //  log("Testing: " + test);
             if (test) {
