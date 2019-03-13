@@ -531,6 +531,20 @@
         return $data;
     }
 
+    function renameimage($sourcedir, $image, $destdir){
+        $extension = getextension2($image);
+        $filename = getfilename($image, false);
+
+        for($number = 0; $number < 9999; $number++){
+            $newfilename = $destdir . "/" . $filename . $number . "." . $extension;
+            if(!file_exists($newfilename)){
+                @rename($sourcedir . "/" . $image, $newfilename);
+                return $newfilename;
+            }
+        }
+        return "";
+    }
+
     function mergeslugs($first, $duplicateID){
         if($duplicateID != $first["id"]) {
             deleterow("strains", "id=" . $duplicateID);
@@ -540,6 +554,15 @@
                     $item["strain_id"] = $first["id"];
                     insertdb($table, $item);
                 }
+            }
+
+            $dir = "images/strains/" . $duplicateID;
+            $dir2 = "images/strains/" . $first["id"];
+            $images = scandir($dir);
+            unset($images[0]);
+            unset($images[1]);
+            foreach($images as $image){
+                renameimage($dir, $image, $dir2);
             }
 
             $ocs = query("SELECT * FROM ocs WHERE strain_id=" . $duplicateID);
