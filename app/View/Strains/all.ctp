@@ -34,7 +34,11 @@
         }
     }
 
-    $effectslist = Query("SELECT * FROM " . $usetable . " where enabled = 1", true);// $this->requestAction('/pages/getSym');
+    $SQL = "SELECT * FROM " . $usetable;
+    if($usetable == "activities"){
+        $SQL .= " WHERE enabled = 1";
+    }
+    $effectslist = Query($SQL, true);
 ?>
 
 <script src="<?= $this->webroot; ?>js/raty.js"></script>
@@ -174,23 +178,25 @@
             ?>
             <div class="clearfix py-1"></div>
         </div>
+
         <!--div class="col-md-2">
         <ul class="">
             <li><p>Sort By</p></li>
-        <?php
-            $sorts = [
-                "rated" => "Top Rated",
-                "viewed" => "Most Viewed",
-                "reviewed" => "Most Reviewed",
-                "alpha" => "Alphabetically"
-            ];
-            foreach ($sorts as $ID => $sort) {
-                echo '<li><a href="javascript:void(0)" class="eff1" id="' . $ID . '">' . $sort . '</a></li>';
-            }
-            $class = left($usetable, 3);
-        ?>
+            <?php
+                $sorts = [
+                    "rated" => "Top Rated",
+                    "viewed" => "Most Viewed",
+                    "reviewed" => "Most Reviewed",
+                    "alpha" => "Alphabetically"
+                ];
+                foreach ($sorts as $ID => $sort) {
+                    echo '<li><a href="javascript:void(0)" class="eff1" id="' . $ID . '">' . $sort . '</a></li>';
+                }
+                $class = left($usetable, 3);
+            ?>
         </ul>
     </div-->
+
         <div class="col-md-12" ID="activitylist">
             <div class="clearfix py-1"></div>
             <h1>Pick Activity</h1>
@@ -216,6 +222,8 @@
             ?>
             <p style="display: none;" class="symp"></p>
         </div>
+
+
     </div>
 </div>
 

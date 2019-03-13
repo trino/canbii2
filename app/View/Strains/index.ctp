@@ -4,7 +4,7 @@
 <link href="<?= $this->webroot; ?>css/layout.css" rel="stylesheet" type="text/css" title="progress bar"/>
 <script src="<?= $this->webroot; ?>js/bootstrap.min.js"></script>
 <script src="<?= $this->webroot; ?>js/html2canvas.js"></script>
-<script type="text/javascript" src="<?= $this->webroot; ?>js/jquery.plugin.html2canvas.js"></script>
+<script src="<?= $this->webroot; ?>js/jquery.plugin.html2canvas.js" type="text/javascript"></script>
 
 <?php
     $DATA = query("SELECT * FROM ocs WHERE strain_id=" . $strain['Strain']['id'], true);
@@ -41,40 +41,20 @@
     }
 ?>
 
-
-
 <div class="jumbotron jumbotron_top">
-    <div oldclass="text-center">
+    <div class="text-center">
         <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?> Canbii Report</h1>
         <p class="pt-2 pb-2">
-            <?php
-                /*
-                $strain_hexagon = $strain;
-                include('combine/hexagon.php');
-
-                switch ($strain['Strain']['type_id']) {
-                    case 1:
-                        echo "Indica strain, best suited for night time use";
-                        break;
-                    case 2:
-                        echo "Sativa strain, best suited for day time use";
-                        break;
-                    case 3:
-                        echo "Hybrid strain, balanced high";
-                        break;
-                }
-                */
-                $strain = [$strain];
-                $offset = -1;
-                $limit = 1;
-                include('combine/filter.php');
-                $strain = $strain[0];
-            ?>
+            <DIV STYLE="width: 250px; margin-left: auto; margin-right: auto;">
+                <?php
+                    $typeid = $strain['Strain']['type_id'];
+                    include('combine/ish.php');
+                ?>
+            </DIV>
         </P>
         <p class="text-justify" style="    padding: 0 1.5rem;"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
     </div>
 </div>
-
 
 <div class="jumbotron bg-primary text-white">
     <div class="row pb-2">
@@ -230,24 +210,14 @@
     }
     echo '</div>';
 
-
-
-
-
-
-
-
-
-
-
-
-
     if (!isset($p_filter)) {
         $p_filter = false;
     }
-    echo '<div class="jumbotron"><h3>Activities</h3><p>What activities are more enjoyable with this strain?</p>';
-    getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-blue");
-    echo "</div>";
+    if("activities" == $GLOBALS["settings"]["usetable"]) {
+        echo '<div class="jumbotron"><h3>Activities</h3><p>What activities are more enjoyable with this strain?</p>';
+        getsymptomactivity($strain, "activities", "activity", false, "activity_id", $this->webroot, $p_filter, "light-blue");
+        echo "</div>";
+    }
 
     function getsymptomactivity($strain, $plural, $singular, $OverallRating = false, $IDKEY, $webroot, $p_filter, $color) {
         /*if ($p_filter === false && is_array($OverallRating)) { //i dont know what this is for
@@ -282,21 +252,23 @@
     function printnoreviewlink($strain, $webroot) {
         if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
             echo '<p>No ratings yet</p>';
-
             //  echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
         } else {
             echo '<p>No ratings yet</p>';
         }
     }
+
+    if("symptoms" == $GLOBALS["settings"]["usetable"]){
 ?>
 
-<!--div class="jumbotron">
+<div class="jumbotron">
     <h3>Symptoms</h3>
     <p>How does this strain help with my medical condition?</p>
     <?php
-       //getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
+       getsymptomactivity($strain, "symptoms", "symptom", $strain['OverallSymptomRating'], "symptom_id", $this->webroot, $p_filter, "light-blue");
     ?>
-</div-->
+</div>
+<?php } ?>
 
 <div class="jumbotron">
     <h3>Effects</h3>

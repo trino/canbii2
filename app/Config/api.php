@@ -6,7 +6,7 @@
 	$GLOBALS["settings"] = [
 		"limit" 		=> 200,
 		"reviewlimit" 	=> 20,
-		"usetable" 		=> "activities",//"symptoms" or "activities"
+		"usetable" 		=> "symptoms",//"symptoms" or "activities"
 		"multiple" 		=> true,//disable for single queries only
 		"allowreviews" 	=> true,//disable to prevent reviews from being placed
 		"islocal"		=> $_SERVER['HTTP_HOST'] == "localhost",

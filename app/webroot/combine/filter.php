@@ -83,7 +83,7 @@
             echo $strains . " result" . iif($strains != 1, "s") . " found";
         }
 
-        $activitylist = query("SELECT * FROM activities", true);
+        $activitylist = query("SELECT * FROM " . $GLOBALS["settings"]["usetable"], true);
 
         if ($strain) {
             $j = rand(1000000, 2147483647);
@@ -136,16 +136,6 @@
                     }
                 }
 
-                $activities = [];
-                foreach($s["Review"] as $review){
-                    $activity = explode(",", $review["activities"]);
-                    foreach($activity as $act){
-                        $activities[$act] = getiterator($activitylist, "id", $act)["title"];
-                    }
-                }
-                $activities = array_filter($activities);
-                asort($activities);
-
                 echo '<div style="clear;both;"></div>';
 
                 if (isset($s['StrainType'])) {
@@ -163,7 +153,16 @@
                     echo ", " . $s['Strain']['viewed'] . pluralize(" View", $s['Strain']['viewed']);
                 }
 
-                if($activities) {
+                $activities = [];
+                foreach ($s["Review"] as $review) {
+                    $activity = explode(",", $review[$GLOBALS["settings"]["usetable"]]);
+                    foreach ($activity as $act) {
+                        $activities[$act] = getiterator($activitylist, "id", $act)["title"];
+                    }
+                }
+                $activities = array_filter($activities);
+                asort($activities);
+                if ($activities) {
                     echo '<BR>';
                     foreach ($activities as $activity) {
                         echo '<a class="btn btn-primary mr-1 mb-1"> <span>#' . $activity . '</span></a>';
