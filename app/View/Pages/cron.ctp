@@ -556,13 +556,17 @@
                 }
             }
 
-            $dir = "images/strains/" . $duplicateID;
-            $dir2 = "images/strains/" . $first["id"];
-            $images = scandir($dir);
-            unset($images[0]);
-            unset($images[1]);
-            foreach($images as $image){
-                renameimage($dir, $image, $dir2);
+            $dir = getcwd() . "/images/strains/" . $duplicateID;
+            $dir2 = getcwd() . "/images/strains/" . $first["id"];
+            if(is_dir($dir)) {
+                $images = scandir($dir);
+                unset($images[0]);
+                unset($images[1]);
+                foreach ($images as $image) {
+                    renameimage($dir, $image, $dir2);
+                }
+            } else {
+                die($dir . " not found");
             }
 
             $ocs = query("SELECT * FROM ocs WHERE strain_id=" . $duplicateID);
@@ -574,20 +578,29 @@
 
     deleterow("strains", "slug='sun'");
     deleterow("strains", "slug='sativa-pre-roll-pack'");
-    $duplicates = query("SELECT id, slug, count(*) as count FROM strains ORDER BY id DESC GROUP BY slug HAVING count > 1", true);
-    $duplicate[] = first("SELECT * FROM strains WHERE slug='sativa-pre-roll-pack'");
-    $duplicate[] = first("SELECT * FROM strains WHERE slug='sativa-oil-1'");
+    $duplicates = query("SELECT id, slug, count(*) as count FROM strains  GROUP BY slug HAVING count > 1 ORDER BY id DESC", true);
+    if($duplicates) {
+        $duplicates[] = first("SELECT * FROM strains WHERE slug='sativa-pre-roll-pack'");
+        $duplicates[] = first("SELECT * FROM strains WHERE slug='sativa-oil-1'");
+    }
+
+    vardump($duplicates);
+
     $types = query("SELECT * FROM strain_types", true);
     foreach($duplicates as $duplicate){
-        if($duplicate) {
+        if(is_array($duplicate)) {
+
             switch($duplicate["slug"]){
                 case "sativa-oil-1": case "sativa-pre-roll-pack":
                     $duplicate["slug"] = "sativa";
                     break;
             }
-            $first = first("SELECT id FROM strains WHERE slug='" . $duplicate["slug"] . "'");
-            mergeslugs($first, $duplicate["id"]);
-            purge('Fixing: ' . $duplicate["slug"]);
+
+            $first = first("SELECT * FROM strains WHERE slug='" . $duplicate["slug"] . "' AND id != " . $duplicate["id"]);
+            if(is_array($first) && count($first)) {
+                mergeslugs($first, $duplicate["id"]);
+                purge('<BR>Fixing: ' . $duplicate["slug"]);
+            }
         }
     }
     $needed = ["bali-kush" => "bali-kush-liiv", "galiano" => "galiano", "relief" => "relief", "san-fernando-valley" => "san-fernando-valley-1"];

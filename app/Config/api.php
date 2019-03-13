@@ -210,10 +210,12 @@
 
 	function deleterow($Table, $Where = false){
 		if ($Where) {$Where = " WHERE " . $Where;}
-		Query("DELETE FROM " . $Table . $Where, false);
+		$SQL = "DELETE FROM " . $Table . $Where;
+		Query($SQL, false);
 		if(!$Where){
 			Query("ALTER TABLE " . $Table . " AUTO_INCREMENT = 1", false);
 		}
+		return $SQL;
 	}
 
 	function first($query){
