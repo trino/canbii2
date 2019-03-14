@@ -420,7 +420,7 @@
                                     }
                                     ?>
                                     <a href="javascript:void(0);" onclick="toggleclass(this, 'sel');"
-                                          title="<?php echo $flavor['Flavor']['id']; ?>" class="eff3 btn btn-info qf_review__aesthetics__flavor"><?= ucfirst($flavor['Flavor']['title']); ?></a>
+                                          title="<?= $flavor['Flavor']['id']; ?>" class="eff3 btn btn-info qf_review__aesthetics__flavor"><?= ucfirst($flavor['Flavor']['title']); ?></a>
                                 <?php }
                             } else {
                                 if (count($review['FlavorRating']) > 0) {

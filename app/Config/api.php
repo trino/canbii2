@@ -4,13 +4,14 @@
 	error_reporting(E_ALL);
 
 	$GLOBALS["settings"] = [
-		"limit" 		=> 200,
+		"limit" 		=> 25,
 		"reviewlimit" 	=> 20,
-		"usetable" 		=> "symptoms",//"symptoms" or "activities"
+		"usetable" 		=> "effects",//"symptoms" or "activities"
 		"multiple" 		=> true,//disable for single queries only
 		"allowreviews" 	=> true,//disable to prevent reviews from being placed
 		"islocal"		=> $_SERVER['HTTP_HOST'] == "localhost",
 		"imagepanel" 	=> false,//allow use of the image renaming/deleting panel
+		"start"			=> time()
 	];
 
 	$currentURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -219,10 +220,8 @@
 	}
 
 	function first($query){
-		global $con;
 		if (!is_object($query)) {$query = Query($query, false);}
 		if ($query) {
-			$ret = array();
 			while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
 				unescape($row);
 				return $row;

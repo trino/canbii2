@@ -14,6 +14,31 @@
         "forcefull"         => false,//enable to purge old data to load all of it fresh
     ];
 
+    $uniques = collapsearray(query("SELECT MIN(id) as id FROM flavors GROUP BY title HAVING MIN(id) IS NOT NULL", true), "id");
+    $uniques = implode(",", $uniques);
+    query("DELETE FROM flavors WHERE id NOT IN (" . $uniques . ")");
+
+    table_has_column("reviews", "effectscount", "INT(11)");
+    table_has_column("reviews", "effects", "VARCHAR(2048)");
+    $query = query("SELECT id FROM reviews WHERE effectscount=0");
+    if ($query) {
+        $total = mysqli_num_rows($query);
+        $current = 0;
+        while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+            $current+=1;
+            $ratings = query("SELECT effect_id FROM effect_ratings WHERE review_id =" . $row["id"], true);
+            $row["effectscount"] = count($ratings);
+            $row["effects"] = "";
+            if($row["effectscount"]) {
+                $row["effects"] = implode(",", collapsearray($ratings, "effect_id"));
+                insertdb("reviews", $row);
+            }
+            purge("<BR>Repaired: " . $current . "/" . $total . " (" . floor(($current/$total)*100) . "%) = " . $row["effects"] . " (" . $row["effectscount"] . ")");
+        }
+    }
+
+    die("<BR>effects repaired");
+
     $ratingstables = ['activity_ratings', 'colour_ratings', 'effect_ratings', 'flavor_ratings', 'symptom_ratings'];
     $SQL = '';
     foreach($ratingstables as $table){

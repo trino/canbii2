@@ -1,6 +1,10 @@
 <SPAN debugtitle="combine/filter.php">
     <?php
         errorlog("include combine/filter.php");
+        $START2 = $GLOBALS["settings"]["start"];
+
+        //vardumpvardump($conditions);
+
         function pluralize($text, $quantity) {
             if (substr(strtolower($text), -1) == "s") {
                 $text = substr($text, 0, strlen($text) - 1);
@@ -24,6 +28,14 @@
                 $slug[$ID] = ucfirst($VALUE);
             }
             return implode(" ", $slug);
+        }
+
+        function imagematch($image, $slug){
+            if(startswith($image, $slug) && !textcontains($image, "_")){
+                $image = getfilename($image, false);
+                $image = right($image, strlen($image) - strlen($slug));
+                return is_numeric($image);
+            }
         }
 
         $u_cond = '';
@@ -85,12 +97,29 @@
 
         $activitylist = query("SELECT * FROM " . $GLOBALS["settings"]["usetable"], true);
 
+        function geteffects($strain_ID, &$alleffects){
+            $effects = [];
+            foreach($alleffects as $effect){
+                if($effect["strain_id"] == $strain_ID && !in_array($effect["id"], $effects)){
+                    $effects[] = $effect["id"];
+                }
+            }
+            return $effects;
+        }
+
         if ($strain) {
+            errorlog("filter.php: Found " . count($strain) . " strains");
             $j = rand(1000000, 2147483647);
-            foreach ($strain as $s) {
+
+            foreach ($strain as $INDEX => $s) {
+                $START = time();
                 $j++;
+
+                errorlog("filter.php: checking " . $INDEX);
+
                 $count++;
                 $OCSdata = query("SELECT * FROM ocs WHERE strain_id = " . $s['Strain']["id"], true);
+
                 echo '<DIV CLASS="jumbotron"><a href="' . $this->webroot . 'strains/' . $s['Strain']['slug'] . '/';
                 if ($u_cond) {
                     echo $u_cond;
@@ -109,7 +138,6 @@
                     </script>
                 <?php
 
-
                 echo '<DIV style="padding-top:10px;">';
 
                 echo substr($s['Strain']['description'], 0, 130) . '...';
@@ -121,21 +149,18 @@
                 foreach($OCSdata as $OCS){
                     if($OCS["prices"]) {
                         $product = json_decode($OCS["prices"], true)[0];
-                        if($first) {
-                         //   echo "Producers: ";
-                        } else {
+                        if(!$first) {
                             echo ", ";
                         }
-                      //  echo '<A CLASS="product" HREF="https://ocs.ca/products/' . $product["slug"] . '"><SPAN CLASS="vendor">' . $product["vendor"] . '</SPAN>';
                         if($product["category"] != "hardcoded") {
                             echo ' ' . cleanslug($product["category"]) . '';
                         }
-                        echo '<SPAN CLASS=""> by ' . $product["vendor"] . '</SPAN>';
-                        // echo '</A>';
+                        echo '<SPAN> by ' . $product["vendor"] . '</SPAN>';
                         $first = false;
                     }
                 }
 
+                errorlog("filter.php: STRAIN " . $s['Strain']['id'] . " TIME " . (time() - $START) . " TOTAL TIME " . (time() - $START2) . " s");
                 echo '<div style="clear;both;"></div>';
 
                 if (isset($s['StrainType'])) {
@@ -154,14 +179,19 @@
                 }
 
                 $activities = [];
-                foreach ($s["Review"] as $review) {
+                foreach ($s["Review"] as $INDEX2 => $review) {
                     $activity = explode(",", $review[$GLOBALS["settings"]["usetable"]]);
                     foreach ($activity as $act) {
-                        $activities[$act] = getiterator($activitylist, "id", $act)["title"];
+                        $data = getiterator($activitylist, "id", $act);
+                        if (isset($data["title"])) {
+                            $activities[$act] = $data["title"];
+                        }
                     }
                 }
+
                 $activities = array_filter($activities);
                 asort($activities);
+
                 if ($activities) {
                     echo '<BR>';
                     foreach ($activities as $activity) {
@@ -169,7 +199,52 @@
                     }
                 }
 
+                if(isset($_GET["images"])){
+                    $imagedir = getcwd() . "/images/strains/" . $s['Strain']['id'];
+                    $imagecounts = [];
+                    echo '<BR>';
+                    if(is_dir($imagedir)) {
+                        $DATA = query("SELECT * FROM ocs WHERE strain_id=" . $s['Strain']['id'], true);
+                        $images = scandir($imagedir);
+                        unset($images[0]);
+                        unset($images[1]);
+
+                        foreach ($DATA as $INDEX => $OCSDATA) {
+                            if ($OCSDATA["prices"]) {
+                                $slug = false;
+                                $pricelist = json_decode($OCSDATA["prices"], true);
+                                foreach ($pricelist as $data) {
+                                    $prices[$data["slug"]][] = $data;
+                                    $slug = $data["slug"];
+                                }
+                                if ($slug) {
+                                    $imagecounts[$slug] = 0;
+                                    foreach ($images as $ID => $image) {
+                                        if (imagematch($image, $slug)) {
+                                            $imagecounts[$slug] += 1;
+                                            unset($images[$ID]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        $imagecounts["Dried flower"] = count($images);
+                        foreach($imagecounts as $section => $count){
+                            if($count == 0){
+                                echo '<a class="btn btn-danger mr-1 mb-1"> <span>' . $section . ' images: NONE (' . $s['Strain']['id'] . ')</span></a>';
+                            } else {
+                                echo '<a class="btn btn-success mr-1 mb-1"> <span>' . $section . ' images: ' . $count . '</span></a>';
+                            }
+                        }
+                    }
+                    if(!$imagecounts){
+                        echo '<a class="btn btn-danger mr-1 mb-1"> <span>Images: NONE (' . $s['Strain']['id'] . ')</span></a>';
+                    }
+                }
+
                 echo '</DIV></DIV>';
+
+                errorlog("filter.php: STRAIN " . $s['Strain']['id'] . " TIME " . (time() - $START) . " TOTAL TIME " . (time() - $START2) . " s");
             }
         }
 

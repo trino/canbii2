@@ -238,7 +238,7 @@
                 $ID = first("SELECT id FROM overall_" . $table . "_ratings WHERE strain_id = " . $strainID . " AND " . $table . "_id = " . $itemID);
                 if($ID){$data["id"] = $ID["id"];}
                 insertdb("overall_" . $table . "_ratings", $data);//recalculate the average for the item
-                if($islast && ($table == "activity" || $table == "symptom")){//only update when all the items have been added to the activities and symptoms review tables
+                if($islast && ($table == "activity" || $table == "symptom" || $table == "effect")){//only update when all the items have been added to the activities and symptoms review tables
                     $data = first("SELECT GROUP_CONCAT(" . $table . "_id) as rate, COUNT(*) as count FROM " . $table . "_ratings WHERE strain_id = " . $strainID . " AND review_id = " . $reviewID);
                     if($table == "activity"){$table = "activitie";}//special pluralization
                     insertdb("reviews", [

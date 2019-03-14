@@ -12,6 +12,7 @@
 <?php
     $multiple = $GLOBALS["settings"]["multiple"];
     $usetable = $GLOBALS["settings"]["usetable"];
+    $START = $GLOBALS["settings"]["start"];
 
     function getasarray($key) {
         $symptoms = array();
@@ -24,7 +25,7 @@
         return $symptoms;
     }
 
-    $effects = array();
+    $effects = [];//getasarray("effects");
     $symptoms = getasarray("symptoms");
     $activities = getasarray("activities");
 
@@ -35,8 +36,13 @@
     }
 
     $SQL = "SELECT * FROM " . $usetable;
-    if($usetable == "activities"){
-        $SQL .= " WHERE enabled = 1";
+    switch($usetable){
+        case "activities":
+            $SQL .= " WHERE enabled = 1";
+            break;
+        case "effects":
+            $SQL .= " WHERE negative = 0";
+            break;
     }
     $effectslist = Query($SQL, true);
 ?>
@@ -234,7 +240,10 @@
 </div>
 
 <div class="listing "><br>
-    <?php include_once('combine/filter.php'); ?>
+    <?php
+    $source = "all.ctp";
+    include_once('combine/filter.php');
+    ?>
 </div>
 
 <input type="hidden" class="recent" value="ASC"/>
@@ -337,6 +346,11 @@
                     val.activities.push($(this).val());
                 }
             });
+            $('.symp .effs').each(function () {
+                if ($(this).val()) {
+                    val.effects.push($(this).val());
+                }
+            });
 
             //val = appendtoquery(val, 'key=<?php if (isset($_GET['key'])) echo $_GET['key'];?>');
             val.key = '<?php if (isset($_GET['key'])) echo $_GET['key'];?>';
@@ -417,7 +431,7 @@
             return myString.replace(/\D/g, '');
         }
 
-        $('.sym2, .act2').click(function () {
+        $('.sym2, .act2, .eff2').click(function () {
             var val = "";
             more = 0;
             var eletype = "symptoms";
@@ -426,6 +440,9 @@
             if ($(this).hasClass("act2")) {
                 eletype = "activities";
                 eleclass = "acts";
+            } else if ($(this).hasClass("eff2")) {
+                eletype = "effects";
+                eleclass = "effs";
             }
 
             var test = toggleclass(this);

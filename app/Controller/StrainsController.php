@@ -437,7 +437,9 @@ class StrainsController extends AppController {
             $_GET['sort'] = 'alpha';
         }
 
+        /*
         if ($effects && is_array($effects)) {
+            $effects = array_unique($effects);
             if (isset($_GET['sort']) && ($test_sort == 'indica' || $test_sort == 'sativa' || $test_sort == 'hybrid')) {
                 $condition .= ' AND ';
             }
@@ -459,16 +461,18 @@ class StrainsController extends AppController {
             }
             $condition .= ')';
         }
+        */
 
-        foreach(["symptoms" => "symptom", "activities" => "activity"] as $plural => $singular) {
+        foreach(["symptoms" => "symptom", "activities" => "activity", "effects" => "effect"] as $plural => $singular) {
             if (isset($_GET[$plural])) {
                 $symptoms = $_GET[$plural];
-                if (is_array($symptoms)) {
-                    $symptomscount = count($symptoms);
-                    $symptoms = implode(",", $symptoms);
-                } else {
-                    $symptomscount = count(explode(",", $symptoms));
+
+                if (!is_array($symptoms)) {
+                    $symptoms = explode(",", $symptoms);
                 }
+                $symptoms = array_unique($symptoms);
+                $symptomscount = count($symptoms);
+
                 if ($_SERVER["SERVER_NAME"] != "localhost" && $symptomscount > 1 && false) {
                     $symptomscount = 1;
                     $symptoms = explode(",", $symptoms)[0];
@@ -479,13 +483,25 @@ class StrainsController extends AppController {
                 }
 
                 //super query
+                /*
                 $condition .= 'Strain.id IN (SELECT strain_id FROM (SELECT strain_id,
                                         COUNT(DISTINCT ' . $singular . '_id) AS matched_' . $plural . '
                                         FROM ' . $singular . '_ratings
                                         WHERE ' . $singular . '_id IN (' . $symptoms . ')
                                         GROUP BY strain_id
                                         HAVING matched_' . $plural . ' = ' . $symptomscount . ') as IDs)';
+                */
 
+                $SQL = 'SELECT strain_id FROM reviews WHERE ';
+                foreach($symptoms as $INDEX => $symptom){
+                    if($INDEX > 0){
+                        $SQL .= " AND ";
+                    }
+                    $SQL .= " FIND_IN_SET(" . $symptom . ", " . $plural . ") > 0";
+                }
+                $condition .= 'Strain.id IN (' . $SQL . ')';
+
+                $symptoms = implode(",", $symptoms);
                 $this->makesymptomslist($symptoms, $symptomscount, $plural, "filter: " . $tag);
             }
         }
@@ -532,6 +548,7 @@ class StrainsController extends AppController {
         $this->set('offset', $offset);
         $parameters['limit'] = $limit;
         $parameters['offset'] = $offset;
+
         $this->set('conditions', $parameters);
         $this->set('strain', $model->find('all', $parameters));
     }

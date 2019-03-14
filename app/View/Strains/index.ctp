@@ -250,9 +250,11 @@
     }
 
     function printnoreviewlink($strain, $webroot) {
-        if ($GLOBALS["settings"]["allowreviews"]) {//set allowreviews in API.php to false if you don't want this link
-            echo '<p>No ratings yet</p>';
-            //  echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';
+        if ($GLOBALS["settings"]["allowreviews"]) {
+            //set allowreviews in API.php to false if you don't want this link <---- read the directions
+            /* stop commenting this out */
+            /* stop commenting this out */ echo '<a href="' . $webroot . 'review/add/' . $strain['Strain']['slug'] . '" CLASS="review">No ratings yet. </a>';/* stop commenting this out */
+            /* stop commenting this out */
         } else {
             echo '<p>No ratings yet</p>';
         }
