@@ -105,8 +105,8 @@
 
 <div class="jumbotron_top jumbotron" style="">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;">Launching with the Ontario Cannabis Store</h1>
-        <p class="pt-0 pb-3">Canada's leading activity and value-based strain selection tool for recreational cannabis users.</p>
+        <h1 style="font-size: 2.5rem !important;">Your Guide to the Ontario Cannabis Store</h1>
+        <p class="pt-0 pb-3">100% Legal value-based strain selection tool for recreational cannabis users</p>
     </div>
 
     <div class=" row ">
@@ -205,7 +205,7 @@
 
         <div class="col-md-12" ID="activitylist">
             <div class="clearfix py-1"></div>
-            <h1>Pick Activity</h1>
+            <h1>Desired Effects</h1>
 
             <a href="<?= $this->webroot; ?>strains/all" value="Reset Filter" ID="resetbtn" class="<?= $class ?>2 btn btn-success mb-1">#All</a>
             <?php
@@ -239,7 +239,7 @@
     </div>
 </div>
 
-<div class="listing "><br>
+<div class="listing ">
     <?php
     $source = "all.ctp";
     include_once('combine/filter.php');

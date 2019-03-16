@@ -92,7 +92,7 @@
         $count = 0;
 
         if($offset == 0) {
-            echo $strains . " result" . iif($strains != 1, "s") . " found";
+            echo $strains . " result" . iif($strains != 1, "s") . " found<br><br>";
         }
 
         $activitylist = query("SELECT * FROM " . $GLOBALS["settings"]["usetable"], true);
@@ -195,7 +195,7 @@
                 if ($activities) {
                     echo '<BR>';
                     foreach ($activities as $activity) {
-                        echo '<a class="btn btn-primary mr-1 mb-1"> <span>#' . $activity . '</span></a>';
+                        echo '<a class="badge badge-pill  badge-dark mr-2" > #' . $activity . '</a>';
                     }
                 }
 
@@ -249,7 +249,7 @@
         }
 
         if ($count == 0) {
-            echo "No results found.";
+            echo "No results found";
         }
 
         if(isset($strains)) {

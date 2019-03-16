@@ -113,7 +113,7 @@ if (!isset($keyword)) {
             <div class="inner">
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link active" href="#">Home</a>
-                    <a class="nav-link" href="#">Launching 02/19</a>
+                    <a class="nav-link" href="#">Launching 03/17</a>
                 </nav>
             </div>
         </header>
@@ -226,6 +226,10 @@ if (!isset($keyword)) {
         <hr>
         <footer class="mastfoot mt-auto">
             <div class="inner mt-3">
+                <p>
+                    Individual results may vary. Please consult your physician before using cannabis for medicinal purposes.
+
+                </p>
                 <p>
                     <a class="text-secondary pr-2" href="<?= protocol ?>canbii.com" title="canbii" target="_blank">Canbii.com</a>
                     <a class="text-secondary pr-2" href="mailto:info@canbii.com" title="canbii" target="_blank">info@canbii.com</a>

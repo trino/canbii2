@@ -44,15 +44,15 @@
 <div class="jumbotron jumbotron_top">
     <div class="text-center">
         <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?> Canbii Report</h1>
-        <p class="pt-2 pb-2">
-            <DIV STYLE="width: 250px; margin-left: auto; margin-right: auto;">
+        <p class="mt-3">
+            <DIV STYLE="margin-top:2rem;width: 250px; margin-left: auto; margin-right: auto;text-align: left !important;">
                 <?php
                     $typeid = $strain['Strain']['type_id'];
                     include('combine/ish.php');
                 ?>
             </DIV>
         </P>
-        <p class="text-justify" style="    padding: 0 1.5rem;"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
+        <p class="text-justify" style="    padding: 1.5rem  1.5rem  0  1.5rem ;"><?= strip_tags(html_entity_decode($strain['Strain']['description'])); ?></p>
     </div>
 </div>
 
@@ -154,7 +154,7 @@
     unset($images[1]);
 
     echo '<DIV class="jumbotron" >';
-    echo '<h3>Ontario Cannabis Store</h3>';
+    echo '<strong>Buy from the OCS</strong>';
     foreach ($DATA as $INDEX => $OCSDATA) {
         $slug = false;
         $DATA[$INDEX]["images"] = [];
@@ -196,7 +196,7 @@
 
             foreach ($prices as $slug => $pricelist) {
                 foreach ($pricelist as $data) {
-                     echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1'>" . $data["title"] . ' for ' . money_format2(LC_MONETARY, $data["price"] * 0.01) . '</div>';
+                     echo "<div style='background: #222' class='btn btn-dark mr-1 mt-1 mb-1'>" . $data["title"] . ' for ' . money_format2(LC_MONETARY, $data["price"] * 0.01) . '</div>';
                 }
             }
 
@@ -205,7 +205,7 @@
             $slugs["Purchase Now"] = $strain['Strain']['slug'];
             echo money_format2(LC_MONETARY, $OCSDATA["price"] * 0.01);
         }
-        echo "<div class='clearfix py-3'></div>";
+        echo "<div class='clearfix py-4'></div>";
 
     }
     echo '</div>';
@@ -336,7 +336,7 @@
             foreach ($arr as $e) {
                 $ar = explode('_', $e);
                 $i++;
-                if ($i == 6) {
+                if ($i == 66) {
                     break;
                 }
                 $rate = $ar[0];

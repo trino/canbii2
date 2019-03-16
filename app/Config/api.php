@@ -4,7 +4,7 @@
 	error_reporting(E_ALL);
 
 	$GLOBALS["settings"] = [
-		"limit" 		=> 25,
+		"limit" 		=> 125,
 		"reviewlimit" 	=> 20,
 		"usetable" 		=> "effects",//"symptoms" or "activities"
 		"multiple" 		=> true,//disable for single queries only
@@ -297,7 +297,7 @@
 	function fixtext($text) {
 		$text = html_entity_decode(html_entity_decode(htmlspecialchars_decode($text)));
 		$text = mb_convert_encoding($text, "HTML-ENTITIES", 'UTF-8');
-		$text = str_replace(['&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', 'ain’', 'Â', 'â€™', '&acirc;&euro;&trade;'], ["", "'", '', "'", "'"], $text);
+		$text = str_replace(['&nbsp;<a data-target=".product__description" class="js-scroll-to text-cta">Learn More</a>', 'ainï¿½', 'ï¿½', 'â€™', '&acirc;&euro;&trade;'], ["", "'", '', "'", "'"], $text);
 		return trim($text);
 	}
 

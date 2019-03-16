@@ -565,7 +565,7 @@ class StrainsController extends AppController {
             if ($table == "symptoms") {
                 echo "These strains have been known to help with: ";
             } else {
-                echo "These strains are known to be enjoyable with: ";
+                echo "These strains are known for: ";
             }
             foreach ($symptoms as $symptom) {
                 echo $delimeter . '#'. $symptom['title'];
@@ -573,7 +573,7 @@ class StrainsController extends AppController {
                 if (!$delimeter) {$delimeter = ", ";}
                 if ($index == $symptomscount - 1) {$delimeter = " and ";}
             }
-            echo "<BR><BR></SPAN>";
+            echo "<BR></SPAN>";
         }
     }
 
