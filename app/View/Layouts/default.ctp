@@ -160,7 +160,7 @@ if (!isset($keyword)) {
 
 
                     <a class="nav-link active" href="<?= $this->webroot; ?>strains/all">Strains</a>
-                    <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiionline">Facebook</a>
+                    <a class="nav-link" target="_blank" href="https://www.facebook.com/canbiiofficial">Facebook</a>
                     <a class="nav-link" target="_blank" href="https://twitter.com/canbiionline">Twitter</a>
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/canbiionline">Instagram</a>
                 </nav>
