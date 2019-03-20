@@ -14,6 +14,124 @@
         "forcefull"         => false,//enable to purge old data to load all of it fresh
     ];
 
+    function filterheader($text, $withwhat = ''){
+        $text = preg_replace('/[0-9]/', $withwhat, $text);
+        $text = str_replace(['"', ","], "", $text);
+        return trim($text);
+    }
+
+    function parserory($filename){
+        $handle = fopen($filename, "r");
+        $data = [];
+        if ($handle) {
+            $mode = false;
+            $tonum = false;
+            $tobool = false;
+            while (($line = fgets($handle)) !== false) {
+                $line = str_getcsv($line);
+                $key = filterheader($line[0]);
+                switch($key){
+                    case "URL": case "Strain": break;//not needed
+                    case "General":
+                        $mode = $key;
+                        break;
+                    case "Effects":
+                        $mode = $key;
+                        $tonum = true;
+                        break;
+                    case "Flavours (marked )":
+                        $mode = "Flavors";
+                        $tobool = true;
+                        break;
+                    default:
+                        unset($line[0]);
+                        foreach($line as $index => $value){
+                            $value = trim($value);
+                            if(!isset($data[$index])){
+                                $data[$index] = [];
+                            }
+                            if($mode){
+                                if($tobool) {
+                                    if (strlen($value) > 0) {
+                                        $data[$index][$mode][$key] = 5;//since he didn't rate it, give it a fake rating that won't throw off the system.
+                                    }
+                                } else if($tonum){
+                                    if (strlen($value) > 0 && $value > 0) {
+                                        $data[$index][$mode][$key] = intval($value);
+                                    }
+                                } else {
+                                    $data[$index][$mode][$key] = $value;
+                                }
+                            } else {
+                                $data[$index][$key] = $value;
+                            }
+                        }
+                }
+            }
+            fclose($handle);
+        }
+        return $data;
+    }
+
+    if(isset($_GET["action"])) {
+        switch(strtolower($_GET["action"])){
+            case "rory":
+                $data = parserory($dir . "/rory.csv");
+                $tables = [
+                    "Effects" => query("SELECT * FROM effects"),
+                    "Flavors" => query("SELECT * FROM flavors")
+                ];
+                foreach($data as $newdata){
+                    $strain = first("SELECT * FROM strains WHERE slug='" . $newdata["Slug"] . "'");
+                    if($strain) {
+                        insertdb("strains", ["id" => $strain["id"], "description" => $newdata["Description"]]);
+                        if(!isset($newdata["General"]["Duration"])){$newdata["General"]["Duration"] = 0;}
+                        if(!isset($newdata["General"]["Strength"])){$newdata["General"]["Strength"] = 0;}
+                        if(!isset($newdata["General"]["Scale"])){$newdata["General"]["Scale"] = 0;}
+                        $reviewid = insertdb("reviews", [
+                            "strain_id"     => $strain["id"],
+                            "user_id"       => $me,
+                            "form"          => "rory",
+                            "rate"          => -1,//tells the system not to average it
+                            "eff_scale"     => $newdata["General"]["Scale"],
+                            "eff_duration"  => $newdata["General"]["Duration"],
+                            "eff_strength"  => $newdata["General"]["Strength"]
+                        ]);
+                        foreach($tables as $tablename => $tabledata){
+                            $ratetable = left(strtolower($tablename), strlen($tablename) - 1) . "_ratings";
+                            if(isset($newdata[$tablename])){
+                                $alleffects = [];
+                                foreach($newdata[$tablename] as $title => $rating){
+                                    $effect = getiterator($tabledata, "title", $title);
+                                    if($effect){
+                                        $alleffects[] = $effect["id"];
+                                        insertdb($ratetable,[
+                                            "strain_id"     => $strain["id"],
+                                            "user_id"       => $me,
+                                            "review_id"     => $reviewid,
+                                            "rate"          => $rating,
+                                            str_replace("_ratings", "_id", $ratetable) => $effect["id"]
+                                        ]);
+                                    }
+                                }
+                                if($tablename == "Effects" && $alleffects){
+                                    insertdb("reviews", [
+                                        "id"            => $reviewid,
+                                        "effectscount"  => count($alleffects),
+                                        "effects"       => implode(",", $alleffects)
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
+            default:
+                die($_GET["action"] . " not handled");
+        }
+        die($_GET["action"] . " done");
+    }
+
     $uniques = collapsearray(query("SELECT MIN(id) as id FROM flavors GROUP BY title HAVING MIN(id) IS NOT NULL", true), "id");
     $uniques = implode(",", $uniques);
     query("DELETE FROM flavors WHERE id NOT IN (" . $uniques . ")");

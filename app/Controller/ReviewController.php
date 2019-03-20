@@ -214,7 +214,7 @@
         function addrating($strainID, $table, $rating = -1, $itemID = false, $reviewID = false, $userID = false, $islast = false){
             //$table = strain (no $itemID), effect, symptom, color, flavor, activity
             if($table == "strains"){//review already made, recalculate the average for the strain
-                $data = first("SELECT AVG(rate) as rating, COUNT(*) as review FROM reviews WHERE strain_id = " . $strainID);
+                $data = first("SELECT AVG(rate) as rating, COUNT(*) as review FROM reviews WHERE strain_id = " . $strainID . " AND rate > -1");
                 $data["id"] = $strainID;
                 insertdb("strains", $data);
             } else {
