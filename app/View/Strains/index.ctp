@@ -43,7 +43,7 @@
 
 <div class="jumbotron jumbotron_top">
     <div class="text-center">
-        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?> Canbii Report</h1>
+        <h1 style="font-size: 2.5rem !important;"><?= fixtext($strain['Strain']['name']) ?><?= $strain['Strain']['id'] ?> Canbii Report</h1>
         <p class="mt-3">
             <DIV STYLE="margin-top:2rem;width: 250px; margin-left: auto; margin-right: auto;text-align: left !important;">
                 <?php
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<div class="jumbotron bg-primary text-white">
+<div class="jumbotron bg-primary text-white"  style="display: none">
     <div class="row pb-2">
 
         <DIV CLASS="col-md-3">
@@ -65,7 +65,7 @@
         </DIV>
 
         <DIV CLASS="col-md-4">
-            <h2 class="pt-2"> Composition</h2>
+            <h2 class="pt-2">Composition</h2>
             <DIV class="spanwordwrap">
                 <?php
                     $chemical = 0;
@@ -153,7 +153,7 @@
     unset($images[0]);
     unset($images[1]);
 
-    echo '<DIV class="jumbotron" >';
+    echo '<DIV class="jumbotron" style="display: none">';
     echo '<strong>Buy from the OCS</strong>';
     foreach ($DATA as $INDEX => $OCSDATA) {
         $slug = false;
@@ -333,6 +333,8 @@
         }
         $i = 0;
         if ($arr) {
+            $appender = "";
+            $counter =0;
             foreach ($arr as $e) {
                 $ar = explode('_', $e);
                 $i++;
@@ -343,9 +345,21 @@
                 $length = round($rate,2);
                 $effect = getiterator($effects, "id", $ar[1]);
                 $name = $effect["title"];//$this->requestAction('/strains/getEffect/' . $ar[1])
-                echo '<div class="pull-left">#' . $name . '</div>';
+                echo '<div class="pull-left">#' . $ar[1] . $name . '</div>';
+
+                $appender .= $ar[1] . ',';
+                $counter++;
                 progressbar($this->webroot, $length, perc($length), "", "success", "light-green");
             }
+
+
+
+
+            echo "select * from reviews where strain_id = " . $strain['Strain']['id'];
+            echo "<br>";
+            echo $counter;
+            echo "<br>";
+            echo $appender;
         } else {
             printnoreviewlink($strain, $this->webroot);
         }

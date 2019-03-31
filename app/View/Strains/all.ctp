@@ -106,7 +106,7 @@
 <div class="jumbotron_top jumbotron" style="">
     <div class="text-center">
         <h1 style="font-size: 2.5rem !important;">Your Guide to the Ontario Cannabis Store</h1>
-        <p class="pt-0 pb-3">100% Legal value-based strain selection tool for recreational cannabis users</p>
+        <p class="pt-0 pb-3">100% legal value-based strain selection tool for recreational cannabis users</p>
     </div>
 
     <div class=" row ">

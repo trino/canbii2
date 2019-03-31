@@ -95,7 +95,7 @@
             echo $strains . " result" . iif($strains != 1, "s") . " found<br><br>";
         }
 
-        $activitylist = query("SELECT * FROM " . $GLOBALS["settings"]["usetable"], true);
+        $activitylist = query("SELECT * FROM " . $GLOBALS["settings"]["usetable"] . " where negative=0", true);
 
         function geteffects($strain_ID, &$alleffects){
             $effects = [];
@@ -182,6 +182,7 @@
                 foreach ($s["Review"] as $INDEX2 => $review) {
                     $activity = explode(",", $review[$GLOBALS["settings"]["usetable"]]);
                     foreach ($activity as $act) {
+
                         $data = getiterator($activitylist, "id", $act);
                         if (isset($data["title"])) {
                             $activities[$act] = $data["title"];

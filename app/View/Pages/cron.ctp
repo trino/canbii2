@@ -1,4 +1,6 @@
 <?php
+
+die('here');
     header( 'Content-type: text/html; charset=utf-8' );
     @ini_set('zlib.output_compression',0);
     @ini_set('implicit_flush',1);
